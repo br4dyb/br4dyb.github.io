@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Title and Icon: -->
+
+<title> Log In </title>
+
+<!-- Style CSS Content: -->
+
+<head> 
+    <style>
+
+body {
+    background-image: url(https://img.freepik.com/free-vector/aesthetic-dreamy-background-purple-cloudy-sky-vector-glitter-design_53876-156334.jpg?w=2000&t=st=1703444006~exp=1703444606~hmac=3a49c1910e9e1674a32f954797fd1a65525a80880d56616165f7dd9a1245741d);
+
+    font-family: Geneva;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    min-height:  100vh;
+
+    a:vistited, link {color: white;}
+
+}
+
+header {
+    /*background-image: url(https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=1380&t=st=1703443090~exp=1703443690~hmac=b379c5f080883b7dc78926982f781d7eb0ddb2c9645f1436c2332cde7c44d359);*/
+
+    min-height: 6vh;
+    border-top: 5px solid black;
+    border-bottom: 5px solid black;
+    padding: 25px;
+
+
+}
+
+nav {
+    margin:0 0 0 0;
+    display: flex;
+    list-style-type: none;
+}
+
+header ul.buttons {
+    display: flex;
+    /* background-color: rgb(145, 115, 201); */
+    margin: auto 0 auto 0;
+    padding: 0;
+    width: fit-content;
+    height: max-content;
+}
+
+header ul.buttons li {          
+    display: inline-flex;
+   background-color: rgb(32, 31, 31);
+    border-radius: 8px;
+    margin-right: 5px;
+    padding: 8px;
+    font-size: larger;
+    text-align: left;
+    color: white;
+}
+
+header ul.sitelogo {
+   /* background-color: rgb(166, 206, 199); */
+    margin: auto;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    list-style: none;
+
+    flex-grow: 1;
+   
+}
+
+header ul.sitelogo li {
+    display: flex;
+    text-align: center;
+    font-size: larger;
+}
+
+
+
+header ul.accountpanel {
+   /* background-color: rgb(201, 115, 164); */
+    margin: auto 0 auto 0;
+    padding: 0px;
+    display: flex;
+    justify-content: flex-end;
+    height: max-content;
+    width: fit-content;
+}
+
+header ul.accountpanel li {          
+    display: inline-flex;
+    background-color: rgb(32, 31, 31);
+    border-radius: 8px;
+    margin-right: 15px;
+    padding: 8px;
+    text-align: right;
+    font-size: larger;
+    color: white;
+}
+
+    header ul.accountpanel li:last-child {
+        margin-right: 0;
+    }
+
+footer {
+    background-color: black;
+    opacity: 0.7;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+
+    </style>
+
+</head>
+
+
+<!-- Html Content: -->
+
+<body>
+
+<header>
+
+    <nav>
+        <ul class="buttons">
+           <a href="./index.html" alt="Home"> <li> Home </li> </a>
+          
+        </ul>
+
+        
+        <ul class="sitelogo">
+            <li> <h1> Br4dyB's Site&trade; </h1> </li>
+        </ul>
+ 
+
+        <ul class="accountpanel">
+            
+            <li> Login </li>
+            
+        </ul>
+    </nav>
+
+</header>
+
+<LoginPanel
+    style=" 
+        flex-grow: 0.75;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        color: black; 
+        text-align: center;
+    ">
+
+    <div class="LoginFrame"
+        style="
+       
+        display:flex;
+        align-items: center;
+        align-content: center;
+
+        height: 35vh;
+        width: 45%;
+        
+        border: 5px double black;
+        background-color: rgb(122, 122, 122);
+        border-radius: 8px;
+        opacity: 0.8;
+
+    ">
+    
+        
+
+    </div>
+
+</LoginPanel>
+
+</body>
+
+<footer>
+
+    <br>
+    <p style="
+        text-align: center;
+        color: lightgray;
+        font-size: large;
+    "> All Rights Reserved - Cuntalicious Music &copy; </p>
+    <br>
+
+</footer>   
+
+</html>

@@ -4,6 +4,9 @@
     <title>My Website</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+
 
     <style>
 
@@ -25,7 +28,6 @@
             font-family: "Audiowide", sans-serif;
             background: black;
             display: flexbox;
-            flex-direction: column;
             flex-grow: 1;
             
         }
@@ -44,6 +46,15 @@
             padding: 0px 30px;
             border: 3px solid white;
         }
+
+       
+        .material-symbols-rounded {
+            font-variation-settings:
+            'wght' 200,
+            'GRAD' 200,
+            'opsz' 24
+        }
+
 
         .footer_wrapper {
             text-align: center;
@@ -65,14 +76,58 @@
         }
         .footertitle h3 {
             color: white;
+            text-shadow: 3px 3px black;
             margin: 0px 0px;
             padding: 0px 0px;
         }
 
         .WebTitle {
             text-align: center;
+            text-shadow: 3px 5px black;
         }
 
+        /* Body Elements: */
+
+        .UnderConstructionInfoWrap {
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            background-color: purple;
+            border: 3px solid white;
+            border-radius: 15px;
+            width: 75%;
+            height: fit-content;
+            align-content: center;
+            align-items: center;
+            text-align: center;
+
+
+        }
+
+        .sitepasswordprompt input {
+            background-color: transparent;
+            border-radius: 15px;
+            border: 2px solid white;
+            height: 35px;
+            padding: 7px;
+            
+        }
+
+        .sitepasswordprompt label {
+            font-size: large;
+            text-decoration: underline;
+
+        }
+
+
+        .submitsitepassword {
+            padding: 20px;
+            margin-bottom: 5px;
+        }
+
+        .submitsitepassword button {
+            width: 150px;
+        }
     </style>
 
 </head>
@@ -84,7 +139,7 @@
 <header>
 
     <div class="navbuttons">
-       <a href="./index.html" alt="go back"> <button> Click Me! </button> </a>
+        <a href="https://br4dyb.github.io" alt="go back"> <button> Click Me! </button> </a>
     </div>
 
     <div class="sitetitle">
@@ -100,11 +155,26 @@
 
 <br>
 <br>
+<div class="UnderConstructionInfoWrap">
+
+    <h1> This WebPage Is Under Construction!</h1>
+   
+    <br>
+
+    <form>
+    <div class="sitepasswordprompt">
+        <label> Site Password:</label>  <input type="password" placeholder="Site Password"> 
+        <span class="material-symbols-rounded" style="position: relative; transform: translateY(25%);"> key </span>
+    </div>
+    <div class="submitsitepassword">
+        <button> Submit </button>
+    </div>
+    </form>
+
+</div>
 <br>
 <br>
-<br>
-<br>
-<br>
+
 
 <footer class="footer_wrapper">
 

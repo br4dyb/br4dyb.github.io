@@ -1,191 +1,200 @@
-<!DOCTYPE html>
-<html>
 
-<!-- Title and Icon: -->
+<head>
 
-<title> My website </title>
+    <title>My Website</title>
 
-<!-- Style CSS Content: -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-<head> 
+
+
     <style>
 
-body {
-    background-image: url(https://img.freepik.com/free-vector/aesthetic-dreamy-background-purple-cloudy-sky-vector-glitter-design_53876-156334.jpg?w=2000&t=st=1703444006~exp=1703444606~hmac=3a49c1910e9e1674a32f954797fd1a65525a80880d56616165f7dd9a1245741d);
+        * button {
+            color: white;
+            font-family: "Audiowide", sans-serif;
+            border-radius: 6px;
+            padding: 5px;
+            font-weight: 600;
+            background: rgba(0, 0, 0, 0.533);
+        }
 
-    font-family: Geneva;
-    margin: 0;
-    padding: 0;
+        * button:hover {
+            background-color: palevioletred;
+        }
 
-    display: flex;
-    flex-direction: column;
-    min-height:  100vh;
+        body {
+            color: white;
+            font-family: "Audiowide", sans-serif;
+            background: black;
+            display: flexbox;
+            flex-grow: 1;
+            
+        }
 
-    a:vistited, link {color: white;}
+        header {
+            /* background-color: blue; */
+            background-color: gray;
+            display: flex;
+            width: auto;
+            height: fit-content;
 
-}
+            align-content: center;
+            align-items: center;
+            justify-content: space-between;
 
-header {
-    /*background-image: url(https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=1380&t=st=1703443090~exp=1703443690~hmac=b379c5f080883b7dc78926982f781d7eb0ddb2c9645f1436c2332cde7c44d359);*/
+            padding: 0px 30px;
+            border: 3px solid white;
+        }
 
-    min-height: 6vh;
-    border-top: 5px solid black;
-    border-bottom: 5px solid black;
-    padding: 25px;
-
-
-}
-
-nav {
-    margin:0 0 0 0;
-    display: flex;
-    list-style-type: none;
-}
-
-header ul.buttons {
-    display: flex;
-    /* background-color: rgb(145, 115, 201); */
-    margin: auto 0 auto 0;
-    padding: 0;
-    width: fit-content;
-    height: max-content;
-}
-
-header ul.buttons li {          
-    display: inline-flex;
-   background-color: rgb(32, 31, 31);
-    border-radius: 8px;
-    margin-right: 5px;
-    padding: 8px;
-    font-size: larger;
-    text-align: left;
-    color: white;
-}
-
-header ul.sitelogo {
-   /* background-color: rgb(166, 206, 199); */
-    margin: auto;
-    padding: 0px;
-    display: flex;
-    align-items: center;
-    justify-content:center;
-    list-style: none;
-
-    flex-grow: 1;
-   
-}
-
-header ul.sitelogo li {
-    display: flex;
-    text-align: center;
-    font-size: larger;
-}
+       
+        .material-symbols-rounded {
+            font-variation-settings:
+            'wght' 200,
+            'GRAD' 200,
+            'opsz' 24
+        }
 
 
+        .footer_wrapper {
+            text-align: center;
+            /* background-color: purple; */
+            background-color: gray;
+            width: auto;
+            display: flex;
+            justify-content:space-evenly ;
+            align-items: center;
+            padding: 30px 0px 20px 0px;
+            border: 3px solid white;
 
-header ul.accountpanel {
-   /* background-color: rgb(201, 115, 164); */
-    margin: auto 0 auto 0;
-    padding: 0px;
-    display: flex;
-    justify-content: flex-end;
-    height: max-content;
-    width: fit-content;
-}
+        }
 
-header ul.accountpanel li {          
-    display: inline-flex;
-    background-color: rgb(32, 31, 31);
-    border-radius: 8px;
-    margin-right: 15px;
-    padding: 8px;
-    text-align: right;
-    font-size: larger;
-    color: white;
-}
+        .footertitle p {
+            color: black;
+            margin: 0px 0px;
+            padding: 0px 0px;
+        }
+        .footertitle h3 {
+            color: white;
+            text-shadow: 3px 3px black;
+            margin: 0px 0px;
+            padding: 0px 0px;
+        }
 
-    header ul.accountpanel li:last-child {
-        margin-right: 0;
-    }
+        .WebTitle {
+            text-align: center;
+            text-shadow: 3px 5px black;
+        }
 
-footer {
-    background-color: black;
-    opacity: 0.7;
-    margin-top: auto;
-    margin-bottom: 0;
-}
+        /* Body Elements: */
+
+        .UnderConstructionInfoWrap {
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            background-color: purple;
+            border: 3px solid white;
+            border-radius: 15px;
+            width: 75%;
+            height: fit-content;
+            align-content: center;
+            align-items: center;
+            text-align: center;
 
 
+        }
+
+        .sitepasswordprompt input {
+            background-color: transparent;
+            border-radius: 15px;
+            border: 2px solid white;
+            height: 35px;
+            padding: 7px;
+            
+        }
+
+        .sitepasswordprompt label {
+            font-size: large;
+            text-decoration: underline;
+
+        }
+
+
+        .submitsitepassword {
+            padding: 20px;
+            margin-bottom: 5px;
+        }
+
+        .submitsitepassword button {
+            width: 150px;
+        }
     </style>
 
 </head>
 
 
-<!-- Html Content: -->
 
 <body>
 
 <header>
 
-    <nav>
-        <ul class="buttons">
-           <a href="./index.html" alt="Home"> <li> Home </li> </a>
-           <a href="./about.html" alt="Home"> <li> About </li> </a>
-            <li> Contact </li>
-        </ul>
+    <div class="navbuttons">
+        <a href="https://br4dyb.github.io" alt="go back"> <button> Click Me! </button> </a>
+    </div>
 
-        
-        <ul class="sitelogo">
-            <li> <h1> Br4dyB's Site&trade; </h1> </li>
-        </ul>
- 
+    <div class="sitetitle">
+        <h1 class="WebTitle"> Cuntalicious Music &trade; </h1>
+    </div>
 
-        <ul class="accountpanel">
-            
-            <a href="./login.html" alt="Login"> <li> Login </li> </a>
-            
-        </ul>
-    </nav>
+    <div class="accountbuttons">
+        <button> Click Me! </button>
+    </div>
+
 
 </header>
 
-<LandingPage
-    style=" 
-        color: black; 
-        text-align: center;
-    ">
+<br>
+<br>
+<div class="UnderConstructionInfoWrap">
 
-    <div class="LandingPageInfo"
-        style="
-        display:flex;
-        align-items: center;
-        align-content: center;
+    <h1> This WebPage Is Under Construction!</h1>
+   
+    <br>
 
-        margin: 50px 5%;
-        border: 5px double black;
-        border-radius: 8px;
+    <form action="site_login_process.php" method="post">
+    <div class="sitepasswordprompt">
+        <label> Site Password:</label>  <input type="site_password" placeholder="Site Password"> 
+        <span class="material-symbols-rounded" style="position: relative; transform: translateY(25%);"> key </span>
+    </div>
+    <div class="submitsitepassword">
+        <button> Submit </button>
+    </div>
+    </form>
 
-    ">
-    
-        <img src="./Images/UnderConstruction.png" alt="This Webpage is Under Construction!" style=
-        "width: 100%;"> 
+</div>
+<br>
+<br>
 
+
+<footer class="footer_wrapper">
+
+    <div class="navbuttons">
+       <button> Contact </button>
     </div>
 
-</LandingPage>
+    <div class="footertitle">
+        <h3> Cuntalicious Music &trade; </h3>
+        <p> - - - </p>
+        <p> All Rights Reserved - Copyright 2023 &copy; </p>
+    </div>
+
+    <div class="accountbuttons">
+        <button> SoundCloud </button>
+    </div>
+
+
+</footer>
+
+
 
 </body>
-
-<footer>
-
-    <br>
-    <p style="
-        text-align: center;
-        color: lightgray;
-        font-size: large;
-    "> All Rights Reserved - Cuntalicious Music &copy; </p>
-    <br>
-
-</footer>   
-
-</html>

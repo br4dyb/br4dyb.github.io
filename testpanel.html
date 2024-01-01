@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<head>
+
+    <title> Testing Pages! </title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- Google Fonts: -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+      <link href="https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,300;0,400;0,700;1,400;1,800&display=swap" rel="stylesheet">
+
+    <style>
+
+      /* Section Styles */
+
+      body {
+        display: flexbox;
+        flex-wrap: wrap;
+        flex-grow: 1;
+        margin: 0px;
+        padding: 0px;
+        overflow: hidden;
+
+        font-family: Kanit;
+        letter-spacing: 0.75px;
+        font-weight: 700;
+        text-shadow: 2px 1px black;
+
+            }
+
+      .body_wrap {
+        position: absolute;
+        display: grid;
+        flex-grow: 1;
+        flex-shrink: 1;
+        margin: 0px;
+        padding: 0px;
+        height: 100%;
+        width: 100%;
+        animation: colorChange 30s infinite; /* Change the duration as needed */
+      }
+  
+      @keyframes colorChange {
+        0% { background-color: #000000; }
+        12% { background-color: rgb(188, 239, 126); } 
+        25% { background-color: #2cbd9682; } 
+        37% { background-color: rgb(99, 212, 220) } 
+        50% { background-color: #2d2dbe; } 
+        72% { background-color: rgb(125, 99, 220) } 
+        100% { background-color: #64e460; } 
+      }
+
+      .header_list_wrapper {
+        background: rgba(0, 0, 0, 0.5);
+        color: wheat;
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+
+        position: static;
+        width: 100%;
+
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        justify-content: space-between;
+        align-items: center;
+        flex-grow: 1;
+        flex-wrap: wrap;
+      }
+
+      .footer_list_wrapper {
+        background: rgba(0, 0, 0, 0.5);
+        color: wheat;
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+
+        margin: 0px;
+        padding: 10px;
+        list-style: none;
+
+        position: absolute;
+        width: 100%;
+        top: 100%;
+        transform: translateY(-100%);
+
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        justify-content: space-evenly;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-grow: 1;
+        flex-wrap: wrap;
+      }
+
+
+      .header_title_wrap {
+        display: flex;
+
+        align-items: center;
+        justify-items: center;
+        align-content: center;
+        justify-content: center;
+        
+        padding: 5px;
+        margin: 10px;
+        width: fit-content;
+        height: 50px;
+
+        background: rgba(0, 0, 0, 0.51);
+        border: 1px solid rgba(0, 0, 0, 0.498);
+        border-radius: 5px;
+        font-family: rubik doodle shadow;
+        font-size: xx-large;
+       
+      }
+
+      .header_img_icon {
+        display: block;
+        width: 35px;
+        height: 35px;
+        margin: auto;
+        margin-top: 10px;
+        margin-right: 10px;
+        margin-left: 5px;
+
+        position: relative;
+        bottom: 5px;
+
+        border: 2px solid wheat;
+        border-radius: 25px;
+      }
+
+      /* Default Element Styles: */
+
+      .hidden {
+        display: none;
+      }
+
+      .Basic_Button_Style {
+        background: rgba(0, 0, 0, 0.25);
+        color: wheat;
+        text-shadow: 2px 1px black;
+        letter-spacing: 1px;
+        
+        border: 1px solid black;
+        border-radius: 4px;
+
+        padding: 2px 8px 3px 8px;
+        margin: 10px;
+
+        font-size: 15px;
+        font-family: Kanit;
+        font-weight: bolder;
+      }
+
+      /* HTML Body Elements: */
+
+
+    </style>
+
+</head>
+
+<body>
+
+  <div class="body_wrap">
+
+  
+  <header>
+    <ul class="header_list_wrapper">
+      <li class="hidden"> <button class="Basic_Button_Style"> Click </button></li>
+      <div class="header_title_wrap"> <img class="header_img_icon" src="./Images/Barbie-Icon.png" alt="Barbie-Icon"> <p> Testing Panel </p> </div>
+      <li> <button class="Basic_Button_Style"> Open Nav </button></li>
+    </ul>
+  </header>
+
+
+        
+  <footer class="footer_list_wrapper">
+    <p>Footer Here</p>
+  </footer>
+
+ </div>
+</body>

@@ -43,7 +43,8 @@
         font-weight: 700;
         text-shadow: 2px 1px black;
 
-        animation: colorChange 30s infinite; /* Change the duration as needed */
+        background: url(https://cdnb.artstation.com/p/assets/images/images/024/538/827/original/pixel-jeff-clipa-s.gif?1582740711&dl=1);
+        /* animation: colorChange 30s infinite;  */
 
         }
 
@@ -103,7 +104,7 @@
         border-top: 2px solid black;
         border-bottom: 2px solid black;
 
-        margin: 7px 0px;
+        margin: 0px;
         padding-top: 10px;
         padding-bottom: 10px;
         list-style: none;
@@ -145,14 +146,14 @@
         align-content: center;
         justify-content: center;
         
-        padding: 5px;
+        padding: 5px 7px;
         margin: 10px;
         width: fit-content;
         height: 50px;
 
         background: rgba(0, 0, 0, 0.51);
         border: 1px solid rgba(0, 0, 0, 0.498);
-        border-radius: 5px;
+        border-radius: 50px;
         font-family: 'Rubik Doodle Shadow';
         font-size: xx-large;
        
@@ -242,7 +243,8 @@
         padding: 0px;
         position: relative;
         width: 100%;
-        background-color: rgba(240, 248, 255, 0.75);
+
+        /* background: rgba(240, 248, 255, 0.75); */
       }
 
       .Top_Bottom_Grid {
@@ -253,7 +255,7 @@
         padding: 0px;
         width: 100%;
 
-        background: rgba(128, 128, 128, 0.75);
+        /* background: rgba(128, 128, 128, 0.75); */
       }
 
       .Center_Flex {
@@ -270,8 +272,7 @@
         width: 100%;
         padding: 0px;
 
-
-        background: yellow;
+        /* background: yellow; */
 
         /* top: 100px; */
         list-style: none ;
@@ -290,23 +291,42 @@
 
       }
 
-      .welcome_frame_wrap {
-       background-color: #b300ff7b;
+      .index_element_listitem {
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent white background for the blur effect */
+        backdrop-filter: blur(10px); /* Adjust the blur amount as needed */
+        -webkit-backdrop-filter: blur(10px); /* Adjust the blur amount as needed */
+        border-radius: 12px;
+        border: 2px solid rgba(0, 0, 0, 0.499);
        
+        width: 175px;
+        height: 220px;
 
-        width: 200px;
-        height: 300px;
+        padding: 10px;
+        margin: 5px;
+        
+        display: flex;
+        align-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        flex-shrink: 0.5;
 
-        padding: 0px;
-        margin: 10px;
+      }
+
+      .index_title_element {
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent white background for the blur effect */
+        backdrop-filter: blur(10px); /* Adjust the blur amount as needed */
+        -webkit-backdrop-filter: blur(10px); /* Adjust the blur amount as needed */
         border-radius: 12px;
         border: 2px solid rgba(0, 0, 0, 0.499);
 
-        display: grid;
-        flex-wrap: wrap;
-        flex-shrink: 0.8;
+        padding: 7px;
+        color: rgba(245, 222, 179, );
 
-        
+        width: 65%;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+
 
       }
 
@@ -352,46 +372,51 @@
       
       <ul class="Top_Bottom_Grid ">
 
-        <li>
+        <li class="index_title_element">
               <h1 class="text_align" style="text-shadow: 1px 0.7px white;"> Welcome to the Back Pages!</h1>
               <img class="hellokitty_gif" src="https://media2.giphy.com/media/10a8AOSeP6Rqfu/giphy.gif" style="margin-bottom: 15px;"> 
         </li>
 
-        <li> <ul class="Left_Right_Grid Center_Flex">
-          <li class="welcome_frame_wrap">
-              <h1 class="text_align" style="text-shadow: 1px 0.7px white;"> Welcome to the Back Pages!</h1>
-              <img class="hellokitty_gif" src="https://media2.giphy.com/media/10a8AOSeP6Rqfu/giphy.gif"> 
+        <li> 
+          <ul class="Left_Right_Grid Center_Flex">
+
+            <li class="index_element_listitem">
+                <ul class="Top_Bottom_Grid">
+                  <li>
+                    <h2 style="text-align: center; font-family: 'Rubik Doodle Shadow'; margin: 0px ;margin-bottom: 10px; padding: 0px; color: wheat; text-shadow: 1px 1px black;"> New Page: </h2>
+                  </li>
+                  <li>
+                    <img src="./Images/Barbie-Icon.png" style="height: 75px; position: relative; left:50px; ">
+                  </li>
+                  <li>
+                    <p style="text-align: center; margin: 0px; color: wheat;"> Desc </p>
+                    <p style="text-align: center; margin: 0px; color: wheat;"> Desc </p>
+                    <p style="text-align: center; margin: 0px; color: wheat;"> Desc </p>
+                  </li>
+                </ul>
+            </li>
+            
+            <li class="index_element_listitem">
+              <ul class="Top_Bottom_Grid">
+                <li>
+                  <h2 style="text-align: center; font-family: 'Rubik Doodle Shadow'; margin: 0px ;margin-bottom: 10px; padding: 0px; color: wheat; text-shadow: 1px 1px black;"> New Page: </h2>
+                </li>
+                <li>
+                  <img src="./Images/Barbie-Icon.png" style="height: 75px; position: relative; left:50px; ">
+                </li>
+                <li>
+                  <p style="text-align: center; margin: 0px; color: wheat;"> Desc </p>
+                  <p style="text-align: center; margin: 0px; color: wheat;"> Desc </p>
+                  <p style="text-align: center; margin: 0px; color: wheat;"> Desc </p>
+                </li>
+              </ul>
           </li>
-          
-          <li class="welcome_frame_wrap">
-            <h1 class="text_align" style="text-shadow: 1px 0.7px white;"> Welcome to the Back Pages!</h1>
-            <img class="hellokitty_gif" src="https://media2.giphy.com/media/10a8AOSeP6Rqfu/giphy.gif"> 
-          </li>
-        </ul> </li> 
+ 
+          </ul> 
+        </li> 
 
-        <li>
-          <h1 class="text_align" style="text-shadow: 1px 0.7px white;"> Welcome to the Back Pages!</h1>
-          <img class="hellokitty_gif" src="https://media2.giphy.com/media/10a8AOSeP6Rqfu/giphy.gif" style="margin-bottom: 15px;"> 
-        </li>
-
-        <li>
-          <h1 class="text_align" style="text-shadow: 1px 0.7px white;"> Welcome to the Back Pages!</h1>
-          <img class="hellokitty_gif" src="https://media2.giphy.com/media/10a8AOSeP6Rqfu/giphy.gif" style="margin-bottom: 15px;"> 
-        </li>
-
-        <li> <ul class="Left_Right_Grid Center_Flex">
-        <li class="welcome_frame_wrap">
-            <h1 class="text_align" style="text-shadow: 1px 0.7px white;"> Welcome to the Back Pages!</h1>
-            <img class="hellokitty_gif" src="https://media2.giphy.com/media/10a8AOSeP6Rqfu/giphy.gif"> 
-        </li>
         
-        <li class="welcome_frame_wrap">
-          <h1 class="text_align" style="text-shadow: 1px 0.7px white;"> Welcome to the Back Pages!</h1>
-          <img class="hellokitty_gif" src="https://media2.giphy.com/media/10a8AOSeP6Rqfu/giphy.gif"> 
-        </li>
-      </ul> </li> 
-
-      <li>
+      <li style="margin: 5px 0px;">
         <h1 class="text_align" style="text-shadow: 1px 0.7px white;"> Welcome to the Back Pages!</h1>
         <img class="hellokitty_gif" src="https://media2.giphy.com/media/10a8AOSeP6Rqfu/giphy.gif" style="margin-bottom: 15px;"> 
       </li>

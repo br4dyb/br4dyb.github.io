@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        var UserAddVersion = "Version: 0.0.3.1"
+    </script>
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@40,700,0,0" />
+        <link rel="stylesheet" href="./js-testing-style.css" />
+
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>JavaScript Testing</title>
+
+    <style>
+
+        .First_Body_Wrap {
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgb(0, 0, 0, 0.5);
+            width: auto;
+            margin-top: 35px;
+            padding: 10px;
+
+
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+            border: 2px solid rgba(50, 49, 49, 0.75);
+            box-shadow: 4px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        #ClickScriptsWrap {
+            background: rgba(184, 56, 56, 0.5);
+            width: 100%;
+            display: inline-flex;
+
+
+            border-radius: 12px;
+            border: 2px solid rgba(245, 222, 179, 0.35);
+        }
+
+
+        #ClickButton, #NewPost_SubmitButton {
+            background: rgb(168, 167, 168);
+            border: 2px solid rgba(245, 222, 179, 0.35);
+            border-radius: 12px;
+            padding: 2px 3px;
+            margin: 7px;
+            font-family: 'Kanit';
+            font-weight: 700;
+            cursor: pointer;
+            width: 75px;
+            text-align: center;
+            color: black;
+        }
+
+        #ClickButton:hover, #NewPost_SubmitButton:hover {
+            background: rgba(101, 101, 255);
+
+        }
+
+        #ButtonCanvas {
+            height: 30px; 
+            width: .1px; 
+            background: black; 
+            margin-top: 5px;
+        }
+
+        .Java_Form {
+
+            background: rgb(0, 0, 0, 0.5);
+            border: 2px solid rgba(50, 49, 49, 0.75);
+            box-shadow: 4px 3px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            width: fit-content;
+            padding: 7px;
+            margin: 7px;
+            margin-top: 25px;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .Post_Wall_Section {
+            background: rgba(46, 46, 46, 0.144);
+            border: 4px solid rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            box-shadow: 4px 3px rgba(0, 0, 0, 0.5);
+            margin: 0px;
+            padding: 0px;
+            padding-bottom: 10px;
+            margin-top: 25px;
+            flex-shrink: 1;
+            width: 320px;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .New_Post_Panel {
+            color: rgb(208, 208, 208);
+            justify-content: left;
+            justify-items: left;
+        }
+
+        /* #NewPost_SubmitButton {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2.5px solid rgba(0, 0, 0, 0.35);
+            border-radius: 12px;
+        }
+
+        #NewPost_SubmitButton:hover {
+            background: rgba(84, 126, 255, 0.5);
+            cursor: pointer;
+        } */
+   
+    </style>
+
+    <!-- Show/Hide Section Functions: -->
+    <script>
+
+        function ShowSection(SectionNumber) {
+            const SectionToShow = document.getElementById('Section_' + SectionNumber)
+            // alert("Showing Section: " + SectionNumber);
+            SectionToShow.style.display = 'inline-block'
+        }
+
+        function HideSection(SectionNumber) {
+            const SectionToHide = document.getElementById('Section_' + SectionNumber)
+            // alert("Showing Section: " + SectionNumber);
+            SectionToHide.style.display = 'none'
+        }
+
+    </script>
+
+
+    <!-- Click Functions / Script: -->
+    <script>
+
+        const ClickScriptEnabled = true
+
+        let ClickCount = 0
+
+        function Clicked() {
+
+            if(ClickScriptEnabled) {
+                
+                const Body = document.getElementById("NewClickCount")
+
+                ClickCount += 1;
+
+                // alert("I've been clicked: {"+ ClickCount + " Times}");
+
+                let NewHtml = ClickCount + ' Clicks';
+
+                Body.style.color = 'wheat'
+                Body.innerText = NewHtml
+
+                // Body.append(NewHtml);
+                // Body.innerHTML += '<br>'
+
+                if(ClickCount >= 5) {
+                    Body.style.color = 'limegreen'
+                    document.getElementById("ClickButton").style.display = 'none'
+                    HideSection(1)
+                    ShowSection(2)
+                }
+
+            } else {
+
+                alert('Uh oh! Looks like that script was disabled!')
+            }
+
+        }
+    </script>
+
+
+    <!-- JavaForm Submit Script: -->
+    <script>
+
+        function JavaForm_Submit() {
+            let Input1Val = document.getElementById('JS_Form_In1').value
+
+            if(Input1Val == "Password$123") {
+                HideSection(2)
+                ShowSection(3)
+            } else {
+                alert('Password: Incorrect! Attempt: ' + Input1Val)
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="header_wrap">
+
+            <div class="Left_Right_Grid Between_Flex">
+                <!-- <li> -->
+                    <a href="/index.php" class="Undecorated_Link"> <span class="material-symbols-rounded"> keyboard_return </span> </a>
+                <!-- </li> -->
+
+                <!-- <li> -->
+                    <h1 class="heading_title"> <span class="material-symbols-rounded FormIconStyle">Deployed_Code</span> JavaScript Testing! <span class="material-symbols-rounded FormIconStyle">Deployed_Code</span> </h1>
+                <!-- </li> -->
+
+                    <a href="/index.php" class="Undecorated_Link"> <span class="material-symbols-rounded"> list </span> </a>
+            </div>  
+        
+        </div>
+
+    </header>
+
+
+
+        <ul class="First_Body_Wrap Left_Right_Grid" id="Section_1">
+           
+                <li> <button id="ClickButton" event="Click"> Click Me: </button> </li>
+
+                <li> <p id="NewClickCount"> %CLICKS% </p> </li>
+
+                <script>
+                    document.getElementById("ClickButton").addEventListener("click", Clicked)
+                    document.getElementById("NewClickCount").innerText = ''
+                </script>
+
+        </ul>
+
+        <ul class="Second_Body_Wrap_Form Center_Flex Left_Right_Grid" id="Section_2" >
+
+            <div class="Java_Form Center_Flex Top_Bottom_Grid">
+                <canvas style="height: 5px; width: 17%; margin: 5px; padding: 0px; background: rgb(168, 167, 168); border-radius: 25px;"> </canvas>
+                <p style="text-align: center;"> Please enter the password: </p>
+                <p style="font-size: 12px; line-height: 0.7; color: rgba(245, 180, 179, 0.8); text-shadow: 1.5px .5px rgba(0, 0, 0, 0.65); font-weight:800; padding: 7px 25px; margin-top: 5px; border-radius: 12px; text-align: center; background-color: rgba(55, 55, 55, 0.35); border: 2px solid rgba(0, 0, 0, 0.5);"> Password$123 </p>
+                
+                <div class="Left_Right_Grid Center_Flex">
+                    <input id="JS_Form_In1" type="text" required> 
+                    <span id="JavaForm_SubmitButton" style="font-size: 20px; padding: 0px 5px 7.5px 0px; color: rgb(89, 146, 78);" class="material-symbols-rounded Undecorated_Link"> priority </span>
+                    <script>
+                        document.getElementById("JavaForm_SubmitButton").addEventListener("click", JavaForm_Submit);
+                    </script>
+                </div>
+                <canvas style="height: 5px; width: 17%; margin: 5px; padding: 0px; background: rgb(168, 167, 168); border-radius: 25px;"> </canvas>
+            </div>
+
+
+
+        </ul>
+
+        <section class="Post_Wall_Section" id="Section_3">
+
+            <div class="Post_Wall_Title_Wrap Top_Bottom_Grid Center_Flex" style="background: rgba(0, 0, 0, 0.5); border-radius: 8px; color: rgb(208, 208, 208); padding-top: 12px; padding-bottom: 15px; margin-bottom: 10px;" >
+                <h1> Post Wall: </h1>
+                <h3>Make a new Post:</h3>
+            </div>
+
+            <ul class="New_Post_Panel Top_Bottom_Grid">
+                <form action="/php/user_posts/AddPostToWall.php" method="post">
+                    <li class="Left_Right_Grid Evenly_Flex">
+                        <h3> Title: </h3>  <input type="text" name="Title Post" id="NewPost_Title" required>
+                    </li>
+                    <li class="Left_Right_Grid Evenly_Flex">
+                        <h3> Author: </h3>  <input type="text" name="Author of Post" id="NewPost_Author" required>
+                    </li>
+                    <li class="Top_Bottom_Grid Evenly_Flex">
+                        <h3> Content: </h3>  <input id="NewPost_Content" style="text-align: left; vertical-align: top; width: 70%; height: 200px;" type="text" name="Content of Post" required>
+                        <input type="submit" id="NewPost_SubmitButton">
+                    </li>
+                </form>
+            </ul>
+
+        </section>
+        
+
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+            <!-- Hide Elements: -->
+            <script>
+                const FirstSec = document.getElementById('Section_1')
+                const SecondSec = document.getElementById('Section_2')
+                const ThirdSec = document.getElementById('Section_3')
+
+                Sections = {FirstSec, SecondSec, ThirdSec}
+
+
+                SecondSec.style.display = 'none'
+                ThirdSec.style.display = 'none'
+
+            </script>
+
+</body>
+
+
+
+</html>

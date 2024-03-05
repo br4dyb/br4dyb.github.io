@@ -16,6 +16,7 @@
 
         body {
             background-color: rgba(0, 0, 0, 0.9);
+            color: white;
             display: flex;
             flex-direction: column;
             height: 100vh;
@@ -74,6 +75,57 @@
             cursor: pointer;
         }
 
+        header {
+            background: rgb(0, 0, 0, 0.3);
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        #ContentList {
+            background: none;
+            flex: 1;
+            overflow-y: auto;
+            align-items: center;
+            
+        }
+
+        .ContentTableStyle {
+            margin-top: 25px;
+            width: 225px;
+            padding: 2px;
+            /* Use this line for color selection! */
+            border: 2px solid rgb(85, 120, 185);
+            /* Use this line for color selection! */
+            border-radius: 12px;
+        }
+
+
+        .TableHeaderStyle {
+            padding: 4px;
+            text-align: center;
+            font-weight: bolder;
+            border-radius: 7px;
+            border: none;
+        }
+
+        .TableCellStyle {
+            padding: 2px 4px;
+            text-align: center;
+            font-weight: bolder;
+            border-radius: 7px;
+            border: none;
+            color:  lightblue;
+            text-decoration: underline;
+            border: 1px solid lightblue;
+            cursor: pointer;
+            font-style: italic;
+
+        }
+
+        .TableCellStyle:hover {
+            background: rgba(173, 216, 230, 0.316);
+        }
+
         
     </style>
 
@@ -83,9 +135,69 @@
 
 
 <body>
-Under Development
-Check back later . . .
+
+
+<header class="Center_Flex Top_Bottom_Grid">
+    <h1 style="color: rgb(151, 85, 185);"> | Directroty | Br4dy's GitHub |</h1>
+    <h4 onclick="ReloadPage()" style="cursor:pointer ; color: lightblue; text-decoration: underline;"> Click to Refresh </h4>
+
+    <script>
+        function ReloadPage() {
+            location.reload()
+        }
+
+    </script>
+
+</header>
+
+
+<script>
+
+    var ContentToGenerateListArray = [
+        {title: 'Music', link: './music.html', color: 'rgb(151, 85, 185)'},
+        {title: 'Bouncy Blocks!', link: './location2.html', color: 'rgb(185, 168, 85)'},
+        {title: 'Listy | To-Do List', link: './location3.html', color: 'rgb(85, 120, 185)'},
+    ]
+
+</script>
+
+
+
+<section id="ContentList" class="Top_Bottom_Grid">
+
+   
+</section>
+
 </body>
+
+<script>
+
+ContentToGenerateListArray.forEach(element => {
+        console.log('Creating Table for: ' + element.title)
+
+        const NewTableItem = document.createElement('table')
+
+        NewTableItem.onclick = function() {
+        location.href = element.link;
+    };
+        NewTableItem.className = 'ContentTableStyle';
+        NewTableItem.innerHTML = `
+        <tr class="TableRowStyle">
+            <th class="TableHeaderStyle"> ${element.title} </th>
+        </tr>
+
+        <tr>
+            <td class="TableCellStyle"> Click Here </td>
+        </tr>
+        `;
+
+        NewTableItem.style.border = '2px solid ' + element.color
+
+        document.getElementById('ContentList').appendChild(NewTableItem)
+
+    });
+
+</script>
 
 
 

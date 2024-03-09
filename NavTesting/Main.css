@@ -9,6 +9,16 @@ body {
     display: flex;
 }
 
+/* For Google Icons: */
+.material-symbols-rounded {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 700,
+  'GRAD' 0,
+  'opsz' 42
+}
+
+
 a :active :visited {
     transition: color 0.5s ease-in-out;
     color: unset;
@@ -16,7 +26,7 @@ a :active :visited {
 }
 
 #NavList {
-    background: rgb(0, 51, 255);
+    background: #6D597A;
     color: white;
     list-style: none;
     width: 250px;
@@ -31,11 +41,22 @@ a :active :visited {
     border: 3px solid rgba(255, 255, 255, 0.5);
     border-radius: 25px;
 
+
     overflow: auto;
 
-    align-items: start;
+    align-items: center;
     align-content: space-between;
     align-items: space-between;
+}
+
+#MainNavLinksList, #MoreNavLinksList{
+    width: 100%;
+    height: 60vh; 
+    background: unset; 
+    align-items: center; 
+    padding-top: 55px; 
+    display: block;
+
 }
 
 
@@ -46,57 +67,112 @@ a :active :visited {
 }
 
 a.NavFooterLink:hover {
+    transition: all 0.33s ease-in-out;
     color: lightblue;
     cursor: pointer;
 }
 
 #CloseNavButton {
     position: absolute;
-    right: 20px;
-    padding: 0px 5px 2px;
+    right: 7px;
+    top: 10px;
+    padding: 5px 5px 3px 5px;
+    border-radius: 100px;
     text-align: center;
     cursor: pointer;
-    background: black;
-    border: 2px solid gray;
-    border-radius: 180px;
-    height: 22px;
-    color: white;
     font-weight: bolder;
+    color: white;
 
+    background: unset;
+    border: unset;
+
+}
+
+#CloseNavButton :hover {
+    transition: all 0.33s ease-in-out;
+    color: rgba(173, 216, 230, 0.665);
 }
 
 
 #OpenNavButton {
     position: absolute;
     right: 20px;
-    padding: 0px 5px 2px;
+    padding: 4px 2px 4px 4px;
+    border-radius: 25px;
+    height: 50px;
+    width: 50px;
+    scale: 0.75;
     text-align: center;
     cursor: pointer;
     background: black;
     border: 2px solid gray;
-    border-radius: 180px;
-    height: 22px;
     color: white;
-    font-weight: bolder;
 
+}
+
+#OpenNavButton:hover {
+    transition: all 0.33s ease-in-out;
+    background-color: rgba(173, 216, 230, 0.665);
 }
 
 .NavLinkStyle {
     font-weight: bold;
-    display: inline-block;
+    text-decoration: none;
+    display: block;
+    margin: auto;
     margin-bottom: 25px;
-    background: black;
+    background: rgba(255, 255, 255, 0.543);
+    color: black;
     border: 2px solid gray;
-    width: 140px;
+    width: 170px;
     text-align: center;
     padding: 4px;
     border-radius: 12px;
 
 
+
+
 }
 
 .NavLinkStyle:hover {
-    transition: background 0.33s ease-in-out;
-    background: rgb(77, 152, 135);
+    transition: all 0.33s ease-in-out;
+    /* background: rgb(69, 90, 139); */
+    background: rgba(173, 216, 230, 0.762);
+    /* background: black; */
+    /* color: lightblue; */
     cursor: pointer;
+}
+
+.NavLinkStyle:current {
+    background: rgba(37, 148, 185, 0.762);
+
+}
+
+#NavBackButtonContainer {
+    width: 100%;
+    justify-content: center;
+
+    display: flex;
+}
+
+#ReturnToMainNavBtn {
+    display: flex;
+    justify-self: center;
+    justify-items: center;
+    justify-content: center;
+
+
+    width: min-content;
+
+
+    text-align: center;
+    color: white;
+    /* background: rgba(128, 128, 128, 0.433); */
+    cursor: pointer;
+
+}
+
+#ReturnToMainNavBtn:hover {
+    transition: all 0.33s ease-in-out;
+    color: lightblue;
 }

@@ -20,23 +20,34 @@ a :active :visited {
     color: white;
     list-style: none;
     width: 250px;
-    height: 85vh;
+    height: 55vh;
     position: fixed;
-    top: 7.5vh;
-    right: 0px;
+    top: 10px;
+    right: 10px;
     padding-top: 25px;
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 10px;
     border: 3px solid rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+
+    overflow: auto;
 
     align-items: start;
     align-content: space-between;
     align-items: space-between;
 }
 
-.NavFooter {
+
+.NavFooterLink {
     color: rgb(168, 165, 165);
+    cursor: pointer;
+
+}
+
+a.NavFooterLink:hover {
+    color: lightblue;
+    cursor: pointer;
 }
 
 #CloseNavButton {
@@ -76,7 +87,7 @@ a :active :visited {
     margin-bottom: 25px;
     background: black;
     border: 2px solid gray;
-    width: 125px;
+    width: 140px;
     text-align: center;
     padding: 4px;
     border-radius: 12px;

@@ -9,11 +9,11 @@
 
     <!-- Website Title & FavIcon -->
     <title> Interactive Map </title>
-    <link rel="icon" href="./favicon.ico">
+    <link rel="icon" href="/favicon.ico">
 
     <!-- Main StyleSheets: -->
-    <link rel="stylesheet" href="./Main.css">
-    <link rel="stylesheet" href="./FlexLayouts.css">
+    <link rel="stylesheet" href="/Main.css">
+    <link rel="stylesheet" href="/FlexLayouts.css">
 
 
 </head>
@@ -32,26 +32,35 @@
                 
                 <section style="text-align: center; width: 100%;">
                     <button onclick="OpenNavMenu()" id="CloseNavButton"> X </button>
-                    <h1> Title</h1>
-                    <h4> Subtitle </h4>
+                    <!-- <h1> Title</h1>
+                    <h4> Subtitle </h4> -->
                 </section>
                 
                 
                 
-                <section style="width: 100%; height: 60vh; background: none; align-items: center;" class="Top_Bottom_Grid">
+                <section style="width: 100%; height: 60vh; background: none; align-items: center; padding-top: 5px; padding-right: 30px" class="Top_Bottom_Grid" id="MainNavLinksList">
                     <li> <a onclick="" class="NavLinkStyle"> Home </a> </li>
                     <li> <a onclick="" class="NavLinkStyle"> About </a> </li>
                     <li> <a onclick="" class="NavLinkStyle"> Contact </a> </li>
+                    <li> <a onclick="OpenMoreNavLinks()" class="NavLinkStyle"> More </a> </li>
                     
                 </section>
 
+                        <section style="display: none; width: 100%; height: 60vh; align-items: center; padding-top: 5px; padding-right: 30px" class="Top_Bottom_Grid" id="MoreNavLinksList">
+                            <li> <a onclick="" class="NavLinkStyle"> Extra 1 </a> </li>
+                            <li> <a onclick="" class="NavLinkStyle"> Extra 2 </a> </li>
+                            <li> <a onclick="" class="NavLinkStyle"> Extra 3 </a> </li>
+                            <li> <a onclick="OpenMoreNavLinks()" class="NavLinkStyle"> More </a> </li>
+                            
+                        </section>
+
                 <section style="align-self: center;">
 
-                    <p style="text-align: center; margin-bottom: 20px;"> Made by Br4dy ♥︎ </p>
+                    <p style="text-align: center; margin-bottom: 17px;"> Made by Br4dy ♥︎ </p>
 
                     <div class="NavFooter Left_Right_Grid" style="text-align: center;">
-                        <a onclick="" > Terms & Conditions </a> 
-                        <a onclick="" > Privacy Policy </a>
+                        <a onclick="" class="NavFooterLink"> Terms & Conditions </a> 
+                        <a onclick="" class="NavFooterLink"> Privacy Policy </a>
                     </div>
                     
 
@@ -59,7 +68,7 @@
             </ul>
 
 
-            <script src="./NavControl.js"> </script>
+            <script src="/NavControl.js"> </script>
         </nav>
     </header>
 

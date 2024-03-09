@@ -33,3 +33,17 @@
   text-align: center;
   font-weight: 400;
 }
+
+#error-back-button {
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 7px;
+  border-radius: 12px;
+  border: 1px solid black;
+  background-color: rgb(83, 82, 82);
+}
+
+#error-back-button:hover {
+  color: lightblue;
+}

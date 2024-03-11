@@ -1,0 +1,282 @@
+/* Begin Main.css - Credits: Br4dy*/
+
+/* Variables: */
+
+:root {
+    /* --Default-BgColor: linear-gradient(360deg, rgb(162, 88, 4), orange);; */
+    --Default-BgColor: linear-gradient(45deg, blue, rgb(233, 63, 193));;
+    --Default-TextColor: white ;
+}
+
+
+/* Full Body Styles: */
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--Default-BgColor);
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    color: var(--Default-TextColor);
+}
+
+#FullBodyWrap {
+    font-family: 'Kode Mono';
+    font-weight: 500;
+    font-size: 12px;
+}
+
+
+/* Header Styles: */
+
+header {
+    width: 100%;
+    height: 70px;
+    background: rgb(0, 0, 0, 0.7);
+    box-shadow: 1px 1px 1px 0.5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    padding: 15px;
+
+    font-family: 'Rubik Scribble';
+    font-weight: bolder;
+}
+
+
+/* Footer Styles: */
+
+
+#FooterWrap {
+    position: relative;
+
+    width: 100%;
+    background: rgb(0, 0, 0, 0.45);
+    box-shadow: 1px 1px 1px 0.5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    padding: 5px;
+
+
+}
+
+
+/* Body ELEMENT Styles: */
+
+.AutoGrid {
+    width: 100%;
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust minmax() values as needed */
+    grid-auto-rows: auto;
+    grid-auto-flow: dense ;
+    gap: auto;
+    overflow-x: hidden;
+
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#LandingSlidshowWrap {
+    background: rgba(0, 0, 0, 0.35);
+    height: 400px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    /* justify-content: start; */
+    justify-content: center;
+
+    padding: 10px;
+    overflow-x: auto ;
+    
+}
+
+.LandingSlideImg {
+    width: fit-content;
+    height: fit-content;
+    max-width: 100%;
+    max-height: 90%;
+
+    border-radius: 7px;
+
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    border: 5px solid rgba(0, 0, 0, 0.8);
+    
+
+    justify-self: center;
+    align-self: center;
+
+    margin: 10px;
+}
+
+.HeadingLineWrap {
+    margin-bottom: 10px;
+    background: rgb(0, 0, 0, 0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    font-size: 17px;
+    box-shadow: 1px 1px 1px 0.5px rgba(0, 0, 0, 0.2);
+
+    width: 100%;
+    height: 35px;
+}
+
+#DirectoryHeadingWrap {
+    margin-top: 0px;
+
+    color: var(--Default-TextColor);
+    background: rgb(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    font-size: 17px;
+    box-shadow: 1px 1px 1px 0.5px rgba(0, 0, 0, 0.2);
+
+    width: 100%;
+    height: 35px;
+}
+
+
+/* #DirectoryGridWrap {
+    
+    display: grid;
+    width: 100%;
+
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
+    grid-auto-rows: auto;
+    grid-auto-flow: dense ;
+
+
+    gap: auto;
+    overflow-x: hidden;
+    justify-items: center;
+
+
+    align-items: center;
+
+} */
+
+
+/* Directory Styles: */
+
+
+.DirectoryCell {
+    background: rgba(0, 0, 0, 0.45);
+    width: 185px;
+    height: 225px;
+    border-radius: 14px;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+    margin: 15px;
+
+    display: flex;
+    flex-direction: column;
+
+    /* justify-content: center;
+    align-content: center;
+
+    justify-items: center;
+    justify-content: center; */
+}
+
+.DrctyTitle {
+    display: flex;
+    align-self: center;
+
+    width: 100%;
+    height: fit-content;
+    font-size: 17px;
+
+    /* border-radius: 7px;
+    border: 1.5px solid white; */
+
+    background: rgba(0, 0, 0, 0.35);
+    padding: 6px;
+
+}
+
+.DrctyImgWrap {
+    align-self: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    max-height: max-content;
+    min-height: max-content;
+
+    max-width: max-content;
+    min-width: max-content;
+}
+
+.DrctyImgElm {
+    scale: 1.25; 
+    border: 1.5px solid rgba(255, 255, 255, 0.5); 
+    border-radius: 7px;
+}
+
+.DrctyTxtElm {
+    text-align: center; 
+    width: 100%;
+}
+
+.DrctyBtn {
+    font-size: minmax(15px, 25px);
+    border: 1.5px solid rgb(53, 174, 83);
+
+    display: flex;
+    align-self: center;
+
+    width: 50%;
+    height: fit-content;
+
+    border-radius: 7px;
+    padding: 4px;
+
+}
+
+.DrctyBtn:hover {
+    transition: all 0.33s ease-in-out;
+    background: rgba(53, 174, 83, 0.4);
+    border: 2px solid rgb(53, 174, 83);
+
+    cursor: pointer;
+
+}
+
+
+/* GitHub API Info Styles: */
+
+
+#GithubWrap, #DirectoryWrap{
+    width: 100%;
+    flex-wrap: wrap;
+    overflow-x: auto;
+}
+
+.GithubCell {
+    background: rgba(200, 173, 0, 0.711);
+    width: 150px;
+    height: 250px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    margin: 15px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}

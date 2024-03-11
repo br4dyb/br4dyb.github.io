@@ -1,0 +1,30 @@
+.Left_Right_Grid {
+    display: inline-flex;
+    flex-direction: row;
+}
+
+.Top_Bottom_Grid {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.Center_Flex {
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.Evenly_Flex {
+    align-items: center;
+    justify-items: center;
+    align-content: space-evenly;
+    justify-content: space-evenly;
+}
+
+.Between_Flex {
+    align-items: center;
+    justify-items: center;
+    align-content: space-between;
+    justify-content: space-between;
+}

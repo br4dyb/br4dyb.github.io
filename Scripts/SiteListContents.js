@@ -23,11 +23,11 @@ SitesAvailable.forEach(element => {
         </div>
 
         <div class="DrctyImgWrap">
-            <img src="${element.icon}" class="DrctyImgElm" >
+            <img src="${element.icon}" class="DrctyImgElm" onclick="location.assign('${element.link}')" >
         </div>
 
         <div class="DrctyBtn">
-            <p class="DrctyTxtElm" onclick = "location.assign('${element.link}')" > Visit </p>
+            <p class="DrctyTxtElm" onclick="location.assign('${element.link}')" > Visit </p>
         </div>
     `;
 

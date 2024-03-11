@@ -18,7 +18,7 @@
 }
 
 body {
-    background: var(--Default-BgColor);
+    background: rgb(43, 38, 46);
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
@@ -26,6 +26,7 @@ body {
 }
 
 #FullBodyWrap {
+    background: var(--Default-BgColor);
     font-family: 'Kode Mono';
     font-weight: 500;
     font-size: 12px;

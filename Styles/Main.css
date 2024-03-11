@@ -51,6 +51,22 @@ header {
     font-weight: bolder;
 }
 
+#NavOpenIcon {
+    background: rgb(0, 0, 0, 0.55);
+    padding: 4px;
+    text-align: center;
+    border-radius: 7px;
+    border: 1.5px solid white;
+    box-shadow: 1px 0px 0px 2px rgba(0, 0, 0, 0.2);
+
+    cursor: pointer;
+}
+
+#NavOpenIcon:hover {
+    border: 1.5px solid rgb(116, 255, 116);
+    transition: all 1s ease-in-out;
+}
+
 
 /* Footer Styles: */
 
@@ -272,7 +288,7 @@ header {
 }
 
 .GithubCell {
-    background: rgba(200, 173, 0, 0.711);
+    background: rgba(0, 200, 133, 0.545);
     width: 150px;
     height: 250px;
     border-radius: 10px;

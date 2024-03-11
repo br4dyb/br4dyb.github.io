@@ -13,9 +13,9 @@ SitesAvailable.forEach(element => {
     let NewDiv = document.createElement('div');
     NewDiv.classList = 'DirectoryCell Evenly_Flex';
     NewDiv.id = (NoSpaceName + '_DirectoryCell');
-    NewDiv.onclick = function() {
-        location.assign(element.link)
-    }
+    // NewDiv.onclick = function() {
+    //     location.assign(element.link)
+    // }
 
     NewDiv.innerHTML = `
         <div class="DrctyTitle">
@@ -27,7 +27,7 @@ SitesAvailable.forEach(element => {
         </div>
 
         <div class="DrctyBtn">
-            <p class="DrctyTxtElm"> Visit </p>
+            <p class="DrctyTxtElm" onclick = "location.assign('${element.link}')" > Visit </p>
         </div>
     `;
 

@@ -1,7 +1,9 @@
-const octokit = new Octokit({
+// Ensure Octokit is globally accessible
+const octokit = new octokit({
   auth: process.env.PAT_BR4DYB // Accessing GitHub Secret as an environment variable
 });
 
+// Define getGitHubPagesBuildStatus function
 async function getGitHubPagesBuildStatus(owner, repo) {
   try {
     const response = await octokit.request('GET /repos/{owner}/{repo}/actions/runs', {
@@ -16,45 +18,42 @@ async function getGitHubPagesBuildStatus(owner, repo) {
       console.log("Conclusion:", latestRun.conclusion);
       console.log("Details:", latestRun.html_url); // URL to the workflow run on GitHub
 
-      return latestRun.conclusion, latestRun.status;
+      return [latestRun.conclusion, latestRun.status]; // Return an array
 
     } else {
       console.log("No GitHub Pages workflow runs found.");
-
-      return "Error", "Could not Fetch!";
+      return ["Error", "Could not Fetch!"]; // Return an array
     }
   } catch (error) {
     console.error("Error fetching GitHub Pages build status:", error);
-
-    return "Error", "Could not Fetch!";
+    return ["Error", "Could not Fetch!"]; // Return an array
   }
 }
 
-// Replace 'owner' and 'repo' with your GitHub username and repository name
-// getGitHubPagesBuildStatus("br4dyb", "br4dyb");
+// Define CheckMainBuildStatus function
+async function CheckMainBuildStatus() {
+  console.log("Checking Build Status | Via API ");
 
+  try {
+    let [BuildSuccess, data] = await getGitHubPagesBuildStatus("br4dyb", "br4dyb");
+    let NewText = document.createElement('div');
 
-function CheckMainBuildStatus() {
+    if (BuildSuccess == "Error") {
+      NewText.innerHTML = `
+        <p> <b> Results: </b> </p>
+        <p> Conclusion: <b> ERROR! </b> </p>
+        <p> Status: <b> ERROR! </b> </p>
+      `;
+    } else {
+      NewText.innerHTML = `
+        <p> Results </p>
+        <p> Conclusion: ${BuildSuccess} </p>
+        <p> Status: ${data} </p>
+      `;
+    }
 
-  console.log("Checking Build Status | Via API ")
-
- let BuildSuccess, data = getGitHubPagesBuildStatus("br4dyb", "br4dyb");
- let NewText = document.createElement('div');
- 
- if (BuildSuccess == "Error") {
-
-  NewText.innerHTML = `
-  <p> <b> Results: </b> </p>
-  <p> Conclusion: <b> ERROR! </b> </p>
-  <p> Status: <b> ERROR! </b> </p>
-`; } else {
-
-  NewText.innerHTML = `
-  <p> Results </p>
-  <p> Conclusion: ${BuildSuccess} </p>
-  <p> Status: ${data} </p>
-`;};
- 
-document.body.appendChild(NewText)
-
-};
+    document.body.appendChild(NewText);
+  } catch (error) {
+    console.error("Error checking build status:", error);
+  }
+}

@@ -18,6 +18,10 @@
     flex-wrap: wrap;
 }
 
+a, a:visited, a:active{
+    color: unset;
+}
+
 body {
     background: rgb(43, 38, 46);
     /* background: black; */
@@ -193,15 +197,21 @@ header {
 
     border-radius: 7px;
 
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
-    border: 5px solid rgba(0, 0, 0, 0.8);
+    border: 5px solid rgba(0, 0, 0, 0.5);
     
 
     justify-self: center;
     align-self: center;
 
     margin: 10px;
+
+    animation-name: Smooth-Opacity;
+    animation-duration: 2s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
 }
 
 .HeadingLineWrap {

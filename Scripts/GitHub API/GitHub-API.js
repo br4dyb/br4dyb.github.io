@@ -1,5 +1,5 @@
 // Ensure Octokit is globally accessible
-const octokit = new octokit({
+const octokit = new Octokit({
   auth: process.env.PAT_BR4DYB // Accessing GitHub Secret as an environment variable
 });
 

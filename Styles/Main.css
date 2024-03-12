@@ -23,8 +23,8 @@ a, a:visited, a:active{
 }
 
 body {
-    background: rgb(43, 38, 46);
-    /* background: black; */
+    /* background: rgb(43, 38, 46); */
+    background: black;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;

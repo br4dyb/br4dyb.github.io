@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html> 
+
+<head> 
+
+	<title> Rock Paper Scissors </title>
+
+	<!-- SweetAlert2 Components: -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+	<!-- Local StyleSheets: -->
+	<link rel="stylesheet" href="./Styles/Main.css">
+
+
+
+</head>
+
+<body> 
+
+<main id= "FullBodyWrap"> 
+
+<h1> Rock Paper Scissors | Game </h1>
+
+<div id="ScoreBoardWrap">
+
+		<h3 style="grid-column: 1 / 2;"> You: </h3>
+		<h4 style="grid-column: 2 / 3;"> VS </h4>
+		<h3 style="grid-column: 3 / 4;"> Computer: </h3>
+
+
+
+		<h3 id="UserScore"> 0 </h3>
+		<h4>  </h4>
+		<h3 id="ComputerScore"> 0 </h3>
+
+</div>
+
+<div id="UserChoiceButtonsWrap">
+	<h3> Select your Hand: </h3>
+	<div>
+		<button id="SelRock"> Rock </button>
+		<button id="SelPaper"> Paper </button>
+		<button id="SelScissors"> Scissors </button>
+	</div>
+
+</div>
+
+<br>
+
+<div id="GameResultsWrap">
+
+	<div id="HandsChoiceWrap">
+		<div id="PlayerChoiceWrap">
+			<p> <b> Your Choice: </b> </p>
+			<span id="PlayerChoice"> [] </span>
+		</div>
+		
+		<div id="ComputerChoiceWrap">
+			<p> <b> Computer's Choice: </b> </p>
+			<span id="ComputerChoice"> [] </span>
+		</div>
+	
+	</div>
+
+	<div id="GameResultWrap">
+		<p> Game Result: </p>
+		<span id="GameResult">  </span>
+	</div>
+	
+
+
+
+</div>
+
+
+<script src="./Scripts/GameFunctionality.js"> </script>
+
+
+
+<script>
+
+
+window.onload = function() {
+	console.log("Window Loaded! | Testing Notification . . . ")
+	
+	function showNotification() {
+		Swal.fire({
+			iconHtml: '&starf;',
+			iconColor: 'white',
+			title: '<b><u>Welcome to Rock Paper Scissors:',
+			html: 'Select your hand to play the game!',
+			padding: '10px',
+			background: 'yellowgreen',
+			color: 'white',
+			toast: 'false',
+			position: 'bottom-end',
+			timer: '4500',
+			timerProgressBar: 'true',
+			showConfirmButton: false,
+			showCancelButton: false,
+			confirmButtonText: 'Close',
+		});
+	}
+	
+	showNotification()
+
+};
+
+
+</script>
+
+
+</main>
+
+
+</body>
+
+
+</html>

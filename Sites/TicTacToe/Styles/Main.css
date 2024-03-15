@@ -1,0 +1,166 @@
+
+:root {
+    --BodyBackgroundDf: black;
+    --BodySecondaryDf: white;
+
+    --HalfOpBlack: rgba(0, 0, 0, 0.5);
+    --HalfOpWhite: rgba(255, 255, 255, 0.5);
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    
+}
+
+body {
+    background: var(--BodyBackgroundDf);
+    color: var(--BodySecondaryDf);
+    font-family: 'Kalam';
+    font-weight: 400;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    width: 100%;
+    height: 100vh;
+
+}
+
+#MainBodyWrap {
+    background: rgb(108, 71, 77);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+
+    border-top: 2px solid var(--BodySecondaryDf);
+    border-bottom: 2px solid var(--BodySecondaryDf);
+
+    height: fit-content;
+    width: 100%;
+}
+
+#HeaderSec1Wrap {
+    position: relative;
+    top: 5px;
+    margin-bottom: 10px;
+
+    text-align: center;
+
+    background: var(--HalfOpBlack);
+    padding: 10px 7px 0px 7px;
+    scale: 0.8;
+    border-radius: 5px;
+    border: 1.5px solid var(--BodySecondaryDf);
+}
+
+#HeaderSec1Wrap p {
+    padding-top: 0px;
+    margin-top: 0px;
+    position: relative;
+    top: -12px;
+}
+
+#HeaderSec2Wrap .material-symbols-rounded {
+    font-size: 25px;
+    background: var(--HalfOpBlack);
+    padding: 4px;
+    border-radius: 5px;
+    border: 1.5px solid var(--BodySecondaryDf);
+    cursor: pointer;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 20px;
+
+    border-top: 1.5px solid var(--BodySecondaryDf);
+    border-bottom: 1.5px solid var(--BodySecondaryDf);
+
+    height: fit-content;
+    width: 100%;
+
+    font-size: 15px;
+}
+
+#SelectPlayerPieceArea {
+    display: none; /* block */
+
+    width: fit-content;
+    align-self: center;
+    background: black;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1.5px solid var(--BodySecondaryDf);
+}
+
+#SelectPlayerPieceArea .ChoosePieceButton {
+
+    font-size: 25px;
+    font-weight: 700;
+    background: var(--HalfOpBlack);
+    padding: 4px 8px;
+    text-align: end;
+    border-radius: 5px;
+    border: 1.5px solid var(--BodySecondaryDf);
+    color: var(--BodySecondaryDf);
+    cursor: pointer;
+    margin-block: 10px;
+    margin-inline: 10px;
+
+}
+
+#MainGameArea {
+    background-color: aquamarine;
+    height: 500px;
+    width: 500px;
+
+    background: black;
+ 
+    padding: 10px 13px;
+    border-radius: 5px;
+    border: 1.5px solid var(--BodySecondaryDf);
+}
+
+#GameplayGrid {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+
+    font-size: 45px;
+
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+
+    border-collapse: collapse;
+}
+
+#GameplayGridCell {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--BodySecondaryDf);
+
+    
+}

@@ -109,6 +109,10 @@ function ComputerSelectCell() {
 
 function CellSelected(GameCell) {
 
+    if(GameOver) {
+        console.warn("This game has already ended! | Preventing Player Move! ")
+    }
+        //Reset CoolDown for each click:
         setTimeout(() => {
             CoolDown = false;
             console.log(`[CoolDown]: ${CoolDown.valueOf()}`);

@@ -109,10 +109,10 @@ function ComputerSelectCell() {
 
 function CellSelected(GameCell) {
 
-    setTimeout(() => {
-        CoolDown = false;
-        console.log(`[CoolDown]: ${CoolDown.valueOf()}`);
-    }, 1200);
+        setTimeout(() => {
+            CoolDown = false;
+            console.log(`[CoolDown]: ${CoolDown.valueOf()}`);
+        }, 1200);
 
     // Check if selected cell is available:
     if(GameCell.classList.contains("AvailableCellArea") && CoolDown === false) {

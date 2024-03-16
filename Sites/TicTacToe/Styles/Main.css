@@ -154,7 +154,7 @@ footer {
 }
 
 .AvailableCellArea:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: var(--HalfOpWhite);
     cursor: pointer;
     z-index: 20;
 }

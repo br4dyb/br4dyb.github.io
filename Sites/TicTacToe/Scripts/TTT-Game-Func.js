@@ -39,7 +39,7 @@ function ResetGameBoard() {
             element.classList.add("AvailableCellArea");
     }); 
     GameOver = false
-    console.log("Game Restarted! | Player's Turn!")
+    if(Debug) {console.log("Game Restarted! | Player's Turn!")}
 }
 
 function RandomCellForComputer(PieceToAssign) {

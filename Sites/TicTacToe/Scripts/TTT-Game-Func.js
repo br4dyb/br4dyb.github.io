@@ -2,7 +2,7 @@
 const GameGrid = document.getElementById('FullGameTable');
 const AllGameCells = GameGrid.querySelectorAll('td');
 
-let PlayerPiece = "O"
+let PlayerPiece = "X"
 
 
 function MakeAllCellsAvailable() {

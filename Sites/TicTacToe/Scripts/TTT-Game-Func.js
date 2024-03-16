@@ -1,16 +1,19 @@
 
 const GameGrid = document.getElementById('FullGameTable');
 const AllGameCells = GameGrid.querySelectorAll('td');
-
 const WinningCombinations = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [3,5,7]] ;
 
 let PlayerPiece = "X";
+
+let ComputerScore = 0
+let PlayerScore = 0
 
 let ComputerOwnedCells = [];
 let PlayerOwnedCells = [];
 
 let CoolDown = false;
 let GameOver = false;
+let Debug = false;
 
 
 function MakeAllCellsAvailable() {
@@ -53,8 +56,10 @@ function RandomCellForComputer(PieceToAssign) {
 
         ComputerOwnedCells.push(cellNumber); // Add selected cell to ComputerOwnedCells
 
-        console.log(`[Computer]: has selected cell ${cellNumber}!`);
-        console.log(`[ComputerOwnedCells]: ${ComputerOwnedCells.toString()}`);
+        if (Debug) {
+            console.log(`[Computer]: has selected cell ${cellNumber}!`);
+            console.log(`[ComputerOwnedCells]: ${ComputerOwnedCells.toString()}`);
+        }
 
         RandomCellSelected.textContent = PieceToAssign;
         RandomCellSelected.style.background = "#FFBD33";
@@ -65,13 +70,17 @@ function RandomCellForComputer(PieceToAssign) {
             // Check if computer has won
             if (checkWinner(ComputerOwnedCells)) {
                 console.log("Computer wins!");
+                ComputerScore += 1
+                console.log(`[SCOREBOARD]: Player: [${PlayerScore}] | Computer: [${ComputerScore}]`);
 
                 setTimeout(() => {
                     ResetGameBoard()
                 }, 3000);
 
             } else {
-                console.log("Computer did not win . . .")
+                if (Debug) {
+                    console.log("Computer did not win . . .")
+                }
             }
 
         }, 500);
@@ -90,7 +99,7 @@ function RandomCellForComputer(PieceToAssign) {
 function ComputerSelectCell() {
     
     if(GameOver) {
-        console.warn('Game has already eneded! | Prevented computers next move!')
+        if(Debug) {console.warn('Game has already eneded! | Prevented computers next move!')}
         return
     } else {
 
@@ -111,52 +120,58 @@ function CellSelected(GameCell) {
 
     if(GameOver) {
         console.warn("This game has already ended! | Preventing Player Move! ")
-    }
+    } else {
         //Reset CoolDown for each click:
-        setTimeout(() => {
-            CoolDown = false;
-            console.log(`[CoolDown]: ${CoolDown.valueOf()}`);
-        }, 1200);
-
-    // Check if selected cell is available:
-    if(GameCell.classList.contains("AvailableCellArea") && CoolDown === false) {
-
-        CoolDown = true;
-        console.warn(`[CoolDown]: ${CoolDown.valueOf()}`);
-
-        console.log(GameCell.id + ` has been clicked!`);
-        GameCell.classList.toggle("AvailableCellArea");
-        GameCell.textContent = PlayerPiece
-
-        let cellId = GameCell.id;
-        let cellNumber = parseInt(cellId.split('_')[1]);
-
-        PlayerOwnedCells.push(cellNumber); // Add selected cell to PlayerOwnedCells
-
-        console.log(`[Player]: Cell ${cellNumber} has been clicked!`);
-        console.log(`[PlayerOwnedCells]: ${PlayerOwnedCells.toString()}`);
-
-        // Check if player has won
-        if (checkWinner(PlayerOwnedCells)) {
-            console.log("Player wins!");
-
             setTimeout(() => {
-                ResetGameBoard()
-            }, 3000);
+                CoolDown = false;
+                if(Debug) {console.log(`[CoolDown]: ${CoolDown.valueOf()}`); }
+            }, 1200);
+    
+        // Check if selected cell is available:
+        if(GameCell.classList.contains("AvailableCellArea") && CoolDown === false) {
+            CoolDown = true;
 
+            if(Debug){console.warn(`[CoolDown]: ${CoolDown.valueOf()}`);}
+            if(Debug) {console.log(GameCell.id + ` has been clicked!`);}
+
+            GameCell.classList.toggle("AvailableCellArea");
+            GameCell.textContent = PlayerPiece
+    
+            let cellId = GameCell.id;
+            let cellNumber = parseInt(cellId.split('_')[1]);
+    
+            PlayerOwnedCells.push(cellNumber); // Add selected cell to PlayerOwnedCells
+    
+           if (Debug) {
+             console.log(`[Player]: Cell ${cellNumber} has been clicked!`);
+             console.log(`[PlayerOwnedCells]: ${PlayerOwnedCells.toString()}`);
+           }
+    
+            // Check if player has won
+            if (checkWinner(PlayerOwnedCells)) {
+                console.log("Player wins!");
+                PlayerScore += 1
+                console.log(`[SCOREBOARD]: Player: [${PlayerScore}] | Computer: [${ComputerScore}]`);
+    
+                setTimeout(() => {
+                    ResetGameBoard()
+                }, 3000);
+    
+            } else {
+                if(Debug){console.log("Player did not win . . .")}
+            }
+    
+            setTimeout(() => { 
+                ComputerSelectCell() 
+            }, 1000);
+    
         } else {
-            console.log("Player did not win . . .")
+            GameCell.style.background = '#E06262'
+            setTimeout(() => {
+                GameCell.style.background = 'unset'
+            }, 500);
         }
 
-        setTimeout(() => { 
-            ComputerSelectCell() 
-        }, 1000);
-
-    } else {
-        GameCell.style.background = '#E06262'
-        setTimeout(() => {
-            GameCell.style.background = 'unset'
-        }, 500);
     }
 
     
@@ -208,3 +223,4 @@ function checkWinner(cellsOwned) {
 
 // On Page Load:
 MakeAllCellsAvailable()
+console.log(`[SCOREBOARD]: Player: [${PlayerScore}] | Computer: [${ComputerScore}]`);

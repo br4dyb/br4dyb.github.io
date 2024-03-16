@@ -127,40 +127,34 @@ footer {
 }
 
 #MainGameArea {
-    background-color: aquamarine;
     height: 500px;
     width: 500px;
-
-    background: black;
  
-    padding: 10px 13px;
-    border-radius: 5px;
-    border: 1.5px solid var(--BodySecondaryDf);
+    /* padding: 10px 13px; */
+    border-radius: 6px;
+    border: 3.5px solid var(--BodySecondaryDf);
 }
 
-#GameplayGrid {
-    display: grid;
-    height: 100%;
+#FullGameTable {
     width: 100%;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-
-    font-size: 45px;
-
+    height: 100%;
     text-align: center;
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
-    align-content: center;
-
     border-collapse: collapse;
+    vertical-align: center;
+    table-layout: fixed;
+    border-radius: 5px;
 }
 
-#GameplayGridCell {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border: 2px solid var(--BodySecondaryDf);
-
-    
+.GameCellArea {
+    border: 8.5px solid var(--BodySecondaryDf);
+    font-size: 65px;
+    height: 33.33%;
+    width: 33.33%;
 }
+
+.AvailableCellArea:hover {
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+}
+
+

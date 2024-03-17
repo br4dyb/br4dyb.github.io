@@ -2,7 +2,7 @@
 :root {
     --BodyBackgroundDf: black;
     --BodySecondaryDf: white;
-    --GameAreaBackground: #1e3e69;
+    --GameAreaBackground: #1a3c69;
 
     --HalfOpBlack: rgba(0, 0, 0, 0.5);
     --HalfOpWhite: rgba(255, 255, 255, 0.5);

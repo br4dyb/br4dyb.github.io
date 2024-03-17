@@ -2,9 +2,11 @@
 :root {
     --BodyBackgroundDf: black;
     --BodySecondaryDf: white;
+    --GameAreaBackground: "#3a78ab" ;
 
     --HalfOpBlack: rgba(0, 0, 0, 0.5);
     --HalfOpWhite: rgba(255, 255, 255, 0.5);
+    
 }
 
 * {
@@ -31,7 +33,8 @@ body {
 }
 
 #MainBodyWrap {
-    background: rgb(108, 71, 77);
+    /* background: rgb(108, 71, 77); */
+    background: var(--GameAreaBackground)
     display: flex;
     flex-direction: column;
     flex: 1;

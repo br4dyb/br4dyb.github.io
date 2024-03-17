@@ -34,7 +34,7 @@ body {
 
 #MainBodyWrap {
     /* background: rgb(108, 71, 77); */
-    background: var(--GameAreaBackground)
+    background: var(--GameAreaBackground);
     display: flex;
     flex-direction: column;
     flex: 1;

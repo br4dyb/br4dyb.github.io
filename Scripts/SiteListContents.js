@@ -1,9 +1,9 @@
 const SitesAvailable = [
-    {name: 'Music', link: './Sites/music.html', icon: './favicon.ico'},
+    {name: 'Music', link: './Sites/Misc/music.html', icon: './favicon.ico'},
     {name: 'Rock Paper Scissors', link: './Sites/RockPaperScissors/index.html', icon: './favicon.ico'},
     {name: 'TicTacToe', link: './Sites/TicTacToe/index.html', icon: './favicon.ico'},
     {name: 'Bouncy Blocks', link: './Sites/BouncyBlocks/index.html', icon: './favicon.ico'},
-    {name: 'Listy', link: './Sites/Listy.html', icon: './favicon.ico'},
+    {name: 'Listy', link: './Sites/Misc/Listy.html', icon: './favicon.ico'},
     {name: 'Nav Testing', link: './Sites/NavTesting/index.html', icon: './favicon.ico'}, 
 ];
 

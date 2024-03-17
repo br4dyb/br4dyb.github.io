@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyC1dF9qDTPS53ApLTH5cfFz26-JHmT3v8Q",
+          authDomain: "fir-stg-1.firebaseapp.com",
+          projectId: "fir-stg-1",
+          storageBucket: "fir-stg-1.appspot.com",
+          messagingSenderId: "504636266216",
+          appId: "1:504636266216:web:3bbf1467434d93992bdb5d"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+      </script>
+
+      <title> FireBase Testing </title>
+
+      <link rel="stylesheet" href="./Styles/Main.css">
+      <link rel="stylesheet" href="./Styles/FireBase-Styles.css">
+
+</head>
+
+<body>
+
+    <header>
+        FireBase Testing
+    </header>
+
+    <div id="MainBodyWrap">
+
+        <script>
+            function uploadData() {
+              const Data = document.getElementById("InputBox-1").nodeValue
+              const storageRef = firebase.storage().ref();
+              const fileRef = storageRef.child(Data);
+              fileRef.put(file).then(() => {
+                console.log("File uploaded successfully!");
+              });
+            }
+          </script>
+          
+
+        <div id="FireBasePanel">
+            <form>
+                <label for="InputBox-1"> Text: </label>
+                <input id="InputBox-1" type="text" >
+
+                <input title="Click to Submit!" type="submit" id="Form1-Submit" onclick="uploadData()">
+            </form>
+
+            
+        </div>
+    </div>
+
+    <footer>
+        FireBase Testing
+    </footer>
+
+</body>
+
+
+</html>

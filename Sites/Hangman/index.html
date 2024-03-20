@@ -18,7 +18,56 @@
 
 <body>
 
+    <header>
+        <div id="Header-Wrap1">
+            <h2> Hangman | Game </h2>
+        </div>
+        <div id="Header-Wrap3">
+            <span id="NavButton" class="material-symbols-rounded"> Menu </span>
+        </div>
+    </header>
+
+    <div id="FullBodyWrap">
+
+        <div id="SelectDificultyWrap" style="display: none;">
+
+            <h3> Select Dificulty: </h3>
+
+            <div>
+                <button> Easy </button>
+                <button> Medium </button>
+                <button> Hard </button>
+            </div>
+
+        </div>
+
+        <div id="FullGameWrap">
+            
+            <canvas style="background: blue; height: 300px; width: 300px;"> </canvas>
+
+            <div id="AnswerGuessWrap">
+               <h3> Guess the word: </h3>
+               <p> _ _ _ _ _ </p>
+               <br>
+               <h3> Guess a Letter: </h3>
+               <div id="GuessInputWrap">
+                <input maxlength="1">
+                <span class="material-symbols-rounded"> Check </span> 
+               </div>
+               
+            </div>
+        </div>
+        
+    </div>
+
+    <footer>
+        <div id="Footer-Wrap1">
+            Hangman | Created by <a href="https://github.com/br4dyb" style="text-decoration: underline;"> Br4dyB </a>
+        </div>
+        <div id="Footer-Wrap3">
+            <span id="SettingsButton" class="material-symbols-rounded"> Settings </span>
+        </div>
+    </footer>
 
 </body>
-
 </html>

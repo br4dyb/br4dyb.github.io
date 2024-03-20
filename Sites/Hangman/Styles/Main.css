@@ -1,0 +1,18 @@
+:root {
+    --BodyBackgroundClrDF: rgba(0,0,0);
+    --BodyBackgroundClrSD: rgba(255,255,255);
+
+    --TextColorDF: rgba(255,255,255);
+    --TextColorSD: rgba(0,0,0);
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--BodyBackgroundClrDF);
+    color: var(--TextColorDF);
+}

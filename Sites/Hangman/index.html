@@ -47,13 +47,19 @@
 
             <div id="AnswerGuessWrap">
                <h3> Guess the word: </h3>
-               <p> _ _ _ _ _ </p>
+               <p id="AnswerProgressText"> _ _ _ _ _ </p>
+
                <br>
+
                <h3> Guess a Letter: </h3>
                <div id="GuessInputWrap">
-                <input maxlength="1">
-                <span class="material-symbols-rounded"> Check </span> 
+                <input id="LetterGuessInput" maxlength="1">
+                <span onclick="GuessALetter(document.getElementById('LetterGuessInput').value)" class="material-symbols-rounded"> Check_Circle </span> 
                </div>
+
+               <br>
+
+               <p id="GuessResultText">  </p>
                
             </div>
         </div>
@@ -68,6 +74,8 @@
             <span id="SettingsButton" class="material-symbols-rounded"> Settings </span>
         </div>
     </footer>
+
+    <script src="./Scripts/MainGameFunc.js">  </script>
 
 </body>
 </html>

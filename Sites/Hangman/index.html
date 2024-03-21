@@ -47,15 +47,18 @@
 
             <div id="AnswerGuessWrap">
                <h3> Guess the word: </h3>
-               <p id="AnswerProgressText"> _ _ _ _ _ </p>
+               <!-- <p id="AnswerProgressText"> _ _ _ _ _ </p> -->
+               <div id="AnswerProgressText"> <p> Loading . . . </p> </div>
 
                <br>
 
                <h3> Guess a Letter: </h3>
-               <div id="GuessInputWrap">
-                <input id="LetterGuessInput" maxlength="1">
-                <span onclick="GuessALetter(document.getElementById('LetterGuessInput').value)" class="material-symbols-rounded"> Check_Circle </span> 
-               </div>
+
+                <form id="GuessInputWrap" onsubmit="GuessALetter(event, document.getElementById('LetterGuessInput').value)">
+                    <input id="LetterGuessInput" maxlength="1">
+                    <span onclick="GuessALetter(null, document.getElementById('LetterGuessInput').value)" class="material-symbols-rounded"> Check_Circle </span>     
+                </form>
+
 
                <br>
 

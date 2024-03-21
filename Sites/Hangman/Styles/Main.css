@@ -158,6 +158,11 @@ footer {
     border-radius: 50px;
 }
 
+
 #AnswerProgressText {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3px;
     font-size: large;
 }

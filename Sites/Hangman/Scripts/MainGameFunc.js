@@ -122,6 +122,11 @@ function GuessALetter(event, letterGuess) {
         WordChoices.splice(WordIndex, 1)
         console.log(WordChoices)
         console.warn("GAME OVER | PLAYER WON!!");
+
+        let AnswerLetters = AnswerProgressText.querySelectorAll('p');
+        AnswerLetters.forEach(element => {
+            element.style.color = 'limegreen'
+        });
         
         setTimeout(() => {
             InitalizeGame();

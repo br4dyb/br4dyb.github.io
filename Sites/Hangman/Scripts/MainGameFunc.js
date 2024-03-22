@@ -1,8 +1,11 @@
 const AnswerProgressText = document.getElementById('AnswerProgressText');
 const LetterGuessInput = document.getElementById('LetterGuessInput');
+const HangmanArea = document.getElementById('HangmanArea');
 
 let DefaultDifficulty = 'Easy';
 let GameDifficulty = DefaultDifficulty;
+
+let IncorrectGuessCount;
 
 let GameAnswer;
 let GameAnswerLowerCase;
@@ -28,6 +31,72 @@ let WordChoices = [
     "Automobile",
 ];
 
+const hangmanArt = [
+`
+    +---+
+    |   |
+        |
+        |
+        |
+        |
+=========
+`,
+`
+    +---+
+    |   |
+    O   |
+        |
+        |
+        |
+=========
+`,
+`
+    +---+
+    |   |
+    O   |
+    |   |
+        |
+        |
+=========
+`,
+`
+    +---+
+    |   |
+    O   |
+   /|   |
+        |
+        |
+=========
+`,
+`
+    +---+
+    |   |
+    O   |
+   /|\\  |
+        |
+        |
+=========
+`,
+`
+    +---+
+    |   |
+    O   |
+   /|\\  |
+   /    |
+        |
+=========
+`,
+`
+    +---+
+    |   |
+    O   |
+   /|\\  |
+   / \\  |
+        |
+=========
+`
+];
+
 
 function InitalizeGame() {
     let RandomIndex = Math.floor(Math.random() * WordChoices.length) + 1;
@@ -37,7 +106,9 @@ function InitalizeGame() {
     console.log(`This game's answer is: ${GameAnswer}`);
     console.log(`Game Answer Length: ${GameAnswer.length}`);
 
+    HangmanArea.style.color = 'white'
     AnswerProgressText.innerHTML = ``;
+    IncorrectGuessCount = 0;
 
     for (let index = 1; index < (GameAnswer.length +1); index++) {
         //console.log(index);
@@ -48,52 +119,15 @@ function InitalizeGame() {
         AnswerProgressText.appendChild(newP);
     }
 
+    HangmanArea.innerText = hangmanArt[IncorrectGuessCount]
 
 }
 
-// function GuessALetter(letterGuess) {
-//     letterGuess = String(letterGuess).toLowerCase();
-//     console.log(`Letter Guessed!: ${letterGuess}`);
-    
-//     console.log(`GameAnswerLowerCase: ${GameAnswerLowerCase}`);
-
-//     let CorrectGuess = String(GameAnswerLowerCase).includes(letterGuess)
-
-//     let AlreadyFoundIndex = []
-
-//     if(CorrectGuess && letterGuess !== '') {
-        
-//         for (let index = 0; index < (GameAnswerLowerCase.length +1); index++) {
-//             CharIndex = String(GameAnswerLowerCase).indexOf(letterGuess) +1
-//             if(GameAnswerLowerCase[index] == letterGuess) {
-//                 RemainingGameAnswer = String(RemainingGameAnswer).replace(letterGuess, '');
-//                 console.warn(`Letter Removed | CharIndex: ${CharIndex} | ArrayIndex: ${index}`)
-//                 let UnderscoresArray = AnswerProgressText.querySelectorAll('p')
-//                 UnderscoresArray[CharIndex-1].innerText = letterGuess
-//             }else {
-//                 console.log(`Letter not found at: ArrayIndex: ${index} or CharIndex: ${CharIndex} `)
-//             }
-//             //console.log(`CharIndex: ${CharIndex}`);
-//             //console.log(`CorrectGuess: ${CorrectGuess}`);
-
-            
-//             console.log(`RemainingGameAnswer: ${RemainingGameAnswer}`);
-            
-//         }
-
-//         if(RemainingGameAnswer == '') {
-//             console.warn("GAME OVER | PLAYER WON!!")
-//         }
-
-//     };
-
-//     LetterGuessInput.value = null
-// }
 
 function GuessALetter(event, letterGuess) {
 
     if(event){
-        console.warn('EVENT!')
+        //console.warn('EVENT!')
         event.preventDefault();
     }
     
@@ -114,6 +148,34 @@ function GuessALetter(event, letterGuess) {
                 let UnderscoresArray = AnswerProgressText.querySelectorAll('p');
                 UnderscoresArray[index].innerText = letterGuess;
             }
+        }
+        if(CorrectGuess !== true){
+            IncorrectGuessCount += 1;
+            console.warn(`Guessed Incorrectly! | Count: ${IncorrectGuessCount}`);
+            
+            if (IncorrectGuessCount >= 6) {
+                console.warn('GAME OVER | Out of guesses!')
+                HangmanArea.innerText = hangmanArt[6];
+                let AnswerLetters = AnswerProgressText.querySelectorAll('p');
+                AnswerLetters.forEach(element => {
+                    element.remove()
+                });
+                let NewText = document.createElement('p')
+                NewText.innerText = GameAnswer
+                NewText.style.color = 'red'
+                HangmanArea.style.color = 'red'
+                AnswerProgressText.appendChild(NewText)
+
+                setTimeout(() => {
+                    InitalizeGame();
+                }, 2500);
+
+            } else {
+                HangmanArea.innerText = hangmanArt[IncorrectGuessCount];
+            }
+                
+        }else {
+            console.log('Guessed Correctly!')
         }
     }
 

@@ -132,7 +132,7 @@ footer {
     align-items: center;
     flex: 1;
     padding: 10px 5px;
-    height: fit-content;
+    height: 75%;
 }
 
 #HangmanWrap {
@@ -165,6 +165,7 @@ footer {
     align-items: center;
     text-align: center;
     font-size: 25px;
+    padding-top: 25px;
 }
 
 #AnswerGuessWrap input {

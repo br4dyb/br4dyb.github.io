@@ -2,7 +2,7 @@
     --BodyBackgroundClrDF: rgba(0,0,0);
     --BodyBackgroundClrSD: rgba(255,255,255);
 
-    --HeaderFooterBackgroundDF: blueviolet;
+    --HeaderFooterBackgroundDF: rgba(137, 43, 226, 0.7);
 
     --TextColorDF: rgba(255,255,255);
     --TextColorSD: rgba(0,0,0);
@@ -90,6 +90,10 @@ footer {
 #SettingsButton {
     font-size: large;
     cursor: pointer;
+    background: black;
+    padding: 2px;
+    border-radius: 4px;
+    border: 1.5px solid var(--HalfOpacityWhite);
 }
 
 #FullBodyWrap {
@@ -118,7 +122,7 @@ footer {
 }
 
 #FullGameWrap {
-    background: blueviolet;
+    background: var(--HeaderFooterBackgroundDF);
     border-top: 2px solid var(--HalfOpacityWhite);
     border-bottom: 2px solid var(--HalfOpacityWhite);
     display: flex;

@@ -132,7 +132,7 @@ footer {
     align-items: center;
     flex: 1;
     padding: 10px 5px;
-    height: 75%;
+    height: max-content;
 }
 
 #HangmanWrap {

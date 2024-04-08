@@ -6,6 +6,8 @@ const SitesAvailable = [
     {name: 'Bouncy Blocks', link: './Sites/BouncyBlocks/index.html', icon: './favicon.ico'},
     {name: 'Listy', link: './Sites/Misc/Listy.html', icon: './favicon.ico'},
     {name: 'Nav Testing', link: './Sites/NavTesting/index.html', icon: './favicon.ico'}, 
+
+    {name: 'Stater Template', link: './Sites/Starter_Template/index.html', icon: './Sites/Starter_Template/favicon.ico'}, 
 ];
 
 const DirectoryWrap = document.getElementById('DirectoryWrap');

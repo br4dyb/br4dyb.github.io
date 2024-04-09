@@ -81,30 +81,42 @@ header {
         justify-content: center;
         cursor: pointer;
     }
-    #Header-Sec-1 span {
+    #Header-Sec-2 span {
         font-size: 1.7rem;
+        cursor: default;
     }
 
     #Header-Sec-2 {
+        display: flex;
+        gap: 5px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
         flex: 1;
         height: 100%;
+        /* background: lime; */
     }
 
 nav {
     position: absolute;
     display: flex;
-    right: 2px;
+    flex-direction: column;
+    /* left: 2px; */
     top: 7.2vh;
-    padding: 20px 10px 20px 10px;
+    padding: 10px;
+    padding-bottom: 5px;
     width: 20vh;
     align-items: center;
+    justify-content: space-between;
+    overflow-y: auto;
+    /* min-height: 28vh; */
+    height: 87vh;
 
-    min-height: 28vh;
-    max-height: 87vh;
 
-    background: #A45A76;
+    /* background: #A45A76; */
+    background: rgb(241, 240, 240);
     box-shadow: 0px 0px 4px black;
-    border-radius: 5px;
+    /* border-radius: 2px; */
 }
 
 #MainNavWrap, #Extra1NavWrap {
@@ -118,10 +130,12 @@ nav {
 }
 
 #MainNavWrap a, #Extra1NavWrap a{
-    background: lightgray;
+    /* background: lightgray; */
+    background: none;
+    color: rgb(39, 39, 39);
     transition: background 0.33s ease-in-out;
-    width: 90%;
-    border-radius: 7px;
+    width: 100%;
+    border-radius: 4px;
     padding: 7px;
     box-shadow: 0px 0px 4px black;
     text-align: center;
@@ -129,8 +143,8 @@ nav {
 }
 
 #MainNavWrap a:hover, #Extra1NavWrap a:hover {
-    color: unset;
-    background: rgb(164, 164, 164);
+    background: rgba(0, 0, 0, .25);
+    /* background: rgba(100, 167, 189, .65); */
 }
 
 footer {

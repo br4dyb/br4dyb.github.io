@@ -16,12 +16,26 @@ MainNav.style.display = 'none';
 function ToggleNav() {
     if(MainNav.style.display == 'none'){
         // Show
+        
         MainNav.style.display = 'flex';
         MainNavList.style.display = 'flex';
+
+        MainNav.style.animation = 'OpenNav .7s forwards 1 ease-in-out';
+        //MainNav.style.animationPlayState = 'running';
+
     } else {
         // Hide
-        MainNav.style.display = 'none';
-        ExtraNavList1.style.display = 'none';
+        MainNav.style.animation = 'CloseNav .7s forwards 1 ease-in-out';
+        //MainNav.style.animationPlayState = 'running';
+
+
+        // After animation ends, hide the navigation
+        MainNav.addEventListener('animationend', function() {
+            MainNav.style.display = 'none';
+            ExtraNavList1.style.display = 'none';
+        }, {once: true});
+
+       
     }
 }
 

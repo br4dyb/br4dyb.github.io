@@ -58,7 +58,7 @@ header {
     align-items: center;
     padding: 7px 15px;
     height: fit-content;
-    min-height: 7vh;
+    height: 7vh;
 }
 
     #Header-Nav-Button {
@@ -93,8 +93,8 @@ header {
 nav {
     position: absolute;
     display: flex;
-    right: 0px;
-    top: 7.15vh;
+    right: 2px;
+    top: 7.2vh;
     padding: 20px 10px 20px 10px;
     width: 20vh;
     align-items: center;
@@ -109,6 +109,7 @@ nav {
 
 #MainNavWrap, #Extra1NavWrap {
     display: flex;
+
     flex-direction: column;
     width: 100%;
     align-items: center;

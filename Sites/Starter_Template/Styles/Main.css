@@ -61,10 +61,22 @@ header {
     height: 7vh;
 }
 
+    #Nav-Button-Wrap {
+        /* background: lime; */
+        width: fit-content;
+        padding: 6px 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        z-index: 10;
+    }
+
     #Header-Nav-Button {
         font-size: 1.7rem;
         line-height: 1.7;
         cursor: pointer;
+        color: var(--BodyText-Dark);
         transition: color 0.33s ease-in-out;
     }
 
@@ -101,7 +113,7 @@ nav {
     position: absolute;
     display: flex;
     flex-direction: column;
-    /* left: 2px; */
+    left: 2px;
     top: 7.2vh;
     padding: 10px;
     padding-bottom: 5px;
@@ -161,8 +173,7 @@ footer {
     height: fit-content;
     min-height: 5vh;
     width: 100%;
-        position: absolute;
-        bottom: 0px;
+        position: relative;
 }
 
 

@@ -5,8 +5,9 @@ let FullBodyWrap = document.getElementById('FullBodyWrap');
 
 let CloseClickElements = [
     FullBodyWrap,
-    document.getElementById('Header-Sec-2'),
+    // document.getElementById('Header-Sec-2'),
     document.querySelector('footer'),
+    document.querySelector('header'),
 ]
 
 // Initally Hide Full Nav Display:

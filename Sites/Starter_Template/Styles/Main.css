@@ -78,7 +78,7 @@ header {
         line-height: 1.7;
         cursor: pointer;
         color: var(--BodyText-Dark);
-        transition: color 0.33s ease-in-out;
+        transition: color 0.33s ease-out;
     }
 
     #Header-Nav-Button:hover {
@@ -124,7 +124,7 @@ nav {
     z-index: 11;
         height: 87vh;
 
-    background: rgb(241, 240, 240);
+    background: var(--BodyBackground-Light-Defualt);
     box-shadow: 0px 0px 4px black;
 
 }

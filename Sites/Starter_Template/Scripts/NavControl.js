@@ -24,6 +24,7 @@ function ToggleNav() {
         MainNavList.style.display = 'flex';
 
         MainNav.style.animation = 'OpenNav .7s forwards 1 ease-in-out';
+        MainNavList.style.animation = 'OpenNav .7s forwards 1 ease-in-out';
         //MainNav.style.animationPlayState = 'running';
 
     } else {
@@ -47,9 +48,12 @@ function ToggleExtraNav1() {
     if(ExtraNavList1.style.display == 'none'){
         MainNavList.style.display = 'none';
         ExtraNavList1.style.display = 'flex';
+        ExtraNavList1.style.animation = 'OpenNav .7s forwards 1 ease-in-out';
     } else {
         MainNavList.style.display = 'flex';
         ExtraNavList1.style.display = 'none';
+        ExtraNavList1.style.animation = 'CloseNav .7s forwards 1 ease-in-out';
+        MainNavList.style.animation = 'OpenNav .7s forwards 1 ease-in-out';
     }
 }
 

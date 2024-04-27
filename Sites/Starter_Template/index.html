@@ -24,52 +24,61 @@
 <body>
 
     <header>
-        <div id="Header-Sec-1">
-            <!-- Should proaobly leave empty as this is where the NAV button is located -->
-        </div>
+        <!-- <div id="Header-Sec-1">
+             Should proaobly leave empty as this is where the NAV button is located 
+        </div>  -->
 
-        <div id="Header-Sec-2">
-            <span class="material-symbols-rounded" onclick="location.reload()" style="cursor: pointer;"> Description </span> <h2 onclick="location.reload()" style="cursor: pointer;"> SiteTitle </h2>
-        </div>
-
-        <div id="Header-Sec-3">
-           <!--  -->
-        </div>
+            <main id="Nav-Button-Wrap">
+                <span id="Header-Nav-Button" onclick="ToggleNav()" class="material-symbols-rounded"> Browse </span>
+            </main>
+    
+            <div id="Header-Sec-2">
+                <span class="material-symbols-rounded" onclick="location.reload()" style="cursor: pointer;"> Description </span> <h2 onclick="location.reload()" style="cursor: pointer;"> SiteTitle </h2>
+            </div>
+    
+            <div id="Header-Sec-3">
+               <!--  -->
+            </div>
 
     </header>
 
-    <main id="Nav-Button-Wrap">
-        <span id="Header-Nav-Button" onclick="ToggleNav()" class="material-symbols-rounded"> Browse </span>
-    </main>
+   
 
-    <nav id="FullNavWrap">
+    
 
-        <div id="MainNavWrap" style="display: flex;">
-            <a onclick="location.assign('./')"> Home </a>
-            <a> Page 2 </a>
-            <a> Page 3 </a>
-            <a> Page 4 </a>
-            <a> Page 5 </a>
-            <a href="./Starter_Template.zip" download=""> Download Template </a>
-            <a onclick="ToggleExtraNav1()"> More </a>
-        </div>
-
-        <div id="Extra1NavWrap" style="display: none;">
-            <a> About Us </a>
-            <a> Contact </a>
-            <a> Privacy Policy </a>
-            <a> Terms & Condititons </a>
-            <a onclick="ToggleExtraNav1()"> &#8592; </a>
-        </div>
-
-        <div>
-            <a style="font-size: small;"> Need Help? <br> Contact Us </a>
-        </div>
-
-    </nav>
+    
 
     <main id="FullBodyWrap">
         <p> (Full Body Area) </p>
+
+
+        <nav id="FullNavWrap">
+
+            <div id="MainNavWrap" style="display: flex;">
+                <a onclick="location.assign('./')"> Home </a>
+                <a> Page 2 </a>
+                <a> Page 3 </a>
+                <a> Page 4 </a>
+                <a> Page 5 </a>
+                <a href="./Starter_Template.zip" download=""> Download Template </a>
+                <a onclick="ToggleExtraNav1()"> More </a>
+            </div>
+    
+            <div id="Extra1NavWrap" style="display: none;">
+                <a> About Us </a>
+                <a> Contact </a>
+                <a> Privacy Policy </a>
+                <a> Terms & Condititons </a>
+                <a onclick="ToggleExtraNav1()"> &#8592; </a>
+            </div>
+    
+            <div>
+                <a style="font-size: small;"> Need Help? <br> Contact Us </a>
+            </div>
+    
+        </nav>
+        <div id="ClickOffNavWrap">
+        </div>
     </main>
 
     <footer>

@@ -4,10 +4,12 @@ let ExtraNavList1 = document.getElementById('Extra1NavWrap');
 let FullBodyWrap = document.getElementById('FullBodyWrap');
 
 let CloseClickElements = [
-    FullBodyWrap,
-    // document.getElementById('Header-Sec-2'),
+    // FullBodyWrap,
+    document.getElementById('Header-Sec-2'),
+    document.getElementById('Header-Sec-3'),
+    document.getElementById('ClickOffNavWrap'),
     document.querySelector('footer'),
-    document.querySelector('header'),
+    //document.querySelector('header'),
 ]
 
 // Initally Hide Full Nav Display:

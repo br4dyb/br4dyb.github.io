@@ -5,206 +5,57 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@40,700,0,0" />
 
-    <link rel="stylesheet" href="./BouncyBlocks_MainStyle.css" >
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/animations.css">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
         
-    <title>Bouncy Blocks</title>
-
-    
-        <style>
-
-            body {
-                background-color: rgb(140, 83, 193);
-            }
-
-                @keyframes BodyBackgroundBlackKeyFrames {
-
-                    0% {
-                        background-color: rgb(140, 83, 193);
-                    }
-
-                    100% {
-                        background-color: black
-                    }
-                }
-
-            .Header_MenuButtonStyle {
-                color: orange;
-                transition: color 0.5s ease-in-out, transform 1s ease-in-out;
-                display: inline-block;
-                transform: scale(1); /* Initial scale */
-
-            }
-
-                .Header_MenuButtonStyle:hover {
-                    color: rgb(255, 213, 0);
-                    transform: scale(1.2);  
-                }
-
-            .Header_TrophyButtonStyle {
-                color: orange;
-                transition: color 0.5s ease-in-out, transform 1s ease-in-out;
-                display: inline-block;
-                transform: scale(1); /* Initial scale */
-
-            }
-
-                .Header_TrophyButtonStyle:hover {
-                    color: limegreen;
-                    transform: scale(1.2);  
-                }
-
-            @keyframes YellowToOrangeColor {
-
-                0% {
-                    color: yellow;
-                    transform: scale(1.5);
-                }
-
-                100% {
-                    color: greenyellow;
-                    transform: scale(1.6);
-                }
-
-            }
-
-            #LandingFullBodyWrap {
-                /* background: yellow; */
-                flex: 0.75;
-                position: relative;
-                top: 10%;
-
-            }
-
-          
-
-            .WelcomeStartScreen {
-                background: rgba(0, 0, 0, 0.479);
-                display: flex;
-                padding: 80px 75px;
-                flex: 1 1 auto;
-                position: relative;
-                left: 50%;
-                top: 50%;
-
-                transform: translate(-50%, -50%);
-
-
-
-                width: fit-content;
-                height: fit-content;
-
-                
-                
-                
-
-                border-radius: 25px;
-                /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.681); */
-                
-            }
-
-            
-        </style>
-
+    <title> Bouncy Blocks </title>
 
 </head>
 
 
 
 
-<header class="header_wrap">
+<header>
 
-   <nav class="Between_Flex Left_Right_Grid">
+    <a href="./"> <span class="material-symbols-rounded header_buttonstyle"> Widgets </span> </a>
 
-    <a href="./"> <span class="material-symbols-rounded Header_MenuButtonStyle"> Lists </span> </a>
+    <h1 onclick="location.reload()" style="animation: title-scale-up 1s alternate infinite; cursor: pointer; position: relative; bottom: 2px;"> Bouncy Blocks!</h1>
 
-    <h1 onclick="ReloadPage()" style="animation: YellowToOrangeColor 0.5s ease-in-out infinite alternate; font-family: 'Rubik Puddles'; line-height: 1; transform: scale(1.35);"> Bouncy Blocks!</h1>
-    <a href="./"> <span class="material-symbols-rounded Header_TrophyButtonStyle"> Hotel_Class </span> </a>
-
-   </nav>
+    <a href="./"> <span class="material-symbols-rounded header_buttonstyle"> Hotel_Class </span> </a>
 
 </header>
 
 <body>
 
-<div id="LandingFullBodyWrap">
+    <main id="FullBodyWrap">
 
-    <div class="WelcomeStartScreen Center_Flex Between_Flex Top_Bottom_Grid">
+        <div id="StartGameWrap">
+            <h2 style="color: #f6c873;"> Game Options: </h2>
 
-        <button id="BigStartButton" onclick="StartButtonClicked()"> Start! </button>
-        <button class="MediumMainButton" onclick="LeaderboardButtonClicked()"> Leaderboard </button>
-        <button id="AnimateBox" class="MediumMainButton" onclick="HowToPlayButtonClicked()"> How to Play </button>
-
-
-        <script>
-
-            let GameAlreadyStarted = false
-
-            const LandingFullBodyWrapEl = document.getElementById('LandingFullBodyWrap')
-            const StartButton = document.getElementById('BigStartButton')
-
-            function StartButtonClicked() {
-
-                alert('| Start Button: Clicked! | Game Started: ' + GameAlreadyStarted + '! | ')
-                alert(' GAME STARTING . . .')
-
-                CloseStartPage()
-                GameAlreadyStarted = true
-    
+            <form id="GameOptionsWrap">
+                <div id="DificultyOptions">
+                    <p> Dificulty:</p>
+                    <input type="range" id="Dificulty_Selector" step="50" value="0"> 
+                    <p id="DificultySelectedLabel"> Easy</p>
+                </div>
                 
-            }
+                <div id="PlayerOptions">
+                    <p> Player Color:</p>
+                    <input type="color" value="#007FFF">
+                </div>
 
-            function LeaderboardButtonClicked() {
-                alert('You have opened the leaderboard!')
-            }
+            </form>
 
-            function HowToPlayButtonClicked() {
-                alert('You have opened the info page!')
-            }
+            <button id="StartGameButton" onclick=""> Start </button>
 
-            function ReloadPage() {
-                location.reload()
-            }
+        </div>
 
-            function CloseStartPage() {
+    </main>
 
-                 const box_toclose = document.getElementById('LandingFullBodyWrap');
-
-                anime({
-                    targets: '#LandingFullBodyWrap',
-                    easing: 'easeInOutBack', // Easing function for smoother animation
-                    scale: [
-                        {value: .01, easing: 'easeInBack', duration: 1777},
-                        // {value: 1, easing: 'easeInSine', duration: 1200}
-                    ],
-                    loop: false, // Loop the animation infinitely
-
-                    changeComplete: function(anim) {
-
-                        document.body.style.animationName = 'BodyBackgroundBlackKeyFrames'
-                        document.body.style.animationDuration = '1.5s'
-                        document.body.style.animationDelay = '1s'
-                        document.body.style.animationPlayState = 'running'
-                        document.body.style.animationFillMode = 'both'
-
-                        box_toclose.style.display = 'none'
-                    }
-                });
-
-            }
-
-            
-
-        </script>
-
-    
-    </div>
-
-</div>
+   
 
 
 </body>

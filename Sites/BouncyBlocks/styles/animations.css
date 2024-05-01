@@ -1,12 +1,19 @@
-@keyframes title-scale-up {
+@keyframes title-color-change {
     0% {
-        scale: 1;
         color: #386641;
     }
 
     100% {
-        scale: 1.2;
-        
         color: #94cf72;
+    }
+}
+
+@keyframes scale-up {
+    0% {
+        scale: 1;
+    }
+
+    100% {
+        scale: 1.2;
     }
 }

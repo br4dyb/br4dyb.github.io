@@ -1,7 +1,6 @@
 let DificultySelectedLabel = document.getElementById('DificultySelectedLabel');
 
 function DificultyChange(elm, value) {
-    console.log(`ChangeEvent - Fired! | [1st Arg]: ${elm} | [2nd Arg]: ${value}`);
 
     if(value == '0'){
         DificultySelectedLabel.innerText = 'Easy';
@@ -20,6 +19,6 @@ function DificultyChange(elm, value) {
     }
 }
 
-console.log(`[Dificulty Script]: LOADED! `)
+// console.log(`[Dificulty Script]: LOADED! `)
 
 DificultyChange(null, 0);

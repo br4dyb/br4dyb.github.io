@@ -7,12 +7,9 @@ let GameStartedAlert = false; // For DeBugging :)
 // Game Options - Constant:
 let PlayerBirdSize = 50;
 
-let ObsticleColor = '#0ffff';
+let ObsticleColor = '#000000';
 let ObsticleFlyGap = (PlayerBirdSize + 15);
 let ObsticleBetweenGap = 150;
-
-
-
 
 
 
@@ -37,6 +34,7 @@ function StartGame() {
         `);
     }
 
+    // GameArea Heights:
     let FullGameAreaHeight = getComputedStyle(FullGameplayArea).height
     let HalfGameAreaHeight = (FullGameAreaHeight.replace('px','')/2);
     
@@ -51,8 +49,16 @@ function StartGame() {
     PlayerBird.style.left = '20px';
         FullGameplayArea.appendChild(PlayerBird)
 
+
+
+} // <-- End StartGame Function
+
+// Jump Events: - Not Working?
+    document.getElementById('FullGameplayArea').addEventListener('click', PlayerJump(this));
+
+    function PlayerJump(e) {
+        console.log('Bird Jump!');
 }
 
 // Script Load Msg:
-console.log(`[GameFunctionality] | Scripted Loaded In!`);
-console.log(`[GameFunctionality] | FlyGap Size: ${ObsticleFlyGap}`);
+// console.log(`[GameFunctionality] | Scripted Loaded In!`);

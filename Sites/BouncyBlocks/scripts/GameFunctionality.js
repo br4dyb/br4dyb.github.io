@@ -13,10 +13,10 @@ function StartGame() {
     FullGameStartOptionsWrap.style.animation = 'opacity-out .5s forwards ease-in-out';
     
 
-    // alert(`Game Started!:
-    //     Dificulty: ${SelectedDificulty}
-    //     Player Color: ${SelectedPlrColor}
-    // `);
+    alert(`Game Started!:
+        Dificulty: ${SelectedDificulty}
+        Player Color: ${SelectedPlrColor}
+    `);
 
 
 }

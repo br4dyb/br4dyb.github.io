@@ -22,7 +22,9 @@
 
     <a href="./"> <span class="material-symbols-rounded header_buttonstyle"> Widgets </span> </a>
 
-    <h1 onclick="location.reload()" style="animation: scale-up 1s alternate infinite, title-color-change 1s alternate infinite; cursor: pointer; position: relative; bottom: 2px;"> Bouncy Blocks!</h1>
+    <div id="HeaderTitleWrap">
+        <h1 onclick="location.reload()" id="HeaderTitle" style=""> Bouncy Blocks!</h1>
+    </div> 
 
     <a href="./"> <span class="material-symbols-rounded header_buttonstyle"> Hotel_Class </span> </a>
 
@@ -37,18 +39,18 @@
 
             <form id="GameOptionsWrap">
 
-                <h2 style="color: #f6c873;"> Game Options: </h2>
+                <h2 style="text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.386);"> Game Options: </h2>
 
                 <div id="OptionsGridWrap">
                     <div id="DificultyOptions">
                         <p> Dificulty:</p>
                         <input type="range" id="Dificulty_Selector" onchange="DificultyChange(this, value)" step="50" value="0"> 
-                        <p id="DificultySelectedLabel"> Easy</p>
+                        <p id="DificultySelectedLabel" style="text-shadow: 0px 0px 3px black;"> Easy</p>
                     </div>
                     
                     <div id="PlayerOptions">
                         <p> Player Color:</p>
-                        <input type="color" value="#ffff33">
+                        <input id="PlrColorSelector" type="color" value="#ffff33">
                     </div>
 
                 </div>
@@ -57,10 +59,11 @@
             </form>
 
             <div id="StartButtonWrap">
-                <button id="StartGameButton" onclick=""> Start </button>
+                <button id="StartGameButton" onclick="StartGame()"> Start </button>
             </div>
             
             <script src="./scripts/Change-Dificulty.js"></script>
+            <script src="./scripts/GameFunctionality.js"></script>
 
         </div>
 

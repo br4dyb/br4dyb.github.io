@@ -48,6 +48,24 @@ header {
     transition: color 0.3s ease-in-out;
 }
 
+#HeaderTitleWrap {
+    /* background: pink; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 4px;
+}
+
+#HeaderTitle {
+    animation: scale-up 1s alternate infinite, title-color-change 1s alternate infinite; 
+    cursor: pointer; 
+    position: relative; 
+    bottom: 2px;
+    text-wrap: wrap;
+    /* background: #386641; */
+    text-align: center;
+}
+
 .header_buttonstyle {
     transition: color 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
@@ -67,16 +85,18 @@ header {
 #FullBodyWrap {
     position: absolute;
     /* background: #a1369c; */
-    top: 10vh;
+    z-index: -1;
+    /* top: 10vh; */
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: calc(100% - 10vh);
+    /* height: calc(100% - 10vh); */
+    height: 100%;
 }
 
 #StartGameWrap {
-    background: #94cf72;
+    background: #3639a1;
     border-radius: 10px;
     box-shadow: 0px 0px 1.5px black;
     padding: 10px;
@@ -87,11 +107,11 @@ header {
     height: fit-content;
     padding: 20px;
     gap: 10px;
-    width: 38%;
+    width: 43%;
 }
 
 #GameOptionsWrap {
-    background: rgba(0, 55, 128, 0.664);
+    background: #2ec940a9;
     border-radius: 10px;
     padding: 10px;
     display: flex;
@@ -111,22 +131,24 @@ header {
 }
 
 #StartButtonWrap {
-    background: rgba(0, 55, 128, 0.664);
+    /* background: #2ec940a9; */
     width: 75%;
+    height: fit-content;
     border-radius: 10px;
-    padding: 10px;
+    padding-top: 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
     gap: 10px;
-    box-shadow: 0px 0px 1.5px black;
+    /* box-shadow: 0px 0px 1.5px black; */
 }
 
 #StartGameButton {
-    background: #6fba39;
-    color: #386641;
-    width: 45%;
+    /* background: #eecb3d; */
+    background: rgba(0, 0, 0, .55);
+    color: #53c069;
+    width: 65%;
     min-width: fit-content;
     align-self: center;
     padding: 4px 3px 4px 5px;
@@ -138,10 +160,13 @@ header {
     box-shadow: 0px 0px 2.5px black;
     text-shadow: 0px 0px 1.5px black;
     cursor: pointer;
+    transition: color 0.4s ease-in-out, background 0.4s ease-in-out;
     animation: title-scale-up 1s 1 reverse both;
 }
 
 #StartGameButton:hover {
-    animation: title-color-change 1s infinite alternate both, scale-up 1s infinite alternate both;
-    transition: all 1s ease-in-out;
+    /* animation: title-color-change 1s infinite alternate both, scale-up 1s infinite alternate-reverse both; */
+    color: lime;
+    background: rgba(238, 173, 61, 0.7);
+
 }

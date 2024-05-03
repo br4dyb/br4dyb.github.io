@@ -10,10 +10,53 @@
 
 @keyframes scale-up {
     0% {
-        scale: 1;
+        scale: .9;
     }
 
     100% {
-        scale: 1.2;
+        scale: 1;
     }
+}
+
+
+@keyframes hide-header {
+    
+    0% {
+        position: absolute;
+        top: 0px;
+        display: flex;
+    }
+
+    100% {
+        position: absolute;
+        top: -110%;
+        display: none;
+    }
+}
+
+@keyframes show-header {
+
+    0% {
+        position: absolute;
+        top: -110%;
+        display: flex;
+    }
+
+    100% {
+        position: absolute;
+        top: 0px;
+    }
+
+}
+
+@keyframes opacity-out {
+    
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+
 }

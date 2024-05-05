@@ -24,7 +24,9 @@ a, a:visited, a:active{
 }
 
 body {
-    background: #7E7F9A;
+    /* background: #7E7F9A; */
+    background: url(https://i.gifer.com/embedded/download/PADF.gif);
+    background-size: cover;
     display: flex;
     flex-direction: column;
 
@@ -178,4 +180,10 @@ header {
     background: rgb(105, 188, 114);
     height: 100%;
     width: 100%;
+    overflow: hidden;
+}
+
+#PlayerBird {
+    transition: all 0.05s ease-in-out;
+    box-shadow: -3px 1px 5px rgba(0, 0, 0, 0.512);
 }

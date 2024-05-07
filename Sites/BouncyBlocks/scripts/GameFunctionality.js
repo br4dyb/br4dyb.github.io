@@ -5,6 +5,7 @@ let SiteHeader = document.querySelector('header');
 let GameStartedAlert = false; // For DeBugging :)
 let GameStarted = false;
 let BirdJumping = false;
+let PlayerBird;
 
 // Game Options - Constant:
 let PlayerBirdSize = 50; //(px)
@@ -53,6 +54,32 @@ function stopGameLoop() {
     clearInterval(ObsticleSpawnLoop);
 }
 
+// Check Collisions:
+function checkCollisions() {
+    // Get bird position
+    let birdRect = PlayerBird.getBoundingClientRect();
+
+    // Get all obstacle wraps
+    let obstacleWraps = document.querySelectorAll('.ObsticleWrap');
+
+    // Check collision with each obstacle
+    obstacleWraps.forEach(obstacleWrap => {
+        let obstacleWrapRect = obstacleWrap.getBoundingClientRect();
+
+        // Check if the bird overlaps with the obstacle wrap
+        if (birdRect.right > obstacleWrapRect.left && 
+            birdRect.left < obstacleWrapRect.right &&
+            birdRect.bottom > obstacleWrapRect.top &&
+            birdRect.top < obstacleWrapRect.bottom) {
+            console.warn(`GAME ENDED! | Bird Hit an Obstacle!`);
+            stopGameLoop();
+            GameStarted = false;
+            alert('Game Over!');
+            location.reload();
+        }
+    });
+}
+
 // Function to apply gravity to the player bird
 function applyGravity() {
     if (GameStarted) {
@@ -63,6 +90,7 @@ function applyGravity() {
         // Check for Bird already jumping:
         if(BirdJumping == false){
             PlayerBird.style.top = NewHeight;
+            checkCollisions();
         }
        
 
@@ -113,7 +141,8 @@ function CreateObsticles() {
     let ObsticleBottom = document.createElement('canvas');
     let FullObsticle = [ObsticleTop, ObsticleBottom]
 
-    ObsticleWrap.id = 'ObsticleWrap';
+    ObsticleTop.className = 'ObsticleWrap';
+    ObsticleBottom.className = 'ObsticleWrap';
     ObsticleWrap.style.display = 'flex';
     ObsticleWrap.style.flexDirection = 'column';
 
@@ -175,7 +204,7 @@ function StartGame() {
     let HalfGameAreaHeight = (FullGameAreaHeight.replace('px','')/2);
 
     // Create Player Bird:
-    let PlayerBird = document.createElement('canvas');
+    PlayerBird = document.createElement('canvas');
     PlayerBird.id = "PlayerBird";
     PlayerBird.style.width = `${PlayerBirdSize +'px'}`;
     PlayerBird.style.height = `${PlayerBirdSize +'px'}`;
@@ -217,11 +246,13 @@ function StartGame() {
                 //Stop at Sky:
                 if(parseInt(NewHeight) >= 0){
                     PlayerBird.style.top = NewHeight;
+                    checkCollisions();
                     setTimeout(() => {
                         BirdJumping = false;
                     }, GravityTime);
                 } else{
                     console.info('Bird Hit the Sky!')
+                    checkCollisions();
                     BirdJumping = false;
                 }
 

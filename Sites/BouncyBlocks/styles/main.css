@@ -25,10 +25,14 @@ a, a:visited, a:active{
 
 body {
     /* background: #7E7F9A; */
-    background: url(https://i.gifer.com/embedded/download/PADF.gif);
+    background: url(https://i0.wp.com/www.thisiscolossal.com/wp-content/uploads/2014/06/8.gif);
     background-size: cover;
     display: flex;
     flex-direction: column;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 
 }
 

@@ -24,7 +24,7 @@ let ObsticleMoveSpeed = '15s'; //(seconds)
 
 let GravityTime = 90; //(ms)
 let GravityDistanceX = 10;//(px)
-let GravityDistanceY = 19;//(px)
+let GravityDistanceY = 17.5;//(px)
 
 
 // Jump Listeners:
@@ -202,7 +202,7 @@ function CreateObsticles() {
 
         FullGameplayArea.appendChild(ObsticleWrap);
 
-        ObsticleTop.style.height = ((Math.random()*60)+'vh')
+        ObsticleTop.style.height = ((Math.random()*50)+'vh')
             ObsticleTop.style.backgroundColor = ObsticleColor;
             ObsticleBottom.style.backgroundColor = ObsticleColor;
         ObsticleBottom.style.height = '200vh';

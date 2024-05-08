@@ -23,7 +23,7 @@
     <a href="./"> <span class="material-symbols-rounded header_buttonstyle"> Widgets </span> </a>
 
     <div id="HeaderTitleWrap">
-        <h1 onclick="location.reload()" id="HeaderTitle" style=""> Bouncy Blocks!</h1>
+        <h1 onclick="location.reload()" id="HeaderTitle"> Bouncy Blocks!</h1>
     </div> 
 
     <a href="./"> <span class="material-symbols-rounded header_buttonstyle"> Hotel_Class </span> </a>
@@ -39,7 +39,7 @@
 
             <form id="GameOptionsWrap">
 
-                <h2 style="text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.386);"> Game Options: </h2>
+                <h2 style="color: white; text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.386);"> Game Options: </h2>
 
                 <div id="OptionsGridWrap">
                     <div id="DificultyOptions">
@@ -66,6 +66,10 @@
 
         <section id="FullGameplayArea" onclick="PlayerJump(this)">
 
+            <div id="PlayerScoreboard">
+                <p style="font-size: large;"> Score: </p>
+                <p id="ScoreTextDisplay" style="font-size: medium;"> 0</p>
+            </div>
 
         </section>
 

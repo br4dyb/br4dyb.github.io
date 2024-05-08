@@ -1,11 +1,16 @@
 let FullGameStartOptionsWrap = document.getElementById('StartGameWrap');
 let FullGameplayArea = document.getElementById('FullGameplayArea')
 let SiteHeader = document.querySelector('header');
+let StartGameButton = document.getElementById('StartGameButton')
+
 
 let GameStartedAlert = false; // For DeBugging :)
 let GameStarted = false;
 let BirdJumping = false;
 let PlayerBird;
+
+let ObsticleCount = 0;
+let PlayerScore = 0;
 
 // Game Options - Constant:
 let PlayerBirdSize = 50; //(px)
@@ -17,9 +22,9 @@ let ObsticleFlyGap = (PlayerBirdSize + 100); //(px)
 let ObsticleBetweenGap = 20; //(vw)
 let ObsticleMoveSpeed = '15s'; //(seconds)
 
-let GravityTime = 100; //(ms)
+let GravityTime = 90; //(ms)
 let GravityDistanceX = 10;//(px)
-let GravityDistanceY = 15;//(px)
+let GravityDistanceY = 19;//(px)
 
 
 // Jump Listeners:
@@ -34,6 +39,13 @@ document.addEventListener('DOMContentLoaded', function() {
       if (event.keyCode === 32 || event.key === ' ') {
         PlayerJump('Keypress');
       }
+
+      if (event.keyCode === 13 || event.key === 'Enter') {
+        if(GameStarted === false){
+            StartGame();
+        }
+      }
+
     });
   });
 
@@ -54,6 +66,7 @@ function stopGameLoop() {
     clearInterval(ObsticleSpawnLoop);
 }
 
+
 // Check Collisions:
 function checkCollisions() {
     // Get bird position
@@ -61,6 +74,7 @@ function checkCollisions() {
 
     // Get all obstacle wraps
     let obstacleWraps = document.querySelectorAll('.ObsticleWrap');
+    let FlyPassAreas = document.querySelectorAll('.FlyPassArea');
 
     // Check collision with each obstacle
     obstacleWraps.forEach(obstacleWrap => {
@@ -72,11 +86,33 @@ function checkCollisions() {
             birdRect.bottom > obstacleWrapRect.top &&
             birdRect.top < obstacleWrapRect.bottom) {
             console.warn(`GAME ENDED! | Bird Hit an Obstacle!`);
+
             stopGameLoop();
             GameStarted = false;
             alert('Game Over!');
             location.reload();
         }
+
+    });
+
+    // Check collision with fly through area
+    FlyPassAreas.forEach(FlyArea => {
+        let FlyAreaRect = FlyArea.getBoundingClientRect();
+
+        // Check if the bird overlaps with the obstacle wrap
+        if (birdRect.right > FlyAreaRect.left && 
+            birdRect.left < FlyAreaRect.right &&
+            birdRect.bottom > FlyAreaRect.top &&
+            birdRect.top < FlyAreaRect.bottom) {
+
+                FlyArea.className = 'PassedFlyArea';
+            //console.info(`Score Increased! | Bird flew passed an Obstacle!`);
+
+            PlayerScore = (PlayerScore+1);
+            console.info(`Score: `+PlayerScore)
+            document.getElementById('ScoreTextDisplay').innerText = PlayerScore
+        }
+
     });
 }
 
@@ -96,8 +132,8 @@ function applyGravity() {
 
         // Check for Bird Hit the Ground:
         if(parseInt(NewHeight) >= (parseInt(FullGameAreaHeight)-(PlayerBirdSize-10))) {
-            console.info(`Attempted Height: ${parseInt(NewHeight)}`)
-            console.info(`Full GameArea Height: ${(parseInt(FullGameAreaHeight)-PlayerBirdSize)}`)
+            //console.info(`Attempted Height: ${parseInt(NewHeight)}`)
+            //console.info(`Full GameArea Height: ${(parseInt(FullGameAreaHeight)-PlayerBirdSize)}`)
             console.warn(`GAME ENDED! | Bird Hit the Ground!`)
             
                 //End Game:
@@ -135,18 +171,26 @@ function CreateObsticleWraps() {
 }
 
 function CreateObsticles() {
-
+    ObsticleCount = (ObsticleCount+1);
+    //console.log(`Obsticle Count: ` + ObsticleCount)
     let ObsticleWrap = document.createElement('div');
     let ObsticleTop = document.createElement('canvas');
+    let ObsticleFlyGapArea = document.createElement('canvas');
     let ObsticleBottom = document.createElement('canvas');
-    let FullObsticle = [ObsticleTop, ObsticleBottom]
+    let FullObsticle = [ObsticleTop, ObsticleFlyGapArea, ObsticleBottom]
 
     ObsticleTop.className = 'ObsticleWrap';
     ObsticleBottom.className = 'ObsticleWrap';
     ObsticleWrap.style.display = 'flex';
     ObsticleWrap.style.flexDirection = 'column';
 
-    ObsticleWrap.style.gap = (ObsticleFlyGap + 'px');
+    //ObsticleWrap.style.gap = (ObsticleFlyGap + 'px');
+    
+    ObsticleFlyGapArea.style.height = (ObsticleFlyGap + 'px');
+    ObsticleFlyGapArea.style.background = 'none';
+    ObsticleFlyGapArea.id = `Obsticle_${ObsticleCount}`
+    ObsticleFlyGapArea.className = 'FlyPassArea';
+
     ObsticleWrap.style.height = 'fit-content';
     ObsticleWrap.style.width = (ObsticleWidth + 'vw');
 
@@ -156,18 +200,20 @@ function CreateObsticles() {
 
     ObsticleWrap.style.animation = `move-obsticle forwards ${ObsticleMoveSpeed}`
 
-        //document.getElementById('AllObsticlesWrap').appendChild(ObsticleWrap);
         FullGameplayArea.appendChild(ObsticleWrap);
 
         ObsticleTop.style.height = ((Math.random()*60)+'vh')
-            ObsticleTop.style.backgroundColor = 'blue';
-            ObsticleBottom.style.backgroundColor = 'red';
+            ObsticleTop.style.backgroundColor = ObsticleColor;
+            ObsticleBottom.style.backgroundColor = ObsticleColor;
         ObsticleBottom.style.height = '200vh';
+        ObsticleTop.style.borderRadius = '10px';
+        ObsticleBottom.style.borderRadius = '10px';
 
     FullObsticle.forEach(elm => {
-        elm.style.backgroundColor = ObsticleColor;
-        elm.style.borderRadius = '10px';
-        elm.style.width = '10vw';
+        elm.style.boxSizing = 'content-box'
+        //elm.style.backgroundColor = ObsticleColor;
+        
+        elm.style.width = '50px';
         ObsticleWrap.appendChild(elm);
     });
 
@@ -213,6 +259,8 @@ function StartGame() {
     PlayerBird.style.position = 'relative';
     PlayerBird.style.top = (HalfGameAreaHeight + 'px');
     PlayerBird.style.left = '20px';
+    PlayerBird.style.zIndex = '20';
+    PlayerBird.style.boxSizing = 'content-box'
         FullGameplayArea.appendChild(PlayerBird);
         CreateObsticleWraps()
 
@@ -234,7 +282,7 @@ function StartGame() {
 
         //Check Jump Conditions:
         if((e.id == "FullGameplayArea" || e == "Keypress") && GameStarted) {
-            console.trace(`Jump Accepted`);
+            //console.trace(`Jump Accepted`);
             
 
             let CurHeight = getComputedStyle(PlayerBird).top.replace('px', '');

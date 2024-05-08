@@ -198,7 +198,7 @@ function CreateObsticles() {
     ObsticleWrap.style.top = '-10px'
     ObsticleWrap.style.left = '100%'
 
-    ObsticleWrap.style.animation = `move-obsticle forwards ${ObsticleMoveSpeed}`
+    ObsticleWrap.style.animation = `move-obsticle forwards ${ObsticleMoveSpeed} ease-in-out`
 
         FullGameplayArea.appendChild(ObsticleWrap);
 

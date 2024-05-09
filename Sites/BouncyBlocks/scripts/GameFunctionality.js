@@ -20,14 +20,15 @@ let ObsticleColor = '#000000';
 let ObsticleWidth = '10'; //(vw)
 let ObsticleFlyGap = (PlayerBirdSize + 100); //(px)
 let ObsticleBetweenGap = 20; //(vw)
-let ObsticleMoveSpeed = '15s'; //(seconds)
+let ObsticleMoveSpeed = '15s'; //(s)
+let ObsticleRandomPosMultiplier = 50; // Random Top Obsticle Position Mulitplier (Easy Default: 50)
 
 let GravityTime = 90; //(ms)
-let GravityDistanceX = 8;//(px)
+let GravityDistanceX = 5;//(px)
 let GravityDistanceY = 17.5;//(px)
 
 
-// Jump Listeners:
+// Click/Key Listeners:
 document.addEventListener('DOMContentLoaded', function() {
 
     //GameArea Click:
@@ -50,17 +51,17 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 
-// Gravity/Game Loops:
+// Gravity/Game Loop(s) Definitions:
 let gravityInterval;
 let ObsticleSpawnLoop;
 
-// Start the game loop when the game starts
+// Start Game Loop Function:
 function startGameLoop() {
     gravityInterval = setInterval(applyGravity, GravityTime);
     //console.log('Applying Gravity');
 }
 
-// Stop the game loop when the game ends
+// Stop Game Loop Function:
 function stopGameLoop() {
     clearInterval(gravityInterval);
     clearInterval(ObsticleSpawnLoop);
@@ -114,9 +115,9 @@ function checkCollisions() {
         }
 
     });
-}
+} 
 
-// Function to apply gravity to the player bird
+// Apply Bird Gravity Function:
 function applyGravity() {
     if (GameStarted) {
         let FullGameAreaHeight = getComputedStyle(FullGameplayArea).height
@@ -160,6 +161,7 @@ function applyGravity() {
     }
 }
 
+// Create Obsticle Loops:
 function CreateObsticleWraps() {
         setTimeout(() => {
             CreateObsticles()
@@ -170,6 +172,7 @@ function CreateObsticleWraps() {
         }, 100);
 }
 
+// Obsticle(each) Spawn Function:
 function CreateObsticles() {
     ObsticleCount = (ObsticleCount+1);
     //console.log(`Obsticle Count: ` + ObsticleCount)
@@ -184,25 +187,25 @@ function CreateObsticles() {
     ObsticleWrap.style.display = 'flex';
     ObsticleWrap.style.flexDirection = 'column';
 
-    //ObsticleWrap.style.gap = (ObsticleFlyGap + 'px');
+    //ObsticleWrap.style.gap = (ObsticleFlyGap + 'px'); // (Old Fly Through Gap)
     
     ObsticleFlyGapArea.style.height = (ObsticleFlyGap + 'px');
     ObsticleFlyGapArea.style.background = 'none';
-    ObsticleFlyGapArea.id = `Obsticle_${ObsticleCount}`
+    ObsticleFlyGapArea.id = `Obsticle_${ObsticleCount}`;
     ObsticleFlyGapArea.className = 'FlyPassArea';
 
     ObsticleWrap.style.height = 'fit-content';
     ObsticleWrap.style.width = (ObsticleWidth + 'vw');
 
     ObsticleWrap.style.position = 'absolute';
-    ObsticleWrap.style.top = '-10px'
-    ObsticleWrap.style.left = '100%'
+    ObsticleWrap.style.top = '-10px';
+    ObsticleWrap.style.left = '100%';
 
     ObsticleWrap.style.animation = `move-obsticle forwards ${ObsticleMoveSpeed}`
 
         FullGameplayArea.appendChild(ObsticleWrap);
 
-        ObsticleTop.style.height = ((Math.random()*50)+'vh')
+        ObsticleTop.style.height = ((Math.random() * ObsticleRandomPosMultiplier) + 'vh');
             ObsticleTop.style.backgroundColor = ObsticleColor;
             ObsticleBottom.style.backgroundColor = ObsticleColor;
         ObsticleBottom.style.height = '200vh';
@@ -226,6 +229,7 @@ function CreateObsticles() {
 
 }
 
+// Start Game Function:
 function StartGame() {
     // Get Selected Game Option Variables:
     let SelectedDificulty = document.getElementById('DificultySelectedLabel').innerText;
@@ -263,12 +267,14 @@ function StartGame() {
     PlayerBird.style.left = '20px';
     PlayerBird.style.zIndex = '20';
     PlayerBird.style.boxSizing = 'border-box';
+
+    //Spawn Bird & Start Obsticle Spawns:
         FullGameplayArea.appendChild(PlayerBird);
         CreateObsticleWraps()
 
     GameStarted = true;
     startGameLoop();
-} // <-- End StartGame Function
+}
 
 // Jump Events:
     

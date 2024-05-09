@@ -1,9 +1,10 @@
+// Document Elements:
 let FullGameStartOptionsWrap = document.getElementById('StartGameWrap');
 let FullGameplayArea = document.getElementById('FullGameplayArea')
 let SiteHeader = document.querySelector('header');
 let StartGameButton = document.getElementById('StartGameButton')
 
-
+// Game Variables:
 let GameStartedAlert = false; // For DeBugging :)
 let GameStarted = false;
 let BirdJumping = false;
@@ -27,6 +28,10 @@ let GravityTime = 90; //(ms)
 let GravityDistanceX = 5;//(px)
 let GravityDistanceY = 17.5;//(px)
 
+// Gravity/Game Loop(s) Definitions:
+let gravityInterval;
+let ObsticleSpawnLoop;
+
 
 // Click/Key Listeners:
 document.addEventListener('DOMContentLoaded', function() {
@@ -48,24 +53,19 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
     });
-  });
-
-
-// Gravity/Game Loop(s) Definitions:
-let gravityInterval;
-let ObsticleSpawnLoop;
+});
 
 // Start Game Loop Function:
 function startGameLoop() {
     gravityInterval = setInterval(applyGravity, GravityTime);
     //console.log('Applying Gravity');
-}
+};
 
 // Stop Game Loop Function:
 function stopGameLoop() {
     clearInterval(gravityInterval);
     clearInterval(ObsticleSpawnLoop);
-}
+};
 
 
 // Check Collisions:
@@ -115,7 +115,7 @@ function checkCollisions() {
         }
 
     });
-} 
+};
 
 // Apply Bird Gravity Function:
 function applyGravity() {
@@ -159,7 +159,7 @@ function applyGravity() {
 
         
     }
-}
+};
 
 // Create Obsticle Loops:
 function CreateObsticleWraps() {
@@ -170,7 +170,7 @@ function CreateObsticleWraps() {
             ObsticleSpawnLoop = setInterval(CreateObsticles, 2500);
 
         }, 100);
-}
+};
 
 // Obsticle(each) Spawn Function:
 function CreateObsticles() {
@@ -227,13 +227,14 @@ function CreateObsticles() {
     })
 
 
-}
+};
 
 // Start Game Function:
 function StartGame() {
     // Get Selected Game Option Variables:
     let SelectedDificulty = document.getElementById('DificultySelectedLabel').innerText;
     let SelectedPlrColor = document.getElementById('PlrColorSelector').value;
+    let GameSoundsCheckbox = document.getElementById('GameSoundsCheckbox').value; // not getting (un)/checked properly?
     
     // Hide Header and GameStart Area:
     SiteHeader.style.animation = 'hide-header 1s forwards ease-in-out';
@@ -248,6 +249,7 @@ function StartGame() {
         alert(`Game Started!:
             Dificulty: ${SelectedDificulty}
             Player Color: ${SelectedPlrColor}
+            Game Sounds: ${GameSoundsCheckbox}
         `);
     }
     
@@ -274,52 +276,50 @@ function StartGame() {
 
     GameStarted = true;
     startGameLoop();
-}
+};
 
 // Jump Events:
+function PlayerJump(e) {
     
+    //DeBugging:
+    function JumpDebug() {
+        console.log('Bird Jump!');
+        console.log(`'e': ${e}`);
+        console.log(`'e.id': ${e.id}`);
+    } //JumpDebug();
 
-    function PlayerJump(e) {
+    //Check Jump Conditions:
+    if((e.id == "FullGameplayArea" || e == "Keypress") && GameStarted) {
+        //console.trace(`Jump Accepted`);
         
-        //DeBugging:
-        function JumpDebug() {
-            console.log('Bird Jump!');
-            console.log(`'e': ${e}`);
-            console.log(`'e.id': ${e.id}`);
-        } //JumpDebug();
 
-        //Check Jump Conditions:
-        if((e.id == "FullGameplayArea" || e == "Keypress") && GameStarted) {
-            //console.trace(`Jump Accepted`);
+        let CurHeight = getComputedStyle(PlayerBird).top.replace('px', '');
+
+        if(CurHeight >> 0) {
+            let NewHeight = (CurHeight - BirdJumpStrength) + 'px';
+            BirdJumping = true;
             
-
-            let CurHeight = getComputedStyle(PlayerBird).top.replace('px', '');
-
-            if(CurHeight >> 0) {
-                let NewHeight = (CurHeight - BirdJumpStrength) + 'px';
-                BirdJumping = true;
-                
-                //Stop at Sky:
-                if(parseInt(NewHeight) >= 0){
-                    PlayerBird.style.top = NewHeight;
-                    checkCollisions();
-                    setTimeout(() => {
-                        BirdJumping = false;
-                    }, GravityTime);
-                } else{
-                    console.info('Bird Hit the Sky!')
-                    checkCollisions();
+            //Stop at Sky:
+            if(parseInt(NewHeight) >= 0){
+                PlayerBird.style.top = NewHeight;
+                checkCollisions();
+                setTimeout(() => {
                     BirdJumping = false;
-                }
-
-                
+                }, GravityTime);
+            } else{
+                console.info('Bird Hit the Sky!')
+                checkCollisions();
+                BirdJumping = false;
             }
 
-
-
+            
         }
-        
-    } // <-- End PlayerJump Function
+
+
+
+    }
+    
+};
 
 // Script Load Msg:
 // console.log(`[GameFunctionality] | Scripted Loaded In!`);

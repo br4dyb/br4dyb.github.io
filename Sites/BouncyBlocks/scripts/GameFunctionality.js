@@ -23,7 +23,7 @@ let ObsticleBetweenGap = 20; //(vw)
 let ObsticleMoveSpeed = '15s'; //(seconds)
 
 let GravityTime = 90; //(ms)
-let GravityDistanceX = 10;//(px)
+let GravityDistanceX = 8;//(px)
 let GravityDistanceY = 17.5;//(px)
 
 
@@ -210,7 +210,9 @@ function CreateObsticles() {
         ObsticleBottom.style.borderRadius = '10px';
 
     FullObsticle.forEach(elm => {
-        elm.style.boxSizing = 'content-box'
+        elm.style.boxSizing = 'border-box';
+        elm.style.padding = '0px';
+        elm.style.margin = '0px';
         //elm.style.backgroundColor = ObsticleColor;
         
         elm.style.width = '50px';
@@ -260,7 +262,7 @@ function StartGame() {
     PlayerBird.style.top = (HalfGameAreaHeight + 'px');
     PlayerBird.style.left = '20px';
     PlayerBird.style.zIndex = '20';
-    PlayerBird.style.boxSizing = 'content-box'
+    PlayerBird.style.boxSizing = 'border-box';
         FullGameplayArea.appendChild(PlayerBird);
         CreateObsticleWraps()
 

@@ -121,6 +121,7 @@ header {
     background: #2ec940a9;
     border-radius: 10px;
     padding: 10px;
+    padding-bottom: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -135,6 +136,10 @@ header {
     justify-content: space-evenly;
     align-items: center;
     gap: 25px;
+}
+
+#GameSoundsCheckbox {
+    scale: 1.3;
 }
 
 #StartButtonWrap {

@@ -87,11 +87,9 @@ function checkCollisions() {
             birdRect.bottom > obstacleWrapRect.top &&
             birdRect.top < obstacleWrapRect.bottom) {
             console.warn(`GAME ENDED! | Bird Hit an Obstacle!`);
+            EndGame()
 
-            stopGameLoop();
-            GameStarted = false;
-            alert('Game Over!');
-            location.reload();
+            
         }
 
     });
@@ -100,7 +98,7 @@ function checkCollisions() {
     FlyPassAreas.forEach(FlyArea => {
         let FlyAreaRect = FlyArea.getBoundingClientRect();
 
-        // Check if the bird overlaps with the obstacle wrap
+        // Check if the bird overlaps with the pass wrap
         if (birdRect.right > FlyAreaRect.left && 
             birdRect.left < FlyAreaRect.right &&
             birdRect.bottom > FlyAreaRect.top &&
@@ -139,10 +137,7 @@ function applyGravity() {
             
                 //End Game:
                             // ### RE-ENABLE BELOW VVV ###
-                stopGameLoop();
-                GameStarted = false;
-                alert('Game Over!');
-                location.reload();
+                EndGame()
 
         }
 
@@ -252,6 +247,11 @@ function StartGame() {
             Game Sounds: ${GameSoundsCheckbox}
         `);
     }
+
+    //G-Analytics Event:
+    gtag('event', 'BouncyBlocks_GameStart', {
+        'Starting Score' : 0
+      });
     
     // GameArea Heights:
     let FullGameAreaHeight = getComputedStyle(FullGameplayArea).height
@@ -276,6 +276,19 @@ function StartGame() {
 
     GameStarted = true;
     startGameLoop();
+};
+
+function EndGame() {
+
+    //G-Analytics Event:
+    gtag('event', 'BouncyBlocks_GameEnd', {
+        'Ending Score' : PlayerScore
+        });
+        
+    stopGameLoop();
+            GameStarted = false;
+            alert('Game Over!');
+            location.reload();
 };
 
 // Jump Events:
@@ -303,12 +316,15 @@ function PlayerJump(e) {
             if(parseInt(NewHeight) >= 0){
                 PlayerBird.style.top = NewHeight;
                 checkCollisions();
+
                 setTimeout(() => {
                     BirdJumping = false;
                 }, GravityTime);
+
             } else{
                 console.info('Bird Hit the Sky!')
                 checkCollisions();
+
                 BirdJumping = false;
             }
 

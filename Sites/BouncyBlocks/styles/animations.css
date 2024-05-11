@@ -74,3 +74,15 @@
     }
 
 }
+
+@keyframes GameOverText {
+    from {
+        scale: 1;
+        color: white;
+    }
+
+    to {
+        scale: 1.25;
+        color: rgb(239, 85, 85);
+    }
+}

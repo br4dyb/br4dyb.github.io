@@ -215,3 +215,63 @@ header {
     justify-content: center;
     align-items: center;
 }
+
+#GameOverOverlay {
+    /* background: rgba(0, 0, 0, .55); */
+    background: url(../images/geometric.gif);
+    background-size: cover;
+    color: white;
+    text-shadow: 0px 0px 1.5px black;
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+
+#GameOverInfoWrap {
+    background: #3639a1;
+    border-radius: 10px;
+    border: 1.5px solid white;
+    box-shadow: 0px 0px 1.5px black;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: fit-content;
+    padding: 20px;
+    gap: 10px;
+    width: 43%;
+}
+
+#GameOverText {
+    animation: GameOverText 1.2s alternate both infinite;
+}
+
+#RestartGameButton {
+    background: rgba(0, 0, 0, .55);
+    color: #53c069;
+    width: 125px;
+    min-width: fit-content;
+    align-self: center;
+    padding: 4px 3px 4px 5px;
+    font-weight: 900;
+    font-size: large;
+    text-align: center;
+    border-radius: 10px;
+    border: unset;
+    box-shadow: 0px 0px 2.5px black;
+    text-shadow: 0px 0px 1.5px black;
+    cursor: pointer;
+    transition: color 0.4s ease-in-out, background 0.4s ease-in-out;
+}
+
+#RestartGameButton:hover {
+    color: lime;
+    background: rgba(238, 173, 61, 0.7);
+}

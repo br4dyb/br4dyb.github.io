@@ -5,8 +5,9 @@ let SiteHeader = document.querySelector('header');
 let StartGameButton = document.getElementById('StartGameButton')
 
 // Game Variables:
-let GameStartedAlert = false; // For DeBugging :)
+let GameStartedAlert = false; // For DeBugging
 let GameStarted = false;
+let GameEnded = false;
 let BirdJumping = false;
 let PlayerBird;
 
@@ -17,7 +18,7 @@ let PlayerScore = 0;
 let PlayerBirdSize = 50; //(px)
 let BirdJumpStrength = 50; //(px)
 
-let ObsticleColor = '#000000';
+let ObsticleColor = '#000000'; // (hex)
 let ObsticleWidth = '10'; //(vw)
 let ObsticleFlyGap = (PlayerBirdSize + 100); //(px)
 let ObsticleBetweenGap = 20; //(vw)
@@ -47,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       if (event.keyCode === 13 || event.key === 'Enter') {
-        if(GameStarted === false){
+        if(GameStarted === false && GameEnded !== true){
             StartGame();
         }
       }
@@ -200,7 +201,7 @@ function CreateObsticles() {
 
         FullGameplayArea.appendChild(ObsticleWrap);
 
-        ObsticleTop.style.height = ((Math.random() * ObsticleRandomPosMultiplier) + 'vh');
+        ObsticleTop.style.height = (((Math.random() * ObsticleRandomPosMultiplier) + 5) + 'vh');
             ObsticleTop.style.backgroundColor = ObsticleColor;
             ObsticleBottom.style.backgroundColor = ObsticleColor;
         ObsticleBottom.style.height = '200vh';
@@ -278,6 +279,7 @@ function StartGame() {
     startGameLoop();
 };
 
+// End Game Function:
 function EndGame() {
 
     //G-Analytics Event:
@@ -286,10 +288,85 @@ function EndGame() {
         });
         
     stopGameLoop();
-            GameStarted = false;
-            alert('Game Over!');
-            location.reload();
+    GameEnded = true;
+            
+            //alert('Game Over!');
+            //location.reload();
+
+            function ResetGameArea() {
+                let gameArea = document.getElementById('FullGameplayArea');
+                let gameAreaChildren = Array.from(gameArea.children);
+
+                gameAreaChildren.forEach(elm => {
+
+                    //console.log('Evaluating Deletions for:')
+                    //console.info(`[type]: ${elm} [id]: ${elm.id}  [class]: ${elm.className}`)
+
+                    if(elm.id === 'PlayerScoreboard') {
+                        // Do Nothing
+                    } else {
+                        elm.remove();
+                    }
+
+                });
+
+                // Reset GameStarted Var to Restart Later:
+                GameStarted = false;
+
+            }
+
+            function ShowGameOverOverlay() {
+                let GameOverWrap = document.getElementById('GameOverOverlay');
+                let GameOverScoreText = document.getElementById('GameOverScore');
+                GameOverScoreText.innerText = `You Scored: ${PlayerScore}!`
+                GameOverWrap.style.opacity = 0;
+                GameOverWrap.style.display = 'flex';
+                GameOverWrap.style.animation = 'opacity-out 1.5s alternate-reverse both ease-in-out';
+
+                GameOverWrap.addEventListener('animationend', function(){
+                    GameOverWrap.style.opacity = 1;
+                    GameOverWrap.style.animation = '';
+                })
+
+                // Small Wait Before Clearing GameArea:
+                setTimeout(() => {
+                    ResetGameArea()
+                }, 100);
+            }
+
+            function FreezeGameArea() {
+                let gameArea = document.getElementById('FullGameplayArea');
+                let gameAreaChildren = Array.from(gameArea.children);
+
+                gameAreaChildren.forEach(element => {
+                    element.style.animationPlayState = 'paused';
+                    if(element.id === "PlayerBird"){ element.id = "Old_PlayerBird"};
+                });
+
+                // Small Wait Before Showing Game Over Screen:
+                setTimeout(() => {
+                    ShowGameOverOverlay()
+                }, 750);
+            }
+
+            FreezeGameArea()
 };
+
+// Restart Game Function:
+function RestartGame() {
+    let GameOverWrap = document.getElementById('GameOverOverlay');
+    GameOverWrap.style.animation = 'opacity-out 1.5s alternate both ease-in-out';
+
+    PlayerScore = 0;
+    document.getElementById('ScoreTextDisplay').innerText = '0';
+
+    setTimeout(() => {
+        GameOverWrap.style.display = 'none';
+        StartGame();
+        GameStarted = true;
+        GameEnded = false;
+    }, 1500);
+}
 
 // Jump Events:
 function PlayerJump(e) {
@@ -302,7 +379,7 @@ function PlayerJump(e) {
     } //JumpDebug();
 
     //Check Jump Conditions:
-    if((e.id == "FullGameplayArea" || e == "Keypress") && GameStarted) {
+    if((e.id === "FullGameplayArea" || e === "Keypress") && GameStarted && GameEnded !== true) {
         //console.trace(`Jump Accepted`);
         
 
@@ -339,3 +416,5 @@ function PlayerJump(e) {
 
 // Script Load Msg:
 // console.log(`[GameFunctionality] | Scripted Loaded In!`);
+
+// Created by Brady B - https://github.com/br4dyb

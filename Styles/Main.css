@@ -209,8 +209,9 @@ header {
     margin: 10px;
 
     animation-name: Smooth-Opacity;
-    animation-duration: 2s;
+    animation-duration: 2.5s;
     animation-direction: alternate;
+    animation-fill-mode: both;
     animation-iteration-count: infinite;
     animation-play-state: running;
 }
@@ -350,4 +351,8 @@ header {
     border: 1px solid rgba(0, 0, 0, 0.5);
     margin: 15px;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    color: lightcyan;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -89,6 +89,7 @@ function checkCollisions() {
             birdRect.bottom > obstacleWrapRect.top &&
             birdRect.top < obstacleWrapRect.bottom) {
             console.warn(`GAME ENDED! | Bird Hit an Obstacle!`);
+            stopGameLoop()
             EndGame()
 
             

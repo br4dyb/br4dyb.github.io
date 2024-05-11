@@ -187,7 +187,9 @@ header {
     display: none;
     opacity: 0;
     position: absolute;
-    background: rgb(105, 188, 114);
+    /* background: rgb(105, 188, 114); */
+    background: url(../images/game-background.jpeg);
+    background-size: cover;
     height: 100%;
     width: 100%;
     overflow: hidden;

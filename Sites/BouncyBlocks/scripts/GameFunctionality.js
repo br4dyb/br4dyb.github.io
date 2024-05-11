@@ -19,6 +19,7 @@ let PlayerBirdSize = 50; //(px)
 let BirdJumpStrength = 50; //(px)
 
 let ObsticleColor = '#000000'; // (hex)
+let ObsticleBorderStyle = '1.5px dotted white'
 let ObsticleWidth = '10'; //(vw)
 let ObsticleFlyGap = (PlayerBirdSize + 100); //(px)
 let ObsticleBetweenGap = 20; //(vw)
@@ -203,7 +204,9 @@ function CreateObsticles() {
 
         ObsticleTop.style.height = (((Math.random() * ObsticleRandomPosMultiplier) + 5) + 'vh');
             ObsticleTop.style.backgroundColor = ObsticleColor;
+            ObsticleTop.style.border = ObsticleBorderStyle
             ObsticleBottom.style.backgroundColor = ObsticleColor;
+            ObsticleBottom.style.border = ObsticleBorderStyle
         ObsticleBottom.style.height = '200vh';
         ObsticleTop.style.borderRadius = '10px';
         ObsticleBottom.style.borderRadius = '10px';
@@ -212,6 +215,7 @@ function CreateObsticles() {
         elm.style.boxSizing = 'border-box';
         elm.style.padding = '0px';
         elm.style.margin = '0px';
+        
         //elm.style.backgroundColor = ObsticleColor;
         
         elm.style.width = '50px';
@@ -322,6 +326,8 @@ function EndGame() {
                 GameOverWrap.style.opacity = 0;
                 GameOverWrap.style.display = 'flex';
                 GameOverWrap.style.animation = 'opacity-out 1.5s alternate-reverse both ease-in-out';
+
+                SiteHeader.style.animation = 'show-header 1s alternate both 1';
 
                 GameOverWrap.addEventListener('animationend', function(){
                     GameOverWrap.style.opacity = 1;

@@ -306,6 +306,8 @@ function EndGame() {
         
     stopGameLoop();
     GameEnded = true;
+    GameMusic.pause()
+    GameMusic.currentTime = 0;
 
             function ResetGameArea() {
                 let gameArea = document.getElementById('FullGameplayArea');

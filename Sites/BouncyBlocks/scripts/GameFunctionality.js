@@ -6,8 +6,11 @@ let StartGameButton = document.getElementById('StartGameButton')
 
 // Game Variables:
 let GameStartedAlert = false; // For DeBugging
+let GoogleAnalyticsEnabled = true;
 let GameStarted = false;
+let GravityEnabled = true;
 let GameEnded = false;
+let ReadyToRestart = false;
 let BirdJumping = false;
 let PlayerBird;
 
@@ -60,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Start Game Loop Function:
 function startGameLoop() {
     gravityInterval = setInterval(applyGravity, GravityTime);
+    collisionInterval = setInterval(checkCollisions, (GravityTime/2));
     //console.log('Applying Gravity');
 };
 
@@ -67,6 +71,7 @@ function startGameLoop() {
 function stopGameLoop() {
     clearInterval(gravityInterval);
     clearInterval(ObsticleSpawnLoop);
+    clearInterval(collisionInterval)
 };
 
 
@@ -89,9 +94,11 @@ function checkCollisions() {
             birdRect.bottom > obstacleWrapRect.top &&
             birdRect.top < obstacleWrapRect.bottom) {
             console.warn(`GAME ENDED! | Bird Hit an Obstacle!`);
-            stopGameLoop()
-            EndGame()
-
+            clearInterval(gravityInterval);
+            GravityEnabled = false;
+            stopGameLoop();
+            EndGame();
+            return;
             
         }
 
@@ -120,15 +127,15 @@ function checkCollisions() {
 
 // Apply Bird Gravity Function:
 function applyGravity() {
-    if (GameStarted) {
+    if (GameStarted && GameEnded !== true && GravityEnabled) {
         let FullGameAreaHeight = getComputedStyle(FullGameplayArea).height
         let CurHeight = parseInt(getComputedStyle(PlayerBird).top);
         let NewHeight = (CurHeight + GravityDistanceY) + 'px';
 
         // Check for Bird already jumping:
-        if(BirdJumping == false){
+        if(BirdJumping == false && GameEnded !== true){
             PlayerBird.style.top = NewHeight;
-            checkCollisions();
+            //checkCollisions();
         }
        
 
@@ -137,15 +144,11 @@ function applyGravity() {
             //console.info(`Attempted Height: ${parseInt(NewHeight)}`)
             //console.info(`Full GameArea Height: ${(parseInt(FullGameAreaHeight)-PlayerBirdSize)}`)
             console.warn(`GAME ENDED! | Bird Hit the Ground!`)
-            
                 //End Game:
-                            // ### RE-ENABLE BELOW VVV ###
                 EndGame()
-
         }
 
         // Move Bird to Middle:
-        
         let CurX = parseInt(getComputedStyle(PlayerBird).left);
         let NewX = (CurX + GravityDistanceX) + 'px';
 
@@ -255,9 +258,11 @@ function StartGame() {
     }
 
     //G-Analytics Event:
-    gtag('event', 'BouncyBlocks_GameStart', {
-        'Starting Score' : 0
-      });
+    if(GoogleAnalyticsEnabled){
+        gtag('event', 'BouncyBlocks_GameStart', {
+            'Starting Score' : 0
+        });
+    };
     
     // GameArea Heights:
     let FullGameAreaHeight = getComputedStyle(FullGameplayArea).height
@@ -281,6 +286,7 @@ function StartGame() {
         CreateObsticleWraps()
 
     GameStarted = true;
+    GravityEnabled = true;
     startGameLoop();
 };
 
@@ -288,15 +294,14 @@ function StartGame() {
 function EndGame() {
 
     //G-Analytics Event:
-    gtag('event', 'BouncyBlocks_GameEnd', {
-        'Ending Score' : PlayerScore
+    if(GoogleAnalyticsEnabled){
+        gtag('event', 'BouncyBlocks_GameEnd', {
+            'Ending Score' : PlayerScore
         });
+    }
         
     stopGameLoop();
     GameEnded = true;
-            
-            //alert('Game Over!');
-            //location.reload();
 
             function ResetGameArea() {
                 let gameArea = document.getElementById('FullGameplayArea');
@@ -333,6 +338,7 @@ function EndGame() {
                 GameOverWrap.addEventListener('animationend', function(){
                     GameOverWrap.style.opacity = 1;
                     GameOverWrap.style.animation = '';
+                    ReadyToRestart = true;
                 })
 
                 // Small Wait Before Clearing GameArea:
@@ -361,18 +367,23 @@ function EndGame() {
 
 // Restart Game Function:
 function RestartGame() {
-    let GameOverWrap = document.getElementById('GameOverOverlay');
-    GameOverWrap.style.animation = 'opacity-out 1.5s alternate both ease-in-out';
-
-    PlayerScore = 0;
-    document.getElementById('ScoreTextDisplay').innerText = '0';
-
-    setTimeout(() => {
-        GameOverWrap.style.display = 'none';
-        StartGame();
+    if(GameStarted !== true && ReadyToRestart) {
         GameStarted = true;
-        GameEnded = false;
-    }, 1500);
+        let GameOverWrap = document.getElementById('GameOverOverlay');
+        GameOverWrap.style.animation = 'opacity-out 1.5s alternate both ease-in-out';
+
+        PlayerScore = 0;
+        document.getElementById('ScoreTextDisplay').innerText = '0';
+
+        setTimeout(() => {
+            GameOverWrap.style.display = 'none';
+            StartGame();
+            GameEnded = false;
+        }, 1500);   
+    } else{
+        console.warn('Game is already restarting/not ready!')
+    }
+    
 }
 
 // Jump Events:
@@ -399,7 +410,7 @@ function PlayerJump(e) {
             //Stop at Sky:
             if(parseInt(NewHeight) >= 0){
                 PlayerBird.style.top = NewHeight;
-                checkCollisions();
+                //checkCollisions();
 
                 setTimeout(() => {
                     BirdJumping = false;
@@ -407,9 +418,8 @@ function PlayerJump(e) {
 
             } else{
                 console.info('Bird Hit the Sky!')
-                checkCollisions();
-
                 BirdJumping = false;
+                //checkCollisions();
             }
 
             

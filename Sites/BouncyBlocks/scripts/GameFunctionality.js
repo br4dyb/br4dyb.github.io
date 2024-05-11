@@ -1,8 +1,9 @@
 // Document Elements:
 let FullGameStartOptionsWrap = document.getElementById('StartGameWrap');
-let FullGameplayArea = document.getElementById('FullGameplayArea')
+let FullGameplayArea = document.getElementById('FullGameplayArea');
 let SiteHeader = document.querySelector('header');
-let StartGameButton = document.getElementById('StartGameButton')
+let StartGameButton = document.getElementById('StartGameButton');
+let GameMusic = document.getElementById('GameMusic');
 
 // Game Variables:
 let GameStartedAlert = false; // For DeBugging
@@ -288,6 +289,9 @@ function StartGame() {
     GameStarted = true;
     GravityEnabled = true;
     startGameLoop();
+
+    GameMusic.loop = true;
+    GameMusic.play();
 };
 
 // End Game Function:

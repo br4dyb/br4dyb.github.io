@@ -135,6 +135,7 @@ header {
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
+    color: white;
     gap: 25px;
 }
 

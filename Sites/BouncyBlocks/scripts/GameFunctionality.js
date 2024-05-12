@@ -42,6 +42,9 @@ let ObsticleSpawnLoop;
 // Click/Key Listeners:
 document.addEventListener('DOMContentLoaded', function() {
 
+    //Load Music:
+        GameMusic.load();
+
     //GameArea Click:
         document.getElementById('FullGameplayArea').addEventListener('click', PlayerJump(this));
 
@@ -291,7 +294,10 @@ function StartGame() {
     startGameLoop();
 
     GameMusic.loop = true;
-    GameMusic.play();
+
+        // Start playing the music
+        GameMusic.play();
+
 };
 
 // End Game Function:

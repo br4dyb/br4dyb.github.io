@@ -54,20 +54,20 @@
                
 
                 <div id="OptionsGridWrap">
-                    <div id="DificultyOptions">
+                    <div id="DificultyOptions" class="GameOptionRow">
                         <p> Dificulty:</p>
                         <input type="range" id="Dificulty_Selector" onchange="DificultyChange(this, value)" step="50" value="0"> 
                         <p id="DificultySelectedLabel" style="text-shadow: 0px 0px 3px black;"> Easy</p>
                     </div>
                     
-                    <div id="PlayerOptions">
+                    <div id="PlayerOptions" class="GameOptionRow">
                         <p> Player Color:</p>
                         <input id="PlrColorSelector" type="color" value="#ffff33">
                     </div>
 
-                    <div id="SoundsOptions">
+                    <div id="SoundsOptions" class="GameOptionRow">
                         <p> Game Sounds:</p>
-                        <input id="GameSoundsCheckbox" type="checkbox">
+                        <input id="GameSoundsCheckbox" type="checkbox" checked>
                     </div>
 
                 </div>
@@ -76,6 +76,8 @@
             </form>
 
             <div id="StartButtonWrap">
+                <p id="GameHighScore"> High Score: <br> 0 </p>
+
                 <button id="StartGameButton" onclick="StartGame()"> Start </button>
             </div>
 
@@ -97,6 +99,7 @@
                 <p> Your Bird has died! </p>
                 <button id="RestartGameButton" onclick="RestartGame()"> restart </button>
                 <p id="GameOverScore"> You Scored:  </p>
+                <p id="GameOverHighScore"> High Score: null </p>
             </div>
                 
         </section>

@@ -7,12 +7,16 @@ let GameMusic = document.getElementById('GameMusic');
 
 // Game Variables:
 let GameStartedAlert = false; // For DeBugging
-let GoogleAnalyticsEnabled = true;
+let GoogleAnalyticsEnabled = true; // For Google Analytics
+
+let GameSoundsEnabled; // Assigned in GameStart() function
+
 let GameStarted = false;
-let GravityEnabled = true;
 let GameEnded = false;
 let ReadyToRestart = false;
+
 let BirdJumping = false;
+let GravityEnabled = true;
 let PlayerBird;
 
 let ObsticleCount = 0;
@@ -44,6 +48,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //Load Music:
         GameMusic.load();
+
+    // Load HighScores:
+        UpdateHighScoreTexts()
 
     //GameArea Click:
         document.getElementById('FullGameplayArea').addEventListener('click', PlayerJump(this));
@@ -216,8 +223,8 @@ function CreateObsticles() {
             ObsticleBottom.style.backgroundColor = ObsticleColor;
             ObsticleBottom.style.border = ObsticleBorderStyle
         ObsticleBottom.style.height = '200vh';
-        ObsticleTop.style.borderRadius = '10px';
-        ObsticleBottom.style.borderRadius = '10px';
+        ObsticleTop.style.borderRadius = '5px';
+        ObsticleBottom.style.borderRadius = '5px';
 
     FullObsticle.forEach(elm => {
         elm.style.boxSizing = 'border-box';
@@ -242,7 +249,7 @@ function StartGame() {
     // Get Selected Game Option Variables:
     let SelectedDificulty = document.getElementById('DificultySelectedLabel').innerText;
     let SelectedPlrColor = document.getElementById('PlrColorSelector').value;
-    let GameSoundsCheckbox = document.getElementById('GameSoundsCheckbox').value; // not getting (un)/checked properly?
+    let GameSoundsCheckbox = document.getElementById('GameSoundsCheckbox'); 
     
     // Hide Header and GameStart Area:
     SiteHeader.style.animation = 'hide-header 1s forwards ease-in-out';
@@ -296,7 +303,11 @@ function StartGame() {
     GameMusic.loop = true;
 
         // Start playing the music
-        GameMusic.play();
+        if(GameSoundsCheckbox.checked){
+            GameSoundsEnabled = true;
+            GameMusic.play();
+        }
+        
 
 };
 
@@ -367,6 +378,38 @@ function EndGame() {
                     element.style.animationPlayState = 'paused';
                     if(element.id === "PlayerBird"){ element.id = "Old_PlayerBird"};
                 });
+
+                function HighScoreCookies(){
+                    let CookieName = 'Game_HighScore';
+                    let AllCookies = document.cookie
+                    
+                    let FindHighScoreCookie = AllCookies.split('; ').find((row) => row.startsWith(CookieName+'='));
+                    let SavedHighScore;
+
+                    //If HighScore Cookie is not Saved:
+                    if(FindHighScoreCookie === undefined){
+
+                        console.warn('No High Score Ever Recorded | Creating Cookie!')
+                        document.cookie = `${CookieName}=${PlayerScore}; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+
+                    //If HighScore Cookie WAS FOUND:
+                    }else if(FindHighScoreCookie.startsWith(CookieName)){
+
+                        SavedHighScore = FindHighScoreCookie.split('=')[1];
+                        
+                        // Check for new best score:
+                        if(SavedHighScore < PlayerScore){
+                            console.info('New High Score!!')
+                            document.cookie = `${CookieName}=${PlayerScore}; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+                            setTimeout(() => {
+                                UpdateHighScoreTexts()
+                            }, 250);
+                        } 
+                    }
+                    
+                }
+
+                HighScoreCookies()
 
                 // Small Wait Before Showing Game Over Screen:
                 setTimeout(() => {
@@ -442,6 +485,28 @@ function PlayerJump(e) {
     }
     
 };
+
+function UpdateHighScoreTexts() {
+    let CookieName = 'Game_HighScore';
+    let AllCookies = document.cookie
+    let FindHighScoreCookie = AllCookies.split('; ').find((row) => row.startsWith(CookieName+'='));
+
+    let RestartGameHighScoreText = document.getElementById('GameOverHighScore');
+    let StartGameHighScoreText = document.getElementById('GameHighScore');
+
+    if(FindHighScoreCookie === undefined){
+        RestartGameHighScoreText.innerHTML = 'High Score:<br>0';
+        StartGameHighScoreText.innerHTML = 'High Score:<br>0';
+    }else {
+        SavedHighScore = FindHighScoreCookie.split('=')[1];
+
+        RestartGameHighScoreText.innerHTML = `High Score:<br>${SavedHighScore}`;
+        StartGameHighScoreText.innerHTML = `High Score:<br>${SavedHighScore}`;
+    }
+    
+
+
+}
 
 // Script Load Msg:
 // console.log(`[GameFunctionality] | Scripted Loaded In!`);

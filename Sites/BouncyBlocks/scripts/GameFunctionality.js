@@ -400,6 +400,14 @@ function EndGame() {
                         // Check for new best score:
                         if(SavedHighScore < PlayerScore){
                             console.info('New High Score!!')
+
+                            //G-Analytics Event:
+                            if(GoogleAnalyticsEnabled){
+                                gtag('event', 'BouncyBlocks_NewHighScore', {
+                                    'High Score' : PlayerScore
+                                });
+                            }
+
                             document.cookie = `${CookieName}=${PlayerScore}; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
                             setTimeout(() => {
                                 UpdateHighScoreTexts()

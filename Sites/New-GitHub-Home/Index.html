@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Site Title/Favicon: -->
+        <title>Home | Br4dyB GitHub</title>
+        <link rel="icon" href="/Images/favicon.ico">
+
+    <!-- Linked StyleSheets: -->
+        <link rel="stylesheet" href="/Styles/Main.css">
+        <link rel="stylesheet" href="/Styles/Animations.css">
+
+    <!-- Google Fonts & Icons: -->
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kode+Mono:wght@400..700&family=Madimi+One&family=Rubik+Scribble&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+        </style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,200"/>
+
+    <!-- Meta Tags: -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Linked Scripts: -->
+        <!-- {Scripts Here} -->
+</head>
+
+
+<body>
+
+
+    <header>
+        <div id="NavButtonWrap">
+            <span onclick="ToggleNavPage()" class="material-symbols-rounded" style="padding-left: 6px;"> Widgets </span>
+        </div>
+
+        <div id="HeaderTitleWrap">
+            <h1 style="cursor: pointer;" onclick="location.reload()"> Br4dyB's GitHub </h1>
+        </div>
+
+        <div id="SearchButtonWrap">
+            <span onclick="ToggleSearchPage()" class="material-symbols-rounded"> Search </span>
+        </div>
+
+    </header>
+
+
+    <main id="FullBodyWrap">
+
+
+        <br>
+        <h2 class="SectionHeading"> Featured Sites: </h2>
+        <br>
+        
+        <section id="FeaturedSitesGrid" class="SitesLinkGrid">
+            <!-- Populated /w Script -->
+        </section>
+
+        <br>
+        <h2 class="SectionHeading"> All Sites: </h2>
+        <br>
+
+        <section id="AllSitesGrid" class="SitesLinkGrid">
+            <!-- Populated /w Script -->
+        </section>
+
+        
+
+    </main>
+
+    <main id="SearchResultsArea" class="hidden">
+
+        <br>
+        <h2 class="SectionHeading"> Search Sites: </h2>
+
+        <form id="SiteSearchForm" onsubmit="SubmitSiteSearch(event)">
+           <div> <input id="SiteSearchInput" type="text" placeholder="Seach . . ." oninput="ToggleClearButton()"> <span id="ClearInputButton" onclick="ClearSearchBar()" class="material-symbols-rounded hidden"> Close </span> </div>
+            <button id="SearchSubmitButton"> <span class="material-symbols-rounded"> Search </span> </button>
+        </form>
+
+        <section id="SearchSitesGrid" class="SitesLinkGrid">
+            <!-- Populated /w Script -->
+            <p id="NoSiteSearchResultsText" class="hidden" style="color: lightgray;"> No Results Found . . .</p>
+        </section>
+
+    </main>
+
+    <main id="NavPageArea" class="">
+
+        <!-- <br> -->
+        <!-- <h2 class="SectionHeading"> Visit Page: </h2> -->
+
+        <section class="NavLinksGrid">
+
+            <div id="Nav-AllSitesButton" class="NavButton" onclick="OpenPage('main')">
+                <h2 style="
+                    align-self: center;
+                    justify-self: self-end;
+                    position: absolute;
+                    right: -3px;
+                    font-size: 35px;
+                    padding: 8px; 
+                    text-align: center;
+                    text-underline-offset: 3px;">
+                     <u>All</u> <br> <u>Sites</u>
+                </h2>
+
+                <span class="material-symbols-rounded"
+                    style="
+                    font-size: 65px;
+                    margin-left: 3px;"> 
+                    note_stack 
+
+                </span>
+
+            </div>
+
+            <div id="Nav-SearchSitesButton" class="NavButton" onclick="OpenPage('search')">
+                <h2 style="
+                    align-self: center;
+                    justify-self: self-end;
+                    position: absolute;
+                    left: 10px;
+                    top: 10px;
+                    font-size: 25px;
+                    padding: 8px; 
+                    text-align: center;">
+                     Search <br> Sites
+                </h2>
+
+                <span class="material-symbols-rounded"
+                    style="
+                    font-size: 50px;
+                    position: absolute;
+                    bottom: 10px;
+                    right: 10px;
+                    "> 
+                    Search 
+
+                </span>
+            </div>
+
+            <div id="Nav-ContactUsButton" class="NavButton" onclick="location.assign('/Pages/ContactUs.html')">
+                <h2 style="
+                    align-self: center;
+                    justify-self: self-end;
+                    position: absolute;
+                    left: 4px;
+                    bottom: 10px;
+                    font-size: 25px;
+                    padding: 8px; 
+                    text-align: center;">
+                     Contact <br> Us
+                </h2>
+
+                <span class="material-symbols-rounded"
+                    style="
+                    font-size: 40px;
+                    position: absolute;
+                    top: 15px;
+                    right: 15px
+                    "> 
+                        contact_mail
+                </span>
+            </div>
+
+            <div id="Nav-PrivacyPolicyButton" class="NavButton" onclick="location.assign('/Pages/PrivacyPolicy.html')">
+                <h2 style="
+                    align-self: center;
+                    justify-self: self-end;
+                    position: absolute;
+                    bottom: 0px;
+                    font-size: 18px;
+                    padding: 8px; 
+                    text-align: center;">
+                     Privacy Policy
+                </h2>
+
+                <span class="material-symbols-rounded"
+                    style="
+                    font-size: 35px;
+                    position: relative;
+                    top: 3px;
+                    width: 100%;
+                    text-align: center;
+                    "> 
+                    visibility_lock 
+
+                </span>
+            </div>
+
+            <div id="Nav-TermsConditionsButton" class="NavButton" onclick="location.assign('/Pages/TermsAndConditions.html')">
+                <h2 style="
+                    align-self: center;
+                    justify-self: self-end;
+                    position: absolute;
+                    bottom: 0px;
+                    font-size: 18px;
+                    padding: 8px; 
+                    text-align: center;">
+                     Terms & Condtions
+                </h2>
+
+                <span class="material-symbols-rounded"
+                    style="
+                    font-size: 35px;
+                    position: relative;
+                    top: 3px;
+                    width: 100%;
+                    text-align: center;
+                    "> 
+                    gavel 
+
+                </span>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <div id="Footer-Sec1">
+            <a href="./Pages/TermsAndConditions.html"> Terms & Conditions </a>
+        </div>
+
+        <div id="Footer-Sec2">
+            <a href="./Pages/ContactUs.html"> Contact Us </a>
+        </div>
+
+        <div id="Footer-Sec3">
+            <a href="./Pages/PrivacyPolicy.html"> Privacy Policy </a>
+        </div>
+    </footer>
+
+    <!-- Required Scripts: -->
+    <script src="./Scripts/SiteList.js"></script>
+    <script src="./Scripts/SearchFunctionality.js"></script>
+    <script src="./Scripts/IndexPageControl.js"></script>
+
+</body>
+
+
+</html>

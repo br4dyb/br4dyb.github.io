@@ -1,7 +1,7 @@
 let SitesToPopulate = [
-    {Name: 'Bouncy Blocks', Img: '/Images/favicon.ico', Link: '/Sites/BouncyBlocks/index.html', Tags: 'game, flappy, bird, fun, bouncy, blocks', Featured: false, New: true},
-    {Name: 'Tic Tac Toe', Img: '/Images/favicon.ico', Link: '/Sites/TicTacToe/index.html', Tags: 'game, tic, tac, toe, fun', Featured: true, New: false},
-    {Name: 'Site Template', Img: '/Images/favicon.ico', Link: '/Sites/TicTacToe/index.html', Tags: 'site, template, starter, html, css', Featured: false, New: false},
+    {Name: 'Bouncy Blocks', Img: './Images/favicon.ico', Link: '/Sites/BouncyBlocks/index.html', Tags: 'game, flappy, bird, fun, bouncy, blocks', Featured: false, New: true},
+    {Name: 'Tic Tac Toe', Img: './Images/favicon.ico', Link: '/Sites/TicTacToe/index.html', Tags: 'game, tic, tac, toe, fun', Featured: true, New: false},
+    {Name: 'Site Template', Img: './Images/favicon.ico', Link: '/Sites/TicTacToe/index.html', Tags: 'site, template, starter, html, css', Featured: false, New: false},
 ];
 
 let SitesGridElement = document.getElementById('AllSitesGrid');

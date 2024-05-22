@@ -47,11 +47,12 @@ body{
     flex-direction: column;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
 
 header{
     /* background: #ffffff7a; */
-    background: linear-gradient(to top right, #ce2fffb8, #b76fffc0);
+    background: linear-gradient(to bottom right, #df76ff, #9d53e8);
     border: 1.5px double var(--DefaultBorderColor);
     display: flex;
     flex-direction: row;
@@ -351,15 +352,17 @@ footer a:hover{
     height: 100%;
     overflow-y: auto;
     padding-bottom: 25px;
+    background: lime;
 }
 
 .NavLinksGrid {
     display: flex;
     flex-wrap: wrap;
     width: 65%;
-    height: 70%;
+    /* height: 70%; */
     gap: 12px;
-    padding: 10px;
+    padding: 20px;
+    background: #236cb0;
 
     justify-content: center; 
     align-items: center;

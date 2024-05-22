@@ -350,7 +350,7 @@ footer a:hover{
     height: 100%;
 
     overflow-y: auto;
-    padding-bottom: 25px;
+    padding-bottom: 2px;
     padding-top: 77px;
 
     background: lime;
@@ -362,6 +362,8 @@ footer a:hover{
     justify-content: center; 
     align-items: center;
 
+    margin-top: 77px;
+    margin-bottom: 77px;
 
     width: 65%;
     gap: 12px;

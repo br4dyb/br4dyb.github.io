@@ -341,7 +341,9 @@ footer a:hover{
     gap: 7px;
     display: flex;
     flex-direction: column;
+
     align-items: center;
+    justify-content: center;
 
     padding-top: 77px;
     text-align: center;
@@ -355,8 +357,8 @@ footer a:hover{
     display: flex;
     flex-wrap: wrap;
     width: 65%;
-    height: 100%;
-    gap: 10px;
+    height: 70%;
+    gap: 12px;
     padding: 10px;
 
     justify-content: center; 

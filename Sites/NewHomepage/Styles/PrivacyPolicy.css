@@ -11,6 +11,10 @@ body{
     opacity: 0;
 }
 
+header{
+    margin: 20px;
+}
+
 #ScrollUpButton{
     background: linear-gradient(to top right, #b829e3, #9a5ada);
     border-radius: 8px;

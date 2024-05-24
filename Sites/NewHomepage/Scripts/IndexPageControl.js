@@ -33,7 +33,7 @@ function ToggleNavPage() {
     if(CurPage !== 'nav'){
         OpenPage('nav');
     } else {
-        OpenPage(HomePage);
+        OpenPage('main');
     }
 };
 

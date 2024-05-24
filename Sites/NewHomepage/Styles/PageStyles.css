@@ -1,0 +1,130 @@
+#PrivacyPolicyWrap, #TermsAndConditionsWrap, #ContactUsWrap{
+    padding-inline: 20px;
+    text-align: center;
+}
+
+body{
+    overflow-y: auto !important;
+    min-height: 100vh;
+}
+
+.hidden-opacity{
+    opacity: 0;
+}
+
+header{
+    margin: 20px;
+}
+
+#ScrollUpButton{
+    background: linear-gradient(to top right, #b829e3, #9a5ada);
+    border-radius: 8px;
+    position: fixed;
+    z-index: 25;
+    bottom: 13px;
+    right: 13px;
+    width: 45px;
+    height: 45px;
+    border: 2px solid white;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.alignLeft{
+    text-align: left;
+    justify-content: left;
+    align-items: start;
+}
+
+p {
+    text-align: left;
+}
+
+ul, li {
+    margin-inline-start: 30px;
+    text-align: left;
+    list-style: decimal;
+}
+
+#ContactUsWrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+}
+
+
+#contact-form{
+    /* background: rgb(106, 106, 106); */
+    background: linear-gradient(to bottom right, #1195b3, #e8ac53);
+    padding: 22px;
+    margin: 20px;
+    border-radius: 8px;
+    border: 2px solid white;
+
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    scale: 1.1;
+    width: 255px;
+}
+
+#contact-form label{
+    background: rgb(55, 55, 55);
+    padding: 3px;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    width: fit-content;
+    display: block;
+    margin-left: 10px;
+}
+
+#contact-form input, textarea{
+    background: rgb(55, 55, 55);
+    border: 1px solid white;
+    padding: 8px;
+    margin: 10px 0px;
+    border-radius: 5px;
+    text-align: left;
+    color: white;
+
+    width: fit-content;
+
+    display: flex;
+    transform: translateX(12%)
+
+}
+
+#contact-form #message{
+    overflow: auto;
+    resize: vertical;
+    min-height: 50px;
+}
+
+#ContactSubmit {
+    background: rgb(55, 55, 55);
+    border: 1px solid white;
+    padding: 4px;
+    border-radius: 5px;
+    min-width: 35%;
+    color: white;
+    cursor: pointer;
+    transition: background 0.33s ease;
+}
+
+#ContactSubmit:hover {
+    background: rgb(80, 194, 58);
+    cursor: pointer;
+}

@@ -1,16 +1,16 @@
-const MainBodyWrap = document.getElementById('FullBodyWrap');
+const MainBodyWrap = document.getElementById('AllSitesArea');
 const NavBodyWrap = document.getElementById('NavPageArea');
 const SearchBodyWrap = document.getElementById('SearchResultsArea');
 
 let HomePage = 'nav';
-let CurPage = 'nav'; // [main, nav, search] <-- available
+let CurPage = 'nav'; // [allSites, nav, search] <-- available
 
 function OpenPage(RequestedPage) {
-    if(RequestedPage === 'main') {
+    if(RequestedPage === 'allSites') {
         MainBodyWrap.classList.remove('hidden');
         NavBodyWrap.classList.add('hidden');
         SearchBodyWrap.classList.add('hidden');
-        CurPage = 'main';
+        CurPage = 'allSites';
     } else 
     if(RequestedPage === 'nav') {
         MainBodyWrap.classList.add('hidden');
@@ -33,7 +33,7 @@ function ToggleNavPage() {
     if(CurPage !== 'nav'){
         OpenPage('nav');
     } else {
-        OpenPage('main');
+        OpenPage('allSites');
     }
 };
 

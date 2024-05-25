@@ -1,25 +1,38 @@
-@keyframes Smooth-Opacity {
-    0% {
-        opacity: 0;
-    };
+@keyframes scale-up-small {
+    to{
+        scale: 1;
+    }
+    from{
+        scale: 1.1;
+    }
+}
 
-    20% {
-        opacity: 0.2;
-    };
+@keyframes FeaturedSiteAnimation {
+    to{
+        color: rgb(255, 164, 95);
+    }
+    from{
+        color: rgb(246, 255, 0);
+    }
+}
 
-    40% {
-        opacity: 0.4;
-    };
+@keyframes FeaturedSiteImageAnimation {
+    
+    0%{
+        rotate: 15deg;
+    }
 
-    60% {
-        opacity: 0.6;
-    };
+    100%{
+        rotate: -15deg;
+    }
+}
 
-    80% {
-        opacity: 0.8;
-    };
-
-    100% {
+@keyframes Opacity-Out {
+    0%{
         opacity: 1;
-    };
+    }
+
+    100%{
+        opacity: 0;
+    }
 }

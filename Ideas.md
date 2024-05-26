@@ -6,9 +6,7 @@ This is where I keep track of my ideas...
 that I plan on implementing in the future! 
 ```
 
-
 ## Index Homepage Ideas:
-
 
 [ ] Add more styling to site grids for better visibility/appeal
 

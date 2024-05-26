@@ -10,4 +10,4 @@ that I plan on implementing in the future!
 
 [ ] Add more styling to site grids for better visibility/appeal
 
-[ ] Change main body background? (gradients?)
+[x] Change main body background? (gradients?)

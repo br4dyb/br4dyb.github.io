@@ -1,6 +1,6 @@
 # Idea List:
 
-**::Welcome to my GitHub Idea Board::**
+*Welcome to my GitHub Idea Board
 
 ---
 

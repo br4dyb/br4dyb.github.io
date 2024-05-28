@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Site Title/Favicon: -->
+        <title>Experimental | Br4dyB GitHub</title>
+        <link rel="icon" href="../Images/favicon.ico">
+
+    <!-- Linked StyleSheets: -->
+        <link rel="stylesheet" href="../Styles/Main.css">
+        <link rel="stylesheet" href="../Styles/Animations.css">
+        <link rel="stylesheet" href="../Styles/PageStyles.css">
+
+    <!-- Google Fonts & Icons: -->
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kode+Mono:wght@400..700&family=Madimi+One&family=Rubik+Scribble&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+        </style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,200"/>
+
+    <!-- Meta Tags: -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Local Style: -->
+        <style>
+
+            /* some base styles that will be applied to every button */
+            button {
+                font-size: 30px;
+                padding: 10px 30px;
+                margin: 10px;
+                border: 0;
+                cursor: pointer;
+                color: black;
+                text-transform: lowercase;
+
+
+                transition: all 0.4s cubic-bezier(.86, .01, .15, .99);
+            }
+
+            button::before {
+                content: "";
+                position: absolute;
+                z-index: -1;
+                top: 0px;
+                left: 0px;
+                right: 0px;
+                bottom: 0;
+            }
+
+            /****************
+            CLIP-PATH EFFECTS
+
+            /*Button Six*/
+
+            .button-six {
+                background: white;
+                color: black;
+                transition: 0.4s;
+                transform: perspective(1px) translateZ(0);
+            }
+
+            .button-six:hover {
+                color: white;
+                box-shadow: 0 0 0 10px rgba(250, 250, 250, 0.1)
+            }
+
+            .button-six::before {
+                clip-path: circle(0.01% at 50% 50%);
+                background: #9900cc;
+                transition: 0.4s;
+                opacity: 1;
+            }
+
+            .button-six:hover::before {
+                clip-path: circle(100% at 50% 50%);
+            }
+
+            /* CUSTOM STYLES: */
+
+            #ButtonsWrap{
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                flex-direction: column;
+                color: white;
+            }
+
+            .custom-button{
+                padding: 7px 12px;
+                background: #ffffff;
+                color: black;
+                text-shadow: unset;
+                border-radius: 2px;
+                border: .5px solid white;
+                position: relative;
+                cursor: pointer;
+                overflow: hidden;
+                transform: perspective(0px) translateZ(0);
+                transition: all 0.5s ease;
+
+            }
+
+            .custom-button:hover{
+                box-shadow: 0 0 0 4px #9e999991;
+                color: white;
+            }
+
+            .custom-button::before{
+                content: "";
+                position: absolute;
+                z-index: -1;
+                top: 0px;
+                bottom: 0;
+                right: 0px;
+                left: 0px;
+                transition: all 0.5s ease;
+                background: #00cca0;
+                clip-path: polygon(50% 0, 50% 0, 50% 50%, 50% 100%, 50% 100%, 50% 50%);
+            }
+
+            .custom-button:hover::before {
+                clip-path: polygon(25% -70%, 75% -70%, 120% 50%, 75% 170%, 25% 170%, -20% 50%);
+            }
+
+
+        </style>
+</head>
+
+<body>
+
+        <div id="HeaderBackgroundWrap">
+            <header>
+                <div id="NavButtonWrap">
+                    <span class="material-symbols-rounded" style="padding-left: 6px;" onclick="location.assign('../')"> Home </span>
+                </div>
+    
+                <div id="HeaderTitleWrap">
+                    <h1 style="cursor: pointer;" onclick="location.assign('../')"> Br4dyB's GitHub </h1>
+                </div>
+    
+                <div id="SearchButtonWrap">
+                    <span onclick="location.assign('../Pages/PrivacyPolicy.html')" class="material-symbols-rounded"> visibility_lock </span>
+                </div>
+            </header>
+        </div>
+
+    <br>
+    <h2 class="SectionHeading" style="margin-top: 80px;"> Experimental: </h2>
+
+    <main id="ContactUsWrap">
+
+        <div id="ButtonsWrap">
+
+            <h2> Button Background Styles: </h2>
+
+            <button class="button-six">
+                Template
+            </button>
+    
+            <div class="custom-button">
+                Hover Me
+            </div>
+
+        </div>
+        
+
+
+    </main>
+
+    <footer>
+        <div id="Footer-Sec1">
+            <a href="../Pages/TermsAndConditions.html"> Terms & Conditions </a>
+        </div>
+
+        <div id="Footer-Sec2">
+            <a href="../Pages/ContactUs.html" style="color: pink;"> Contact Us </a>
+        </div>
+
+        <div id="Footer-Sec3">
+            <a href="../Pages/PrivacyPolicy.html"> Privacy Policy </a>
+        </div>
+    </footer>
+
+    <!-- Scripts: -->
+
+  
+
+</body>

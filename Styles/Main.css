@@ -10,6 +10,8 @@
     --DefaultBorderColor: rgb(255,255,255);
     /* --DefaultBorderColor: rgb(0,0,0); */
 
+    --PinkPurpleGradient: linear-gradient(to bottom right, #df76ff, #9d53e8);
+
 }
 
 /* Small Screen Styles: */
@@ -66,7 +68,6 @@ a, a:hover, a:active, a:visited{
 }
 
 body{
-    /* background: linear-gradient(to top left, rgb(128, 40, 228), rgb(233, 63, 193)); */
     background-color: rgb(55, 55, 55);
     background-image: var(--BodyBackground);
     background-size: cover;
@@ -85,7 +86,6 @@ body{
     position: absolute;
     top: 0px;
     width: 100%;
-    /* background: var(--BodyBackground); */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -95,8 +95,7 @@ body{
 }
 
 header{
-    /* background: #ffffff7a; */
-    background: linear-gradient(to bottom right, #df76ff, #9d53e8);
+    background: var(--PinkPurpleGradient);
     border: 2px solid var(--DefaultBorderColor);
     box-shadow: var(--BoxShadow2px);
     display: flex;
@@ -169,7 +168,7 @@ footer a:hover{
 }
 
 .SectionHeading{
-    background: linear-gradient(to top right, #ce2fffb8, #b76fffc0);
+    background: var(--PinkPurpleGradient);
     box-shadow: var(--BoxShadow3px);
     text-align: center;
     padding: 7px;
@@ -182,9 +181,6 @@ footer a:hover{
     width: 100%;
     gap: 18px;
     padding: 7px;
-    /* grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); */
-    /* grid-auto-rows: auto; */
-    /* grid-auto-flow: dense; */
     justify-content: center; 
     justify-items: center;   
 
@@ -193,7 +189,7 @@ footer a:hover{
 .SiteCellWrap {
     width: 180px;
     height: 235px;
-    background: linear-gradient(to top right, #ce2fffb8, #b76fffc0);
+    background: var(--PinkPurpleGradient);
     border: 1.5px double var(--DefaultBorderColor);
     box-shadow: var(--BoxShadow3px);
     border-radius: 10px;
@@ -220,7 +216,7 @@ footer a:hover{
 }
 
 .SiteCellWrap button:hover{
-    background: rgb(159, 219, 99);
+    background: rgb(159, 219, 99, 0.85);
     border: 1.5px double rgb(0, 0, 0);
     color: black;
     padding: 4px 20px;
@@ -233,7 +229,7 @@ footer a:hover{
     width: 75px;
 }
 
-.SiteCellTitleWrap {
+.SiteCellTitleWrap{
     width: 100%;
     display: flex;
     justify-content: center;
@@ -242,16 +238,15 @@ footer a:hover{
     gap: 5px;
 }
 
-.SiteCellTitle {
+.SiteCellTitle{
     width: 100%;
     background: rgba(0, 0, 0, 0.5);
     padding: 5px;
     
 }
 
-.SiteTagsWrap {
+.SiteTagsWrap{
     width: 100%;
-    /* background: #ff7700; */
     display: flex;
     position: absolute;
     top: 25.5%;
@@ -374,21 +369,15 @@ footer a:hover{
     display: flex;
     flex: 1;
     flex-direction: column;
-
     align-items: center;
     text-align: center;
-
     justify-content: center;
-
     width: 100%;
-    /* min-height: 100vh; */
     height: 100%;
 
     overflow-y: auto;
     padding-bottom: 2px;
     padding-top: 77px;
-
-    /* background: lime; */
 }
 
 .NavLinksGrid {
@@ -397,13 +386,9 @@ footer a:hover{
     justify-content: center; 
     align-items: center;
 
-    /* margin-bottom: 77px; */
-
     width: 65%;
     gap: 12px;
     padding: 20px;
-
-    /* background: #236cb0; */
 
 }
 

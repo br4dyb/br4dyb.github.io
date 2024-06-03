@@ -20,15 +20,9 @@
     <!-- Meta Tags: -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Linked Scripts: -->
-        <!-- {Scripts Here} -->
 </head>
 
 <body>
-
-        <!-- <a id="ScrollUpButton">
-            &#11014;
-        </a> -->
 
         <div id="HeaderBackgroundWrap">
             <header>
@@ -41,7 +35,7 @@
                 </div>
     
                 <div id="SearchButtonWrap">
-                    <span onclick="location.assign('../Pages/ContactUs.html')" class="material-symbols-rounded"> Email </span>
+                    <span onclick="ToggleHelpScreen()" class="material-symbols-rounded"> Help </span>
                 </div>
             </header>
         </div>
@@ -49,7 +43,7 @@
     <br>
     <h2 class="SectionHeading" style="margin-top: 80px;"> Contact Us: </h2>
 
-    <main id="ContactUsWrap">
+    <main id="ContactUsWrap" class="">
 
         <form id="contact-form" action="https://formsubmit.co/halting.credo.00@icloud.com" method="POST">
             <label for="contactForm-name">Name:</label>
@@ -93,6 +87,24 @@
 
     </main>
 
+    <main id="FullContactHelpWrap" class="hidden">
+
+        <section id="ContactHelpInfoWrap">
+            <h2> Having trouble getting in contact? </h2>
+            <p style="text-align: center;"> 
+                If you're having dificulties wiht filling out our contact form, 
+                feel free to send us an email yourself! 
+                Just click the button below to begin your email. 
+                Keep in mind this email address forwards to our actual address if it seems like an incorrect address.
+            </p>
+            <div id="ContactHelpButtons">
+                <a href="mailto:halting.credo.00@icloud.com"> <button> <span class="material-symbols-rounded"> Email </span> <p>Send Email</p> </button> </a>
+                <button onclick="ToggleHelpScreen()" id="GoBackToContactPageButton"> <span class="material-symbols-rounded"> Close </span> <p>Go Back</p> </button>
+            </div>
+        </section>
+
+    </main>
+
     <footer>
         <div id="Footer-Sec1">
             <a href="../Pages/TermsAndConditions.html"> Terms & Conditions </a>
@@ -109,6 +121,28 @@
 
     <!-- Scripts: -->
 
+    <script>
+        let HelpScreenShown = false;
+        let FullContactWrap = document.getElementById('ContactUsWrap');
+        let FullContactHelpWrap = document.getElementById('FullContactHelpWrap');
+
+        function ToggleHelpScreen(){
+            
+            if(!HelpScreenShown){
+                HelpScreenShown = true;
+
+                FullContactHelpWrap.classList.toggle('hidden');
+                FullContactWrap.classList.toggle('hidden');
+
+            }else if(HelpScreenShown){
+                HelpScreenShown = false;
+                
+                FullContactHelpWrap.classList.toggle('hidden');
+                FullContactWrap.classList.toggle('hidden');
+            }
+
+        }
+    </script>
   
 
 </body>

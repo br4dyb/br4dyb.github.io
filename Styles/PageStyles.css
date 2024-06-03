@@ -54,16 +54,18 @@ ul, li {
 
 #ContactUsWrap{
     display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
     justify-content: center;
     align-items: center;
     width: 100%;
+    padding-block: 35px;
     flex: 1;
 }
 
 
 #contact-form{
-    /* background: rgb(106, 106, 106); */
-    background: linear-gradient(to bottom right, #1195b3, #e8ac53);
+    /* background: linear-gradient(to top left, #1195b3, #11882c); */
     padding: 22px;
     margin: 20px;
     border-radius: 8px;
@@ -74,7 +76,7 @@ ul, li {
     justify-content: center;
     align-items: center;
 
-    scale: 1.1;
+    scale: 1.15;
     width: 255px;
 }
 
@@ -105,9 +107,10 @@ ul, li {
 
 }
 
-#contact-form #message{
+#contactForm-message{
     overflow: auto;
     resize: vertical;
+    /* resize: none; */
     min-height: 50px;
 }
 
@@ -125,4 +128,80 @@ ul, li {
 #ContactSubmit:hover {
     background: rgb(80, 194, 58);
     cursor: pointer;
+}
+
+#FullContactHelpWrap{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    z-index: 5;
+
+}
+
+#ContactHelpInfoWrap{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 3px solid white;
+    max-width: 450px;
+    height: fit-content;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+#ContactHelpInfoWrap h2{
+    background: rgb(55, 55, 55, 0.9);
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid white;
+}
+
+#ContactHelpButtons{
+    display:  flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding: 5px;
+    gap: 10px;
+}
+
+#ContactHelpButtons button{
+    display:  flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+    background: rgba(255, 255, 255, 0.7);
+    /* background: rgb(55, 55, 55, 0.85); */
+    color: black;
+    transition: background 0.33s ease, color 0.33s ease, border 0.33s ease;
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 6px;
+    border: 2px solid black;
+}
+
+#ContactHelpButtons button p{
+    text-shadow: none;
+    font-weight: bolder;
+}
+
+#ContactHelpButtons button span{
+    text-shadow: none;
+    font-size: 20px;
+}
+
+#ContactHelpButtons button:hover{
+    background: rgba(173, 216, 230, 0.9);
+}
+
+#GoBackToContactPageButton:hover{
+    background: rgba(237, 167, 167, 0.9) !important;
 }

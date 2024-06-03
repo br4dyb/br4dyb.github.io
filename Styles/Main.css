@@ -460,3 +460,11 @@ footer a:hover{
 .NavButton:hover {
     border: 5px solid var(--DefaultBorderColor) !important;
 }
+
+#contact-form{
+    background: var(--PinkPurpleGradient);
+}
+
+#ContactHelpInfoWrap{
+    background: var(--PinkPurpleGradient);
+}

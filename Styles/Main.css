@@ -393,8 +393,8 @@ footer a:hover{
 }
 
 #Nav-AllSitesButton{
-    /* background: #76d48a; */
-    background: linear-gradient(to bottom right, #5fbf73, #1b5c11);
+    background: #64bb77;
+    /* background: linear-gradient(to bottom right, #5fbf73, #1b5c11); */
     display: flex;
     width: 190px;
     height: 228px;
@@ -404,8 +404,8 @@ footer a:hover{
 }
 
 #Nav-SearchSitesButton{
-    /* background: #71b0eb; */
-    background: linear-gradient(to bottom right, #71b0eb, #1e578c);
+    background: #71b0eb;
+    /* background: linear-gradient(to bottom right, #71b0eb, #1e578c); */
     width: 150px;
     height: 158px;
     border-radius: 10px;
@@ -414,8 +414,8 @@ footer a:hover{
 }
 
 #Nav-ContactUsButton{
-    /* background: #8c71eb; */
-    background: linear-gradient(to bottom right, #8c71eb, #3b2e6a);
+    background: #8c71eb;
+    /* background: linear-gradient(to bottom right, #8c71eb, #3b2e6a); */
     background-size: 100% 170%;
     width: 140px;
     height: 158px;
@@ -425,8 +425,8 @@ footer a:hover{
 }
 
 #Nav-PrivacyPolicyButton{
-    /* background: #f5a06b; */
-    background: linear-gradient(to bottom right, #f5a06b, #8c461a);
+    background: #f5a06b;
+    /* background: linear-gradient(to bottom right, #f5a06b, #8c461a); */
     width: 140px;
     height: 100px;
     border-radius: 10px;
@@ -435,8 +435,8 @@ footer a:hover{
 }
 
 #Nav-TermsConditionsButton{
-    /* background: #ebc271; */
-    background: linear-gradient(to bottom right, #edc77a, #845f15);
+    background: #ebc271;
+    /* background: linear-gradient(to bottom right, #edc77a, #845f15); */
     width: 140px;
     height: 100px;
     border-radius: 10px;
@@ -445,8 +445,8 @@ footer a:hover{
 }
 
 #Nav-404Button{
-    /* background: #eb7171; */
-    background: linear-gradient(to bottom right, #eb7171, #721f1f);
+    background: #eb7171;
+    /* background: linear-gradient(to bottom right, #eb7171, #721f1f); */
     width: 140px;
     height: 100px;
     border-radius: 10px;

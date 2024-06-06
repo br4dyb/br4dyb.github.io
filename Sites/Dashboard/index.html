@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Site Title/Favicon: -->
+        <title> Dashboard | Br4dyB GitHub</title>
+        <link rel="icon" href="./Images/favicon.ico">
+
+    <!-- Linked StyleSheets: -->
+        <link rel="stylesheet" href="./Styles/Main.css">
+        <link rel="stylesheet" href="./Styles/Animations.css">
+
+    <!-- Google Fonts & Icons: -->
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kode+Mono:wght@400..700&family=Madimi+One&family=Rubik+Scribble&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+        </style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,200"/>
+
+    <!-- Meta Tags: -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Linked Scripts: -->
+        <!-- {Scripts Here} -->
+</head>
+
+<body>
+
+    <header>
+        <div style="position: absolute; left: 5px;">
+            <span id="headerNavBtn" onclick="toggleNav()" class="material-symbols-rounded"> menu </span>
+        </div>
+        
+        <div style="gap: 3px;">
+            <span class="material-symbols-rounded" style="color: white; background: rgba(0,0,0,.85); padding: 4px 4px 5px 3px; border-radius: 50px; cursor:default; scale: .9;"> admin_panel_settings </span>
+            <h2 style="font-variant: small-caps;"> Admin Dashboard </h2>
+        </div>
+        
+
+        <div style="position: absolute; right: 5px;">
+            <span id="headerRefreshBtn" class="material-symbols-rounded"> refresh </span>
+            <span id="headerAccountBtn" class="material-symbols-rounded"> person </span>
+        </div>
+    </header>
+
+    <section id="fullNavArea" class="hiddenOpacity">
+        <nav>
+            <section>
+                <div id="navHeaderDiv">
+                    <h3 style="font-variant: small-caps;"> Navigation: </h3>
+                    <span id="navCloseButton" onclick="toggleNav()" class="material-symbols-rounded"> Close </span>
+                </div>
+                <ul>
+                    <a id="navHomeBtn" class="navPageLink"> <span class="material-symbols-rounded"> Home </span> Home </a>
+                    <a id="navUsersBtn" class="navPageLink"> <span class="material-symbols-rounded"> Group </span> Users </a>
+                    <a id="navStatusBtn" class="navPageLink"> <span class="material-symbols-rounded"> Sensors </span> Status </a>
+                    <a id="navUpdatesBtn" class="navPageLink"> <span class="material-symbols-rounded"> Work_History </span> Updates </a>
+                    <a id="navGetHelpBtn" class="navPageLink"> <span class="material-symbols-rounded"> live_Help </span> Get Help </a>
+                    <a id="navSettingsBtn" class="navPageLink"> <span class="material-symbols-rounded"> Settings </span> Settings </a>
+                </ul>
+            </section>
+            
+            <div id="navFooter">
+                <a class="navFooterLink"> Version: 0.0.1 </a>
+                <a class="navFooterLink"> Privacy Policy </a>
+                <a class="navFooterLink"> Terms &amp; Conditions </a>
+                <a class="navFooterLink"> Something Incorrect? </a>
+            </div>
+        </nav>
+    </section>
+    
+
+    <main id="fullBodyArea">
+        <section id="welcomeCollum">
+            <div id="welcomeUserArea">
+                <h3 style="font-variant: small-caps;"> Welcome: </h3>
+                <h4> %USER% </h4>
+                <img id="welcomeUserImg">
+            </div>
+            <div id="userMsgAlerts">
+                <h2 style="font-variant: small-caps; position: absolute; top: 15px; left: 12px;"> Messages: </h2>
+                <p> You currently have %count% messages unread! </p>
+                <button> View Messages </button>
+            </div>
+        </section>
+        
+    </main>
+
+
+</body>
+
+<script>
+    let navVisible = false;
+    let fullNavArea = document.getElementById('fullNavArea');
+
+    function toggleNav(){
+        if(!navVisible){
+            fullNavArea.classList.remove('hiddenOpacity');
+            fullNavArea.classList.add('shownOpacity');
+            
+            navVisible = true;
+        }else if(navVisible){
+            fullNavArea.classList.remove('shownOpacity');
+            fullNavArea.classList.add('hiddenOpacity');
+        
+            navVisible = false;
+        }
+    }
+</script>
+
+</html>

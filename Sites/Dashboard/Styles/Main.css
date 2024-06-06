@@ -1,0 +1,219 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Ubuntu';
+}
+
+.hiddenOpacity {
+    opacity: 0;
+    transition: opacity .3s ease;
+    display: none;
+}
+
+.shownOpacity {
+    transition: opacity .3s ease;
+    opacity: 1;
+}
+
+a, a:visited, a:active{
+    text-decoration: unset;
+    color: unset;
+}
+
+.material-symbols-rounded {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    background: darkslategray;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+header {
+    background: whitesmoke;
+    width: 100vw;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 10px;
+}
+
+header .material-symbols-rounded {
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 15%;
+    transition: background .2s ease;
+}
+
+header .material-symbols-rounded:hover {
+    background: rgba(0,0,0,.3);
+}
+
+header div {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+#fullNavArea{
+    background: rgba(0,0,0,.75);
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+}
+
+nav{
+    background: whitesmoke;
+    z-index: 5;
+    top: 0px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 230px;
+    height: 100%;
+    padding: 10px;
+}
+
+#navHeaderDiv{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+#navCloseButton{
+    border-radius: 6px;
+    background: rgba(0,0,0,.1);
+    box-shadow: .5px .5px 2px black;
+    cursor: pointer;
+    font-size: 22px;
+    transition: background .2s ease;
+}
+
+#navCloseButton:hover{
+    background: #d0232380;
+}
+
+nav ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+.navPageLink{
+    display: flex;
+    gap: 5px;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    padding: 4px;
+    margin-block: 5px;
+    width: 100%;
+    border-radius: 6px;
+    background: rgba(0,0,0,.1);
+    box-shadow: .5px .5px 2px black;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+#navHomeBtn:hover{
+    background: #86c96acc;
+}
+#navUsersBtn:hover{
+    background: #66a7d5d1;
+}
+#navStatusBtn:hover{
+    background: #aa74d7d2;
+}
+#navUpdatesBtn:hover{
+    background: #d89e52d4;
+}
+#navGetHelpBtn:hover{
+    background: #d0232380;
+}
+#navSettingsBtn:hover{
+    background: #d0c52380;
+}
+
+#navFooter{
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-variant: small-caps;
+}
+
+.navFooterLink:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#fullBodyArea{
+    padding: 10px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* background: lawngreen; */
+}
+
+#welcomeCollum {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5%;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#welcomeUserArea {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: darkmagenta;
+    width: fit-content;
+    padding: 20px;
+    border-radius: 7px;
+    margin: 10px;
+}
+
+#welcomeUserImg {
+    width: 100px;
+    height: 100px;
+    background: gray;
+    margin-top: 10px;
+    border-radius: 100%;
+    overflow: hidden;
+    border: 2px solid black;
+}
+
+#userMsgAlerts {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: end;
+    gap: 15px;
+    margin: 10px;
+    align-items: center;
+    height: 120px;
+    background: cyan;
+    width: fit-content;
+    padding: 20px;
+    border-radius: 7px;
+}
+
+footer {
+    content: "";
+}

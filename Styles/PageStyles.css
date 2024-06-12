@@ -52,9 +52,10 @@ ul, li {
     list-style: decimal;
 }
 
-#ContactUsWrap{
+#ContactUsWrap, #ExpWrap{
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     overflow: hidden;
     justify-content: center;
     align-items: center;

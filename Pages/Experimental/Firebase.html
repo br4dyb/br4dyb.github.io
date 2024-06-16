@@ -45,6 +45,37 @@
             padding: 5px;
             margin: 5px;
         }
+        
+        #addDataWrap{
+            padding: 7px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align:  center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #IssueDetailsWrap {
+            background: rgba(0, 0, 0, .3);
+            padding: 7px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align:  center;
+            color: rgb(228, 228, 131);
+        }
+
+        #serverStatusTxt {
+            margin-top: 10px;
+            background: rgba(0, 0, 0, .3);
+            padding: 7px;
+            border-radius: 5px;
+        }
     </style>
 
     <!-- <script>
@@ -91,15 +122,21 @@
 
     <main id="ExpWrap">
         <div id="FirebaseTestingWrap">
+
             <h2> Server Status: </h2>
             <p id="serverStatusTxt"> % loading % </p>
-            <p id="issueDetailsHeading" style="margin-top: 10px; font-size: large;"> Issue Details: </p>
-            
-            <p id="issueDetailsReported" style="font-size: small; margin-top: 10px; text-align: center;"> Issue Details: <br> %</p>
-            <p id="issueDateReported" style="font-size: small; margin-top: 10px; text-align: center;"> Date Reported: %</p>
 
-            <input type="text" id="dbContentBox" placeholder="Enter content" style="margin-top: 35px;">
-            <button onclick="addData()">Add Data</button>
+            <div id="IssueDetailsWrap">
+                <p id="issueDetailsHeading" style ="font-size: large; width: 100%; text-align: center;"> Issue Details: </p>
+                <p id="issueDetailsReported" style="font-size: small;  width: 100%; text-align: center;"> Issue Details: <br> %</p>
+                <p id="issueDateReported" style="font-size: small;  width: 100%; text-align: center;"> Date Reported: %</p>
+            </div>
+
+            <div id="addDataWrap">
+                <input type="text" id="dbContentBox" placeholder="Enter content" style="margin-top: 35px;">
+                <button onclick="addData()">Add Data</button>
+            </div>
+            
         </div>
     </main>
 
@@ -172,7 +209,7 @@
 
         };
 
-        // setStatus(false, 'Error with internal backend and server connection')
+            //setStatus(false, 'Error with internal backend and server connection')
 
         // Automatic Status Updating:
         db.collection('webStatus').doc('currentStatus')
@@ -181,6 +218,8 @@
 
                 let onlineStatus;
                 let statusTextElm = document.getElementById('serverStatusTxt');
+                let addDataWrap = document.getElementById('addDataWrap');
+                let issueDetailsWrap = document.getElementById('IssueDetailsWrap');
                 let issueDetailsHeading = document.getElementById('issueDetailsHeading');
                 let issueDateTextElm = document.getElementById('issueDateReported');
                 let issueDetailsTextElm = document.getElementById('issueDetailsReported');
@@ -190,18 +229,23 @@
                 
                 if(onlineStatus){
                     statusTextElm.innerText = 'Online - No Issues!';
-                    statusTextElm.style.color = 'lime';
+                    statusTextElm.style.color = 'rgb(78, 243, 133)';
+
+                    issueDetailsWrap.classList.add('hidden');
                     issueDetailsHeading.classList.add('hidden');
                     issueDateTextElm.classList.add('hidden');
                     issueDetailsTextElm.classList.add('hidden');
+                    addDataWrap.classList.remove('hidden');
 
                 }else if(!onlineStatus) {
                     statusTextElm.innerText = 'Offline - Issue(s) Reported!';
-                    statusTextElm.style.color = 'red';
+                    statusTextElm.style.color = 'rgb(232, 65, 65)';
 
+                    issueDetailsWrap.classList.remove('hidden');
                     issueDetailsHeading.classList.remove('hidden');
                     issueDateTextElm.classList.remove('hidden');
                     issueDetailsTextElm.classList.remove('hidden');
+                    addDataWrap.classList.add('hidden');
 
                     issueDateTextElm.innerHTML = `Issue Reported: <br> ${doc.data().issueDetails.dateReported}`;
                     issueDetailsTextElm.innerHTML = `Issue Details: <br> ${doc.data().issueDetails.issueInfo}`;

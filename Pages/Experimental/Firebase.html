@@ -47,14 +47,14 @@
         }
     </style>
 
-    <script>
+    <!-- <script>
         //Reassign Console.Log():
         console.log = ((logFunc) => {
             return(...args) => {
                 logFunc(`[ConsoleLog]: `,args)
             }
         })(console.log)
-    </script>
+    </script> -->
 </head>
 
 <!-- Google tag (gtag.js) -->
@@ -91,6 +91,9 @@
 
     <main id="ExpWrap">
         <div id="FirebaseTestingWrap">
+            <h2> Server Status: </h2>
+            <p id="serverStatusTxt" style="margin-bottom: 35px;"> % loading % </p>
+
             <input type="text" id="dbContentBox" placeholder="Enter content">
             <button onclick="addData()">Add Data</button>
         </div>
@@ -135,19 +138,55 @@
         // Add data function
         function addData() {
             const contentInput = document.getElementById("dbContentBox").value;
-            db.collection("testData").add({
+            db.collection("testData").doc(contentInput).set({
                 content: contentInput,
                 curDate: Date(),
                 fromUrl: location.hostname,
             })
             .then((docRef) => {
-                console.log("Document written with ID: ", docRef.id);
+                console.log("Document written with ID: ", contentInput);
             })
             .catch((error) => {
                 console.error("Error adding document: ", error);
                 alert(`[ERROR]: ${error}`)
             });
         }
+
+        function setStatus(isOnline, issueDetails){
+
+            db.collection("webStatus").doc('currentStatus').set({
+            online: isOnline,
+            'issue(s)': {
+                issueInfo: issueDetails,
+            }
+            })
+            .then((docRef) => {
+                console.log('Site Status doc has been created/updated!')
+            })
+            .catch((error) => {
+                console.log('Site Status update experienced an error:', error)
+            });
+
+        };
+
+        db.collection('webStatus').doc('currentStatus')
+            .onSnapshot((doc) => {
+                console.log('Status Update:')
+
+                let onlineStatus;
+                let statusTextElm = document.getElementById('serverStatusTxt');
+
+                onlineStatus = doc.data().online
+                console.log('onlineStatus ', onlineStatus)
+                
+                if(onlineStatus){
+                    statusTextElm.innerText = 'Online - No Issues!'
+                    statusTextElm.style.color = 'lime';
+                }else if(!onlineStatus) {
+                    statusTextElm.innerText = 'Offline - Issue(s) Reported!'
+                    statusTextElm.style.color = 'red';
+                }
+            })
 
     </script>
 

@@ -92,9 +92,13 @@
     <main id="ExpWrap">
         <div id="FirebaseTestingWrap">
             <h2> Server Status: </h2>
-            <p id="serverStatusTxt" style="margin-bottom: 35px;"> % loading % </p>
+            <p id="serverStatusTxt"> % loading % </p>
+            <p id="issueDetailsHeading" style="margin-top: 10px; font-size: large;"> Issue Details: </p>
+            
+            <p id="issueDetailsReported" style="font-size: small; margin-top: 10px; text-align: center;"> Issue Details: <br> %</p>
+            <p id="issueDateReported" style="font-size: small; margin-top: 10px; text-align: center;"> Date Reported: %</p>
 
-            <input type="text" id="dbContentBox" placeholder="Enter content">
+            <input type="text" id="dbContentBox" placeholder="Enter content" style="margin-top: 35px;">
             <button onclick="addData()">Add Data</button>
         </div>
     </main>
@@ -128,10 +132,8 @@
             messagingSenderId: "868340368524",
             appId: "1:868340368524:web:bdcdee795eade397a2a7a9"
         };
-
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-
         // Initialize Firestore
         const db = firebase.firestore();
 
@@ -156,8 +158,9 @@
 
             db.collection("webStatus").doc('currentStatus').set({
             online: isOnline,
-            'issue(s)': {
+            issueDetails: {
                 issueInfo: issueDetails,
+                dateReported: Date()
             }
             })
             .then((docRef) => {
@@ -169,22 +172,40 @@
 
         };
 
+        // setStatus(false, 'Error with internal backend and server connection')
+
+        // Automatic Status Updating:
         db.collection('webStatus').doc('currentStatus')
             .onSnapshot((doc) => {
                 console.log('Status Update:')
 
                 let onlineStatus;
                 let statusTextElm = document.getElementById('serverStatusTxt');
+                let issueDetailsHeading = document.getElementById('issueDetailsHeading');
+                let issueDateTextElm = document.getElementById('issueDateReported');
+                let issueDetailsTextElm = document.getElementById('issueDetailsReported');
 
                 onlineStatus = doc.data().online
                 console.log('onlineStatus ', onlineStatus)
                 
                 if(onlineStatus){
-                    statusTextElm.innerText = 'Online - No Issues!'
+                    statusTextElm.innerText = 'Online - No Issues!';
                     statusTextElm.style.color = 'lime';
+                    issueDetailsHeading.classList.add('hidden');
+                    issueDateTextElm.classList.add('hidden');
+                    issueDetailsTextElm.classList.add('hidden');
+
                 }else if(!onlineStatus) {
-                    statusTextElm.innerText = 'Offline - Issue(s) Reported!'
+                    statusTextElm.innerText = 'Offline - Issue(s) Reported!';
                     statusTextElm.style.color = 'red';
+
+                    issueDetailsHeading.classList.remove('hidden');
+                    issueDateTextElm.classList.remove('hidden');
+                    issueDetailsTextElm.classList.remove('hidden');
+
+                    issueDateTextElm.innerHTML = `Issue Reported: <br> ${doc.data().issueDetails.dateReported}`;
+                    issueDetailsTextElm.innerHTML = `Issue Details: <br> ${doc.data().issueDetails.issueInfo}`;
+
                 }
             })
 

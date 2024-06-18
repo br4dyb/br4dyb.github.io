@@ -76,6 +76,41 @@
             padding: 7px;
             border-radius: 5px;
         }
+
+        #userSignInButton:hover{
+            background: rgba(143, 248, 105, 0.85);
+        }
+
+        #UserSignInForm, #UserSignUpForm{
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 5px;
+            margin: 10px;
+            background: rgba(0, 0, 0, .3);
+            border-radius: 4px;
+        }
+
+        #UserSignInForm input, #UserSignUpForm input{
+            background: rgba(255, 255, 255, .75);
+            border-radius: 4px;
+            border: 1.5px solid white;
+            min-height: fit-content;
+            text-shadow: none;
+            padding: 3.5px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        #userSignIn-Submit, #userSignUp-Submit{
+            padding: 3px;
+            text-shadow: none;
+            font-weight: bold;
+            margin-top: 8px;
+            cursor: pointer;
+        }
     </style>
 
     <!-- <script>
@@ -111,8 +146,8 @@
                 <h1 style="cursor: pointer;" onclick="location.assign('../')"> Br4dyB's GitHub </h1>
             </div>
 
-            <div id="SearchButtonWrap">
-                <span onclick="location.assign('../Pages/PrivacyPolicy.html')" class="material-symbols-rounded"> visibility_lock </span>
+            <div id="SignInButtonWrap">
+                <span class="material-symbols-rounded" style="padding-left: 6px;" onclick="toggleSignInScreen()"> Person </span>
             </div>
         </header>
     </div>
@@ -121,7 +156,7 @@
     <h2 class="SectionHeading" style="margin-top: 80px;"> Firebase - Experimental: </h2>
 
     <main id="ExpWrap">
-        <div id="FirebaseTestingWrap">
+        <div id="FirebaseTestingWrap" class="">
 
             <h2> Server Status: </h2>
             <p id="serverStatusTxt"> % loading % </p>
@@ -138,6 +173,47 @@
             </div>
             
         </div>
+
+        <div id="UserSignInWrap" class="hidden">
+            
+            <form id="UserSignInForm">
+                <h2 style="padding: 5px 15px; margin-bottom: 8px;"> Welcome! Please sign in:</h2>
+
+                <label> Email:</label> <input id="userSignIn-EmailInput" type="email" required>
+            
+                <label> Password:</label> <input id="userSignIn-PasswordInput" type="password" required>
+
+                <input id="userSignIn-Submit" type="submit" value="Sign In">
+
+                <div style="display:  flex; justify-content: center; align-items: center; gap: 3px; flex-direction: column; margin-top: 10px;">
+                    <p style="font-size: 13px;"> Dont have an account? </p>
+                    <a onclick="toggleSignInOrUp()" style="font-size: 12px; color: lightblue; cursor: pointer;"> <u>Create one here</u> </a>
+                </div>
+            </form>
+
+        </div>
+
+        <div id="UserSignUpWrap" class="hidden">
+            
+            <form id="UserSignUpForm">
+                <h2 style="padding: 5px 15px; margin-bottom: 8px;"> Welcome! Please sign up:</h2>
+
+                <label> First Name:</label> <input id="userSignUp-FirstNameInput" type="text" required>
+
+                <label> Email:</label> <input id="userSignUp-EmailInput" type="email" required>
+            
+                <label> Password:</label> <input id="userSignUp-PasswordInput" type="password" required>
+
+                <input id="userSignUp-Submit" type="submit" value="Sign Up">
+
+                <div style="display:  flex; justify-content: center; align-items: center; gap: 3px; flex-direction: column; margin-top: 10px;">
+                    <p style="font-size: 13px;"> Already have an account? </p>
+                    <a onclick="toggleSignInOrUp()" style="font-size: 12px; color: lightblue; cursor: pointer;"> <u>Sign in here</u> </a>
+                </div>
+            </form>
+
+        </div>
+
     </main>
 
     <footer>
@@ -157,8 +233,9 @@
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
-    <!-- Initialize Firebase -->
+    <!-- Firebase Functions: -->
     <script>
         // Your web app's Firebase configuration
         const firebaseConfig = {
@@ -171,10 +248,14 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
+
         // Initialize Firestore
         const db = firebase.firestore();
 
-        // Add data function
+        //Initialize Authentication:
+        const auth = firebase.auth();
+
+
         function addData() {
             const contentInput = document.getElementById("dbContentBox").value;
             db.collection("testData").doc(contentInput).set({
@@ -212,9 +293,14 @@
             //setStatus(false, 'Error with internal backend and server connection')
 
         // Automatic Status Updating:
+        let checkStatus = false;
         db.collection('webStatus').doc('currentStatus')
             .onSnapshot((doc) => {
                 console.log('Status Update:')
+                if(!checkStatus){
+                    console.log('Check Canceled!');
+                    return;
+                }
 
                 let onlineStatus;
                 let statusTextElm = document.getElementById('serverStatusTxt');
@@ -253,7 +339,106 @@
                 }
             })
 
+
+        // User SignIn:
+            document.getElementById('UserSignInForm').addEventListener('submit', function(event){
+                
+                event.preventDefault();
+
+                const UsernameInput = document.getElementById('userSignIn-EmailInput');
+                const PasswordInput = document.getElementById('userSignIn-PasswordInput');
+
+                console.log(
+                `
+                Sign In Attempted!
+                ${UsernameInput.value}
+                ${PasswordInput.value}
+                `)
+
+                firebase.auth().signInWithEmailAndPassword(UsernameInput.value, PasswordInput.value)
+                .then((userCredential) => {
+                    // Signed in
+                    var user = userCredential.user;
+                    // ...
+                    console.log('Sign In Successful')
+                })
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.warn('Sign In Un-Successful')
+                });
+            
+            })
+                
+
+        // User SignUp:
+            document.getElementById('UserSignUpForm').addEventListener('submit', function(event){
+                
+                event.preventDefault();
+
+                const FirstNameInput = document.getElementById('userSignUp-FirstNameInput');
+                const UsernameInput = document.getElementById('userSignUp-EmailInput');
+                const PasswordInput = document.getElementById('userSignUp-PasswordInput');
+
+                console.log(
+                `
+                Sign Up Attempted!
+                ${FirstNameInput.value}
+                ${UsernameInput.value}
+                ${PasswordInput.value}
+                `)
+
+                firebase.auth().createUserWithEmailAndPassword(UsernameInput.value, PasswordInput.value)
+                .then((userCredential) => {
+                    // Signed in 
+                    var user = userCredential.user;
+                    // ...
+                    console.log('Sign Up Successful')
+                })
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // ..
+                    console.warn('Sign Up Un-Successful!')
+                });
+            
+            })
     </script>
+
+    <!-- Toggle SignIn/Up Wraps -->
+    <script>
+        //Show SignIn/Up Full Wrap(s):
+
+        let FullExpWrap = document.getElementById('FirebaseTestingWrap');
+        let SignInWrap = document.getElementById('UserSignInWrap');
+        let SignUpWrap = document.getElementById('UserSignUpWrap');
+
+        let SignInScreenShown = false;
+        
+        function toggleSignInScreen(){
+            if(!SignInScreenShown){
+                FullExpWrap.classList.add('hidden');
+                SignInWrap.classList.remove('hidden');
+                SignUpWrap.classList.add('hidden');
+
+                SignInScreenShown = true;
+            }else if(SignInScreenShown){
+                SignInWrap.classList.add('hidden');
+                SignUpWrap.classList.add('hidden');
+                FullExpWrap.classList.remove('hidden');
+
+                SignInScreenShown = false;
+            }
+        }
+
+        //Toggle SignIn & SignUp Wraps:
+
+        function toggleSignInOrUp(){
+            SignInWrap.classList.toggle('hidden');
+            SignUpWrap.classList.toggle('hidden');
+        }
+    </script>
+    
 
 </body>
 </html>

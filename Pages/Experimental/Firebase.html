@@ -293,7 +293,7 @@
             //setStatus(false, 'Error with internal backend and server connection')
 
         // Automatic Status Updating:
-        let checkStatus = false;
+        let checkStatus = true;
         db.collection('webStatus').doc('currentStatus')
             .onSnapshot((doc) => {
                 console.log('Status Update:')
@@ -353,19 +353,21 @@
                 Sign In Attempted!
                 ${UsernameInput.value}
                 ${PasswordInput.value}
-                `)
+                `);
 
                 firebase.auth().signInWithEmailAndPassword(UsernameInput.value, PasswordInput.value)
                 .then((userCredential) => {
                     // Signed in
                     var user = userCredential.user;
                     // ...
-                    console.log('Sign In Successful')
+                    console.log('Sign In Successful');
+                    alert('Sign In Successful');
                 })
                 .catch((error) => {
                     var errorCode = error.code;
                     var errorMessage = error.message;
-                    console.warn('Sign In Un-Successful')
+                    console.warn('Sign In Un-Successful');
+                    alert('Sign In Un-Successful');
                 });
             
             })
@@ -386,20 +388,22 @@
                 ${FirstNameInput.value}
                 ${UsernameInput.value}
                 ${PasswordInput.value}
-                `)
+                `);
 
                 firebase.auth().createUserWithEmailAndPassword(UsernameInput.value, PasswordInput.value)
                 .then((userCredential) => {
                     // Signed in 
                     var user = userCredential.user;
                     // ...
-                    console.log('Sign Up Successful')
+                    console.log('Sign Up Successful');
+                    alert('Sign Up Successful');
                 })
                 .catch((error) => {
                     var errorCode = error.code;
                     var errorMessage = error.message;
                     // ..
-                    console.warn('Sign Up Un-Successful!')
+                    console.warn('Sign Up Un-Successful!');
+                    alert('Sign Up Un-Successful!');
                 });
             
             })

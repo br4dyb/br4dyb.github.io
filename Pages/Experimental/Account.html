@@ -272,10 +272,10 @@
                 const usernameValue = document.getElementById('userSignIn-EmailInput').value;
                 const passwordVaule = document.getElementById('userSignIn-PasswordInput').value;
 
-                console.log(
-                `Sign In Attempted!
-                ${usernameValue}
-                ${passwordVaule}`);
+                // console.log(
+                // `Sign In Attempted!
+                // ${usernameValue}
+                // ${passwordVaule}`);
 
                 // Set Persistence:
                 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
@@ -287,8 +287,9 @@
                         var errorCode = error.code;
                         var errorMessage = error.message;
 
-                        alert(`Error occured when setting account persistance:
-                        ${errorCode}:
+                        alert('Persistence Error Occured. . .');
+                        console.log(`Error occured when setting account persistance:
+                        ${errorCode}
                         ${errorMessage}`);
                     });
 
@@ -298,20 +299,19 @@
                         // Signed in
                         var user = userCredential.user;
                         // ...
-                        console.log('Sign In Successful');
-                        
-                        alert(`Sign In Successful - UID: 
-                        ${user.uid}`);
+                        console.log('User Signed In!');
+                        console.log(`Email: ${user.email}`);
 
                     })
                     .catch((error) => {
                         var errorCode = error.code;
                         var errorMessage = error.message;
-                        console.warn(`Sign In Un-Successful:
+                        console.warn(`Sign In Unsuccessful:
                         [Error Code:] ${errorCode}
                         [Error Message:] ${errorMessage}`);
 
-                        alert('Sign In Un-Successful');
+                        alert(`Sign In Unsuccessful!
+                            Check console for more info. . .`);
                     });
             
             })
@@ -328,11 +328,11 @@
                 const usernameValue = document.getElementById('userSignUp-EmailInput').value;
                 const passwordVaule = document.getElementById('userSignUp-PasswordInput').value;
 
-                console.log(
-                `Sign Up Attempted!
-                ${firstNameValue}
-                ${usernameValue}
-                ${passwordVaule}`);
+                // console.log(
+                // `Sign Up Attempted!
+                // ${firstNameValue}
+                // ${usernameValue}
+                // ${passwordVaule}`);
 
                 // Set Persistence:
                 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
@@ -344,8 +344,9 @@
                         var errorCode = error.code;
                         var errorMessage = error.message;
 
-                        alert(`Error occured when setting account persistance:
-                        ${errorCode}:
+                        alert('Persistence Error Occured. . .');
+                        console.log(`Error occured when setting account persistance:
+                        ${errorCode}
                         ${errorMessage}`);
                     });
 
@@ -356,7 +357,6 @@
                     // Signed in 
                     var user = userCredential.user;
                     console.log('Sign Up Successful');
-                    alert('Sign Up Successful');
 
                     // Send Email Verification:
                     firebase.auth().currentUser.sendEmailVerification()
@@ -367,8 +367,8 @@
                     })
                     .catch((error) => {
                         alert('Error occured sending verification email! Check console. . .');
-                        console.log(`Could not send email verifiaction:
-                        ${error}`)
+                        console.warn(`Could not send email verifiaction:
+                        ${error}`);
                     });
                 
                     // Update Profile:
@@ -380,7 +380,7 @@
                         console.log('Profile update successful!');
                     }).catch((error) => {
                         // An error occurred
-                        console.log(`An Error Occured Updating the Profile:
+                        console.warn(`An Error Occured Updating the Profile:
                         ${error}`);
                     });  
                 })
@@ -402,10 +402,12 @@
             function userLogOut(){
                 firebase.auth().signOut().then(() => {
                 // Sign-out successful.
-                alert('SignOut Successful!')
+                    return
                 }).catch((error) => {
                 // An error happened.
-                alert(`[ERROR:] ${error}`)
+                alert('Could not Sign Out!');
+                console.warn(`SignOut Error:
+                ${error}`);
                 });
             }
     </script>

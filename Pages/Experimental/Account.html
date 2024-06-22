@@ -310,8 +310,14 @@
                         [Error Code:] ${errorCode}
                         [Error Message:] ${errorMessage}`);
 
-                        alert(`Sign In Unsuccessful!
-                            Check console for more info. . .`);
+                        if(errorCode === 'auth/invalid-credential'){
+                            alert(`Username or Password is Incorrect!
+                            Please try again. . .`);
+                        }else{
+                            alert(`Sign In Unsuccessful!
+                            An unknown error occured!
+                            (Check Console)`)
+                        }
                     });
             
             })

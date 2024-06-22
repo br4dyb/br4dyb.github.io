@@ -24,7 +24,7 @@
     <style>
         /* some base styles that will be applied to every button */
 
-        #UserSignInForm, #UserSignUpForm{
+        #UserSignInForm, #UserSignUpForm, #UserAccountWrap{
             display: flex;
             flex-direction: column;
             gap: 7px;
@@ -47,13 +47,25 @@
             text-align: center;
         }
 
-        #userSignIn-Submit, #userSignUp-Submit{
+        #userSignIn-Submit, #userSignUp-Submit, button{
+            background: rgba(255, 255, 255, .75);
+            border-radius: 4px;
+            border: 1.5px solid white;
             padding: 3px;
             text-shadow: none;
             font-weight: bold;
             margin-top: 8px;
             cursor: pointer;
         }
+
+        #UserProfilePicture{
+            border-radius: 100%;
+            margin: 7px 0px 13px;
+            height: 75px;
+            width: 75px;
+            background: gainsboro;
+        }
+
     </style>
 
     <!-- <script>
@@ -140,6 +152,14 @@
 
         </div>
 
+        <div id="UserAccountWrap" class="hidden">
+            <h2 style="padding: 5px 10px;"> Welcome %firstName%!</h2>
+            <img id="UserProfilePicture" src="">
+            <p id="AccWrapUsername"> Username: %username%</p>
+            <p id="AccWrapUID" style="font-size: small;"> UID: %uid%</p>
+            <button onclick="userLogOut()"> Log Out </button>
+        </div>
+
     </main>
 
     <footer>
@@ -163,6 +183,13 @@
 
     <!-- Firebase Functions: -->
     <script>
+        // Page Elements:
+            const SignInWrap = document.getElementById('UserSignInWrap');
+            const SignUpWrap = document.getElementById('UserSignUpWrap');
+            const UserAccountWrap = document.getElementById('UserAccountWrap');
+            const AccWrapUsername = document.getElementById('AccWrapUsername');
+            const AccWrapUID = document.getElementById('AccWrapUID');
+
         // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCF2LGmFyy8eZtXPoZ0kuzAUrPFDAO2ZmQ",
@@ -181,51 +208,80 @@
         //Initialize Authentication:
         const auth = firebase.auth();
 
+        // AuthState Change:
+        firebase.auth().onAuthStateChanged((user) => {
+            console.log('AuthState Changed . . .');
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/v8/firebase.User
+                var uid = user.uid;
+
+                console.log('User Found . . .');
+
+                AccWrapUsername.innerText = `Username: ${user.email}`;
+                AccWrapUID.innerText = `UID: ${uid}`;
+
+                SignInWrap.classList.add('hidden');
+                SignUpWrap.classList.add('hidden');
+                UserAccountWrap.classList.remove('hidden');
+
+            } else {
+                // User is signed out
+                console.log('User NOT Found . . .')
+                SignInWrap.classList.remove('hidden');
+                SignUpWrap.classList.add('hidden');
+                UserAccountWrap.classList.add('hidden');
+            }
+            });
+
         // User SignIn:
             document.getElementById('UserSignInForm').addEventListener('submit', function(event){
                 
                 event.preventDefault();
 
-                const UsernameInput = document.getElementById('userSignIn-EmailInput');
-                const PasswordInput = document.getElementById('userSignIn-PasswordInput');
+                const usernameValue = document.getElementById('userSignIn-EmailInput').value;
+                const passwordVaule = document.getElementById('userSignIn-PasswordInput').value;
 
                 console.log(
-                `
-                Sign In Attempted!
-                ${UsernameInput.value}
-                ${PasswordInput.value}
-                `);
+                `Sign In Attempted!
+                ${usernameValue}
+                ${passwordVaule}`);
 
-                // firebase.auth().signInWithEmailAndPassword(UsernameInput.value, PasswordInput.value)
-                // .then((userCredential) => {
-                //     // Signed in
-                //     var user = userCredential.user;
-                //     // ...
-                //     console.log('Sign In Successful');
-                //         alert('Sign In Successful');
-
-                // })
-                // .catch((error) => {
-                //     var errorCode = error.code;
-                //     var errorMessage = error.message;
-                //     console.warn('Sign In Un-Successful');
-                //     alert('Sign In Un-Successful');
-                // });
-
-
-                // Set Persistence & Login User:
+                // Set Persistence:
                 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
                     .then(() => {
-                        alert(`User Login Persistance Set!`);
-                        return firebase.auth().signInWithEmailAndPassword(UsernameInput.value, PasswordInput.value);
+                        return
                     })
                     .catch((error) => {
-                        // Handle Errors here.
+                        // Handle Errors:
                         var errorCode = error.code;
                         var errorMessage = error.message;
+
                         alert(`Error occured when setting account persistance:
-                                ${errorCode}:
-                                ${errorMessage}`);
+                        ${errorCode}:
+                        ${errorMessage}`);
+                    });
+
+                // Login User:
+                firebase.auth().signInWithEmailAndPassword(usernameValue, passwordVaule)
+                    .then((userCredential) => {
+                        // Signed in
+                        var user = userCredential.user;
+                        // ...
+                        console.log('Sign In Successful');
+                        
+                        alert(`Sign In Successful - UID: 
+                        ${user.uid}`);
+
+                    })
+                    .catch((error) => {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.warn(`Sign In Un-Successful:
+                        [Error Code:] ${errorCode}
+                        [Error Message:] ${errorMessage}`);
+
+                        alert('Sign In Un-Successful');
                     });
             
             })
@@ -236,43 +292,81 @@
                 
                 event.preventDefault();
 
-                const FirstNameInput = document.getElementById('userSignUp-FirstNameInput');
-                const UsernameInput = document.getElementById('userSignUp-EmailInput');
-                const PasswordInput = document.getElementById('userSignUp-PasswordInput');
+                const firstNameValue = document.getElementById('userSignUp-FirstNameInput').value;
+                const usernameValue = document.getElementById('userSignUp-EmailInput').value;
+                const passwordVaule = document.getElementById('userSignUp-PasswordInput').value;
 
                 console.log(
-                `
-                Sign Up Attempted!
-                ${FirstNameInput.value}
-                ${UsernameInput.value}
-                ${PasswordInput.value}
-                `);
+                `Sign Up Attempted!
+                ${firstNameValue}
+                ${usernameValue}
+                ${passwordVaule}`);
 
-                firebase.auth().createUserWithEmailAndPassword(UsernameInput.value, PasswordInput.value)
+                // Set Persistence:
+                firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+                    .then(() => {
+                        return
+                    })
+                    .catch((error) => {
+                        // Handle Errors:
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+
+                        alert(`Error occured when setting account persistance:
+                        ${errorCode}:
+                        ${errorMessage}`);
+                    });
+
+
+                //Create Account:
+                firebase.auth().createUserWithEmailAndPassword(usernameValue, passwordVaule)
                 .then((userCredential) => {
                     // Signed in 
                     var user = userCredential.user;
-                    // ...
                     console.log('Sign Up Successful');
                     alert('Sign Up Successful');
+
+                    // Send Email Verification:
+                    firebase.auth().currentUser.sendEmailVerification()
+                    .then(() => {
+                        // Email verification sent!
+                        alert('Check your email for verification!');
+                        // ...
+                    })
+                    .catch((error) => {
+                        alert('Error occured sending verification email! Check console. . .');
+                        console.log(`Could not send email verifiaction:
+                        ${error}`)
+                    });
                 })
                 .catch((error) => {
                     var errorCode = error.code;
                     var errorMessage = error.message;
                     // ..
-                    console.warn('Sign Up Un-Successful!');
-                    alert('Sign Up Un-Successful!');
+                    console.warn(`[Sign Up Unsuccessful!]:
+                    [ERROR CODE]: ${errorCode}
+                    [ERROR MESSAGE]: ${errorMessage}`);
+
+                    alert('Sign Up Unsuccessful!');
                 });
             
             })
+    
+        // User SignOut:
+            function userLogOut(){
+                firebase.auth().signOut().then(() => {
+                // Sign-out successful.
+                alert('SignOut Successful!')
+                }).catch((error) => {
+                // An error happened.
+                alert(`[ERROR:] ${error}`)
+                });
+            }
     </script>
 
     <!-- Toggle SignIn/Up Wraps -->
     <script>
         //Show SignIn/Up Full Wrap(s):
-
-        let SignInWrap = document.getElementById('UserSignInWrap');
-        let SignUpWrap = document.getElementById('UserSignUpWrap');
 
         let SignInScreenShown = true;
         

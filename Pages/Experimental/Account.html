@@ -80,6 +80,26 @@
             background: gainsboro;
         }
 
+        #ChangePictureWrap, #DeleteAccountWrap{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        input::placeholder{
+            text-shadow: none;
+        }
+
+        #NewProfileUrlInput{
+            text-shadow: none;
+            color: black;
+            padding: 4px;
+            border: 1px solid white;
+            border-radius: 7px;
+        }
+
     </style>
 
     <!-- <script>
@@ -172,7 +192,22 @@
             <p id="AccWrapUsername"> Username: %username%</p>
             <p id="AccWrapUID" style="font-size: small;"> UID: %uid%</p>
             <p id="AccWrapIsEmailVerified" style="font-size: small;"> Email Verified: %isEmailVerified%</p>
-            <button onclick="userLogOut()"> Log Out </button>
+            <button id="AccWrapChangePictureButton" onclick="toggleChangePictureWrap()"> Change Picture </button>
+            <button id="AccWrapLogOutButton" onclick="userLogOut()"> Log Out </button>
+            <button id="AccWrapDeleteAccountButton" style="background: rgb(238, 101, 101); border: 1px solid black;" onclick="toggleDeleteAccountWrap()"> DELETE ACCOUNT </button>
+
+            <div id="ChangePictureWrap" class="hidden">
+                <p style="margin-bottom: 7px;"> Enter Image URL: </p>
+                <input id="NewProfileUrlInput" type="search" placeholder="(image address/url)" onchange="testNewPhotoUrl()">
+                <button id="SubmitProfileUrlButton" onclick="changeProfilePicture()"> Submit </button>
+                <button id="SubmitProfileUrlButton" onclick="toggleChangePictureWrap()"> Cancel </button>
+            </div>
+
+            <div id="DeleteAccountWrap" class="hidden">
+                <p style="margin-top: 7px; color: rgb(238, 101, 101);"> Delete Account? </p>
+                <button id="SubmitProfileUrlButton" onclick="userDeleteAccount()" style="background: rgb(238, 101, 101); border: 1px solid black;"> Confirm </button>
+                <button id="SubmitProfileUrlButton" onclick="toggleDeleteAccountWrap()"> Cancel </button>
+            </div>
         </div>
 
     </main>
@@ -208,6 +243,14 @@
             const AccWrapUID = document.getElementById('AccWrapUID');
             const AccWrapIsEmailVerified = document.getElementById('AccWrapIsEmailVerified');
 
+            const AccWrapChangePictureButton = document.getElementById('AccWrapChangePictureButton');
+            const AccWrapLogOutButton = document.getElementById('AccWrapLogOutButton');
+            const AccWrapDeleteAccountButton = document.getElementById('AccWrapDeleteAccountButton');
+
+            const AccWrapDeleteProfileWrap = document.getElementById('DeleteAccountWrap');
+
+            let userVariable;
+
         // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCF2LGmFyy8eZtXPoZ0kuzAUrPFDAO2ZmQ",
@@ -234,6 +277,7 @@
                 // https://firebase.google.com/docs/reference/js/v8/firebase.User
                 // console.log('User Found . . .');
                 var uid = user.uid;
+                userVariable = user
 
                 AccWrapUsername.innerText = `Username: ${user.email}`;
                 AccWrapDisplayName.innerText = `Display Name: ${user.displayName}`;
@@ -329,6 +373,9 @@
                         if(errorCode === 'auth/invalid-credential'){
                             alert(`Username or Password is Incorrect!
                             Please try again. . .`);
+                        }else if(errorCode === 'auth/user-disabled'){
+                            alert(`Your account is disabled!
+                            Please contact an Admin. . .`);
                         }else{
                             alert(`Sign In Unsuccessful!
                             An unknown error occured!
@@ -450,6 +497,78 @@
                 console.warn(`SignOut Error:
                 ${error}`);
                 });
+            }
+    
+        // User ChnagePicture:
+            // Togle Change Picture Wrap:
+            const NewProfileUrlInput = document.getElementById('NewProfileUrlInput');
+            let isChangePictureWrapShown = false;
+
+            function toggleChangePictureWrap(){
+                const ChangePictureWrap = document.getElementById('ChangePictureWrap');
+                var ElementsToToggle = [AccWrapUsername, AccWrapDisplayName, AccWrapUID, AccWrapIsEmailVerified, AccWrapChangePictureButton, AccWrapLogOutButton, AccWrapDeleteAccountButton];
+
+                if(!isChangePictureWrapShown){
+                    ElementsToToggle.forEach(element => {
+                        element.classList.add('hidden');
+                    });
+                    ChangePictureWrap.classList.remove('hidden');
+                    isChangePictureWrapShown = true;
+                }else{
+                    ChangePictureWrap.classList.add('hidden');
+                    ElementsToToggle.forEach(element => {
+                        element.classList.remove('hidden');
+                    });
+                    isChangePictureWrapShown = false;
+                }
+            };
+
+            // Test New Picture:
+            function testNewPhotoUrl(){
+                // console.log(`Testing Photo Url: ${NewProfileUrlInput.value}`)
+                return AccWrapProfilePicture.src = NewProfileUrlInput.value
+            };
+
+
+            // Submit New Picture:
+            function changeProfilePicture(){
+                console.warn('Functionality not complete!');
+                userVariable.updateProfile({
+                    photoURL: NewProfileUrlInput.value
+                }).then(() => {
+                    // Profile Picture Updated Successfully!
+                    console.log('Profile Picture Updated!');
+                    location.reload();
+                }).catch((error) => {
+                    // Error Updating Profile Picture!
+                    console.warn(`Error Updating Profile Picture!: ${error}`);
+                });
+            };
+    
+        // User Delete Account:
+
+            let isDeleteWrapShown = false;
+
+            function toggleDeleteAccountWrap(){
+                var ElementsToToggle = [AccWrapUsername, AccWrapUID, AccWrapIsEmailVerified, AccWrapChangePictureButton, AccWrapLogOutButton, AccWrapDeleteAccountButton];
+
+                if(!isDeleteWrapShown){
+                    ElementsToToggle.forEach(element => {
+                        element.classList.add('hidden');
+                    });
+                    AccWrapDeleteProfileWrap.classList.remove('hidden');
+                    isDeleteWrapShown = true;
+                }else{
+                    AccWrapDeleteProfileWrap.classList.add('hidden');
+                    ElementsToToggle.forEach(element => {
+                        element.classList.remove('hidden');
+                    });
+                    isDeleteWrapShown = false;
+                }
+            }
+
+            function userDeleteAccount(){
+                userVariable.delete()
             }
     </script>
 

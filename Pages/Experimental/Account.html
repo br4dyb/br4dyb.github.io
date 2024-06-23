@@ -330,7 +330,7 @@
                         var errorMessage = error.message;
 
                         alert('Persistence Error Occured. . .');
-                        console.log(`Error occured when setting account persistance:
+                        console.warn(`Error occured when setting account persistance:
                         ${errorCode}
                         ${errorMessage}`);
                     });
@@ -340,26 +340,27 @@
                     .then((userCredential) => {
                         // Signed in
                         var user = userCredential.user;
-                        // ...
-                        console.log('User Signed In!');
-                        console.log(`Email: ${user.email}`);
+
+                        // console.log('User Signed In!');
+                        // console.log(`Email: ${user.email}`);
 
                         // Add/Update User to Firestore Database:
                         firebase.firestore().collection('Users').doc(user.uid).set({
                             DisplayName: user.displayName,
-                            Username: user.email,
+                            Email: user.email,
                             PhoneNumber: user.phoneNumber,
                             AccountCreatedDate: user.metadata.creationTime,
                             LastSignInDate: user.metadata.lastSignInTime,
                             UpdatedFromUrl: location.hostname,
                             LastDocUpdate: Date(),
+                            AdminUser: false,
                         })
                         .then((docRef) => {
-                            console.log("User updated to database!");
+                            //console.log("User updated to database!");
                             //location.reload();
                         })
                         .catch((error) => {
-                            console.warn("Error adding user to database!: ", error);
+                            console.warn("Error updating user to database!: ", error);
                         });
 
                     })
@@ -414,7 +415,7 @@
                         var errorMessage = error.message;
 
                         alert('Persistence Error Occured. . .');
-                        console.log(`Error occured when setting account persistance:
+                        console.warn(`Error occured when setting account persistance:
                         ${errorCode}
                         ${errorMessage}`);
                     });
@@ -425,7 +426,7 @@
                 .then((userCredential) => {
                     // Signed in 
                     var user = userCredential.user;
-                    console.log('Sign Up Successful');
+                    //console.log('Sign Up Successful!');
 
                     // Send Email Verification:
                     firebase.auth().currentUser.sendEmailVerification()
@@ -446,20 +447,21 @@
                         photoURL: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/1024px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
                     }).then(() => {
                         //Profile update Successful:
-                        console.log('Profile update successful!');
+                        //console.log('Profile update successful!');
 
                         //Add User to Firestore Database:
                         firebase.firestore().collection('Users').doc(user.uid).set({
-                            DisplayName: fullUserSignUpName,
-                            Username: user.email,
+                            DisplayName: user.displayName,
+                            Email: user.email,
                             PhoneNumber: user.phoneNumber,
                             AccountCreatedDate: user.metadata.creationTime,
                             LastSignInDate: user.metadata.lastSignInTime,
                             UpdatedFromUrl: location.hostname,
                             LastDocUpdate: Date(),
+                            AdminUser: false,
                         })
                         .then((docRef) => {
-                            console.log("User updated to database!");
+                            //console.log("User updated to database!");
                             location.reload(); //to refrsh profile updates on page
                         })
                         .catch((error) => {
@@ -568,13 +570,48 @@
             }
 
             function userDeleteAccount(){
-                //userVariable.delete();
-                console.log('Delete attempted!');
-                alert('Unavailable')
+                //console.log('Delete attempted!');
 
-                let userDocRef = firebase.firestore().collection('Users').doc(userVariable.uid);
+                var userDocRef = db.collection("Users").doc(userVariable.uid);
 
-                console.log(userDocRef);
+                userDocRef.get().then((doc) => {
+                if (doc.exists) {
+                let userData = doc.data();
+                
+                    db.collection("DeletedUsers").doc(userVariable.uid).set({
+                        DisplayName: userData.DisplayName,
+                        Email: userData.Email,
+                        PhoneNumber: userData.PhoneNumber,
+                        AccountCreatedDate: userData.AccountCreatedDate,
+                        LastSignInDate: userData.LastSignInDate,
+                        UpdatedFromUrl: location.hostname,
+                        AccountDeltedOn: Date(),
+                        AdminUser: userData.AdminUser,
+                    }).then((docCreated) => {
+                        console.log('User has been added to delted user collection!')
+                    }).catch((error) => {
+                        console.warn('An Error occured when adding the user from "DeletedUsers" collection:', error)
+                    })
+
+                    db.collection("Users").doc(userVariable.uid).delete()
+                    .then((deltedDoc) => {
+                        //Delete User From Auth:
+                        //console.log('UserDoc Deleted from "Users')
+                        userVariable.delete();
+                    }).catch((error) => {
+                        console.warn('An Error occured when deleting the user from "Users" collection:', error)
+                    })
+                        
+
+                } else {
+                console.warn("No such document! / Will not store delted user . . .");
+                    //Delete User From Auth:
+                    userVariable.delete();
+                }
+                }).catch((error) => {
+                console.warn("Error getting document:", error);
+                });
+
             }
     </script>
 

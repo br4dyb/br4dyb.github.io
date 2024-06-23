@@ -568,7 +568,13 @@
             }
 
             function userDeleteAccount(){
-                userVariable.delete()
+                //userVariable.delete();
+                console.log('Delete attempted!');
+                alert('Unavailable')
+
+                let userDocRef = firebase.firestore().collection('Users').doc(userVariable.uid);
+
+                console.log(userDocRef);
             }
     </script>
 

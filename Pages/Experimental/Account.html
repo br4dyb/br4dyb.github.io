@@ -36,7 +36,7 @@
             border-radius: 4px;
         }
 
-        #UserSignInForm input, #UserSignUpForm input{
+        #UserSignInForm input, #UserSignUpForm input, #userDelete-PasswordInput{
             background: rgba(255, 255, 255, .75);
             border-radius: 4px;
             border: 1.5px solid white;
@@ -80,7 +80,7 @@
             background: gainsboro;
         }
 
-        #ChangePictureWrap, #DeleteAccountWrap{
+        #ChangePictureWrap, #DeleteAccountWrap, #ReAuthAccountWrap{
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -98,6 +98,18 @@
             padding: 4px;
             border: 1px solid white;
             border-radius: 7px;
+        }
+
+        #CheckEmailWrap{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            border-radius: 7px;
+            color: burlywood;
+            margin: 3px;
+            padding: 5px 10px;
+            background: rgba(0, 0, 0, .3);
         }
 
     </style>
@@ -187,7 +199,10 @@
 
         <div id="UserAccountWrap" class="hidden">
             <h2 style="padding: 5px 10px;"> Welcome!</h2>
-            <img id="AccWrapProfilePicture" src="">
+            <div id="CheckEmailWrap" class="hidden">
+                <p style="font-size: smaller; text-align: center;"> Check your email to verify your account! <br> (or else you may lose access)
+            </div>
+            <img id="AccWrapProfilePicture" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/1024px-Windows_10_Default_Profile_Picture.svg.png?20221210150350">
             <p id="AccWrapDisplayName"> Display Name: %displayName%</p>
             <p id="AccWrapUsername"> Username: %username%</p>
             <p id="AccWrapUID" style="font-size: small;"> UID: %uid%</p>
@@ -208,6 +223,13 @@
                 <button id="SubmitProfileUrlButton" onclick="userDeleteAccount()" style="background: rgb(238, 101, 101); border: 1px solid black;"> Confirm </button>
                 <button id="SubmitProfileUrlButton" onclick="toggleDeleteAccountWrap()"> Cancel </button>
             </div>
+
+            <div id="ReAuthAccountWrap" class="hidden">
+                <p style="margin-top: 7px; color: rgb(238, 190, 101);"> Confirm Password: </p>
+                <label> Password:</label> <input id="userDelete-PasswordInput" type="password" required>
+                <button id="SubmitReAuthButton" style="background: rgb(238, 101, 101); border: 1px solid black;"> Confirm </button>
+            </div>
+
         </div>
 
     </main>
@@ -242,12 +264,15 @@
             const AccWrapUsername = document.getElementById('AccWrapUsername');
             const AccWrapUID = document.getElementById('AccWrapUID');
             const AccWrapIsEmailVerified = document.getElementById('AccWrapIsEmailVerified');
+            const CheckEmailWrap = document.getElementById('CheckEmailWrap');
 
             const AccWrapChangePictureButton = document.getElementById('AccWrapChangePictureButton');
             const AccWrapLogOutButton = document.getElementById('AccWrapLogOutButton');
             const AccWrapDeleteAccountButton = document.getElementById('AccWrapDeleteAccountButton');
 
             const AccWrapDeleteProfileWrap = document.getElementById('DeleteAccountWrap');
+            const ReAuthAccountWrap = document.getElementById('ReAuthAccountWrap');
+            const ReAuthPasswordInput = document.getElementById('userDelete-PasswordInput');
 
             let userVariable;
 
@@ -292,9 +317,11 @@
                     if(user.emailVerified == false){
                         AccWrapIsEmailVerified.style.color = 'red';
                         AccWrapIsEmailVerified.innerText = 'Email is NOT Verified!';
+                        CheckEmailWrap.classList.remove('hidden');
                     }else{
                         AccWrapIsEmailVerified.style.color = 'lime';
                         AccWrapIsEmailVerified.innerText = 'Email Verified!';
+                        CheckEmailWrap.classList.add('hidden');
                     }
 
             } else {
@@ -597,7 +624,7 @@
                     .then((deltedDoc) => {
                         //Delete User From Auth:
                         //console.log('UserDoc Deleted from "Users')
-                        userVariable.delete();
+                        DeleteUserFromAuth();
                     }).catch((error) => {
                         console.warn('An Error occured when deleting the user from "Users" collection:', error)
                     })
@@ -606,11 +633,61 @@
                 } else {
                 console.warn("No such document! / Will not store delted user . . .");
                     //Delete User From Auth:
-                    userVariable.delete();
+                    DeleteUserFromAuth();
                 }
                 }).catch((error) => {
                 console.warn("Error getting document:", error);
                 });
+
+                function DeleteUserFromAuth(){
+                    userVariable.delete()
+                        .then(() => {
+                            console.log('User has been delted from Auth!');
+                        })
+                        .catch((error) => {
+
+                            console.warn('User was not deleted!(auth):', error.code)
+
+                            if(error.code === "auth/requires-recent-login"){
+
+                                console.warn('User must log back in!');
+                                AccWrapDeleteProfileWrap.classList.add('hidden');
+                                ReAuthAccountWrap.classList.remove('hidden');
+
+                                //On Confirm ReAuth:
+                                document.getElementById('SubmitReAuthButton').addEventListener('click', function(){
+
+                                    firebase.auth().signInWithEmailAndPassword(userVariable.email, ReAuthPasswordInput.value)
+                                        .then((ReAuthCredential) => {
+
+                                            userVariable.delete().then(() => {
+                                                    console.log("Deletion Success!")
+                                                }).catch((error) => {
+                                                    console.warn(error)
+                                                    console.warn(error.code)
+                                                })
+
+                                        })
+                                        .catch((error) => {
+                                            console.warn('Error Reauthenticating:')
+                                            console.warn(error.code)
+
+                                            if(error.code === 'auth/invalid-credential'){
+                                                alert(`Password is Incorrect!
+                                                Please try again. . .`);
+                                            }
+                                        })
+
+                                    
+
+                                    
+                                })
+
+                            }else{
+                                alert('Unknown Error Occured!, Contact an Admin for help!')
+                            }
+                        })
+                }
 
             }
     </script>

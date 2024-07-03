@@ -113,15 +113,6 @@
         }
 
     </style>
-
-    <!-- <script>
-        //Reassign Console.Log():
-        console.log = ((logFunc) => {
-            return(...args) => {
-                logFunc(`[ConsoleLog]: `,args)
-            }
-        })(console.log)
-    </script> -->
 </head>
 
 <!-- Google tag (gtag.js) -->
@@ -144,7 +135,7 @@
             </div>
 
             <div id="HeaderTitleWrap">
-                <h1 style="cursor: pointer;" onclick="location.assign('../')"> Br4dyB's GitHub </h1>
+                <h1 style="cursor: pointer;" onclick="location.assign('/')"> Br4dyB's GitHub </h1>
             </div>
 
             <div id="SignInButtonWrap">
@@ -578,6 +569,7 @@
 
             let isDeleteWrapShown = false;
 
+            // Show/Hide Delete Wrap:
             function toggleDeleteAccountWrap(){
                 var ElementsToToggle = [AccWrapUsername, AccWrapUID, AccWrapIsEmailVerified, AccWrapChangePictureButton, AccWrapLogOutButton, AccWrapDeleteAccountButton];
 
@@ -596,6 +588,7 @@
                 }
             }
 
+            // Deletion Functions:
             function userDeleteAccount(){
                 //console.log('Delete attempted!');
 
@@ -654,15 +647,22 @@
                                 AccWrapDeleteProfileWrap.classList.add('hidden');
                                 ReAuthAccountWrap.classList.remove('hidden');
 
-                                //On Confirm ReAuth:
+                                //On Confirm ReAuth Attempt:
                                 document.getElementById('SubmitReAuthButton').addEventListener('click', function(){
+
+                                    console.log(`Attempting ReAuth with Credentials:
+                                    Username: ${userVariable.email}
+                                    Password: ${ReAuthPasswordInput.value}`);
 
                                     firebase.auth().signInWithEmailAndPassword(userVariable.email, ReAuthPasswordInput.value)
                                         .then((ReAuthCredential) => {
+                                            console.log('User Re-Login Success!')
+                                            location.reload();
 
                                             userVariable.delete().then(() => {
                                                     console.log("Deletion Success!")
                                                 }).catch((error) => {
+                                                    console.log('Deletion Error!:')
                                                     console.warn(error)
                                                     console.warn(error.code)
                                                 })
@@ -670,11 +670,13 @@
                                         })
                                         .catch((error) => {
                                             console.warn('Error Reauthenticating:')
-                                            console.warn(error.code)
 
                                             if(error.code === 'auth/invalid-credential'){
                                                 alert(`Password is Incorrect!
                                                 Please try again. . .`);
+                                            } else{
+                                                console.warn('Unknown Error:')
+                                                console.warn(error.code)
                                             }
                                         })
 
@@ -685,6 +687,8 @@
 
                             }else{
                                 alert('Unknown Error Occured!, Contact an Admin for help!')
+                                console.log('An Unknown Error Occured:')
+                                console.log(error)
                             }
                         })
                 }

@@ -73,6 +73,33 @@
             box-shadow: 0px 0px 4px black;
         }
 
+        #AccWrapProfilePictureWrapper{
+            position: relative;
+            width: fit-content;
+            height: fit-content;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #AdminProfileBadge{
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: normal;
+            background: red;
+
+            /* padding: 2px .8px 1px 1px; */
+            padding: 3px 3.5px 4px 3px;
+            border-radius: 100%;
+            border: 1px solid white;
+            scale: .65;
+            right: -6px;
+            top: 4px;
+            text-shadow: 0px 0px 2.5px rgba(0, 0, 0, 0.925);
+        }
+
         #AccWrapProfilePicture{
             border-radius: 100%;
             border: 1px solid white;
@@ -195,7 +222,10 @@
             <div id="CheckEmailWrap" class="hidden">
                 <p style="font-size: smaller; text-align: center;"> Check your email to verify your account! <br> (or else you may lose access)
             </div>
-            <img id="AccWrapProfilePicture" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/1024px-Windows_10_Default_Profile_Picture.svg.png?20221210150350">
+            <div id="AccWrapProfilePictureWrapper">
+                <img id="AccWrapProfilePicture" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/1024px-Windows_10_Default_Profile_Picture.svg.png?20221210150350">
+                <span id="AdminProfileBadge" class="material-symbols-rounded hidden" title="Admin"> gavel </span>
+            </div>
             <p id="AccWrapDisplayName"> Display Name: %displayName%</p>
             <p id="AccWrapUsername"> Username: %username%</p>
             <p id="AccWrapUID" style="font-size: small;"> UID: %uid%</p>
@@ -254,6 +284,7 @@
             const UserAccountWrap = document.getElementById('UserAccountWrap');
             const AccWrapDisplayName = document.getElementById('AccWrapDisplayName');
             const AccWrapProfilePicture = document.getElementById('AccWrapProfilePicture');
+            const AdminProfileBadge = document.getElementById('AdminProfileBadge');
             const AccWrapUsername = document.getElementById('AccWrapUsername');
             const AccWrapUID = document.getElementById('AccWrapUID');
             const AccWrapIsEmailVerified = document.getElementById('AccWrapIsEmailVerified');
@@ -296,6 +327,25 @@
                 // console.log('User Found . . .');
                 var uid = user.uid;
                 userVariable = user
+
+                //Check for Admin in Database:
+                let userDocRef = db.collection("Users").doc(uid);
+                userDocRef.get().then((doc) => {
+                    // console.log('UserDocFound! - AuthChange');
+                    let userDocData = doc.data();
+
+                    // console.log(`UserData: AdminUser: ${userDocData.AdminUser}`)
+
+                    if(userDocData.AdminUser){
+                        // console.log('An Admin has Signed In!')
+                        AdminProfileBadge.classList.remove('hidden');
+                    };
+
+                }).catch((error) => {
+                    console.warn('An Error Occured getting UserData on Auth Change:')
+                    console.warn(error)
+                });
+
 
                 AccWrapUsername.innerText = `Username: ${user.email}`;
                 AccWrapDisplayName.innerText = `Display Name: ${user.displayName}`;
@@ -365,15 +415,10 @@
                         // console.log(`Email: ${user.email}`);
 
                         // Add/Update User to Firestore Database:
-                        firebase.firestore().collection('Users').doc(user.uid).set({
-                            DisplayName: user.displayName,
-                            Email: user.email,
-                            PhoneNumber: user.phoneNumber,
-                            AccountCreatedDate: user.metadata.creationTime,
+                        firebase.firestore().collection('Users').doc(user.uid).update({
                             LastSignInDate: user.metadata.lastSignInTime,
                             UpdatedFromUrl: location.hostname,
                             LastDocUpdate: Date(),
-                            AdminUser: false,
                         })
                         .then((docRef) => {
                             //console.log("User updated to database!");

@@ -637,14 +637,16 @@
 
             // Deletion Functions:
             function userDeleteAccount(){
-                //console.log('Delete attempted!');
+                console.log('Delete attempted!');
 
+                //Get user data from Firestore
                 var userDocRef = db.collection("Users").doc(userVariable.uid);
 
                 userDocRef.get().then((doc) => {
                 if (doc.exists) {
                 let userData = doc.data();
                 
+                    // Add userdata to "DeletedUsers" collection
                     db.collection("DeletedUsers").doc(userVariable.uid).set({
                         DisplayName: userData.DisplayName,
                         Email: userData.Email,
@@ -654,52 +656,57 @@
                         UpdatedFromUrl: location.hostname,
                         AccountDeltedOn: Date(),
                         AdminUser: userData.AdminUser,
-                    }).then((docCreated) => {
-                        console.log('User has been added to delted user collection!')
-                    }).catch((error) => {
-                        console.warn('An Error occured when adding the user from "DeletedUsers" collection:', error)
-                    })
+                        }).then((docCreated) => {
+                            console.log('User has been added to delted user collection!')
+                        }).catch((error) => {
+                            //Error creating deleted user log:
+                            console.warn('An Error occured when adding the user from "DeletedUsers" collection:', error)
+                        })
 
+                    //Delete user data from "Users" collection
                     db.collection("Users").doc(userVariable.uid).delete()
-                    .then((deltedDoc) => {
-                        //Delete User From Auth:
-                        //console.log('UserDoc Deleted from "Users')
-                        DeleteUserFromAuth();
-                    }).catch((error) => {
-                        console.warn('An Error occured when deleting the user from "Users" collection:', error)
-                    })
+                        .then((deltedDoc) => {
+                            DeleteUserFromAuth();
+                        }).catch((error) => {
+                            console.warn('An Error occured when deleting the user from "Users" collection:', error)
+                        })
                         
-
+                //If userdata does not exist in "Users" collection:
                 } else {
                 console.warn("No such document! / Will not store delted user . . .");
                     //Delete User From Auth:
                     DeleteUserFromAuth();
                 }
                 }).catch((error) => {
-                console.warn("Error getting document:", error);
+                    //An Error occured finding the user data in "Users" (firebase errors)
+                    console.warn("Error getting document:", error);
                 });
 
+                // Function to Remove User from Auth:
                 function DeleteUserFromAuth(){
+                    //Attempt to delete:
                     userVariable.delete()
                         .then(() => {
+                            //Success:
                             console.log('User has been delted from Auth!');
                         })
                         .catch((error) => {
-
+                            //Error:
                             console.warn('User was not deleted!(auth):', error.code)
 
                             if(error.code === "auth/requires-recent-login"){
 
                                 console.warn('User must log back in!');
+                                // Show Re-Auth wraps:
                                 AccWrapDeleteProfileWrap.classList.add('hidden');
                                 ReAuthAccountWrap.classList.remove('hidden');
 
-                                //On Confirm ReAuth Attempt:
+                                //On Confirm ReAuth Attempt (confirm button):
                                 document.getElementById('SubmitReAuthButton').addEventListener('click', function(){
 
-                                    console.log(`Attempting ReAuth with Credentials:
-                                    Username: ${userVariable.email}
-                                    Password: ${ReAuthPasswordInput.value}`);
+                                    // console.log(`Attempting ReAuth with Credentials:
+                                    // Username: ${userVariable.email}
+                                    // Password: ${ReAuthPasswordInput.value}`);
 
                                     firebase.auth().signInWithEmailAndPassword(userVariable.email, ReAuthPasswordInput.value)
                                         .then((ReAuthCredential) => {
@@ -716,6 +723,7 @@
 
                                         })
                                         .catch((error) => {
+                                            // Error occured when trying to log back in:
                                             console.warn('Error Reauthenticating:')
 
                                             if(error.code === 'auth/invalid-credential'){
@@ -733,6 +741,7 @@
                                 })
 
                             }else{
+                                // An Unknown Error Occured that was not an "expired login":
                                 alert('Unknown Error Occured!, Contact an Admin for help!')
                                 console.log('An Unknown Error Occured:')
                                 console.log(error)

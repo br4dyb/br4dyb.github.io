@@ -168,7 +168,7 @@
             </div>
 
             <div id="SignInButtonWrap">
-                <span class="material-symbols-rounded" style="padding-left: 6px;" onclick="location.assign('/Pages/ContactUs.html')"> Email </span>
+                <span class="material-symbols-rounded" style="padding-left: 6px;" onclick="location.assign('/Pages/Experimental/Firebase.html')"> Experiment </span>
             </div>
         </header>
     </div>
@@ -322,9 +322,6 @@
         firebase.auth().onAuthStateChanged((user) => {
             // console.log('AuthState Changed . . .');
             if (user) {
-                // User is signed in, see docs for a list of available properties
-                // https://firebase.google.com/docs/reference/js/v8/firebase.User
-                // console.log('User Found . . .');
                 var uid = user.uid;
                 userVariable = user
 

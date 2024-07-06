@@ -25,9 +25,11 @@
         /* some base styles that will be applied to every button */
         button {
             font-size: 15px;
-            padding: 5px;
+            text-shadow: none;
+            font-weight: bold;
+            padding: 2px 5px;
+            border: 1px solid black;
             margin: 5px;
-            border: 0;
             cursor: pointer;
             color: black;
             border-radius: 7px;
@@ -77,6 +79,37 @@
             border-radius: 5px;
         }
 
+        #LoginRequiredMsg{
+            max-width: 75%;
+            background: rgba(0, 0, 0, .3);
+            padding: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        #ServerStatusWrap{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 20px;
+        }
+
+        #DataUploadSuccessMsg, #DataUploadErrorMsg{
+            position: absolute;
+            bottom: 35px;
+            right: 1px;
+            margin: 10px;
+            background: rgba(0, 0, 0, .3);
+            padding: 7px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 12px;
+        }
+
     </style>
 
     <!-- <script>
@@ -122,8 +155,8 @@
     <h2 class="SectionHeading" style="margin-top: 80px;"> Firebase - Experimental: </h2>
 
     <main id="ExpWrap">
-        <div id="FirebaseTestingWrap" class="">
 
+        <div id="ServerStatusWrap">
             <h2> Server Status: </h2>
             <p id="serverStatusTxt"> % loading % </p>
 
@@ -132,10 +165,25 @@
                 <p id="issueDetailsReported" style="font-size: small;  width: 100%; text-align: center;"> Issue Details: <br> %</p>
                 <p id="issueDateReported" style="font-size: small;  width: 100%; text-align: center;"> Date Reported: %</p>
             </div>
+        </div>
+
+        <div id="LoginRequiredMsg" class="hidden">
+            <h3 style="color: rgb(243, 121, 121); margin: 10px;"> Attention! </h3>
+            <p style="width: 75%; text-align: center;"> To use these features you must be logged into an account!</p>
+            <button onclick="location.assign('/Pages/Account.html')" style="margin: 20px;"> Login Here </button>
+        </div>
+
+        <div id="FirebaseTestingWrap" class="hidden">
 
             <div id="addDataWrap">
                 <input type="text" id="dbContentBox" placeholder="Enter content" style="margin-top: 35px;">
                 <button onclick="addData()">Add Data</button>
+
+                <div>
+                    <p id="DataUploadSuccessMsg" class="hidden" style="color: rgb(162, 236, 132);"> Document was added successfully! </p>
+                    <p id="DataUploadErrorMsg" class="hidden" style="color: rgb(237, 113, 113);"> An Error Occured when adding the document! <br> Please try again . . . </p>
+                </div>
+
             </div>
             
         </div>
@@ -181,20 +229,59 @@
         //Initialize Authentication:
         const auth = firebase.auth();
 
+        //Document Elements:
+        const LoginRequiredMsg = document.getElementById('LoginRequiredMsg');
+        const FirebaseTestingWrap = document.getElementById('FirebaseTestingWrap');
+        const DataUploadSuccessMsg = document.getElementById('DataUploadSuccessMsg');
+        const DataUploadErrorMsg = document.getElementById('DataUploadErrorMsg');
 
+        //Check for User Logged In:
+        firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            var uid = user.uid;
+            console.log('User Signed In:');
+            console.log(uid);
+
+            LoginRequiredMsg.classList.add('hidden');
+            FirebaseTestingWrap.classList.remove('hidden');
+
+        } else {
+            console.log('User is NOT Signed In!')
+            LoginRequiredMsg.classList.remove('hidden');
+            FirebaseTestingWrap.classList.add('hidden');
+        }
+        });
+        
+        //Function to Add Data to "testData"
         function addData() {
             const contentInput = document.getElementById("dbContentBox").value;
             db.collection("testData").doc(contentInput).set({
                 content: contentInput,
                 curDate: Date(),
                 fromUrl: location.hostname,
+                createdBy: firebase.auth().currentUser.displayName
             })
             .then((docRef) => {
+                //Document Success:
                 console.log("Document written with ID: ", contentInput);
+
+                DataUploadSuccessMsg.classList.remove('hidden');
+                document.getElementById("dbContentBox").value = '';
+
+                setTimeout(() => {
+                    DataUploadSuccessMsg.classList.add('hidden');
+                }, 2500);
             })
             .catch((error) => {
+                //Document Error:
                 console.error("Error adding document: ", error);
-                alert(`[ERROR]: ${error}`)
+
+                DataUploadErrorMsg.classList.remove('hidden');
+                document.getElementById("dbContentBox").value = '';
+
+                setTimeout(() => {
+                    DataUploadErrorMsg.classList.add('hidden');
+                }, 2500);
             });
         }
 

@@ -46,15 +46,23 @@
             text-shadow: none !important;
             padding: 5px;
             margin: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 7px;
+            border: 1px solid white;
+        }
+
+        #dbContentBox::placeholder{
+            color: rgb(79, 79, 79);
         }
         
         #addDataWrap{
             padding: 7px;
+            /* background: rgba(36, 78, 129, 0.328); */
             border-radius: 5px;
-            margin-top: 10px;
+            padding-top: 15px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
             text-align:  center;
             justify-content: center;
             align-items: center;
@@ -176,7 +184,8 @@
         <div id="FirebaseTestingWrap" class="hidden">
 
             <div id="addDataWrap">
-                <input type="text" id="dbContentBox" placeholder="Enter content" style="margin-top: 35px;">
+                <p> Add Data to Database: </p>
+                <input type="text" id="dbContentBox" placeholder="Enter content" style="margin: 5px;">
                 <button onclick="addData()">Add Data</button>
 
                 <div>

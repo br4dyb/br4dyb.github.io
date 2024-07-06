@@ -444,6 +444,17 @@ footer a:hover{
     position: relative;
 }
 
+#Nav-AccountButton{
+    /* background: #eb7171; */
+    background: #d241ca;
+    /* background: linear-gradient(to bottom right, #ed4646, #e57a2e, #edcb46, #aaed46, #46b0ed, #c046ed); */
+    width: 140px;
+    height: 100px;
+    border-radius: 10px;
+    border: 2px solid var(--DefaultBorderColor);
+    position: relative;
+}
+
 #Nav-ExperimentalButton{
     /* background: #eb7171; */
     /* background: #3690c5; */

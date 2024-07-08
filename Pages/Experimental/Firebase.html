@@ -37,6 +37,7 @@
 
         #FirebaseTestingWrap {
             display: flex;
+            position: relative;
             flex-direction: column;
             align-items: center;
             width: 100%;
@@ -106,10 +107,19 @@
             margin: 20px;
         }
 
+        #UploadMessagesWrap{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            display: flex;
+            flex: 1;
+        }
+
         #DataUploadSuccessMsg, #DataUploadErrorMsg{
             position: absolute;
-            bottom: 35px;
-            right: 1px;
+            bottom: 0px;
+            right: -3px;
             margin: 10px;
             background: rgba(0, 0, 0, .3);
             padding: 7px;
@@ -188,16 +198,17 @@
                 <input type="text" id="dbContentBox" placeholder="Enter content" style="margin: 5px;">
                 <button onclick="addData()">Add Data</button>
 
-                <div>
-                    <p id="DataUploadSuccessMsg" class="hidden" style="color: rgb(162, 236, 132);"> Document was added successfully! </p>
-                    <p id="DataUploadErrorMsg" class="hidden" style="color: rgb(237, 113, 113);"> An Error Occured when adding the document! <br> Please try again . . . </p>
-                </div>
-
             </div>
             
         </div>
 
+        <div id="UploadMessagesWrap">
+            <p id="DataUploadSuccessMsg" class="hidden" style="color: rgb(162, 236, 132);"> Document was added successfully! </p>
+            <p id="DataUploadErrorMsg" class="hidden" style="color: rgb(237, 113, 113);"> An Error Occured when adding the document! <br> Please try again . . . </p>
+        </div>
     </main>
+
+    
 
     <footer>
         <div id="Footer-Sec1">
@@ -248,8 +259,8 @@
         firebase.auth().onAuthStateChanged((user) => {
         if (user) {
             var uid = user.uid;
-            console.log('User Signed In:');
-            console.log(uid);
+            //console.log('User Signed In:');
+            //console.log(uid);
 
             LoginRequiredMsg.classList.add('hidden');
             FirebaseTestingWrap.classList.remove('hidden');
@@ -263,35 +274,53 @@
         
         //Function to Add Data to "testData"
         function addData() {
-            const contentInput = document.getElementById("dbContentBox").value;
-            db.collection("testData").doc(contentInput).set({
-                content: contentInput,
-                curDate: Date(),
-                fromUrl: location.hostname,
-                createdBy: firebase.auth().currentUser.displayName
-            })
-            .then((docRef) => {
-                //Document Success:
-                console.log("Document written with ID: ", contentInput);
+            const contentInput = document.getElementById("dbContentBox").value.trim();
+            const DefaultErrorText = ' An Error Occured when adding the document! <br> Please try again . . . ';
+            const BlankFeildErrorText = ' The text content must not be blank! Try Again! '
 
-                DataUploadSuccessMsg.classList.remove('hidden');
-                document.getElementById("dbContentBox").value = '';
+            if(contentInput == ''){
+                //Document Error (Empty Feild):
+                console.warn("Error adding document: The content feild was blank. . .");
 
-                setTimeout(() => {
-                    DataUploadSuccessMsg.classList.add('hidden');
-                }, 2500);
-            })
-            .catch((error) => {
-                //Document Error:
-                console.error("Error adding document: ", error);
-
+                DataUploadErrorMsg.innerHTML = BlankFeildErrorText;
                 DataUploadErrorMsg.classList.remove('hidden');
                 document.getElementById("dbContentBox").value = '';
 
                 setTimeout(() => {
                     DataUploadErrorMsg.classList.add('hidden');
                 }, 2500);
-            });
+            }else{
+                db.collection("testData").doc(contentInput).set({
+                    content: contentInput,
+                    curDate: Date(),
+                    fromUrl: location.hostname,
+                    createdBy: firebase.auth().currentUser.displayName
+                })
+                .then((docRef) => {
+                    //Document Success:
+                    console.log("Document written with ID: ", contentInput);
+
+                    DataUploadSuccessMsg.classList.remove('hidden');
+                    document.getElementById("dbContentBox").value = '';
+
+                    setTimeout(() => {
+                        DataUploadSuccessMsg.classList.add('hidden');
+                    }, 2500);
+                })
+                .catch((error) => {
+                    //Document Error:
+                    console.error("Error adding document: ", error);
+
+                    DataUploadErrorMsg.innerHTML = DefaultErrorText;
+                    DataUploadErrorMsg.classList.remove('hidden');
+                    document.getElementById("dbContentBox").value = '';
+
+                    setTimeout(() => {
+                        DataUploadErrorMsg.classList.add('hidden');
+                    }, 2500);
+                });
+            }
+
         }
 
         function setStatus(isOnline, issueDetails){

@@ -62,6 +62,7 @@ ul, li {
     width: 100%;
     padding-block: 35px;
     flex: 1;
+    position: relative;
 }
 
 

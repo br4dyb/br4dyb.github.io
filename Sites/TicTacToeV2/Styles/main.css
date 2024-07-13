@@ -1,0 +1,99 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Ubuntu';
+}
+
+
+.ShownOpacity{
+    transition: opacity .5s;
+    opacity: 1;
+}
+
+.HiddenOpacity{
+    transition: opacity .5s;
+    opacity: 0;
+}
+
+.material-symbols-rounded{
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    cursor: pointer !important; 
+}
+
+body{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background: rgb(90, 90, 90);
+}
+
+.HeaderButton{
+    padding: 3px;
+    text-align: center;
+    border-radius: 8px;
+    transition: background 0.2s ease, scale 0.3s;
+}
+
+.HeaderButton:hover{
+    background: rgba(0, 0, 0, 0.587);
+    scale: 1.15;
+}
+
+#FullBodyWrap{
+    background: rgb(30, 30, 195);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+#WelcomeLandingScreen{
+    background: rgb(90, 90, 90);
+    padding: 15px;
+    display: flex;
+    gap: 5px;
+    scale: 1.2;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 1px 1px 4px black;
+    border-radius: 7px;
+}
+
+.GamemodeButton{
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    padding: 4px;
+    border: none;
+    box-shadow: 1px 2px 4px black;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: scale .1s;
+}
+
+.GamemodeButton:hover{
+    scale: 1.05;
+}
+
+#SinglePlayerButton{
+    background: rgb(40, 192, 40);
+}
+
+#MultiPlayerButton{
+    background: rgb(159, 82, 221);
+}

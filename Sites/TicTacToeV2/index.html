@@ -58,33 +58,52 @@
         </div>
 
         <div id="SinglePlayerGameArea" class="HiddenOpacity">
-            <h2> Single Player! </h2>
 
-            <table id="SinglePlayerTable">
-                <tr class="SingPlrTblRow">
-                    <td class="SingPlrTblCell"> 1</td>
-                    <td class="SingPlrTblCell"> 2</td>
-                    <td class="SingPlrTblCell"> 3</td>
+            <div id="SinglePlayerChoosePlayerArea" class="PlayerPieceSelectionScreen">
+                <h3 style="margin: 10px;"> Choose your player:</h3>
+                <div style="display: flex; flex-direction: row; justify-content: space-evenly; align-items: center; width: 100%;">
+                    <p onclick="SinglePlayerChoosePiece('X')" class="ChoosePieceXButton"> X </p>
+                    <p onclick="SinglePlayerChoosePiece('0')" class="ChoosePieceOButton"> O </p>
+                </div>
+            </div>
 
-                </tr>
-                <tr class="SingPlrTblRow">
-                    <td class="SingPlrTblCell"> 4</td>
-                    <td class="SingPlrTblCell"> 5</td>
-                    <td class="SingPlrTblCell"> 6</td>
+            <div id="SinglePlayerTableArea">
 
-                </tr>
-                <tr class="SingPlrTblRow">
-                    <td class="SingPlrTblCell"> 7</td>
-                    <td class="SingPlrTblCell"> 8</td>
-                    <td class="SingPlrTblCell"> 9</td>
+                <div class="ExtraGameTableBorder">
+                <table id="SinglePlayerTable" class="GameTable">
+                    <tr class="GameTblRow">
+                        <td class="GameTblCell"> </td>
+                        <td class="GameTblCell"> </td>
+                        <td class="GameTblCell"> </td>
+    
+                    </tr>
+                    <tr class="GameTblRow">
+                        <td class="GameTblCell"> </td>
+                        <td class="GameTblCell"> </td>
+                        <td class="GameTblCell"> </td>
+    
+                    </tr>
+                    <tr class="GameTblRow">
+                        <td class="GameTblCell"> </td>
+                        <td class="GameTblCell"> </td>
+                        <td class="GameTblCell"> </td>
+    
+                    </tr>
+                </table>
+                </div>
 
-                </tr>
-            </table>
+                <div id="SinglePlrGameInfoHeader">
+                    <div class="GameInfoHeaderRow" id="GameInfoHeaderYouWrap"> <p class="PlayerPieceDisplay" style="background: orange;"> X </p> <p> You: 0 </p> </div>
+                    <div class="GameInfoHeaderRow" id="GameInfoHeaderComputerWrap"> <p class="PlayerPieceDisplay" style="background: orangered;"> O </p> <p> Computer: 0 </p> </div>
+                </div>
+
+            </div>
 
         </div>
 
         <div id="MultiPlayerGameArea" class="HiddenOpacity">
-            <h2> Multi Player! </h2>
+            <h2> Multi Player: </h2>
+            <h3> Coming Soon . . . </h3>
         </div>
 
     </main>
@@ -93,9 +112,12 @@
 
 <script>
     //Variables:
+    let SinglePlayerPiece;
     const WelcomeLandingScreen = document.getElementById('WelcomeLandingScreen');
     const SinglePlayerGameArea = document.getElementById('SinglePlayerGameArea');
     const MultiPlayerGameArea = document.getElementById('MultiPlayerGameArea');
+    const SinglePlayerChoosePlayerArea = document.getElementById('SinglePlayerChoosePlayerArea');
+    const SinglePlayerTableArea = document.getElementById('SinglePlayerTableArea');
 
     //Animate in Landing Screen:
     setTimeout(() => {
@@ -110,13 +132,36 @@
         WelcomeLandingScreen.classList.remove('ShownOpacity');
         WelcomeLandingScreen.classList.add('HiddenOpacity');
         
-        //Show Game Screen:
+        //Show Player Piece / FullGameArea Screen:
         SinglePlayerGameArea.style.display = 'flex';
+        SinglePlayerTableArea.style.display = 'none';
+
         setTimeout(() => {
             WelcomeLandingScreen.style.display = 'none';
             SinglePlayerGameArea.classList.add('ShownOpacity');
             SinglePlayerGameArea.classList.remove('HiddenOpacity');
         }, 1000);
+
+    }
+
+    function SinglePlayerChoosePiece(Choice){
+        SinglePlayerPiece = Choice;
+
+        console.log('Player is:', Choice);
+
+        //Hide Choice Screen:
+        SinglePlayerChoosePlayerArea.classList.add('HiddenOpacity');
+        SinglePlayerTableArea.classList.add('HiddenOpacity'); // To ensure smooth transition (re-add class again?)
+        SinglePlayerTableArea.style.display = 'flex';
+
+        //Show Game Table:
+        setTimeout(() => {
+            SinglePlayerChoosePlayerArea.style.display = 'none';
+            
+            SinglePlayerTableArea.classList.add('ShownOpacity');
+            SinglePlayerTableArea.classList.remove('HiddenOpacity');
+        }, 850);
+
     }
 
     function StartMultiPlayer(){
@@ -130,6 +175,16 @@
             WelcomeLandingScreen.style.display = 'none';
             MultiPlayerGameArea.classList.add('ShownOpacity');
             MultiPlayerGameArea.classList.remove('HiddenOpacity');
+
+            setTimeout(() => {
+                MultiPlayerGameArea.classList.remove('ShownOpacity');
+                MultiPlayerGameArea.classList.add('HiddenOpacity');
+            }, 4000);
+
+            setTimeout(() => {
+                location.reload();
+            }, 4500);
+
         }, 1000);
     }
 

@@ -1,6 +1,7 @@
 let SitesToPopulate = [
     {Name: 'Bouncy Blocks', Img: './Images/favicon.ico', Link: './Sites/BouncyBlocks/index.html', Tags: 'game, flappy, bird, fun, bouncy, blocks', Featured: false, New: true},
     {Name: 'Tic Tac Toe', Img: './Images/favicon.ico', Link: './Sites/TicTacToe/index.html', Tags: 'game, tic, tac, toe, fun', Featured: true, New: false},
+    {Name: 'Tic Tac Toe v2', Img: './Sites/TicTacToeV2/FavIcon.ico', Link: './Sites/TicTacToeV2/index.html', Tags: 'game, tic, tac, toe, fun', Featured: false, New: true},
     {Name: 'Hangman', Img: './Images/favicon.ico', Link: './Sites/Hangman/index.html', Tags: 'game, fun, hang, man, hangman', Featured: false, New: false},
     {Name: 'Rock Papper Scissors', Img: './Images/favicon.ico', Link: './Sites/RockPaperScissors/index.html', Tags: 'game, fun, rock, paper, scissors', Featured: false, New: false},
     

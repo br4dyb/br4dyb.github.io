@@ -9,6 +9,10 @@
     font-family: 'Ubuntu';
 }
 
+button{
+    color: black;
+}
+
 
 .ShownOpacity{
     transition: opacity .5s;

@@ -17,40 +17,49 @@ const RedCellColor = '#E45858';
 const YellowCellColor = '#CDD034';
 const GreenCellColor = '#62BD67';
 const WinningCombinations = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8,], [3,6,9,], [1,5,9,], [3,5,7,]];
+let SinglePlr_AvailableCells = [1,2,3,4,5,6,7,8,9]
 let SinglePlr_CellsCollected = [];
 let SinglePlrComputer_CellsCollected = [];
 let SinglePlr_TableLocked = false;
 
 
 function SinglePlayerSelectCell(SinglePlr_CellSelected){
-    //DeBug:
-    console.log('Cell Chosen:')
-    console.log(SinglePlr_CellSelected);
 
-    //Check if Cell is Already Taken:
+    // Check if Cell is Already Taken:
     if(SinglePlr_CellSelected.classList.contains("CellTaken")){
-        //Cell is Already Taken:
+        // Cell is Already Taken:
         SinglePlr_CellSelected.style.background = RedCellColor;
         setTimeout(() => {
-            //Reset Background:
+            // Reset Background:
             SinglePlr_CellSelected.style.background = 'unset';
         }, 850);
     }else{
-        //Cell is Available:
+        // Cell is Available:
 
-        //Check for TableLock:
+        // Check for TableLock:
         if(SinglePlr_TableLocked){
             SinglePlr_CellSelected.style.background = YellowCellColor;
+            console.warn('Slow Down!');
         }else{
-            // Lock Table to Prevent Doubble Play:
+            // Lock Table to Prevent Doubble Play & Wait for Computer:
                 SinglePlr_TableLocked = true;
+            // Add CellTaken Class and Update Appearance:
             SinglePlr_CellSelected.style.background = GreenCellColor;
             SinglePlr_CellSelected.classList.add('CellTaken');
             SinglePlr_CellSelected.innerText = SinglePlayerPiece;
+
             // Add Cell to 'Player's Pieces':
-            let SinglePlr_CellNumberSelected = SinglePlr_CellSelected.id.charAt(20);
-            SinglePlr_CellsCollected.push(SinglePlr_CellNumberSelected)
-            console.warn(`Current Player's Cells: ${SinglePlr_CellsCollected}`)
+            let SinglePlr_CellNumberSelected = SinglePlr_CellSelected.id.charAt(20); // Get Cell Number
+            SinglePlr_CellsCollected.push(SinglePlr_CellNumberSelected); // Add to Players Cell Array
+            SinglePlr_CellsCollected.sort(); // Sort Player's Cell Array
+
+            console.info(`Player's Cells: ${SinglePlr_CellsCollected}`);
+
+            // Remove Cell Selected from 'Avaialable Cells':
+            let AvaialableCellIndex = SinglePlr_AvailableCells.lastIndexOf(Number(SinglePlr_CellNumberSelected)); // Get Index of Cell in Available Cells
+            SinglePlr_AvailableCells.splice(AvaialableCellIndex, 1); // Remove Selected Cell from AvailableCells Array
+
+            console.info(`Avaialable Cells: ${SinglePlr_AvailableCells}`);
 
             // Unlock Table for Next Move: *MAKE SURE THIS GOES IN A SEPERATE FUNCTION TO PREVENT MULTIPLE TRIGGERS!*
             // Most likely should be moved to "Computers Move" function later . . .
@@ -60,7 +69,7 @@ function SinglePlayerSelectCell(SinglePlr_CellSelected){
         }
         
         setTimeout(() => {
-            //Reset Background:
+            // Reset Background:
             SinglePlr_CellSelected.style.background = 'unset';
         }, 850);
     }

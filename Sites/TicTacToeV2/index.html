@@ -44,7 +44,7 @@
         </div>
 
         <div>
-            <span class="material-symbols-rounded HeaderButton"> person </span>
+            <span onclick="ShareSite()" class="material-symbols-rounded HeaderButton"> ios_share </span>
         </div>
     </header>
 
@@ -207,6 +207,25 @@
         }, 1000);
     }
 
+</script>
+
+<!-- Share Site Function: -->
+<script>
+    function ShareSite(){
+        if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    url: window.location.href
+                }).then(() => {
+                    console.log('Thanks for sharing!');
+                }).catch((error) => {
+                    console.error('Something went wrong sharing the site:', error);
+                });
+        } else {
+            // Fallback for browsers that do not support the Web Share API
+            console.warn('Web Share API is not supported in your browser.');
+        }
+    }
 </script>
 
 <!-- Required Scripts: -->

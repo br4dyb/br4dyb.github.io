@@ -19,6 +19,7 @@ const RedCellColor = '#E45858';
 const YellowCellColor = '#CDD034';
 const GreenCellColor = '#62BD67';
 const WinningCombinations = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8,], [3,6,9,], [1,5,9,], [3,5,7,]];
+let SinglePlr_PlrStartedFirst = true;
 let SinglePlr_AvailableCells = [1,2,3,4,5,6,7,8,9]
 let SinglePlr_CellsCollected = [];
 let SinglePlrComputer_CellsCollected = [];
@@ -231,9 +232,20 @@ function SinglePlr_ResetGame(){
         SinglePlr_AvailableCells = [1,2,3,4,5,6,7,8,9];
         SinglePlr_GameResetting = false;
         SinglePlr_GameEnded = false;
-        SinglePlr_TableLocked = false;
 
-        ScoreboardComputerNameWrap.style.border = '2.5px solid #3ba3ff00';
-        ScoreboardPlayerNameWrap.style.border = '2.5px solid #3ba3ff';
+        // Player started last game, Computer will go first:
+        if(SinglePlr_PlrStartedFirst){
+            SinglePlr_TableLocked = true;
+                ScoreboardComputerNameWrap.style.border = '2.5px solid #3ba3ff';
+                ScoreboardPlayerNameWrap.style.border = '2.5px solid #3ba3ff00';
+                SinglePlr_PlrStartedFirst = false;
+            ComputerGameMove();
+        }else{
+            ScoreboardComputerNameWrap.style.border = '2.5px solid #3ba3ff00';
+            ScoreboardPlayerNameWrap.style.border = '2.5px solid #3ba3ff';
+            SinglePlr_TableLocked = false;
+            SinglePlr_PlrStartedFirst = true;
+        }
+
     }, 500)
 }

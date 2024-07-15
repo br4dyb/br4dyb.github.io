@@ -59,13 +59,17 @@ function SinglePlayerSelectCell(SinglePlr_CellSelected){
             let AvaialableCellIndex = SinglePlr_AvailableCells.lastIndexOf(Number(SinglePlr_CellNumberSelected)); // Get Index of Cell in Available Cells
             SinglePlr_AvailableCells.splice(AvaialableCellIndex, 1); // Remove Selected Cell from AvailableCells Array
 
-            console.info(`Avaialable Cells: ${SinglePlr_AvailableCells}`);
+            //console.info(`Avaialable Cells: ${SinglePlr_AvailableCells}`);
 
-            // Unlock Table for Next Move: *MAKE SURE THIS GOES IN A SEPERATE FUNCTION TO PREVENT MULTIPLE TRIGGERS!*
-            // Most likely should be moved to "Computers Move" function later . . .
+            // Computer's Turn:
             setTimeout(() => {
-                SinglePlr_TableLocked = false;
-            }, (1500));
+                // Check for available cells:
+                if(SinglePlr_AvailableCells.length > 0){
+                    ComputerGameMove();
+                } else{console.warn('Out of Cells! Computer can not move!')}
+               
+            }, 1250);
+            
         }
         
         setTimeout(() => {
@@ -73,12 +77,46 @@ function SinglePlayerSelectCell(SinglePlr_CellSelected){
             SinglePlr_CellSelected.style.background = 'unset';
         }, 850);
     }
-
-    // Computer Cell Selection:
-        // Add a "Table Lock" state where the user has to wait for the computer to select a cell!
-
-        
-    // Check for Win:
-    
     
 }
+
+// Computer Cell Selection:
+    // Add a "Table Lock" state where the user has to wait for the computer to select a cell!
+    function ComputerGameMove(){
+        // Get Random Available Cell:
+        let SinglePlayerComputerCellSelectedIndex = Math.floor((Math.random() * (SinglePlr_AvailableCells.length)));
+        let ComputerCellSelected = document.getElementById(`SinglePlayerTblCell_${SinglePlr_AvailableCells[SinglePlayerComputerCellSelectedIndex]}`) 
+
+        // Change Availabilty and Style:
+        ComputerCellSelected.style.background = YellowCellColor;
+        ComputerCellSelected.classList.add('CellTaken');
+        ComputerCellSelected.innerText = SinglePlayerComputerPiece;
+
+        // Add Cell to 'Computers's Pieces':
+        let SinglePlrComputer_CellNumberSelected = ComputerCellSelected.id.charAt(20); // Get Cell Number
+        SinglePlrComputer_CellsCollected.push(SinglePlrComputer_CellNumberSelected); // Add to Players Cell Array
+        SinglePlrComputer_CellsCollected.sort(); // Sort Player's Cell Array
+
+        console.info(`Computers's Cells: ${SinglePlrComputer_CellsCollected}`);
+
+        // Remove Cell Selected from 'Avaialable Cells':
+        AvaialableCellIndex = SinglePlr_AvailableCells.lastIndexOf(Number(SinglePlrComputer_CellNumberSelected)); // Get Index of Cell in Available Cells
+        SinglePlr_AvailableCells.splice(AvaialableCellIndex, 1); // Remove Selected Cell from AvailableCells Array
+
+        //console.info(`Avaialable Cells: ${SinglePlr_AvailableCells}`);
+
+        setTimeout(() => {
+            // Reset Background:
+            ComputerCellSelected.style.background = 'unset';
+        }, 850);
+
+
+
+        // Unlock Table for Next Move:
+        setTimeout(() => {
+            SinglePlr_TableLocked = false;
+        }, (650));
+    }
+
+
+// Check for Win Function:

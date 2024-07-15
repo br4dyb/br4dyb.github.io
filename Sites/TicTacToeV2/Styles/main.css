@@ -199,6 +199,10 @@ header{
 
 #GameInfoHeaderYouWrap, #GameInfoHeaderComputerWrap{
     background: rgba(0, 0, 0, 0.5);
+    /* border: 2.5px solid #3ba3ff00; */
+    /* border: 2.5px solid #3ba3ff; */
+    transition: border .5s;
+    position: relative;
     padding: 7px;
     border-radius: 5px;
 }

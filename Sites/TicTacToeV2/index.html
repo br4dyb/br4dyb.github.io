@@ -102,8 +102,49 @@
         </div>
 
         <div id="MultiPlayerGameArea" class="HiddenOpacity">
-            <h2> Multi Player: </h2>
-            <h3> Coming Soon . . . </h3>
+
+
+            <div id="ChooseMultiplayerModeArea" class="">
+                <h2> Multiplayer Game: </h2>
+                <p style="margin: 5px; font-style: italic;"> Choose a Gamemode: </p>
+                <button id="LocalMultiPlayerButton" class="GamemodeButton" onclick="StartLocalMultiPlayer()"> Local Game </button>
+                <button id="OnlineMultiPlayerButton" class="GamemodeButton" onclick="StartOnlineMultiPlayer()"> Online Game </button>
+            </div>
+
+            <!-- Local Multiplayer: -->
+            <div id="LocalMultiPlayerTableArea">
+
+                <div class="ExtraGameTableBorder">
+                    <table id="LocalMultiPlayerTable" class="GameTable">
+                        <tr class="GameTblRow">
+                            <td id="LocalMultiPlayerTblCell_1" class="GameTblCell" onclick="LocalMultiPlayerSelectCell(this)"> </td>
+                            <td id="LocalMultiPlayerTblCell_2" class="GameTblCell" onclick="LocalMultiPlayerSelectCell(this)"> </td>
+                            <td id="LocalMultiPlayerTblCell_3" class="GameTblCell" onclick="LocalMultiPlayerSelectCell(this)"> </td>
+        
+                        </tr>
+                        <tr class="GameTblRow">
+                            <td id="LocalMultiPlayerTblCell_4" class="GameTblCell" onclick="LocalMultiPlayerSelectCell(this)"> </td>
+                            <td id="LocalMultiPlayerTblCell_5" class="GameTblCell" onclick="LocalMultiPlayerSelectCell(this)"> </td>
+                            <td id="LocalMultiPlayerTblCell_6" class="GameTblCell" onclick="LocalMultiPlayerSelectCell(this)"> </td>
+        
+                        </tr>
+                        <tr class="GameTblRow">
+                            <td id="LocalMultiPlayerTblCell_7" class="GameTblCell" onclick="LocalMultiPlayerSelectCell(this)"> </td>
+                            <td id="LocalMultiPlayerTblCell_8" class="GameTblCell" onclick="LocalMultiPlayerSelectCell(this)"> </td>
+                            <td id="LocalMultiPlayerTblCell_9" class="GameTblCell" onclick="LocalMultiPlayerSelectCell(this)"> </td>
+        
+                        </tr>
+                    </table>
+                </div>
+
+                <div id="LocalMultiPlayerInfoHeader">
+                    <div class="GameInfoHeaderRow" id="GameInfoHeaderYouWrap"> <p id="LocalPlayer1PieceDisplay" class="PlayerPieceDisplay" style="background: #3191e5;"> X </p> <p id="LocalPlayer1Score"> Player 1: 0 </p> </div>
+                    <div class="GameInfoHeaderRow" id="GameInfoHeaderComputerWrap"> <p id="LocalPlayer2PieceDisplay" class="PlayerPieceDisplay" style="background: #a73acc;"> O </p> <p id="LocalPlayer2Score"> Player 2: 0 </p> </div>
+                </div>
+
+            </div>
+
+
         </div>
 
     </main>
@@ -114,12 +155,15 @@
     //Variables:
     let SinglePlayerPiece;
     let SinglePlayerComputerPiece;
-    let PieceChosen = false;
+    let PieceChosen = false; // <-- Single Player
     const WelcomeLandingScreen = document.getElementById('WelcomeLandingScreen');
     const SinglePlayerGameArea = document.getElementById('SinglePlayerGameArea');
     const MultiPlayerGameArea = document.getElementById('MultiPlayerGameArea');
     const SinglePlayerChoosePlayerArea = document.getElementById('SinglePlayerChoosePlayerArea');
     const SinglePlayerTableArea = document.getElementById('SinglePlayerTableArea');
+    const ChooseMultiplayerModeArea = document.getElementById('ChooseMultiplayerModeArea');
+    const LocalMultiPlayerGameTable = document.getElementById('LocalMultiPlayerTableArea');
+    const LocalMultiPlayerTableBorder = document.getElementById('LocalMultiPlayerTableBorder');
 
     //Animate in Landing Screen:
     setTimeout(() => {
@@ -184,27 +228,38 @@
     }
 
     function StartMultiPlayer(){
-        //Hide Landing Screen:
+        //Hide Landing Screen & Other Tables/Areas to Hide:
         WelcomeLandingScreen.classList.remove('ShownOpacity');
         WelcomeLandingScreen.classList.add('HiddenOpacity');
+        LocalMultiPlayerGameTable.classList.add('HiddenOpacity');
+        LocalMultiPlayerGameTable.style.display = 'none';
         
-        //Show Game Screen:
+        //Show Full Game Screen / Choose Mode:
         MultiPlayerGameArea.style.display = 'flex';
         setTimeout(() => {
             WelcomeLandingScreen.style.display = 'none';
             MultiPlayerGameArea.classList.add('ShownOpacity');
             MultiPlayerGameArea.classList.remove('HiddenOpacity');
-
-            setTimeout(() => {
-                MultiPlayerGameArea.classList.remove('ShownOpacity');
-                MultiPlayerGameArea.classList.add('HiddenOpacity');
-            }, 4000);
-
-            setTimeout(() => {
-                location.reload();
-            }, 4500);
-
         }, 1000);
+    }
+
+
+    function StartLocalMultiPlayer(){
+        //Hide Mode Selection and Show Game Table:
+        ChooseMultiplayerModeArea.classList.add('HiddenOpacity');
+        LocalMultiPlayerGameTable.style.display = 'flex';
+
+        setTimeout(() => {
+            ChooseMultiplayerModeArea.style.display = 'none';
+            LocalMultiPlayerGameTable.classList.add('ShownOpacity');
+            LocalMultiPlayerGameTable.classList.remove('HiddenOpacity');
+        }, 1000);
+
+
+    }
+
+    function StartOnlineMultiPlayer(){
+        alert('Coming Soon! Check back a different time. . .');
     }
 
 </script>
@@ -230,5 +285,6 @@
 
 <!-- Required Scripts: -->
  <script src="./Scripts/SinglePlayerGameFunctionality.js"> </script>
+ <script src="./Scripts/LocalMultiPlayerGameFunctionality.js"> </script>
 
 </html>

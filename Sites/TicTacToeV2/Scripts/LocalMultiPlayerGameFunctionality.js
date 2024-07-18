@@ -47,6 +47,9 @@ function LocalMultiPlayerSelectCell(Cell){
             // Already Taken:
                 Cell.style.background = RedCellColor;
                 LocalShowGameMsg('Cell is Alreay Taken!', RedCellColor, 1100);
+                setTimeout(() => {
+                    Local_GameLocked = false;
+                }, 350)
         }else{
             // Cell Available:
             Cell.classList.add('CellTaken');

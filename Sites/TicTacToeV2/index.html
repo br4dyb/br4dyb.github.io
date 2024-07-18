@@ -272,14 +272,13 @@
         if(!OnlineMultiPlayerJoinMsgShown){
             // Show Msg:
             OnlineMultiPlayerJoinMsgShown = true;
-            OnlineMultiPlayerJoinMsg.classList.add('HiddenOpacity');
             OnlineMultiPlayerJoinMsg.style.display = 'flex';
 
             // Small wait for Animation:
             setTimeout(() => {
                 OnlineMultiPlayerJoinMsg.classList.remove('HiddenOpacity');
                 OnlineMultiPlayerJoinMsg.classList.add('ShownOpacity');
-            }, (250))
+            }, (50))
 
             // Fade Out Msg:
             setTimeout(() => {

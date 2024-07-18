@@ -3,6 +3,7 @@ const LocalPlayer1ScoreText = document.getElementById('LocalPlayer1Score');
 const LocalPlayer2ScoreText = document.getElementById('LocalPlayer2Score');
 const LocalPlayer1NameWrap = document.getElementById('GameInfoHeaderLocalPlayer1Wrap');
 const LocalPlayer2NameWrap = document.getElementById('GameInfoHeaderLocalPlayer2Wrap');
+const LocalMultiPlayerMsgText = document.getElementById('LocalMultiPlayerMsgText');
     //Tables Cells:
     const LocalMultiPlayerTblCell_1 = document.getElementById('LocalMultiPlayerTblCell_1');
     const LocalMultiPlayerTblCell_2 = document.getElementById('LocalMultiPlayerTblCell_2');
@@ -33,6 +34,7 @@ let Local_GameResetting = false;
 
 // Add Player 1's Turn Style to Start:
 LocalPlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
+LocalPlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
 
 
 // Select Cell:
@@ -42,6 +44,7 @@ function LocalMultiPlayerSelectCell(Cell){
         if(Cell.classList.contains('CellTaken')){
             // Already Taken:
                 Cell.style.background = RedCellColor;
+                LocalShowGameMsg('Cell is Alreay Taken!', RedCellColor);
         }else{
             // Cell Available:
             Cell.classList.add('CellTaken');
@@ -91,46 +94,140 @@ function LocalMultiPlayerSelectCell(Cell){
     }
 }
 
+// Show Game Message:
+let LocalGameMessageShown = false;
+function LocalShowGameMsg(MessageText, TextColor){
+    if(!LocalGameMessageShown){
+        //Show Message:
+        LocalGameMessageShown = true;
+        LocalMultiPlayerMsgText.classList.add('HiddenOpacity');
+        LocalMultiPlayerMsgText.innerText = MessageText;
+        if(TextColor != null){LocalMultiPlayerMsgText.style.color = TextColor;}else{LocalMultiPlayerMsgText.style.color = 'white';}
+        LocalMultiPlayerMsgText.style.display = 'flex';
+        setTimeout(() => {
+            LocalMultiPlayerMsgText.classList.add('ShownOpacity');
+            LocalMultiPlayerMsgText.classList.remove('HiddenOpacity');
+        },150)
+        
+        
+
+        //Hide Message:
+        setTimeout(() => {
+            LocalMultiPlayerMsgText.classList.remove('ShownOpacity');
+            LocalMultiPlayerMsgText.classList.add('HiddenOpacity');
+            
+            setTimeout(() => {LocalMultiPlayerMsgText.style.display = 'none'; LocalGameMessageShown = false;}, 600)
+
+        }, 2300)
+    }
+
+}
+
 // Check for Winner:
 function LocalMultiPlayerCheckWinner(){
     
     WinningCombinations.forEach(WinningCombination => {
         // Check for Player 1 Win:
         if(WinningCombination.every(Cell => LocalPlr1_CellsCollected.includes(String(Cell)))){
-           console.info('Player 1 has won!');
+                //console.info('Player 1 has won!');
+                LocalShowGameMsg('Player 1 has Won!', GreenCellColor);
            LocalPlr1_Score += 1;
+           LocalPlayer1ScoreText.innerText = `Player 1: ${LocalPlr1_Score}`;
            Local_GameEnded = true;
            WinningCombination.forEach(WinningCellNumber => {
                 let CellToStyle = document.getElementById(`LocalMultiPlayerTblCell_${WinningCellNumber}`);
                 CellToStyle.style.background = GreenCellColor;
            });
+           LocalPlayer1NameWrap.style.border = `2px solid ${GreenCellColor}`;
+
+            // Reset Game:
+            setTimeout(() => {
+                LocalMultiPlayerGameReset()
+            }, 2000)
            
         }
 
         // Check for Player 2 Win:
         if(WinningCombination.every(Cell => LocalPlr2_CellsCollected.includes(String(Cell)))){
-            console.info('Player 2 has won!');
+                //console.info('Player 2 has won!');
+                LocalShowGameMsg('Player 2 has Won!', GreenCellColor);
             LocalPlr2_Score += 1;
+            LocalPlayer2ScoreText.innerText = `Player 2: ${LocalPlr2_Score}`;
             Local_GameEnded = true;
            WinningCombination.forEach(WinningCellNumber => {
                 let CellToStyle = document.getElementById(`LocalMultiPlayerTblCell_${WinningCellNumber}`);
                 CellToStyle.style.background = GreenCellColor;
            });
+           LocalPlayer2NameWrap.style.border = `2px solid ${GreenCellColor}`;
+
+           // Reset Game:
+           setTimeout(() => {
+                LocalMultiPlayerGameReset()
+           }, 2000)
+
         }
 
     });
+
+    // If Draw Game / No Cells Left:
+    if(LocalMultiGame_AvailableCells.length === 0){
+        //console.info('No Player Won! / Draw');
+        LocalShowGameMsg('Game was a Draw!', YellowCellColor);
+        
+        // Reset Game:
+        setTimeout(() => {
+            LocalMultiPlayerGameReset()
+       }, 2000)
+    }
 
     // If no Winner, Next Player's Turn:
     setTimeout(() => {
         if(!Local_GameEnded){
             if(LocalCurrentPlayerTurn === 1){
                 LocalCurrentPlayerTurn = 2;
+                LocalPlayer1NameWrap.style.border = '2.5px solid #3ba3ff00';
                 LocalPlayer2NameWrap.style.border = '2.5px solid #3ba3ff';
             }else{
                 LocalCurrentPlayerTurn = 1;
                 LocalPlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
+                LocalPlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
             }
         }
     }, 350)
 
+}
+
+// Reset Game:
+function LocalMultiPlayerGameReset(){
+    if(!Local_GameResetting){
+        Local_GameResetting = true;
+        AllLocalMultiPlayerTblCells.forEach(Cell => {
+            Cell.classList.remove('CellTaken');
+            Cell.innerText = '';
+            Cell.style.background = 'unset';
+        })
+        LocalPlr1_CellsCollected = [];
+        LocalPlr2_CellsCollected = [];
+        LocalMultiGame_AvailableCells = [1,2,3,4,5,6,7,8,9];
+
+        // Let Other Player Start the Next Game:
+        if(LocalPlr1_StartedFirst){
+            LocalPlr1_StartedFirst = false
+            LocalCurrentPlayerTurn = 2
+            LocalPlayer1NameWrap.style.border = '2.5px solid #3ba3ff00';
+            LocalPlayer2NameWrap.style.border = '2.5px solid #3ba3ff';
+        }else{
+            LocalPlr1_StartedFirst = true
+            LocalCurrentPlayerTurn = 1
+            LocalPlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
+            LocalPlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
+        }
+
+        // Finish Game Reset:
+        setTimeout(() => {
+            Local_GameEnded = false;
+            Local_GameResetting = false;
+        }, 500)
+    }
+    
 }

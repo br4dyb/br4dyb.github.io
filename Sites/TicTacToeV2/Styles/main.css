@@ -197,7 +197,7 @@ header{
     margin-inline-end: 5px;
 }
 
-#GameInfoHeaderYouWrap, #GameInfoHeaderComputerWrap{
+#GameInfoHeaderYouWrap, #GameInfoHeaderComputerWrap, #GameInfoHeaderLocalPlayer1Wrap, #GameInfoHeaderLocalPlayer2Wrap{
     background: rgba(0, 0, 0, 0.5);
     /* border: 2.5px solid #3ba3ff00; */
     /* border: 2.5px solid #3ba3ff; */
@@ -277,5 +277,28 @@ header{
 }
 
 #OnlineMultiPlayerButton{
-    background: #3ac7cc;
+    background: #a73acc;
+}
+
+#LocalMultiPlayerMessageHeader{
+    position: relative;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    width: 100%;
+    height: fit-content;
+}
+
+.GameMessage{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    padding: 7px;
+    background: var(--HeaderGray);
+    border-radius: 7px;
+    font-weight: bold;
+    text-shadow: 0px 0px 3px black;
 }

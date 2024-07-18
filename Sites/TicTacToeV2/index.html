@@ -54,7 +54,7 @@
             <h2> Welcome to TicTacToe! </h2>
             <p style="margin: 5px; font-style: italic;"> Choose a Gamemode: </p>
             <button id="SinglePlayerButton" class="GamemodeButton" onclick="StartSinglePlayer()"> Single Player </button>
-            <button id="MultiPlayerButton" class="GamemodeButton" onclick="StartMultiPlayer()"> Multi Player </button>
+            <button id="MultiPlayerButton" class="GamemodeButton" onclick="OpenMultiPlayer()"> Multi Player </button>
         </div>
 
         <div id="SinglePlayerGameArea" class="HiddenOpacity">
@@ -68,6 +68,10 @@
             </div>
 
             <div id="SinglePlayerTableArea">
+
+                <div id="SinglePlayerMessageHeader">
+                    <div class="GameMessage HiddenOpacity" id="SinglePlayerMsgText"> <p> This is a test msg! </p> </div>
+                </div>
 
                 <div class="ExtraGameTableBorder">
                 <table id="SinglePlayerTable" class="GameTable">
@@ -231,7 +235,7 @@
         }
     }
 
-    function StartMultiPlayer(){
+    function OpenMultiPlayer(){
         //Hide Landing Screen & Other Tables/Areas to Hide:
         WelcomeLandingScreen.classList.remove('ShownOpacity');
         WelcomeLandingScreen.classList.add('HiddenOpacity');

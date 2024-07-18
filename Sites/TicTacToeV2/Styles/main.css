@@ -281,7 +281,7 @@ header{
     background: #a73acc;
 }
 
-#LocalMultiPlayerMessageHeader{
+#LocalMultiPlayerMessageHeader, #SinglePlayerMessageHeader{
     position: relative;
     padding: 10px;
     display: flex;

@@ -4,6 +4,7 @@ const PlayerScoreText = document.getElementById('SinglePlayerScore');
 const ComputerScoreText = document.getElementById('SinglePlayerComputerScore');
 const ScoreboardPlayerNameWrap = document.getElementById('GameInfoHeaderYouWrap');
 const ScoreboardComputerNameWrap = document.getElementById('GameInfoHeaderComputerWrap');
+const SinglePlayerMsgText = document.getElementById('SinglePlayerMsgText');
     //Tables Cells:
     const SinglePlayerTblCell_1 = document.getElementById('SinglePlayerTblCell_1');
     const SinglePlayerTblCell_2 = document.getElementById('SinglePlayerTblCell_2');
@@ -33,6 +34,35 @@ let SinglePlr_ComputerScore = 0;
 
                 ScoreboardPlayerNameWrap.style.border = '2.5px solid #3ba3ff';
 
+// Show Game Message:
+let SinglePlayerGameMessageShown = false;
+function SinglePlayerShowGameMsg(MessageText, TextColor, MessageTimeMs){
+    if(!SinglePlayerGameMessageShown){
+        //Show Message:
+        SinglePlayerGameMessageShown = true;
+        SinglePlayerMsgText.classList.add('HiddenOpacity');
+        SinglePlayerMsgText.innerText = MessageText;
+        if(TextColor != null){SinglePlayerMsgText.style.color = TextColor;}else{SinglePlayerMsgText.style.color = 'white';}
+        SinglePlayerMsgText.style.display = 'flex';
+        setTimeout(() => {
+            SinglePlayerMsgText.classList.add('ShownOpacity');
+            SinglePlayerMsgText.classList.remove('HiddenOpacity');
+        },150)
+        
+        
+
+        //Hide Message:
+        setTimeout(() => {
+            SinglePlayerMsgText.classList.remove('ShownOpacity');
+            SinglePlayerMsgText.classList.add('HiddenOpacity');
+            
+            setTimeout(() => {SinglePlayerMsgText.style.display = 'none'; SinglePlayerGameMessageShown = false;}, 600)
+
+        }, MessageTimeMs)
+    }
+
+}
+
 
 // Player Cell Selection:
 function SinglePlayerSelectCell(SinglePlr_CellSelected){
@@ -41,6 +71,7 @@ function SinglePlayerSelectCell(SinglePlr_CellSelected){
     if(SinglePlr_CellSelected.classList.contains("CellTaken")){
         // Cell is Already Taken:
         SinglePlr_CellSelected.style.background = RedCellColor;
+        SinglePlayerShowGameMsg('Cell is Already Taken!', RedCellColor, 1100);
         setTimeout(() => {
             // Reset Background:
             SinglePlr_CellSelected.style.background = 'unset';
@@ -52,6 +83,7 @@ function SinglePlayerSelectCell(SinglePlr_CellSelected){
         if(SinglePlr_TableLocked){
             SinglePlr_CellSelected.style.background = YellowCellColor;
             console.warn('Slow Down!');
+            SinglePlayerShowGameMsg('Slow Down!', YellowCellColor, 850);
         }else{
             // Lock Table to Prevent Doubble Play & Wait for Computer:
                 SinglePlr_TableLocked = true;
@@ -171,6 +203,7 @@ function SinglePlr_WinnerCheck() {
             // Player has Won!
             console.log('Player Won!');
             console.log('Winning Combination:', WinningCells);
+            SinglePlayerShowGameMsg('You Won!', GreenCellColor, 1350);
             SinglePlr_TableLocked = true;
             SinglePlr_GameEnded = true;
             // Update ScoreBoard:
@@ -185,6 +218,7 @@ function SinglePlr_WinnerCheck() {
         } else if(WinningCells.every(cell => SinglePlrComputer_CellsCollected.includes(String(cell)))){
             // Computer has Won!
             console.log('Computer Won!');
+            SinglePlayerShowGameMsg('Computer Won!', RedCellColor, 1350);
             console.log('Winning Combination:', WinningCells);
             SinglePlr_TableLocked = true;
             SinglePlr_GameEnded = true;
@@ -200,6 +234,7 @@ function SinglePlr_WinnerCheck() {
         } else if(!SinglePlr_GameEnded && SinglePlr_AvailableCells.length == 0){
             // Game was a Draw!
             //console.log('Nobody Won! Out of Cells!');
+            SinglePlayerShowGameMsg('Game was a Draw!', YellowCellColor, 1350);
             SinglePlr_TableLocked = true;
             SinglePlr_GameEnded = true;
         }

@@ -44,7 +44,7 @@ function LocalMultiPlayerSelectCell(Cell){
         if(Cell.classList.contains('CellTaken')){
             // Already Taken:
                 Cell.style.background = RedCellColor;
-                LocalShowGameMsg('Cell is Alreay Taken!', RedCellColor);
+                LocalShowGameMsg('Cell is Alreay Taken!', RedCellColor, 1100);
         }else{
             // Cell Available:
             Cell.classList.add('CellTaken');
@@ -96,7 +96,7 @@ function LocalMultiPlayerSelectCell(Cell){
 
 // Show Game Message:
 let LocalGameMessageShown = false;
-function LocalShowGameMsg(MessageText, TextColor){
+function LocalShowGameMsg(MessageText, TextColor, MessageTimeMs){
     if(!LocalGameMessageShown){
         //Show Message:
         LocalGameMessageShown = true;
@@ -118,7 +118,7 @@ function LocalShowGameMsg(MessageText, TextColor){
             
             setTimeout(() => {LocalMultiPlayerMsgText.style.display = 'none'; LocalGameMessageShown = false;}, 600)
 
-        }, 2300)
+        }, MessageTimeMs)
     }
 
 }
@@ -130,7 +130,7 @@ function LocalMultiPlayerCheckWinner(){
         // Check for Player 1 Win:
         if(WinningCombination.every(Cell => LocalPlr1_CellsCollected.includes(String(Cell)))){
                 //console.info('Player 1 has won!');
-                LocalShowGameMsg('Player 1 has Won!', GreenCellColor);
+                LocalShowGameMsg('Player 1 has Won!', GreenCellColor, 1750);
            LocalPlr1_Score += 1;
            LocalPlayer1ScoreText.innerText = `Player 1: ${LocalPlr1_Score}`;
            Local_GameEnded = true;
@@ -150,7 +150,7 @@ function LocalMultiPlayerCheckWinner(){
         // Check for Player 2 Win:
         if(WinningCombination.every(Cell => LocalPlr2_CellsCollected.includes(String(Cell)))){
                 //console.info('Player 2 has won!');
-                LocalShowGameMsg('Player 2 has Won!', GreenCellColor);
+                LocalShowGameMsg('Player 2 has Won!', GreenCellColor, 1750);
             LocalPlr2_Score += 1;
             LocalPlayer2ScoreText.innerText = `Player 2: ${LocalPlr2_Score}`;
             Local_GameEnded = true;
@@ -172,7 +172,7 @@ function LocalMultiPlayerCheckWinner(){
     // If Draw Game / No Cells Left:
     if(LocalMultiGame_AvailableCells.length === 0){
         //console.info('No Player Won! / Draw');
-        LocalShowGameMsg('Game was a Draw!', YellowCellColor);
+        LocalShowGameMsg('Game was a Draw!', YellowCellColor, 1750);
         
         // Reset Game:
         setTimeout(() => {

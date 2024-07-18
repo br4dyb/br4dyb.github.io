@@ -61,7 +61,8 @@ header{
 }
 
 #FullBodyWrap{
-    background: rgb(50, 14, 94);
+    /* background: rgb(50, 14, 94); */
+    background: rgb(32, 32, 32);
     display: flex;
     flex-direction: column;
     flex: 1;

@@ -31,6 +31,7 @@ const LocalPlr2Color = '#a73acc';
     // WinningCombinations = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8,], [3,6,9,], [1,5,9,], [3,5,7,]];
 let Local_GameEnded = false;
 let Local_GameResetting = false;
+let Local_GameLocked = false;
 
 // Add Player 1's Turn Style to Start:
 LocalPlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
@@ -40,7 +41,8 @@ LocalPlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
 // Select Cell:
 function LocalMultiPlayerSelectCell(Cell){
     // Check if Cell is Available & Game is still going:
-    if(!Local_GameEnded){
+    if(!Local_GameEnded && !Local_GameLocked){
+        Local_GameLocked = true; // <-- Lock Game Table to Prevent Double Play
         if(Cell.classList.contains('CellTaken')){
             // Already Taken:
                 Cell.style.background = RedCellColor;
@@ -187,10 +189,12 @@ function LocalMultiPlayerCheckWinner(){
                 LocalCurrentPlayerTurn = 2;
                 LocalPlayer1NameWrap.style.border = '2.5px solid #3ba3ff00';
                 LocalPlayer2NameWrap.style.border = '2.5px solid #3ba3ff';
+                Local_GameLocked = false;
             }else{
                 LocalCurrentPlayerTurn = 1;
                 LocalPlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
                 LocalPlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
+                Local_GameLocked = false;
             }
         }
     }, 350)
@@ -227,6 +231,7 @@ function LocalMultiPlayerGameReset(){
         setTimeout(() => {
             Local_GameEnded = false;
             Local_GameResetting = false;
+            Local_GameLocked = false;
         }, 500)
     }
     

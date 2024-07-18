@@ -137,7 +137,7 @@ function LocalMultiPlayerCheckWinner(){
                 //console.info('Player 1 has won!');
                 LocalShowGameMsg('Player 1 has Won!', GreenCellColor, 1750);
            LocalPlr1_Score += 1;
-           LocalPlayer1ScoreText.innerText = `Player 1: ${LocalPlr1_Score}`;
+           LocalPlayer1ScoreText.innerText = LocalPlr1_Score;
            Local_GameEnded = true;
            WinningCombination.forEach(WinningCellNumber => {
                 let CellToStyle = document.getElementById(`LocalMultiPlayerTblCell_${WinningCellNumber}`);
@@ -157,7 +157,7 @@ function LocalMultiPlayerCheckWinner(){
                 //console.info('Player 2 has won!');
                 LocalShowGameMsg('Player 2 has Won!', GreenCellColor, 1750);
             LocalPlr2_Score += 1;
-            LocalPlayer2ScoreText.innerText = `Player 2: ${LocalPlr2_Score}`;
+            LocalPlayer2ScoreText.innerText = LocalPlr2_Score;
             Local_GameEnded = true;
            WinningCombination.forEach(WinningCellNumber => {
                 let CellToStyle = document.getElementById(`LocalMultiPlayerTblCell_${WinningCellNumber}`);

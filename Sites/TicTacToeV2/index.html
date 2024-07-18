@@ -97,8 +97,8 @@
                 </div>
 
                 <div id="SinglePlrGameInfoHeader">
-                    <div class="GameInfoHeaderRow" id="GameInfoHeaderYouWrap"> <p id="SinglePlayerPieceDisplay" class="PlayerPieceDisplay" style="background: orange;"> % </p> <p id="SinglePlayerScore"> You: 0 </p> </div>
-                    <div class="GameInfoHeaderRow" id="GameInfoHeaderComputerWrap"> <p id="SingleComputerPieceDisplay" class="PlayerPieceDisplay" style="background: orangered;"> % </p> <p id="SinglePlayerComputerScore"> Computer: 0 </p> </div>
+                    <div class="GameInfoHeaderRow" id="GameInfoHeaderYouWrap"> <p id="SinglePlayerPieceDisplay" class="PlayerPieceDisplay" style="background: orange;"> % </p> </p> <p style="margin-inline-end: 5px;"> You: </p> <p id="SinglePlayerScore"> 0 </p> </div>
+                    <div class="GameInfoHeaderRow" id="GameInfoHeaderComputerWrap"> <p id="SingleComputerPieceDisplay" class="PlayerPieceDisplay" style="background: orangered;"> % </p> </p> <p style="margin-inline-end: 5px;"> Computer: </p> <p id="SinglePlayerComputerScore"> 0 </p> </div>
                 </div>
 
             </div>
@@ -113,6 +113,7 @@
                 <p style="margin: 5px; font-style: italic;"> Choose a Gamemode: </p>
                 <button id="LocalMultiPlayerButton" class="GamemodeButton" onclick="StartLocalMultiPlayer()"> Local Game </button>
                 <button id="OnlineMultiPlayerButton" class="GamemodeButton" onclick="StartOnlineMultiPlayer()"> Online Game </button>
+                <p id="OnlineMultiPlayerJoinMsg" class="HiddenOpacity"> Coming Soon! Check back later. . . </p>
             </div>
 
             <!-- Local Multiplayer: -->
@@ -146,8 +147,8 @@
                 </div>
 
                 <div id="LocalMultiPlayerInfoHeader">
-                    <div class="GameInfoHeaderRow" id="GameInfoHeaderLocalPlayer1Wrap"> <p id="LocalPlayer1PieceDisplay" class="PlayerPieceDisplay" style="background: #3191e5;"> X </p> <p id="LocalPlayer1Score"> Player 1: 0 </p> </div>
-                    <div class="GameInfoHeaderRow" id="GameInfoHeaderLocalPlayer2Wrap"> <p id="LocalPlayer2PieceDisplay" class="PlayerPieceDisplay" style="background: #a73acc;"> O </p> <p id="LocalPlayer2Score"> Player 2: 0 </p> </div>
+                    <div class="GameInfoHeaderRow" id="GameInfoHeaderLocalPlayer1Wrap"> <p id="LocalPlayer1PieceDisplay" class="PlayerPieceDisplay" style="background: #3191e5;"> X </p> <p style="margin-inline-end: 5px;"> Player 1: </p> <p id="LocalPlayer1Score"> 0 </p> </div>
+                    <div class="GameInfoHeaderRow" id="GameInfoHeaderLocalPlayer2Wrap"> <p id="LocalPlayer2PieceDisplay" class="PlayerPieceDisplay" style="background: #a73acc;"> O </p> <p style="margin-inline-end: 5px;"> Player 2: </p> <p id="LocalPlayer2Score"> 0 </p> </div>
                 </div>
 
             </div>
@@ -172,6 +173,7 @@
     const ChooseMultiplayerModeArea = document.getElementById('ChooseMultiplayerModeArea');
     const LocalMultiPlayerGameTable = document.getElementById('LocalMultiPlayerTableArea');
     const LocalMultiPlayerTableBorder = document.getElementById('LocalMultiPlayerTableBorder');
+    const OnlineMultiPlayerJoinMsg = document.getElementById('OnlineMultiPlayerJoinMsg');
 
     //Animate in Landing Screen:
     setTimeout(() => {
@@ -265,8 +267,30 @@
 
     }
 
+    let OnlineMultiPlayerJoinMsgShown = false;
     function StartOnlineMultiPlayer(){
-        alert('Coming Soon! Check back a different time. . .');
+        if(!OnlineMultiPlayerJoinMsgShown){
+            // Show Msg:
+            OnlineMultiPlayerJoinMsgShown = true;
+            OnlineMultiPlayerJoinMsg.classList.add('HiddenOpacity');
+            OnlineMultiPlayerJoinMsg.style.display = 'flex';
+
+            // Small wait for Animation:
+            setTimeout(() => {
+                OnlineMultiPlayerJoinMsg.classList.remove('HiddenOpacity');
+                OnlineMultiPlayerJoinMsg.classList.add('ShownOpacity');
+            }, (250))
+
+            // Fade Out Msg:
+            setTimeout(() => {
+                OnlineMultiPlayerJoinMsg.classList.remove('ShownOpacity');
+                OnlineMultiPlayerJoinMsg.classList.add('HiddenOpacity');
+                
+                // Remove Display:
+                setTimeout(() => {OnlineMultiPlayerJoinMsg.style.display = 'none';  OnlineMultiPlayerJoinMsgShown = false}, 550)
+            }, (1850))
+        }
+        
     }
 
 </script>

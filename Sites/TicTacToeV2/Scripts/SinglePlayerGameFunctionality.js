@@ -208,7 +208,7 @@ function SinglePlr_WinnerCheck() {
             SinglePlr_GameEnded = true;
             // Update ScoreBoard:
             SinglePlr_PlrScore = (SinglePlr_PlrScore + 1);
-            PlayerScoreText.innerText = `You: ${SinglePlr_PlrScore}`;
+            PlayerScoreText.innerText = `${SinglePlr_PlrScore}`;
             ScoreboardPlayerNameWrap.style.border = `2.5px solid ${GreenCellColor}`;
             // Show Winning Combination:
             WinningCells.forEach(CellNumber => {
@@ -224,7 +224,7 @@ function SinglePlr_WinnerCheck() {
             SinglePlr_GameEnded = true;
             // Update ScoreBoard:
             SinglePlr_ComputerScore = (SinglePlr_ComputerScore + 1);
-            ComputerScoreText.innerText = `Computer: ${SinglePlr_ComputerScore}`;
+            ComputerScoreText.innerText = `${SinglePlr_ComputerScore}`;
             ScoreboardComputerNameWrap.style.border = `2.5px solid ${RedCellColor}`;
             // Show Winning Combination:
             WinningCells.forEach(CellNumber => {

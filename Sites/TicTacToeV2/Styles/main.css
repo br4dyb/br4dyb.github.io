@@ -116,6 +116,79 @@ header{
     align-items: center;
 }
 
+#OnlineMultiPlayerArea{
+    /* background: blue; */
+    width: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#AvialableOnlineGamesWrap{
+    background: var(--HeaderGray);
+    scale: 1.3;
+    box-shadow: 0px 0px 3px black;
+    position: relative;
+    width: 400px;
+    padding: 12px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#RefreshAvailableGamesButton{
+    background: rgb(0, 0, 0, .35);
+    box-shadow: 0px 0px 2px black;
+    border-radius: 100%;
+    font-size: medium;
+    padding: 3px;
+    position: absolute;
+    top: 14px;
+    right: 10px;
+    transition: .33s;
+}
+
+#RefreshAvailableGamesButton:hover{
+    scale: 1.14;
+}
+
+#OnlineGamesList {
+    background: rgb(0, 0, 0, .35);
+    padding: 7px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 7px;
+    overflow-y: scroll;
+    width: 100%;
+    height: 225px;
+}
+
+#StartOnlineGameButton {
+    background: #41d261;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    border: 1.5px white solid;
+    box-shadow: 1px 1px 2px black;
+    font-weight: bold;
+    transition: 0.33s;
+    margin-top: 5px;
+}
+
+#StartOnlineGameButton:hover {
+    background: #48abe9;
+    padding: 4px 6px;
+    scale: 1.1;
+}
+
 #SinglePlayerGameArea{
     /* background: purple; */
     padding: 15px;

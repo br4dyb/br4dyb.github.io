@@ -128,10 +128,11 @@ header{
 
 #AvialableOnlineGamesWrap{
     background: var(--HeaderGray);
-    scale: 1.3;
     box-shadow: 0px 0px 3px black;
     position: relative;
-    width: 400px;
+    width: 600px;
+    max-width: 50%;
+    max-height: 35%;
     padding: 12px;
     border-radius: 5px;
     display: flex;

@@ -185,7 +185,12 @@
                 <div id="EnterNameWrap">
                     <h2 style="font-style: italic;"> Enter Name: </h2>
                     <input type="text" id="EnterNameImput" placeholder="First Name" required> 
-                    <button id="SubmitNameButton"> Go! </button>
+                    <button onclick="SubmitName()" id="SubmitNameButton"> Go! </button>
+                </div>
+
+                <div id="WaitingForPlayerWrap">
+                    <h2 id="WaitingForPlayerText" style="font-style: italic;"> Waiting for Player . . . </h2>
+                    <button id="CancelGameButton"> Cancel Game </button>
                 </div>
             </div>
         </div>
@@ -201,6 +206,7 @@
     let SinglePlayerPiece;
     let SinglePlayerComputerPiece;
     let PieceChosen = false; // <-- Single Player
+    let WaitingForPlayer = true; // <-- Online MultiPlayer
     const WelcomeLandingScreen = document.getElementById('WelcomeLandingScreen');
     const SinglePlayerGameArea = document.getElementById('SinglePlayerGameArea');
     const MultiPlayerGameArea = document.getElementById('MultiPlayerGameArea');
@@ -213,6 +219,8 @@
     const OnlineMultiPlayerArea = document.getElementById('OnlineMultiPlayerArea');
     const AvialableOnlineGamesWrap = document.getElementById('AvialableOnlineGamesWrap');
     const EnterNameWrap = document.getElementById('EnterNameWrap');
+    const WaitingForPlayerWrap = document.getElementById('WaitingForPlayerWrap');
+    const WaitingForPlayerText = document.getElementById('WaitingForPlayerText');
 
     //Animate in Landing Screen:
     setTimeout(() => {
@@ -284,6 +292,7 @@
         LocalMultiPlayerGameTable.style.display = 'none';
         AvialableOnlineGamesWrap.style.display = 'none';
         EnterNameWrap.style.display = 'none';
+        WaitingForPlayerWrap.style.display = 'none';
         
         //Show Full Game Screen / Choose Mode:
         MultiPlayerGameArea.style.display = 'flex';
@@ -349,6 +358,7 @@
     }
 
     function JoinExistingOnlineGame(){
+        WaitingForPlayer = false;
         // Hide Game List & Show Name Input Wrap:
             AvialableOnlineGamesWrap.classList.add('HiddenOpacity');
             EnterNameWrap.classList.add('HiddenOpacity');
@@ -374,6 +384,70 @@
                 EnterNameWrap.classList.add('ShownOpacity');
                 EnterNameWrap.classList.remove('HiddenOpacity');
             }, 1000);
+    }
+
+    function SubmitName(){
+        let NameSubmitted = document.getElementById('EnterNameImput').value;
+        NameSubmitted = NameSubmitted.trim()
+        if(NameSubmitted === ''){
+            NameSubmitted = 'Anonymous'
+        }
+        console.log('Name Submitted: ' + NameSubmitted)
+
+        if(WaitingForPlayer){
+            // Hide Enter Name Wrap & Show Waiting Wrap:
+            EnterNameWrap.classList.add('HiddenOpacity');
+            WaitingForPlayerWrap.classList.add('HiddenOpacity');
+            WaitingForPlayerWrap.style.display = 'flex';
+            
+
+            setTimeout(() => {
+                EnterNameWrap.style.display = 'none';
+                WaitingForPlayerWrap.classList.add('ShownOpacity');
+                WaitingForPlayerWrap.classList.remove('HiddenOpacity');
+            }, 1000);
+
+            let TypeStage = 0;
+            let WaitingForPlayerTypeInterval = setInterval(() => {
+
+                if(TypeStage === 0){
+                    WaitingForPlayerText.innerHTML = 'Waiting for Player .';
+                    TypeStage = 1;
+                    console.log(TypeStage)
+                    return
+                } else{ if(TypeStage === 1){
+                    WaitingForPlayerText.innerHTML = 'Waiting for Player . .'; 
+                    TypeStage = 2;
+                    console.log(TypeStage)
+                    return
+                } else{ if(TypeStage === 2){
+                    WaitingForPlayerText.innerHTML = 'Waiting for Player . . .'; 
+                    TypeStage = 3;
+                    console.log(TypeStage)
+                    return
+                } else{ if(TypeStage === 3){
+                    WaitingForPlayerText.innerHTML = 'Waiting for Player'; 
+                    TypeStage = 0;
+                    console.log(TypeStage)
+                    return
+                }}}}
+                
+                
+                
+
+
+            }, 1000);
+
+            // setTimeout(() => {
+            //     console.log('Clearing Interval');
+            //     clearInterval(WaitingForPlayerTypeInterval);
+            // }, 16000);
+
+        }
+
+        if(!WaitingForPlayer){
+            alert('Game will start shortly!');
+        }
     }
 
 </script>

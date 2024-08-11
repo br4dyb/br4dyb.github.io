@@ -215,7 +215,7 @@ header{
     margin-top: 10px;
 }
 
-#EnterNameWrap{
+#EnterNameWrap, #WaitingForPlayerWrap{
     background: var(--HeaderGray);
     box-shadow: 0px 0px 3px black;
     position: absolute;
@@ -237,6 +237,28 @@ header{
     border: 1.5px white solid;
     box-shadow: 1px 1px 2px black;
     font-weight: bold;
+}
+
+#CancelGameButton{
+    background: #d25241;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    border: 1.5px white solid;
+    box-shadow: 1px 1px 2px black;
+    font-weight: bold;
+    scale: 1.1;
+    transition: 0.33s;
+}
+
+#CancelGameButton:hover{
+    background: #e9c148;
+    padding: 4px 6px;
+    scale: 1.2;
 }
 
 #StartOnlineGameButton:hover, .JoinGameButton:hover, #SubmitNameButton:hover{

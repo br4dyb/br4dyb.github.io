@@ -191,6 +191,7 @@
                 <div id="WaitingForPlayerWrap">
                     <h2 id="WaitingForPlayerText" style="font-style: italic;"> Waiting for Player . . . </h2>
                     <button id="CancelGameButton"> Cancel Game </button>
+                    <p id="NewGameIDText"> Game ID: Null </p>
                 </div>
             </div>
         </div>
@@ -207,6 +208,7 @@
     let SinglePlayerComputerPiece;
     let PieceChosen = false; // <-- Single Player
     let WaitingForPlayer = true; // <-- Online MultiPlayer
+    let NewGameID = null; // <-- Online MultiPlayer
     const WelcomeLandingScreen = document.getElementById('WelcomeLandingScreen');
     const SinglePlayerGameArea = document.getElementById('SinglePlayerGameArea');
     const MultiPlayerGameArea = document.getElementById('MultiPlayerGameArea');
@@ -384,6 +386,26 @@
                 EnterNameWrap.classList.add('ShownOpacity');
                 EnterNameWrap.classList.remove('HiddenOpacity');
             }, 1000);
+
+        // Create Game ID:
+            function generateGameId(length = 10) {
+                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                let gameId = '';
+                for (let i = 0; i < length; i++) {
+                    const randomIndex = Math.floor(Math.random() * characters.length);
+                    gameId += characters[randomIndex];
+                }
+                return gameId;
+            }
+
+            const randomGameId = generateGameId();
+            console.log(randomGameId);
+            NewGameID = randomGameId;
+            let NewGameIDText =  document.getElementById('NewGameIDText');
+            NewGameIDText.innerHTML = `GameID: ${NewGameID}`;
+            NewGameIDText.style.color = 'gray';
+            NewGameIDText.style.fontSize = 'smaller';
+
     }
 
     function SubmitName(){

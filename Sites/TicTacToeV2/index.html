@@ -167,10 +167,25 @@
                     <span id="RefreshAvailableGamesButton" title="Refresh" class="material-symbols-rounded"> Refresh </span>
 
                     <div id="OnlineGamesList">
-                        <p style="font-style: italic;"> No Current Games . . . </p>
-                        <button id="StartOnlineGameButton"> Start New Game? </button>
-                    </div>
+                        
+                        <div class="AvailableGameWrap"> 
+                            <div style="display: flex; justify-content: center; align-items: center;" title="Players in Game"><span class="material-symbols-rounded defaultCursor">Group</span> 1 / 2</div> 
+                            <div style="display: flex; justify-content: center; align-items: center; margin-right: 4px;" title="GameID: 3HDI56NSKFN63DF67"><span class="material-symbols-rounded defaultCursor">Badge</span> %NAME%</div> 
+                            <button onclick="JoinExistingOnlineGame()" class="JoinGameButton" title="Join Game"> <span style="font-size: small;" class="material-symbols-rounded defaultCursor">Login</span> Join Game </button> 
+                        </div>
+
+                        <p style="font-style: italic; display: none;"> No Current Games . . . </p>
                     
+                    </div>
+
+                    <button onclick="StartNewOnlineGame()" id="StartOnlineGameButton" title="Start Game"> Start New Game? </button>
+                    
+                </div>
+
+                <div id="EnterNameWrap">
+                    <h2 style="font-style: italic;"> Enter Name: </h2>
+                    <input type="text" id="EnterNameImput" placeholder="First Name" required> 
+                    <button id="SubmitNameButton"> Go! </button>
                 </div>
             </div>
         </div>
@@ -197,6 +212,7 @@
     const OnlineMultiPlayerJoinMsg = document.getElementById('OnlineMultiPlayerJoinMsg');
     const OnlineMultiPlayerArea = document.getElementById('OnlineMultiPlayerArea');
     const AvialableOnlineGamesWrap = document.getElementById('AvialableOnlineGamesWrap');
+    const EnterNameWrap = document.getElementById('EnterNameWrap');
 
     //Animate in Landing Screen:
     setTimeout(() => {
@@ -267,6 +283,7 @@
         LocalMultiPlayerGameTable.classList.add('HiddenOpacity');
         LocalMultiPlayerGameTable.style.display = 'none';
         AvialableOnlineGamesWrap.style.display = 'none';
+        EnterNameWrap.style.display = 'none';
         
         //Show Full Game Screen / Choose Mode:
         MultiPlayerGameArea.style.display = 'flex';
@@ -329,6 +346,34 @@
                 OnlineMultiPlayerArea.classList.remove('HiddenOpacity');
             }, 1000);
         }
+    }
+
+    function JoinExistingOnlineGame(){
+        // Hide Game List & Show Name Input Wrap:
+            AvialableOnlineGamesWrap.classList.add('HiddenOpacity');
+            EnterNameWrap.classList.add('HiddenOpacity');
+            EnterNameWrap.style.display = 'flex';
+            
+
+            setTimeout(() => {
+                AvialableOnlineGamesWrap.style.display = 'none';
+                EnterNameWrap.classList.add('ShownOpacity');
+                EnterNameWrap.classList.remove('HiddenOpacity');
+            }, 1000);
+    }
+
+    function StartNewOnlineGame(){
+        // Hide Game List & Show Name Input Wrap:
+            AvialableOnlineGamesWrap.classList.add('HiddenOpacity');
+            EnterNameWrap.classList.add('HiddenOpacity');
+            EnterNameWrap.style.display = 'flex';
+            
+
+            setTimeout(() => {
+                AvialableOnlineGamesWrap.style.display = 'none';
+                EnterNameWrap.classList.add('ShownOpacity');
+                EnterNameWrap.classList.remove('HiddenOpacity');
+            }, 1000);
     }
 
 </script>

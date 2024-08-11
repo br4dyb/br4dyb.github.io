@@ -164,7 +164,7 @@
 
                     <h2 style="margin-bottom: 10px; font-style: italic;"> Online Games: </h2>
 
-                    <span id="RefreshAvailableGamesButton" title="Refresh" class="material-symbols-rounded"> Refresh </span>
+                    <span onclick="GetWaitingGames()" id="RefreshAvailableGamesButton" title="Refresh" class="material-symbols-rounded"> Refresh </span>
 
                     <div id="OnlineGamesList">
                         
@@ -190,7 +190,7 @@
 
                 <div id="WaitingForPlayerWrap">
                     <h2 id="WaitingForPlayerText" style="font-style: italic;"> Waiting for Player . . . </h2>
-                    <button id="CancelGameButton"> Cancel Game </button>
+                    <button onclick="CancelWaitingGame()" id="CancelGameButton"> Cancel Game </button>
                     <p id="NewGameIDText"> Game ID: Null </p>
                 </div>
             </div>
@@ -220,9 +220,32 @@
     const OnlineMultiPlayerJoinMsg = document.getElementById('OnlineMultiPlayerJoinMsg');
     const OnlineMultiPlayerArea = document.getElementById('OnlineMultiPlayerArea');
     const AvialableOnlineGamesWrap = document.getElementById('AvialableOnlineGamesWrap');
+    const OnlineGamesList = document.getElementById('OnlineGamesList');
     const EnterNameWrap = document.getElementById('EnterNameWrap');
     const WaitingForPlayerWrap = document.getElementById('WaitingForPlayerWrap');
     const WaitingForPlayerText = document.getElementById('WaitingForPlayerText');
+
+    // Firebase Config:
+    const firebaseConfig = {
+        apiKey: "AIzaSyCF2LGmFyy8eZtXPoZ0kuzAUrPFDAO2ZmQ",
+        authDomain: "bradys-github.firebaseapp.com",
+        projectId: "bradys-github",
+        storageBucket: "bradys-github.appspot.com",
+        messagingSenderId: "868340368524",
+        appId: "1:868340368524:web:bdcdee795eade397a2a7a9"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Initialize Firestore
+    const db = firebase.firestore();
+
+        var getOptions = {
+            source: 'server'
+        };
+
+    //Initialize Authentication:
+    const auth = firebase.auth();
 
     //Animate in Landing Screen:
     setTimeout(() => {
@@ -344,7 +367,9 @@
         }
         
         if(!ShowUnderConstruction){
-            console.log('Begin Testing!');
+
+            // Preload Waiting Games:
+            GetWaitingGames();
 
             //Hide Mode Selection and Show Games Available List:
             ChooseMultiplayerModeArea.classList.add('HiddenOpacity');
@@ -398,13 +423,14 @@
                 return gameId;
             }
 
+        // Show Game ID:
             const randomGameId = generateGameId();
             console.log(randomGameId);
             NewGameID = randomGameId;
             let NewGameIDText =  document.getElementById('NewGameIDText');
             NewGameIDText.innerHTML = `GameID: ${NewGameID}`;
             NewGameIDText.style.color = 'gray';
-            NewGameIDText.style.fontSize = 'smaller';
+            NewGameIDText.style.fontSize = 'smaller';        
 
     }
 
@@ -435,22 +461,18 @@
                 if(TypeStage === 0){
                     WaitingForPlayerText.innerHTML = 'Waiting for Player .';
                     TypeStage = 1;
-                    console.log(TypeStage)
                     return
                 } else{ if(TypeStage === 1){
                     WaitingForPlayerText.innerHTML = 'Waiting for Player . .'; 
                     TypeStage = 2;
-                    console.log(TypeStage)
                     return
                 } else{ if(TypeStage === 2){
                     WaitingForPlayerText.innerHTML = 'Waiting for Player . . .'; 
                     TypeStage = 3;
-                    console.log(TypeStage)
                     return
                 } else{ if(TypeStage === 3){
                     WaitingForPlayerText.innerHTML = 'Waiting for Player'; 
                     TypeStage = 0;
-                    console.log(TypeStage)
                     return
                 }}}}
                 
@@ -460,16 +482,109 @@
 
             }, 1000);
 
-            // setTimeout(() => {
-            //     console.log('Clearing Interval');
-            //     clearInterval(WaitingForPlayerTypeInterval);
-            // }, 16000);
+            // Add New (Waiting) Game to Database:
+            db.collection('TicTacToeGames').doc('AllGames').collection('WaitingGames').doc(NewGameID).set({
+                PlayerCount: 1,
+                Players: {
+                    Player1: {
+                        Name: NameSubmitted,
+                        GameHost: true,
+                        PlayerPieces: [],
+                    },
+                    Player2: {
+                        Name: 'TBD',
+                        GameHost: false,
+                        PlayerPieces: [],
+                    },
+                },
+                WinningPlayer: 'TBD',
+                GameCreated: Date(),
+                GameID: NewGameID,
+
+            }).then(() => {
+                console.log('Created Successfully!');
+            }).catch((error) => {
+                alert('Error Occured!');
+                console.log(error);
+            })
 
         }
 
         if(!WaitingForPlayer){
             alert('Game will start shortly!');
         }
+    }
+
+    function GetWaitingGames(){
+        let WaitingGamesCollectionRef = db.collection('TicTacToeGames').doc('AllGames').collection('WaitingGames')
+
+        OnlineGamesList.innerHTML = '';
+
+        WaitingGamesCollectionRef.get()
+        .then((querySnapshot) => {
+
+            console.log("querySnapshot");
+            console.log(querySnapshot);
+
+            if(querySnapshot.length === 0){
+                let NoGamesText = document.createElement('p');
+                NoGamesText.innerHTML = 'No Current Games . . .';
+                NoGamesText.style.fontStyle = 'italic';
+                OnlineGamesList.appendChild(NoGamesText);
+            }else{
+                querySnapshot.forEach((doc) => {
+                    let WaitingGameData = doc.data()
+                    console.log(`Game ID: ${doc.id}`);
+
+                    let newGameListContent = `
+                        <div style="display: flex; justify-content: center; align-items: center;" title="Players in Game"><span class="material-symbols-rounded defaultCursor">Group</span> ${WaitingGameData.PlayerCount} / 2</div> 
+                        <div style="display: flex; justify-content: center; align-items: center; margin-right: 4px;" title="GameID: 3HDI56NSKFN63DF67"><span class="material-symbols-rounded defaultCursor">Badge</span> ${WaitingGameData.GameID} </div> 
+                        <button onclick="JoinExistingOnlineGame('${WaitingGameData.GameID}')" class="JoinGameButton" title="Join Game"> <span style="font-size: small;" class="material-symbols-rounded defaultCursor">Login</span> Join Game </button> 
+                    `;
+
+                    let newListDiv = document.createElement('div');
+                    newListDiv.classList.add('AvailableGameWrap');
+                    newListDiv.innerHTML = newGameListContent;
+                    OnlineGamesList.appendChild(newListDiv);
+
+                });
+            }
+        })
+        .catch((error) => {
+            console.error('Error getting available games!:', error);
+        });
+    }
+
+    function CancelWaitingGame(){
+        // Get Game Info:
+        let CanceledGameInfoRef = db.collection('TicTacToeGames').doc('AllGames').collection('WaitingGames').doc(NewGameID);
+        let CanceledGameData;
+
+        CanceledGameInfoRef.get(getOptions).then((doc) => {
+            CanceledGameData = doc.data();
+            // console.log(doc.data());
+
+            // Log as 'Ended' Game:
+            db.collection('TicTacToeGames').doc('AllGames').collection('EndedGames').doc(NewGameID).set({
+                GameID: CanceledGameData.GameID,
+                GameHostName: CanceledGameData.Players.Player1.Name,
+                GameCreated: CanceledGameData.GameCreated,
+                WinningPlayer: 'No Win!',
+                GameEnded: Date()
+            }).then(() => {
+                console.log(`Game Successfully Logged as 'Ended'`);
+                db.collection('TicTacToeGames').doc('AllGames').collection('WaitingGames').doc(NewGameID).delete()
+                location.reload()
+            }).catch((error) => {
+                console.warn('Error Logging Ended Game:');
+                console.log(error);
+            })
+
+
+        }).catch((error) => {
+            console.warn('Error getting game info?');
+            console.log(error);
+        })
     }
 
 </script>

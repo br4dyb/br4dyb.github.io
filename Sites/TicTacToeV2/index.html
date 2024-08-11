@@ -515,44 +515,64 @@
         }
     }
 
+    let RefreshCooldown = false;
     function GetWaitingGames(){
         let WaitingGamesCollectionRef = db.collection('TicTacToeGames').doc('AllGames').collection('WaitingGames')
+        let RefreshAvailableGamesButton = document.getElementById('RefreshAvailableGamesButton');
 
-        OnlineGamesList.innerHTML = '';
+        if(!RefreshCooldown){
 
-        WaitingGamesCollectionRef.get()
-        .then((querySnapshot) => {
+            OnlineGamesList.innerHTML = '';
 
-            console.log("querySnapshot");
-            console.log(querySnapshot);
+            RefreshCooldown = true;
+            RefreshAvailableGamesButton.style.opacity = '0.5';
+            RefreshAvailableGamesButton.classList.add('waitCursor')
+            // Reset Refresh Cooldown:
+            setTimeout(() => {
+                RefreshCooldown = false
+                RefreshAvailableGamesButton.style.opacity = '1';
+                RefreshAvailableGamesButton.classList.remove('waitCursor')
+            }, 10000);
 
-            if(querySnapshot.length === 0){
-                let NoGamesText = document.createElement('p');
-                NoGamesText.innerHTML = 'No Current Games . . .';
-                NoGamesText.style.fontStyle = 'italic';
-                OnlineGamesList.appendChild(NoGamesText);
-            }else{
-                querySnapshot.forEach((doc) => {
-                    let WaitingGameData = doc.data()
-                    console.log(`Game ID: ${doc.id}`);
+            // Get Games in Database:
+            WaitingGamesCollectionRef.get()
+            .then((querySnapshot) => {
 
-                    let newGameListContent = `
-                        <div style="display: flex; justify-content: center; align-items: center;" title="Players in Game"><span class="material-symbols-rounded defaultCursor">Group</span> ${WaitingGameData.PlayerCount} / 2</div> 
-                        <div style="display: flex; justify-content: center; align-items: center; margin-right: 4px;" title="GameID: 3HDI56NSKFN63DF67"><span class="material-symbols-rounded defaultCursor">Badge</span> ${WaitingGameData.GameID} </div> 
-                        <button onclick="JoinExistingOnlineGame('${WaitingGameData.GameID}')" class="JoinGameButton" title="Join Game"> <span style="font-size: small;" class="material-symbols-rounded defaultCursor">Login</span> Join Game </button> 
-                    `;
+                console.log("querySnapshot");
+                console.log(querySnapshot);
 
-                    let newListDiv = document.createElement('div');
-                    newListDiv.classList.add('AvailableGameWrap');
-                    newListDiv.innerHTML = newGameListContent;
-                    OnlineGamesList.appendChild(newListDiv);
+                if(querySnapshot.length === 0){
+                    let NoGamesText = document.createElement('p');
+                    NoGamesText.innerHTML = 'No Current Games . . .';
+                    NoGamesText.style.fontStyle = 'italic';
+                    OnlineGamesList.appendChild(NoGamesText);
+                }else{
+                    querySnapshot.forEach((doc) => {
+                        let WaitingGameData = doc.data()
+                        console.log(`Game ID: ${doc.id}`);
 
-                });
-            }
-        })
-        .catch((error) => {
-            console.error('Error getting available games!:', error);
-        });
+                        let newGameListContent = `
+                            <div style="display: flex; justify-content: center; align-items: center;" title="Players in Game"><span class="material-symbols-rounded defaultCursor">Group</span> ${WaitingGameData.PlayerCount} / 2</div> 
+                            <div style="display: flex; justify-content: center; align-items: center; margin-right: 4px;" title="GameID: 3HDI56NSKFN63DF67"><span class="material-symbols-rounded defaultCursor">Badge</span> ${WaitingGameData.GameID} </div> 
+                            <button onclick="JoinExistingOnlineGame('${WaitingGameData.GameID}')" class="JoinGameButton" title="Join Game"> <span style="font-size: small;" class="material-symbols-rounded defaultCursor">Login</span> Join Game </button> 
+                        `;
+
+                        let newListDiv = document.createElement('div');
+                        newListDiv.classList.add('AvailableGameWrap');
+                        newListDiv.innerHTML = newGameListContent;
+                        OnlineGamesList.appendChild(newListDiv);
+
+                    });
+                }
+            })
+            .catch((error) => {
+                console.error('Error getting available games!:', error);
+            });
+    
+        } else{
+            return console.warn('Please Wait!')
+        }
+    
     }
 
     function CancelWaitingGame(){

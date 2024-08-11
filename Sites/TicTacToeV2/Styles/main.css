@@ -35,6 +35,10 @@ button{
     cursor: default !important;
 }
 
+.waitCursor{
+    cursor: wait !important;
+}
+
 body{
     color: white;
     display: flex;

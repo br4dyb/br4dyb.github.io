@@ -231,13 +231,21 @@ function SinglePlr_WinnerCheck() {
                 let CellToStyle = document.getElementById(`SinglePlayerTblCell_${CellNumber}`);
                 CellToStyle.style.background = RedCellColor;
             });
-        } else if(!SinglePlr_GameEnded && SinglePlr_AvailableCells.length == 0){
-            // Game was a Draw!
-            //console.log('Nobody Won! Out of Cells!');
-            SinglePlayerShowGameMsg('Game was a Draw!', YellowCellColor, 1350);
-            SinglePlr_TableLocked = true;
-            SinglePlr_GameEnded = true;
+        } else {
+            // Small Timout to Prevent False Draw Msg on Player Win:
+            setTimeout(() => {
+                if(!SinglePlr_GameEnded && SinglePlr_AvailableCells.length == 0){
+                    // Game was a Draw!
+                    //console.log('Nobody Won! Out of Cells!');
+                    SinglePlayerShowGameMsg('Game was a Draw!', YellowCellColor, 1350);
+                    SinglePlr_TableLocked = true;
+                    SinglePlr_GameEnded = true;
+                    // Reset Game Locally because original check has likley already occured:
+                    setTimeout(() => {SinglePlr_GameResetting = true; SinglePlr_ResetGame();}, 2000)
+                }
+            }, 350)
         }
+        
     });
 
         // Reset Game if Needed:

@@ -193,6 +193,43 @@
                     <button onclick="CancelWaitingGame()" id="CancelGameButton"> Cancel Game </button>
                     <p id="NewGameIDText"> Game ID: Null </p>
                 </div>
+
+                <div id="OnlineMultiPlayerTableArea">
+
+                    <div id="OnlineMultiPlayerMessageHeader">
+                        <div class="GameMessage HiddenOpacity" id="OnlineMultiPlayerMsgText"> <p> This is a test msg! </p> </div>
+                    </div>
+    
+                    <div class="ExtraGameTableBorder">
+                        <table id="OnlineMultiPlayerTable" class="GameTable">
+                            <tr class="GameTblRow">
+                                <td id="OnlineMultiPlayerTblCell_1" class="GameTblCell" onclick="OnlineMultiPlayerSelectCell(this)"> </td>
+                                <td id="OnlineMultiPlayerTblCell_2" class="GameTblCell" onclick="OnlineMultiPlayerSelectCell(this)"> </td>
+                                <td id="OnlineMultiPlayerTblCell_3" class="GameTblCell" onclick="OnlineMultiPlayerSelectCell(this)"> </td>
+            
+                            </tr>
+                            <tr class="GameTblRow">
+                                <td id="OnlineMultiPlayerTblCell_4" class="GameTblCell" onclick="OnlineMultiPlayerSelectCell(this)"> </td>
+                                <td id="OnlineMultiPlayerTblCell_5" class="GameTblCell" onclick="OnlineMultiPlayerSelectCell(this)"> </td>
+                                <td id="OnlineMultiPlayerTblCell_6" class="GameTblCell" onclick="OnlineMultiPlayerSelectCell(this)"> </td>
+            
+                            </tr>
+                            <tr class="GameTblRow">
+                                <td id="OnlineMultiPlayerTblCell_7" class="GameTblCell" onclick="OnlineMultiPlayerSelectCell(this)"> </td>
+                                <td id="OnlineMultiPlayerTblCell_8" class="GameTblCell" onclick="OnlineMultiPlayerSelectCell(this)"> </td>
+                                <td id="OnlineMultiPlayerTblCell_9" class="GameTblCell" onclick="OnlineMultiPlayerSelectCell(this)"> </td>
+            
+                            </tr>
+                        </table>
+                    </div>
+    
+                    <div id="OnlineMultiPlayerInfoHeader">
+                        <div class="GameInfoHeaderRow" id="GameInfoHeaderOnlinePlayer1Wrap"> <p id="OnlinePlayer1PieceDisplay" class="PlayerPieceDisplay" style="background: #3191e5;"> X </p> <p id="OnlinePlayer1NameTxt" style="margin-inline-end: 5px;"> Player 1: </p> <p id="OnlinePlayer1Score"> 0 </p> </div>
+                        <div class="GameInfoHeaderRow" id="GameInfoHeaderOnlinePlayer2Wrap"> <p id="OnlinePlayer2PieceDisplay" class="PlayerPieceDisplay" style="background: #a73acc;"> O </p> <p id="OnlinePlayer2NameTxt" style="margin-inline-end: 5px;"> Player 2: </p> <p id="OnlinePlayer2Score"> 0 </p> </div>
+                    </div>
+    
+                </div>
+
             </div>
         </div>
 
@@ -224,6 +261,7 @@
     const EnterNameWrap = document.getElementById('EnterNameWrap');
     const WaitingForPlayerWrap = document.getElementById('WaitingForPlayerWrap');
     const WaitingForPlayerText = document.getElementById('WaitingForPlayerText');
+    const OnlineMultiPlayerTableArea = document.getElementById('OnlineMultiPlayerTableArea');
 
     // Firebase Config:
     const firebaseConfig = {
@@ -318,6 +356,7 @@
         AvialableOnlineGamesWrap.style.display = 'none';
         EnterNameWrap.style.display = 'none';
         WaitingForPlayerWrap.style.display = 'none';
+        OnlineMultiPlayerTableArea.style.display = 'none'
         
         //Show Full Game Screen / Choose Mode:
         MultiPlayerGameArea.style.display = 'flex';
@@ -384,8 +423,9 @@
         }
     }
 
-    function JoinExistingOnlineGame(){
+    function JoinExistingOnlineGame(JoiningID){
         WaitingForPlayer = false;
+        NewGameID = JoiningID;
         // Hide Game List & Show Name Input Wrap:
             AvialableOnlineGamesWrap.classList.add('HiddenOpacity');
             EnterNameWrap.classList.add('HiddenOpacity');
@@ -413,8 +453,8 @@
             }, 1000);
 
         // Create Game ID:
-            function generateGameId(length = 12) {
-                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            function generateGameId(length = 14) {
+                const characters = '0123456789';
                 let gameId = '';
                 for (let i = 0; i < length; i++) {
                     const randomIndex = Math.floor(Math.random() * characters.length);
@@ -434,14 +474,16 @@
 
     }
 
+    // Submit Plr Name & Update Database Games:
     function SubmitName(){
         let NameSubmitted = document.getElementById('EnterNameImput').value;
         NameSubmitted = NameSubmitted.trim()
         if(NameSubmitted === ''){
             NameSubmitted = 'Anonymous'
         }
-        console.log('Name Submitted: ' + NameSubmitted)
+        //console.log('Name Submitted: ' + NameSubmitted)
 
+        // If creating new game:
         if(WaitingForPlayer){
             // Hide Enter Name Wrap & Show Waiting Wrap:
             EnterNameWrap.classList.add('HiddenOpacity');
@@ -502,16 +544,112 @@
                 GameID: NewGameID,
 
             }).then(() => {
-                console.log('Created Successfully!');
+                // console.log('Created Successfully!');
             }).catch((error) => {
                 alert('Error Occured!');
                 console.log(error);
             })
 
+            // Set Listener for Started Game:
+            var unsubscribeWaitingForPlayer = db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID)
+            .onSnapshot((doc) => {
+                console.log("Current data: ", doc.data());
+
+                // Game Started / Show Game Table:
+                if(doc.data() != null){
+                    console.info('Player 2 has joined, game will start. . . ');
+
+                    const OnlinePlayer1NameTxt = document.getElementById('OnlinePlayer1NameTxt');
+                    const OnlinePlayer2NameTxt = document.getElementById('OnlinePlayer2NameTxt');
+
+                    OnlinePlayer1NameTxt.innerText = doc.data().Players.Player1.Name;
+                    OnlinePlayer2NameTxt.innerText = doc.data().Players.Player2.Name;
+
+                    // Hide Game List & Show Name Input Wrap:
+                    WaitingForPlayerWrap.classList.add('HiddenOpacity');
+                    OnlineMultiPlayerTableArea.classList.add('HiddenOpacity');
+                    OnlineMultiPlayerTableArea.style.display = 'flex';
+                    
+
+                    setTimeout(() => {
+                        WaitingForPlayerWrap.style.display = 'none';
+                        OnlineMultiPlayerTableArea.classList.add('ShownOpacity');
+                        OnlineMultiPlayerTableArea.classList.remove('HiddenOpacity');
+                    }, 1000);
+
+                    unsubscribeWaitingForPlayer();
+                }
+                
+                if(doc.data() == null){
+                    console.info('Still Awaiting Player. . .');
+                }
+            });
+
         }
 
+        // If joining exisiting game:
         if(!WaitingForPlayer){
-            alert('Game will start shortly!');
+        
+            console.log('Update Succesful [Join Game]');
+            db.collection('TicTacToeGames').doc('AllGames').collection('WaitingGames').doc(NewGameID).get().then((doc) => {
+                
+                let StartingGameDocData = doc.data();
+
+                // Add to started games:
+                db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).set({
+                    PlayerCount: 2,
+                    Players: {
+                        Player1: {
+                            Name: StartingGameDocData.Players.Player1.Name,
+                            GameHost: true,
+                            PlayerPieces: [],
+                        },
+                        Player2: {
+                            Name: NameSubmitted,
+                            GameHost: false,
+                            PlayerPieces: [],
+                        },
+                    },
+                    WinningPlayer: 'TBD',
+                    GameCreated: StartingGameDocData.GameCreated,
+                    LastMoveTime: 'None',
+                    GameStarted: Date(),
+                    GameID: NewGameID,
+
+                }).then(() => {
+                    console.log('Added to StartedGames Successfully');
+                    db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).get().then((doc) => {
+                        OnlinePlayer1NameTxt.innerText = doc.data().Players.Player1.Name;
+                        OnlinePlayer2NameTxt.innerText = doc.data().Players.Player2.Name;
+                    }).catch((error) => {console.warn(`Couldn't get game data?`, error )})
+                    // Remove from waiting games:
+                    db.collection('TicTacToeGames').doc('AllGames').collection('WaitingGames').doc(NewGameID).delete();
+
+                    // Game Started / Show Game Table:
+                    const OnlinePlayer1NameTxt = document.getElementById('OnlinePlayer1NameTxt');
+                    const OnlinePlayer2NameTxt = document.getElementById('OnlinePlayer2NameTxt');
+
+                    // Hide Game List & Show Name Input Wrap:
+                    EnterNameWrap.classList.add('HiddenOpacity');
+                    OnlineMultiPlayerTableArea.classList.add('HiddenOpacity');
+                    OnlineMultiPlayerTableArea.style.display = 'flex';
+                    
+
+                    setTimeout(() => {
+                        EnterNameWrap.style.display = 'none';
+                        OnlineMultiPlayerTableArea.classList.add('ShownOpacity');
+                        OnlineMultiPlayerTableArea.classList.remove('HiddenOpacity');
+                    }, 1000);
+
+                }).catch((error) => {
+                    console.warn('Added to StartedGames Unsuccessfully');
+                    console.log(error);
+                })
+
+            }).catch(() => {
+                console.warn('Error Getting Starting Game Data!');
+                console.log(error);
+            })
         }
     }
 
@@ -538,10 +676,7 @@
             WaitingGamesCollectionRef.get()
             .then((querySnapshot) => {
 
-                console.log("querySnapshot");
-                console.log(querySnapshot);
-
-                if(querySnapshot.length === 0){
+                if(querySnapshot.size === 0){
                     let NoGamesText = document.createElement('p');
                     NoGamesText.innerHTML = 'No Current Games . . .';
                     NoGamesText.style.fontStyle = 'italic';
@@ -549,11 +684,10 @@
                 }else{
                     querySnapshot.forEach((doc) => {
                         let WaitingGameData = doc.data()
-                        console.log(`Game ID: ${doc.id}`);
 
                         let newGameListContent = `
                             <div style="display: flex; justify-content: center; align-items: center;" title="Players in Game"><span class="material-symbols-rounded defaultCursor">Group</span> ${WaitingGameData.PlayerCount} / 2</div> 
-                            <div style="display: flex; justify-content: center; align-items: center; margin-right: 4px;" title="GameID: 3HDI56NSKFN63DF67"><span class="material-symbols-rounded defaultCursor">Badge</span> ${WaitingGameData.GameID} </div> 
+                            <div style="display: flex; justify-content: center; align-items: center; margin-right: 4px;" title="GameID: 3HDI56NSKFN63DF67"><span class="material-symbols-rounded defaultCursor">Badge</span> ${WaitingGameData.Players.Player1.Name} </div> 
                             <button onclick="JoinExistingOnlineGame('${WaitingGameData.GameID}')" class="JoinGameButton" title="Join Game"> <span style="font-size: small;" class="material-symbols-rounded defaultCursor">Login</span> Join Game </button> 
                         `;
 

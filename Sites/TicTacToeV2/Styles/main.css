@@ -116,7 +116,7 @@ header{
     background: rgb(159, 82, 221);
 }
 
-#SinglePlayerTableArea, #LocalMultiPlayerTableArea{
+#SinglePlayerTableArea, #LocalMultiPlayerTableArea, #OnlineMultiPlayerTableArea{
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -323,7 +323,7 @@ header{
     scale: 1.15;
 }
 
-#SinglePlrGameInfoHeader, #LocalMultiPlayerInfoHeader{
+#SinglePlrGameInfoHeader, #LocalMultiPlayerInfoHeader, #OnlineMultiPlayerInfoHeader{
     display: flex;
     flex-direction: row;
     margin-top: 13px;
@@ -354,7 +354,7 @@ header{
     margin-inline-end: 5px;
 }
 
-#GameInfoHeaderYouWrap, #GameInfoHeaderComputerWrap, #GameInfoHeaderLocalPlayer1Wrap, #GameInfoHeaderLocalPlayer2Wrap{
+#GameInfoHeaderYouWrap, #GameInfoHeaderComputerWrap, #GameInfoHeaderLocalPlayer1Wrap, #GameInfoHeaderLocalPlayer2Wrap, #GameInfoHeaderOnlinePlayer1Wrap, #GameInfoHeaderOnlinePlayer2Wrap{
     background: rgba(0, 0, 0, 0.5);
     /* border: 2.5px solid #3ba3ff00; */
     /* border: 2.5px solid #3ba3ff; */
@@ -364,7 +364,7 @@ header{
     border-radius: 5px;
 }
 
-#SinglePlayerScore, #SinglePlayerComputerScore, #LocalPlayer1Score, #LocalPlayer2Score{
+#SinglePlayerScore, #SinglePlayerComputerScore, #LocalPlayer1Score, #LocalPlayer2Score, #OnlinePlayer1Score, #OnlinePlayer2Score{
     background: rgba(128, 128, 128, 0.5);
     padding: 4px;
     border-radius: 3px;
@@ -450,7 +450,7 @@ header{
     background: #a73acc;
 }
 
-#LocalMultiPlayerMessageHeader, #SinglePlayerMessageHeader{
+#OnlineMultiPlayerMessageHeader, #LocalMultiPlayerMessageHeader, #SinglePlayerMessageHeader{
     position: relative;
     padding: 10px;
     display: flex;

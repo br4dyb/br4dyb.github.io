@@ -575,7 +575,7 @@
                     OnlinePlayer1NameTxt.innerText = doc.data().Players.Player1.Name;
                     OnlinePlayer2NameTxt.innerText = doc.data().Players.Player2.Name;
 
-                    // Hide Game List & Show Name Input Wrap:
+                    // Hide Waiting for Player Wrap & Show Game Wrap:
                     WaitingForPlayerWrap.classList.add('HiddenOpacity');
                     OnlineMultiPlayerTableArea.classList.add('HiddenOpacity');
                     OnlineMultiPlayerTableArea.style.display = 'flex';
@@ -585,6 +585,7 @@
                         WaitingForPlayerWrap.style.display = 'none';
                         OnlineMultiPlayerTableArea.classList.add('ShownOpacity');
                         OnlineMultiPlayerTableArea.classList.remove('HiddenOpacity');
+                        InitializeOnlineMultiplayer(1, NameSubmitted);
                     }, 1000);
 
                     unsubscribeWaitingForPlayer();
@@ -624,6 +625,7 @@
                     WinningPlayer: 'TBD',
                     GameCreated: StartingGameDocData.GameCreated,
                     LastMoveTime: 'None',
+                    CurrentPlayersTurn: 1,
                     GameStarted: Date(),
                     GameID: NewGameID,
 
@@ -632,6 +634,8 @@
                     db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).get().then((doc) => {
                         OnlinePlayer1NameTxt.innerText = doc.data().Players.Player1.Name;
                         OnlinePlayer2NameTxt.innerText = doc.data().Players.Player2.Name;
+                        InitializeOnlineMultiplayer(2, NameSubmitted);
+
                     }).catch((error) => {console.warn(`Couldn't get game data?`, error )})
                     // Remove from waiting games:
                     db.collection('TicTacToeGames').doc('AllGames').collection('WaitingGames').doc(NewGameID).delete();

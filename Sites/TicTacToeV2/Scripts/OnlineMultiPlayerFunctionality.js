@@ -66,6 +66,11 @@ function OnlineShowGameMsg(MessageText, TextColor, MessageTimeMs){
 
 }
 
+// #######################################################
+// This whole thing is wrong lol.... this is essentially coded for a local multiplayer with online data saves...?
+// Need to adjust the code with snapshot listeners to prevent and update plays for other player...
+// #######################################################
+
 // Select Cell Function:
 function OnlineMultiPlayerSelectCell(Cell) {
     // Check if Cell is Available & Game is still going/unlocked:
@@ -99,7 +104,7 @@ function OnlineMultiPlayerSelectCell(Cell) {
                 // Check for Win: (if not, next player's turn . . .)
 
                 db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
-                    'Players.Player1.PlayerPieces' : OnlinePlr1_CellsCollected,
+                    'Players.Player1.PlayerCellsCollected' : OnlinePlr1_CellsCollected,
                     LastMoveTime : Date()
                 }).then(() => {
                     console.info('Player Pieces Updated in Database!');
@@ -108,8 +113,6 @@ function OnlineMultiPlayerSelectCell(Cell) {
                     console.warn('Error updating player pieces!');
                     console.log(error);
                 })
-
-                OnlineMultiPlayerCheckWinner();
 
             }else if(OnlineCurrentPlayerTurn === 2){
                 // Player 2:
@@ -127,7 +130,7 @@ function OnlineMultiPlayerSelectCell(Cell) {
                 // Check for Win: (if not, next player's turn . . .)
                 
                 db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
-                    'Players.Player2.PlayerPieces' : OnlinePlr1_CellsCollected,
+                    'Players.Player2.PlayerCellsCollected' : OnlinePlr2_CellsCollected,
                     LastMoveTime : Date()
                 }).then(() => {
                     console.info('Player Pieces Updated in Database!');
@@ -165,4 +168,101 @@ function OnlineMultiPlayerSelectCell(Cell) {
 
 function OnlineMultiPlayerCheckWinner(){
     console.info('Win Check Functionality Not Completed Yet!');
+
+    // Get Each Players Selected Cells from Database:
+    db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).get().then((doc) => {
+        OnlinePlr1_CellsCollected = doc.data().Players.Player1.PlayerCellsCollected;
+        if(OnlinePlr1_CellsCollected != null){
+            console.log('Plr 1 Cells: ', OnlinePlr1_CellsCollected);
+        }else{
+            OnlinePlr1_CellsCollected = [];
+        }
+       
+
+        OnlinePlr2_CellsCollected = doc.data().Players.Player2.PlayerCellsCollected;
+        if(OnlinePlr2_CellsCollected != null){
+            console.log('Plr 2 Cells: ', OnlinePlr2_CellsCollected);
+        }else{
+            OnlinePlr2_CellsCollected = [];
+        }
+
+        // Check for Winning Combinations:
+        WinningCombinations.forEach(WinningCombination => {
+            // Check for Player 1 Win:
+            if(WinningCombination.every(Cell => OnlinePlr1_CellsCollected.includes(String(Cell)))){
+                    //console.info('Player 1 has won!');
+                    OnlineShowGameMsg('Player 1 has Won!', GreenCellColor, 1750);
+               OnlinePlr1_Score += 1;
+               OnlinePlayer1ScoreText.innerText = OnlinePlr1_Score;
+               Online_GameEnded = true;
+               WinningCombination.forEach(WinningCellNumber => {
+                    let CellToStyle = document.getElementById(`OnlineMultiPlayerTblCell_${WinningCellNumber}`);
+                    CellToStyle.style.background = GreenCellColor;
+               });
+               OnlinePlayer1NameWrap.style.border = `2px solid ${GreenCellColor}`;
+    
+                // Reset Game:
+                setTimeout(() => {
+                    OnlineMultiPlayerGameReset()
+                }, 2000)
+               
+            }
+    
+            // Check for Player 2 Win:
+            if(WinningCombination.every(Cell => OnlinePlr2_CellsCollected.includes(String(Cell)))){
+                    //console.info('Player 2 has won!');
+                    OnlineShowGameMsg('Player 2 has Won!', GreenCellColor, 1750);
+                OnlinePlr2_Score += 1;
+                OnlinePlayer2ScoreText.innerText = OnlinePlr2_Score;
+                Online_GameEnded = true;
+               WinningCombination.forEach(WinningCellNumber => {
+                    let CellToStyle = document.getElementById(`OnlineMultiPlayerTblCell_${WinningCellNumber}`);
+                    CellToStyle.style.background = GreenCellColor;
+               });
+               OnlinePlayer2NameWrap.style.border = `2px solid ${GreenCellColor}`;
+    
+               // Reset Game:
+               setTimeout(() => {
+                    OnlineMultiPlayerGameReset()
+               }, 2000)
+    
+            }
+    
+        });
+    
+        // If Draw Game / No Cells Left:
+        if(OnlineMultiGame_AvailableCells.length === 0){
+            //console.info('No Player Won! / Draw');
+            OnlineShowGameMsg('Game was a Draw!', YellowCellColor, 1750);
+            
+            // Reset Game:
+            setTimeout(() => {
+                OnlineMultiPlayerGameReset()
+           }, 2000)
+        }
+    
+        // If no Winner, Next Player's Turn:
+        setTimeout(() => {
+            if(!Online_GameEnded){
+                if(OnlineCurrentPlayerTurn === 1){
+                    OnlineCurrentPlayerTurn = 2;
+                    OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff00';
+                    OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff';
+                    Online_GameLocked = false;
+                }else{
+                    OnlineCurrentPlayerTurn = 1;
+                    OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
+                    OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
+                    Online_GameLocked = false;
+                }
+            }
+        }, 350)
+    
+
+    }).catch((error) => {
+        console.warn(`Error retriving player's collected cells!`);
+        console.log(error);
+    })
+
+
 }

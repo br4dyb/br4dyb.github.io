@@ -170,8 +170,6 @@ function OnlineShowGameMsg(MessageText, TextColor, MessageTimeMs){
             OnlineMultiPlayerMsgText.classList.remove('HiddenOpacity');
         },150)
         
-        
-
         //Hide Message:
         setTimeout(() => {
             OnlineMultiPlayerMsgText.classList.remove('ShownOpacity');
@@ -185,7 +183,7 @@ function OnlineShowGameMsg(MessageText, TextColor, MessageTimeMs){
 }
 
 
-// Select Cell Function: [V. 2]
+// Select Cell Function:
 function OnlineMultiPlayerSelectCell(Cell) {
     // Check if Cell is Available & Game is still going/unlocked:
     if(!Online_GameEnded && !Online_GameLocked && ThisClientPlayerNumber === OnlineCurrentPlayerTurn){
@@ -267,7 +265,7 @@ function OnlineMultiPlayerSelectCell(Cell) {
     }
 }
 
-
+// Check for Win Function:
 function OnlineMultiPlayerCheckWinner(){
     console.info('Win Check Functionality Not Completed Yet!');
 

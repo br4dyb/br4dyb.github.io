@@ -65,12 +65,14 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
                 const AvaialableCellIndex = OnlineMultiGame_AvailableCells.lastIndexOf(Number(CellNumber));
                 OnlineMultiGame_AvailableCells.splice(AvaialableCellIndex, 1);
 
+                // Check Win:
+                OnlineMultiPlayerCheckWinner();
+
                 // Reset Cell Background:
                 setTimeout(() => {
                     if(!Online_GameEnded){
                         Player1sLastCell.style.background = 'unset';
                         OnlineCurrentPlayerTurn = ThisGameData.CurrentPlayersTurn;
-                        OnlineMultiPlayerCheckWinner()
                         //Unlock for Next Player (client side):
                         if(!Online_GameEnded && OnlineThisClientPlayer === OnlineCurrentPlayerTurn){Online_GameLocked = false}
                     }
@@ -93,13 +95,15 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
                     const CellNumber = Player2sLastCell.id.charAt(25);
                     const AvaialableCellIndex = OnlineMultiGame_AvailableCells.lastIndexOf(Number(CellNumber));
                     OnlineMultiGame_AvailableCells.splice(AvaialableCellIndex, 1);
+
+                    // Check Win:
+                    OnlineMultiPlayerCheckWinner();
     
                     // Reset Cell Background:
                     setTimeout(() => {
                         if(!Online_GameEnded){
                             Player2sLastCell.style.background = 'unset';
                             OnlineCurrentPlayerTurn = ThisGameData.CurrentPlayersTurn;
-                            OnlineMultiPlayerCheckWinner()
                             //Unlock for Next Player (client side):
                             if(!Online_GameEnded && OnlineThisClientPlayer === OnlineCurrentPlayerTurn){Online_GameLocked = false}
                         }

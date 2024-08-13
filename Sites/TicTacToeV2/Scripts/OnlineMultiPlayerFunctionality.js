@@ -17,7 +17,7 @@ const OnlineMultiPlayerMsgText = document.getElementById('OnlineMultiPlayerMsgTe
     const AllOnlineMultiPlayerTblCells = [OnlineMultiPlayerTblCell_1, OnlineMultiPlayerTblCell_2, OnlineMultiPlayerTblCell_3, OnlineMultiPlayerTblCell_4, OnlineMultiPlayerTblCell_5, OnlineMultiPlayerTblCell_6, OnlineMultiPlayerTblCell_7, OnlineMultiPlayerTblCell_8, OnlineMultiPlayerTblCell_9];
 let OnlineMultiGame_AvailableCells = [1,2,3,4,5,6,7,8,9]
 let OnlinePlr1_StartedFirst = true;
-let OnlineThisClientPlayer = 0; // <-- This player's number
+let ThisClientPlayerNumber = 0; // <-- This player's number
 let ThisClientName = 'Null'; // <-- This player's name
 let OnlineCurrentPlayerTurn = 1; // <-- Current player for next game move
 let OnlinePlr1_CellsCollected = [];
@@ -41,14 +41,15 @@ OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
 
 // Initialize OnlineMultiplayer (define variables / unlock for Player 1):
 function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
-    OnlineThisClientPlayer = PlayerNumber;
+    ThisClientPlayerNumber = PlayerNumber;
     ThisClientName = PlayerName;
 
     //Add Listener to Database:
     db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID)
     .onSnapshot((doc) => {
 
-        console.info('Game Data Chnage Detected!')
+        console.info('Game Data Chnage Detected!');
+        console.log('OnlineCurrentPlayerTurn: ', OnlineCurrentPlayerTurn);
         let ThisGameData = doc.data();
 
         // Show Last Game Play & Switch Current Player Turn:
@@ -66,7 +67,7 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
                 OnlineMultiGame_AvailableCells.splice(AvaialableCellIndex, 1);
 
                 // Check Win:
-                OnlineMultiPlayerCheckWinner();
+                // OnlineMultiPlayerCheckWinner();
 
                 // Reset Cell Background:
                 setTimeout(() => {
@@ -74,16 +75,16 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
                         Player1sLastCell.style.background = 'unset';
                         OnlineCurrentPlayerTurn = ThisGameData.CurrentPlayersTurn;
                         //Unlock for Next Player (client side):
-                        if(!Online_GameEnded && OnlineThisClientPlayer === OnlineCurrentPlayerTurn){Online_GameLocked = false}
+                        if(!Online_GameEnded && ThisClientPlayerNumber === OnlineCurrentPlayerTurn){Online_GameLocked = false}
                     }
                 }, (850))
             } else {
                 // No Cell Last Selected but Need Next Player?:
                 OnlineCurrentPlayerTurn = ThisGameData.CurrentPlayersTurn;
                         //Unlock for Next Player (client side):
-                        if(OnlineThisClientPlayer === OnlineCurrentPlayerTurn){Online_GameLocked = false}
+                        if(ThisClientPlayerNumber === OnlineCurrentPlayerTurn){Online_GameLocked = false}
             }
-        }else{
+        } else{
             if(OnlineCurrentPlayerTurn === 2){
                 let Player2sLastCell = document.getElementById(`OnlineMultiPlayerTblCell_${ThisGameData.Players.Player2.LastCellSelected}`);
                 if(Player2sLastCell != null){
@@ -97,7 +98,7 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
                     OnlineMultiGame_AvailableCells.splice(AvaialableCellIndex, 1);
 
                     // Check Win:
-                    OnlineMultiPlayerCheckWinner();
+                    // OnlineMultiPlayerCheckWinner();
     
                     // Reset Cell Background:
                     setTimeout(() => {
@@ -105,14 +106,14 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
                             Player2sLastCell.style.background = 'unset';
                             OnlineCurrentPlayerTurn = ThisGameData.CurrentPlayersTurn;
                             //Unlock for Next Player (client side):
-                            if(!Online_GameEnded && OnlineThisClientPlayer === OnlineCurrentPlayerTurn){Online_GameLocked = false}
+                            if(!Online_GameEnded && ThisClientPlayerNumber === OnlineCurrentPlayerTurn){Online_GameLocked = false}
                         }
                     }, (850))
                 } else {
                     // No Cell Last Selected but Need Next Player?:
                     OnlineCurrentPlayerTurn = ThisGameData.CurrentPlayersTurn;
                             //Unlock for Next Player (client side):
-                            if(OnlineThisClientPlayer === OnlineCurrentPlayerTurn){Online_GameLocked = false}
+                            if(ThisClientPlayerNumber === OnlineCurrentPlayerTurn){Online_GameLocked = false}
                 }
             }
         }
@@ -143,10 +144,13 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
             console.log('Plr2 Cells:', OnlinePlr2_CellsCollected);
         }
 
+        // Check Win:
+        OnlineMultiPlayerCheckWinner();
+
     });
 
     //Unlock Game Cells for this client if it's their turn: (Already Above?)
-    // if(OnlineThisClientPlayer === OnlineCurrentPlayerTurn){
+    // if(ThisClientPlayerNumber === OnlineCurrentPlayerTurn){
     //     Online_GameLocked = false;
     // }
 }
@@ -184,7 +188,7 @@ function OnlineShowGameMsg(MessageText, TextColor, MessageTimeMs){
 // Select Cell Function: [V. 2]
 function OnlineMultiPlayerSelectCell(Cell) {
     // Check if Cell is Available & Game is still going/unlocked:
-    if(!Online_GameEnded && !Online_GameLocked && OnlineThisClientPlayer === OnlineCurrentPlayerTurn){
+    if(!Online_GameEnded && !Online_GameLocked && ThisClientPlayerNumber === OnlineCurrentPlayerTurn){
         // Move Accepted:
         Online_GameLocked = true; // <-- Lock Game Table to Prevent Double Play
 

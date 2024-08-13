@@ -317,7 +317,7 @@
             PieceChosen = true;
             SinglePlayerPiece = Choice;
 
-            console.log('Player is:', Choice);
+            console.info('Player is:', Choice);
 
             //Update Leaderboard:
             const SinglePlayerPieceDisplay = document.getElementById('SinglePlayerPieceDisplay')
@@ -426,11 +426,21 @@
     function JoinExistingOnlineGame(JoiningID){
         WaitingForPlayer = false;
         NewGameID = JoiningID;
+        console.info('GameID: ', NewGameID);
         // Hide Game List & Show Name Input Wrap:
             AvialableOnlineGamesWrap.classList.add('HiddenOpacity');
             EnterNameWrap.classList.add('HiddenOpacity');
             EnterNameWrap.style.display = 'flex';
             
+        // Update Player Count for Game to Prevent too many players:
+        db.collection('TicTacToeGames').doc('AllGames').collection('WaitingGames').doc(NewGameID).update({
+            PlayerCount: 2
+        }).then(() => {
+            // console.log('Player Count Updated!');
+        }).catch((error) => {
+            console.warn('Error updating player count!');
+            console.log(error);
+        })
 
             setTimeout(() => {
                 AvialableOnlineGamesWrap.style.display = 'none';
@@ -465,8 +475,8 @@
 
         // Show Game ID:
             const randomGameId = generateGameId();
-            console.log(randomGameId);
             NewGameID = randomGameId;
+            console.info('GameID: ', NewGameID);
             let NewGameIDText =  document.getElementById('NewGameIDText');
             NewGameIDText.innerHTML = `GameID: ${NewGameID}`;
             NewGameIDText.style.color = 'gray';
@@ -553,7 +563,7 @@
             // Set Listener for Started Game:
             var unsubscribeWaitingForPlayer = db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID)
             .onSnapshot((doc) => {
-                console.log("Current data: ", doc.data());
+                // console.log("Current data: ", doc.data());
 
                 // Game Started / Show Game Table:
                 if(doc.data() != null){
@@ -590,7 +600,8 @@
         // If joining exisiting game:
         if(!WaitingForPlayer){
         
-            console.log('Update Succesful [Join Game]');
+            // console.log('Update Succesful [Join Game]');
+
             db.collection('TicTacToeGames').doc('AllGames').collection('WaitingGames').doc(NewGameID).get().then((doc) => {
                 
                 let StartingGameDocData = doc.data();
@@ -617,7 +628,7 @@
                     GameID: NewGameID,
 
                 }).then(() => {
-                    console.log('Added to StartedGames Successfully');
+                    // console.log('Added to StartedGames Successfully');
                     db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).get().then((doc) => {
                         OnlinePlayer1NameTxt.innerText = doc.data().Players.Player1.Name;
                         OnlinePlayer2NameTxt.innerText = doc.data().Players.Player2.Name;
@@ -685,19 +696,33 @@
                     querySnapshot.forEach((doc) => {
                         let WaitingGameData = doc.data()
 
-                        let newGameListContent = `
+                        // Make sure this game dosen't already have 2 players:
+                        if(WaitingGameData.PlayerCount == 1){
+                            let newGameListContent = `
                             <div style="display: flex; justify-content: center; align-items: center;" title="Players in Game"><span class="material-symbols-rounded defaultCursor">Group</span> ${WaitingGameData.PlayerCount} / 2</div> 
                             <div style="display: flex; justify-content: center; align-items: center; margin-right: 4px;" title="GameID: 3HDI56NSKFN63DF67"><span class="material-symbols-rounded defaultCursor">Badge</span> ${WaitingGameData.Players.Player1.Name} </div> 
                             <button onclick="JoinExistingOnlineGame('${WaitingGameData.GameID}')" class="JoinGameButton" title="Join Game"> <span style="font-size: small;" class="material-symbols-rounded defaultCursor">Login</span> Join Game </button> 
-                        `;
+                            `;
 
-                        let newListDiv = document.createElement('div');
-                        newListDiv.classList.add('AvailableGameWrap');
-                        newListDiv.innerHTML = newGameListContent;
-                        OnlineGamesList.appendChild(newListDiv);
+                            let newListDiv = document.createElement('div');
+                            newListDiv.classList.add('AvailableGameWrap');
+                            newListDiv.innerHTML = newGameListContent;
+                            OnlineGamesList.appendChild(newListDiv);
+
+                        }
 
                     });
                 }
+
+                setTimeout(() => {
+                    // Doubble Check for No Games (incuding joining/ed games):
+                    if(OnlineGamesList.innerHTML === ''){
+                        let NoGamesText = document.createElement('p');
+                        NoGamesText.innerHTML = 'No Current Games . . .';
+                        NoGamesText.style.fontStyle = 'italic';
+                        OnlineGamesList.appendChild(NoGamesText);
+                    }
+                }, 1000)
             })
             .catch((error) => {
                 console.error('Error getting available games!:', error);
@@ -726,7 +751,7 @@
                 WinningPlayer: 'No Win!',
                 GameEnded: Date()
             }).then(() => {
-                console.log(`Game Successfully Logged as 'Ended'`);
+                console.info(`Game Successfully Logged as 'Ended'`);
                 db.collection('TicTacToeGames').doc('AllGames').collection('WaitingGames').doc(NewGameID).delete()
                 location.reload()
             }).catch((error) => {
@@ -751,7 +776,7 @@
                     title: document.title,
                     url: window.location.href
                 }).then(() => {
-                    console.log('Thanks for sharing!');
+                    console.log('Thanks for sharing! <3');
                 }).catch((error) => {
                     console.error('Something went wrong sharing the site:', error);
                 });
@@ -765,6 +790,6 @@
 <!-- Required Scripts: -->
  <script src="./Scripts/SinglePlayerGameFunctionality.js"> </script>
  <script src="./Scripts/LocalMultiPlayerGameFunctionality.js"> </script>
- <script src="./Scripts/OnlineMultiPlayer.js"> </script>
+ <script src="./Scripts/OnlineMultiPlayerFunctionality.js"> </script>
 
 </html>

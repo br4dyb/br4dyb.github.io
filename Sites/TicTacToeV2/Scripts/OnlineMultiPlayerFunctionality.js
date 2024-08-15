@@ -4,6 +4,9 @@ const OnlinePlayer2ScoreText = document.getElementById('OnlinePlayer2Score');
 const OnlinePlayer1NameWrap = document.getElementById('GameInfoHeaderOnlinePlayer1Wrap');
 const OnlinePlayer2NameWrap = document.getElementById('GameInfoHeaderOnlinePlayer2Wrap');
 const OnlineMultiPlayerMsgText = document.getElementById('OnlineMultiPlayerMsgText');
+const OnlineMultiPlayerGameStatusWrap = document.getElementById('OnlineGameStatusUpdateWrap');
+const OnlineGameAgainVoteYes = document.getElementById('OnlineGameAgainVoteYes');
+const OnlineGameAgainVoteNo = document.getElementById('OnlineGameAgainVoteNo');
     //Tables Cells:
     const OnlineMultiPlayerTblCell_1 = document.getElementById('OnlineMultiPlayerTblCell_1');
     const OnlineMultiPlayerTblCell_2 = document.getElementById('OnlineMultiPlayerTblCell_2');
@@ -24,6 +27,8 @@ let OnlinePlr1_CellsCollected = [];
 let OnlinePlr2_CellsCollected = [];
 let OnlinePlr1_Score = 0;
 let OnlinePlr2_Score = 0;
+let OnlinePlr1_PlayAgainVote = null;
+let OnlinePlr2_PlayAgainVote = null;
 const OnlinePlr1Color = '#3191e5';
 const OnlinePlr2Color = '#a73acc';
 // Already Defined:
@@ -43,12 +48,14 @@ OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
 document.onvisibilitychange = () => {
 
     if (document.visibilityState === 'hidden'){
-        console.info('Page Hidden!');
+        // console.info('Page Hidden!');
+
         // Wait for 30 secs to see if player has left the game, if returned cancel the game end
         // or else: end game if player does not return
     } else 
     if (document.visibilityState === 'visible'){
-        console.info('Page Shown!');
+        // console.info('Page Shown!');
+
         // Cancel the "end game timer here"
     }
 }
@@ -136,9 +143,6 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
             }
         }
 
-        
-        
-        
         // Update Each Player's Cells Collected:
         OnlinePlr1_CellsCollected = ThisGameData.Players.Player1.PlayerCellsCollected;
         if(OnlinePlr1_CellsCollected != null){
@@ -158,14 +162,59 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
         }
 
         // Check Win:
-        OnlineMultiPlayerCheckWinner();
+        if(!Online_GameEnded){
+            OnlineMultiPlayerCheckWinner();
+        }
+
+        // Check for Play Again Votes:
+        const OtherPlrVoteIcon = document.getElementById('OnlineOpponentPlayAgainVoteIcon');
+        let OnlinePlr1PlayAgainVote = ThisGameData.Players.Player1.PlayAgainVote;
+        let OnlinePlr2PlayAgainVote = ThisGameData.Players.Player2.PlayAgainVote;
+
+        if(ThisClientPlayerNumber === 1){
+
+            if(OnlinePlr2PlayAgainVote == true){
+                OtherPlrVoteIcon.innerText = 'check_circle';
+                OtherPlrVoteIcon.style.color = '#41d261';
+                OnlinePlr2_PlayAgainVote = true;
+            }
+
+            if(OnlinePlr2PlayAgainVote == false){
+                OtherPlrVoteIcon.innerText = 'cancel';
+                OtherPlrVoteIcon.style.color = '#ed7666';
+                OnlinePlr2_PlayAgainVote = false;
+            }
+
+            if(OnlinePlr2PlayAgainVote == null){
+                OtherPlrVoteIcon.innerText = 'circle';
+                OtherPlrVoteIcon.style.color = 'white';
+                OnlinePlr2_PlayAgainVote = null;
+            }
+        }
+
+        if(ThisClientPlayerNumber === 2){
+
+            if(OnlinePlr1PlayAgainVote == true){
+                OtherPlrVoteIcon.innerText = 'check_circle';
+                OtherPlrVoteIcon.style.color = '#41d261';
+                OnlinePlr1_PlayAgainVote = true;
+            }
+
+            if(OnlinePlr1PlayAgainVote == false){
+                OtherPlrVoteIcon.innerText = 'cancel';
+                OtherPlrVoteIcon.style.color = '#ed7666';
+                OnlinePlr1_PlayAgainVote = false;
+            }
+
+            if(OnlinePlr1PlayAgainVote == null){
+                OtherPlrVoteIcon.innerText = 'circle';
+                OtherPlrVoteIcon.style.color = 'white';
+                OnlinePlr1_PlayAgainVote = null;
+            }
+        }
+        
 
     });
-
-    //Unlock Game Cells for this client if it's their turn: (Already Above?)
-    // if(ThisClientPlayerNumber === OnlineCurrentPlayerTurn){
-    //     Online_GameLocked = false;
-    // }
 }
 
 // Show Game Message:
@@ -291,6 +340,7 @@ function OnlineMultiPlayerCheckWinner(){
                OnlinePlr1_Score += 1;
                OnlinePlayer1ScoreText.innerText = OnlinePlr1_Score;
                Online_GameEnded = true;
+               Online_GameLocked = true;
                WinningCombination.forEach(WinningCellNumber => {
                     let CellToStyle = document.getElementById(`OnlineMultiPlayerTblCell_${WinningCellNumber}`);
                     CellToStyle.style.background = GreenCellColor;
@@ -299,7 +349,7 @@ function OnlineMultiPlayerCheckWinner(){
     
                 // Reset Game:
                 setTimeout(() => {
-                    OnlineMultiPlayerGameReset()
+                    OnlineMultiPlayerGameEnd()
                 }, 2000)
                
             }
@@ -311,6 +361,7 @@ function OnlineMultiPlayerCheckWinner(){
                 OnlinePlr2_Score += 1;
                 OnlinePlayer2ScoreText.innerText = OnlinePlr2_Score;
                 Online_GameEnded = true;
+                Online_GameLocked = true;
                WinningCombination.forEach(WinningCellNumber => {
                     let CellToStyle = document.getElementById(`OnlineMultiPlayerTblCell_${WinningCellNumber}`);
                     CellToStyle.style.background = GreenCellColor;
@@ -319,7 +370,7 @@ function OnlineMultiPlayerCheckWinner(){
     
                // Reset Game:
                setTimeout(() => {
-                    OnlineMultiPlayerGameReset()
+                    OnlineMultiPlayerGameEnd()
                }, 2000)
     
             }
@@ -333,25 +384,136 @@ function OnlineMultiPlayerCheckWinner(){
             
             // Reset Game:
             setTimeout(() => {
-                OnlineMultiPlayerGameReset()
+                OnlineMultiPlayerGameEnd()
            }, 2000)
         }
-    
-        // // If no Winner, Next Player's Turn:
-        // setTimeout(() => {
-        //     if(!Online_GameEnded){
-        //         if(OnlineCurrentPlayerTurn === 1){
-        //             OnlineCurrentPlayerTurn = 2;
-        //             OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff00';
-        //             OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff';
-        //             Online_GameLocked = false;
-        //         }else{
-        //             OnlineCurrentPlayerTurn = 1;
-        //             OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
-        //             OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
-        //             Online_GameLocked = false;
-        //         }
-        //     }
-        // }, 350)
 
+}
+
+// Current Game End Function:
+function OnlineMultiPlayerGameEnd(){
+    // Reset Vars:
+    OnlinePlr1_CellsCollected = [];
+    OnlinePlr2_CellsCollected = [];
+    OnlineMultiGame_AvailableCells = [1,2,3,4,5,6,7,8,9]
+
+    let NextPlayerStartFirst;
+    if(OnlinePlr1_StartedFirst){
+        NextPlayerStartFirst = 2;
+        OnlinePlr1_StartedFirst = false;
+    }else{
+        NextPlayerStartFirst = 1;
+        OnlinePlr1_StartedFirst = true;
+    }
+
+    // Update Database:
+    db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
+        'Players.Player1.PlayerCellsCollected' : [],
+        'Players.Player2.PlayerCellsCollected' : [],
+        'CurrentPlayersTurn' : NextPlayerStartFirst
+    }).then(() => {
+        console.log('Reset Database for Next Game!');
+    }).catch((error) => {
+        console.warn('Error for Reset Database for Next Game!');
+        console.log(error);
+    })
+
+    // Show Continue Playing Decision:
+    setTimeout(() => {
+
+        // Clear Game Table:
+        AllOnlineMultiPlayerTblCells.forEach((cell) => {
+            cell.innerText = '';
+            cell.classList.remove('CellTaken');
+            cell.style.background = 'unset';
+        })
+
+        // Show Question Wrap:
+        OnlineMultiPlayerGameStatusWrap.style.display = 'flex';
+        OnlineMultiPlayerGameStatusWrap.classList.add('HiddenOpacity');
+
+        setTimeout(() => {
+            OnlineMultiPlayerGameStatusWrap.classList.remove('HiddenOpacity'); 
+            OnlineMultiPlayerGameStatusWrap.classList.add('ShownOpacity');
+        }, 650)
+
+    }, 1500);
+}
+
+// Vote to Play Again Function:
+function OnlinePlayAgainVoteYes(){
+
+    if(ThisClientPlayerNumber === 1){
+        db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
+            'Players.Player1.PlayAgainVote' : true,
+            'Players.Player1.Score' : OnlinePlr1_Score
+        }).then(() => {
+            console.log('Player 1 Voted to Play Again!');
+        }).catch((error) => {
+            console.warn('Error Occured: Player 1 Vote to Play Again?');
+            console.log(error);
+        })
+    }
+
+    if(ThisClientPlayerNumber === 2){
+        db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
+            'Players.Player2.PlayAgainVote' : true,
+            'Players.Player2.Score' : OnlinePlr2_Score
+        }).then(() => {
+            console.log('Player 2 Voted to Play Again!');
+        }).catch((error) => {
+            console.warn('Error Occured: Player 2 Vote to Play Again?');
+            console.log(error);
+        })
+    }
+
+    OnlineGameAgainVoteYes.style.background = '#41d261';
+    OnlineGameAgainVoteYes.style.padding = '5px 10px';
+    OnlineGameAgainVoteYes.style.opacity = '.5';
+    OnlineGameAgainVoteYes.style.scale = '1.1';
+    OnlineGameAgainVoteNo.style.opacity = '.5';
+
+    OnlineGameAgainVoteYes.onclick = null;
+    OnlineGameAgainVoteYes.classList.remove('OnlineGameAgainVoteYes');
+    OnlineGameAgainVoteNo.onclick = null;
+    OnlineGameAgainVoteNo.classList.remove('OnlineGameAgainVoteNo');
+    
+}
+
+// Vote to NOT Play Again Function:
+function OnlinePlayAgainVoteNo(){
+    if(ThisClientPlayerNumber === 1){
+        db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
+            'Players.Player1.PlayAgainVote' : false,
+            'Players.Player1.Score' : OnlinePlr1_Score
+        }).then(() => {
+            console.log('Player 1 Voted to NOT Play Again!');
+        }).catch((error) => {
+            console.warn('Error Occured: Player 1 Vote to NOT Play Again?');
+            console.log(error);
+        })
+    }
+
+    if(ThisClientPlayerNumber === 2){
+        db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
+            'Players.Player2.PlayAgainVote' : false,
+            'Players.Player2.Score' : OnlinePlr2_Score
+        }).then(() => {
+            console.log('Player 2 Voted to NOT Play Again!');
+        }).catch((error) => {
+            console.warn('Error Occured: Player 2 Vote to NOT Play Again?');
+            console.log(error);
+        })
+    }
+
+    OnlineGameAgainVoteNo.style.background = '#ed7666';
+    OnlineGameAgainVoteNo.style.padding = '5px 10px';
+    OnlineGameAgainVoteNo.style.opacity = '.5';
+    OnlineGameAgainVoteNo.style.scale = '1.1';
+    OnlineGameAgainVoteYes.style.opacity = '.5';
+
+    OnlineGameAgainVoteYes.onclick = null;
+    OnlineGameAgainVoteYes.classList.remove('OnlineGameAgainVoteYes');
+    OnlineGameAgainVoteNo.onclick = null;
+    OnlineGameAgainVoteNo.classList.remove('OnlineGameAgainVoteNo');
 }

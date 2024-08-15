@@ -242,7 +242,7 @@
 
             <div id="RestartGameQuestionWrap">
                 <h1> Would you like to play again?</h1>
-                <div> <button id="OnlineGameAgainVoteYes" class="GameStatusButtons"> Yes </button> <button id="OnlineGameAgainVoteNo" class="GameStatusButtons"> No </button> </div>
+                <div> <button onclick="OnlinePlayAgainVoteYes()" id="OnlineGameAgainVoteYes" class="GameStatusButtons OnlineGameAgainVoteYes"> Yes </button> <button onclick="OnlinePlayAgainVoteNo()" id="OnlineGameAgainVoteNo" class="GameStatusButtons OnlineGameAgainVoteNo"> No </button> </div>
                 <p style="display: flex; justify-content: center; align-items: center; text-align: center;"> Other Player's Vote: <span id="OnlineOpponentPlayAgainVoteIcon" class="material-symbols-rounded defaultCursor"> circle </span> </p>
                 <p id="OnlinePlayAgainVoteTimeText"> Time Left: 30(s)</p>
             </div>
@@ -564,7 +564,7 @@
                         PlayerCellsCollected: [],
                     },
                 },
-                WinningPlayer: 'TBD',
+                GameCanceled: false,
                 GameCreated: Date(),
                 GameID: NewGameID,
 
@@ -629,15 +629,12 @@
                         Player1: {
                             Name: StartingGameDocData.Players.Player1.Name,
                             GameHost: true,
-                            PlayerPieces: [],
                         },
                         Player2: {
                             Name: NameSubmitted,
                             GameHost: false,
-                            PlayerPieces: [],
                         },
                     },
-                    WinningPlayer: 'TBD',
                     GameCreated: StartingGameDocData.GameCreated,
                     LastMoveTime: 'None',
                     CurrentPlayersTurn: 1,

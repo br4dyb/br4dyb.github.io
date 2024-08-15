@@ -508,7 +508,7 @@ header{
     display: none;
     background: var(--HeaderGray);
     padding: 25px 20px;
-    text-shadow: 0px 0px 1px black;
+    text-shadow: 0px 0px 3px black;
     box-shadow: 1px 2px 4px black;
     border-radius: 5px;
     flex-direction: column;
@@ -520,7 +520,7 @@ header{
     display: flex;
     background: var(--HeaderGray);
     padding: 25px 20px;
-    text-shadow: 0px 0px 1px black;
+    text-shadow: 0px 0px 3px black;
     box-shadow: 1px 2px 4px black;
     border-radius: 5px;
     flex-direction: column;
@@ -564,7 +564,7 @@ header{
 
 #OnlinePlayAgainVoteTimeText{
     color: #b7c54a;
-    text-shadow: 0px 0px 1px black;
+    text-shadow: 0px 0px 3px black;
     margin-top: 7px;
 }
 

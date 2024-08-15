@@ -5,8 +5,12 @@ const OnlinePlayer1NameWrap = document.getElementById('GameInfoHeaderOnlinePlaye
 const OnlinePlayer2NameWrap = document.getElementById('GameInfoHeaderOnlinePlayer2Wrap');
 const OnlineMultiPlayerMsgText = document.getElementById('OnlineMultiPlayerMsgText');
 const OnlineMultiPlayerGameStatusWrap = document.getElementById('OnlineGameStatusUpdateWrap');
+const OpponentLeftGameMsgWrap = document.getElementById('OpponentLeftGameMsgWrap');
+const RestartGameQuestionWrap = document.getElementById('RestartGameQuestionWrap');
 const OnlineGameAgainVoteYes = document.getElementById('OnlineGameAgainVoteYes');
 const OnlineGameAgainVoteNo = document.getElementById('OnlineGameAgainVoteNo');
+const OnlinePlayAgainVoteTimeText = document.getElementById('OnlinePlayAgainVoteTimeText');
+const OtherPlrVoteIcon = document.getElementById('OnlineOpponentPlayAgainVoteIcon');
     //Tables Cells:
     const OnlineMultiPlayerTblCell_1 = document.getElementById('OnlineMultiPlayerTblCell_1');
     const OnlineMultiPlayerTblCell_2 = document.getElementById('OnlineMultiPlayerTblCell_2');
@@ -22,6 +26,7 @@ let OnlineMultiGame_AvailableCells = [1,2,3,4,5,6,7,8,9]
 let OnlinePlr1_StartedFirst = true;
 let ThisClientPlayerNumber = 0; // <-- This player's number
 let ThisClientName = 'Null'; // <-- This player's name
+let ThisClientAlreadyVoted = false; // <-- This player's vote status for next game
 let OnlineCurrentPlayerTurn = 1; // <-- Current player for next game move
 let OnlinePlr1_CellsCollected = [];
 let OnlinePlr2_CellsCollected = [];
@@ -37,7 +42,6 @@ const OnlinePlr2Color = '#a73acc';
     // GreenCellColor = '#62BD67';
     // WinningCombinations = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8,], [3,6,9,], [1,5,9,], [3,5,7,]];
 let Online_GameEnded = false;
-let Online_GameResetting = false;
 let Online_GameLocked = true; // <-- Start Locked (only unlock for this clients turn)
 
 let DebugGeneral = false;
@@ -64,9 +68,11 @@ document.onvisibilitychange = () => {
 }
 
 // Initialize OnlineMultiplayer (define variables / unlock for Player 1):
+let ThisGameData; // <-- Most Recent Game Data Snapshot
 function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
     ThisClientPlayerNumber = PlayerNumber;
     ThisClientName = PlayerName;
+    let GameEndedDisplayed = false;
 
     //Add Listener to Database:
     db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID)
@@ -74,7 +80,7 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
 
         if(DebugFirebase) {console.info('Game Data Chnage Detected!');}
         if(DebugGeneral) {console.log('OnlineCurrentPlayerTurn: ', OnlineCurrentPlayerTurn);}
-        let ThisGameData = doc.data();
+        ThisGameData = doc.data();
 
         // Show Last Game Play & Switch Current Player Turn:
         if(OnlineCurrentPlayerTurn === 1 & ThisGameData.Players.Player1.LastCellSelected != 0){
@@ -86,12 +92,23 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
                 Player1sLastCell.innerText = 'X';
 
                 // Remove from Available Cells: (to later detect draw)
-                const CellNumber = Player1sLastCell.id.charAt(25);
-                const AvaialableCellIndex = OnlineMultiGame_AvailableCells.lastIndexOf(Number(CellNumber));
+                let CellNumber = Player1sLastCell.id.charAt(25);
+                let AvaialableCellIndex = OnlineMultiGame_AvailableCells.lastIndexOf(Number(CellNumber));
                 OnlineMultiGame_AvailableCells.splice(AvaialableCellIndex, 1);
 
-                // Check Win:
-                // OnlineMultiPlayerCheckWinner();
+                // Double Check all Cells are Assigned:
+                ThisGameData.Players.Player1.PlayerCellsCollected.forEach((cellCollectedNumber) =>{
+                    let PlayerCell = document.getElementById(`OnlineMultiPlayerTblCell_${cellCollectedNumber}`);
+                    PlayerCell.classList.add('CellTaken');
+                    //PlayerCell.style.background = OnlinePlr1Color;
+                    PlayerCell.innerText = 'X';
+                    // Remove from Available Cells if Found:
+                    let AvaialableCellIndex = OnlineMultiGame_AvailableCells.lastIndexOf(Number(cellCollectedNumber));
+                    if(AvaialableCellIndex != -1){
+                        OnlineMultiGame_AvailableCells.splice(AvaialableCellIndex, 1);
+                    }
+                    
+                })
 
                 // Reset Cell Background:
                 setTimeout(() => {
@@ -123,8 +140,19 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
                     const AvaialableCellIndex = OnlineMultiGame_AvailableCells.lastIndexOf(Number(CellNumber));
                     OnlineMultiGame_AvailableCells.splice(AvaialableCellIndex, 1);
 
-                    // Check Win:
-                    // OnlineMultiPlayerCheckWinner();
+                    // Double Check all Cells are Assigned:
+                    ThisGameData.Players.Player1.PlayerCellsCollected.forEach((cellCollectedNumber) =>{
+                        let PlayerCell = document.getElementById(`OnlineMultiPlayerTblCell_${cellCollectedNumber}`);
+                        PlayerCell.classList.add('CellTaken');
+                        //PlayerCell.style.background = OnlinePlr1Color;
+                        PlayerCell.innerText = 'X';
+                        // Remove from Available Cells if Found:
+                        let AvaialableCellIndex = OnlineMultiGame_AvailableCells.lastIndexOf(Number(cellCollectedNumber));
+                        if(AvaialableCellIndex != -1){
+                            OnlineMultiGame_AvailableCells.splice(AvaialableCellIndex, 1);
+                        }
+                    
+                    })
     
                     // Reset Cell Background:
                     setTimeout(() => {
@@ -170,7 +198,6 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
         }
 
         // Check for Play Again Votes:
-        const OtherPlrVoteIcon = document.getElementById('OnlineOpponentPlayAgainVoteIcon');
         let OnlinePlr1PlayAgainVote = ThisGameData.Players.Player1.PlayAgainVote;
         let OnlinePlr2PlayAgainVote = ThisGameData.Players.Player2.PlayAgainVote;
 
@@ -216,7 +243,22 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
             }
         }
         
+        // Check for Game Canceled:
+        if(ThisGameData.GameCanceled === true && !GameEndedDisplayed){
+            console.info('This game has been canceled!')
+            GameEndedDisplayed = true;
 
+            // Show Notification Wrap:
+            OnlineMultiPlayerGameStatusWrap.style.display = 'flex';
+            RestartGameQuestionWrap.style.display = 'none';
+            OpponentLeftGameMsgWrap.style.display = 'flex';
+            // OnlineMultiPlayerGameStatusWrap.classList.add('HiddenOpacity');
+
+            setTimeout(() => {
+                OnlineMultiPlayerGameStatusWrap.classList.remove('HiddenOpacity'); 
+                OnlineMultiPlayerGameStatusWrap.classList.add('ShownOpacity');
+            }, 650)
+        }
     });
 }
 
@@ -400,6 +442,21 @@ function OnlineMultiPlayerGameEnd(){
     OnlinePlr1_CellsCollected = [];
     OnlinePlr2_CellsCollected = [];
     OnlineMultiGame_AvailableCells = [1,2,3,4,5,6,7,8,9]
+    TimeToWaitForVotes = 16;
+    Player1Vote = false;
+    Player2Vote = false;
+    ThisClientAlreadyVoted = false;
+    OnlineGameAgainVoteYes.classList.add('OnlineGameAgainVoteYes');
+    OnlineGameAgainVoteNo.classList.add('OnlineGameAgainVoteNo');
+    OnlineGameAgainVoteYes.style.padding = '';
+    OnlineGameAgainVoteYes.style.opacity = '';
+    OnlineGameAgainVoteYes.style.scale = '';
+    OnlineGameAgainVoteYes.style.background = '';
+    OnlineGameAgainVoteNo.style.padding = '';
+    OnlineGameAgainVoteNo.style.opacity = '';
+    OnlineGameAgainVoteNo.style.scale = '';
+    OnlineGameAgainVoteNo.style.background = '';
+
 
     let NextPlayerStartFirst;
     if(OnlinePlr1_StartedFirst){
@@ -413,8 +470,10 @@ function OnlineMultiPlayerGameEnd(){
     // Update Database:
     db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
         'Players.Player1.PlayerCellsCollected' : [],
+        'Players.Player1.PlayAgainVote' : false,
         'Players.Player1.LastCellSelected' : 0,
         'Players.Player2.PlayerCellsCollected' : [],
+        'Players.Player2.PlayAgainVote' : false,
         'Players.Player2.LastCellSelected' : 0,
         'CurrentPlayersTurn' : NextPlayerStartFirst
     }).then(() => {
@@ -424,6 +483,9 @@ function OnlineMultiPlayerGameEnd(){
         console.log(error);
     })
 
+    // Start Vote Timer:
+    WaitForVotesTimer()
+
     // Show Continue Playing Decision:
     setTimeout(() => {
 
@@ -432,11 +494,15 @@ function OnlineMultiPlayerGameEnd(){
             cell.innerText = '';
             cell.classList.remove('CellTaken');
             cell.classList.remove('WinningCell');
-            cell.style.background = 'unset';
+            cell.classList.add('GameTblCell');
+            cell.style.background = '';
         })
+
 
         // Show Question Wrap:
         OnlineMultiPlayerGameStatusWrap.style.display = 'flex';
+        RestartGameQuestionWrap.style.display = 'flex';
+        OpponentLeftGameMsgWrap.style.display = 'none';
         OnlineMultiPlayerGameStatusWrap.classList.add('HiddenOpacity');
 
         setTimeout(() => {
@@ -444,30 +510,32 @@ function OnlineMultiPlayerGameEnd(){
             OnlineMultiPlayerGameStatusWrap.classList.add('ShownOpacity');
         }, 650)
 
-    }, 2500);
+    }, 500);
 }
 
 // Vote to Play Again Function:
 function OnlinePlayAgainVoteYes(){
 
-    if(ThisClientPlayerNumber === 1){
+    if(ThisClientPlayerNumber === 1 && !ThisClientAlreadyVoted){
         db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
             'Players.Player1.PlayAgainVote' : true,
             'Players.Player1.Score' : OnlinePlr1_Score
         }).then(() => {
             if(DebugGeneral) {console.log('Player 1 Voted to Play Again!');}
+            ThisClientAlreadyVoted = true;
         }).catch((error) => {
             console.warn('Error Occured: Player 1 Vote to Play Again?');
             console.log(error);
         })
     }
 
-    if(ThisClientPlayerNumber === 2){
+    if(ThisClientPlayerNumber === 2 && !ThisClientAlreadyVoted){
         db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
             'Players.Player2.PlayAgainVote' : true,
             'Players.Player2.Score' : OnlinePlr2_Score
         }).then(() => {
             if(DebugGeneral) {console.log('Player 2 Voted to Play Again!');}
+            ThisClientAlreadyVoted = true;
         }).catch((error) => {
             console.warn('Error Occured: Player 2 Vote to Play Again?');
             console.log(error);
@@ -480,33 +548,34 @@ function OnlinePlayAgainVoteYes(){
     OnlineGameAgainVoteYes.style.scale = '1.1';
     OnlineGameAgainVoteNo.style.opacity = '.5';
 
-    OnlineGameAgainVoteYes.onclick = null;
+
     OnlineGameAgainVoteYes.classList.remove('OnlineGameAgainVoteYes');
-    OnlineGameAgainVoteNo.onclick = null;
     OnlineGameAgainVoteNo.classList.remove('OnlineGameAgainVoteNo');
     
 }
 
 // Vote to NOT Play Again Function:
 function OnlinePlayAgainVoteNo(){
-    if(ThisClientPlayerNumber === 1){
+    if(ThisClientPlayerNumber === 1 && !ThisClientAlreadyVoted){
         db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
             'Players.Player1.PlayAgainVote' : false,
             'Players.Player1.Score' : OnlinePlr1_Score
         }).then(() => {
             if(DebugGeneral) {console.log('Player 1 Voted to NOT Play Again!');}
+            ThisClientAlreadyVoted = true;
         }).catch((error) => {
             console.warn('Error Occured: Player 1 Vote to NOT Play Again?');
             console.log(error);
         })
     }
 
-    if(ThisClientPlayerNumber === 2){
+    if(ThisClientPlayerNumber === 2 && !ThisClientAlreadyVoted){
         db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
             'Players.Player2.PlayAgainVote' : false,
             'Players.Player2.Score' : OnlinePlr2_Score
         }).then(() => {
             if(DebugGeneral) {console.log('Player 2 Voted to NOT Play Again!');}
+            ThisClientAlreadyVoted = true;
         }).catch((error) => {
             console.warn('Error Occured: Player 2 Vote to NOT Play Again?');
             console.log(error);
@@ -519,8 +588,90 @@ function OnlinePlayAgainVoteNo(){
     OnlineGameAgainVoteNo.style.scale = '1.1';
     OnlineGameAgainVoteYes.style.opacity = '.5';
 
-    OnlineGameAgainVoteYes.onclick = null;
+
     OnlineGameAgainVoteYes.classList.remove('OnlineGameAgainVoteYes');
-    OnlineGameAgainVoteNo.onclick = null;
     OnlineGameAgainVoteNo.classList.remove('OnlineGameAgainVoteNo');
+}
+
+// Timer for Play Again Vote
+let TimeToWaitForVotes = 16;
+
+function WaitForVotesTimer(){
+    // Reset Time Left Color:
+    OnlinePlayAgainVoteTimeText.style.color = '#CDD034';
+    WaitForVotesInterval = setInterval(() => {
+        
+        // Remove 1s every second:
+        if(TimeToWaitForVotes >> 0){
+            setTimeout(() => {
+                TimeToWaitForVotes -= 1;
+                OnlinePlayAgainVoteTimeText.innerText = `Time Left: ${TimeToWaitForVotes}(s)`
+                if(TimeToWaitForVotes < 4){
+                    OnlinePlayAgainVoteTimeText.style.color = 'red';
+                }
+            }, 1000)
+        }
+
+        // End Interval if Out of Time:
+        if(TimeToWaitForVotes <= 0){
+            clearInterval(WaitForVotesInterval);
+            console.log('Voting Time has Ended!')
+
+            // Check Final Votes:
+            let Player1Vote = ThisGameData.Players.Player1.PlayAgainVote;
+            let Player2Vote = ThisGameData.Players.Player2.PlayAgainVote;
+            console.log('Player 1 Vote:', Player1Vote);
+            console.log('Player 2 Vote:', Player2Vote);
+
+            if(Player1Vote === false || Player2Vote === false){
+                console.warn('Game Canceled!');
+
+                //Update Database:
+                db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
+                    GameCanceled : true,
+                    GameEnded : Date()
+                }).then(() => {
+                    // Success
+                }).catch((error) => {
+                    console.warn('An Error Occured When Canceling the Game!')
+                    console.log(error)
+                })
+            }
+
+            if(Player1Vote === true && Player2Vote === true){
+                console.info('Game will Continue!');
+                // Hide Voting Wrap:
+                OnlineMultiPlayerGameStatusWrap.style.display = 'flex';
+                RestartGameQuestionWrap.style.display = 'none';
+                OpponentLeftGameMsgWrap.style.display = 'none';
+
+                setTimeout(() => {
+                    OnlineMultiPlayerGameStatusWrap.classList.remove('ShownOpacity'); 
+                    OnlineMultiPlayerGameStatusWrap.classList.add('HiddenOpacity');
+                    setTimeout(() => {
+                        // Unlock for Client Players Turn:
+                        Online_GameEnded = false;
+                        OnlineCurrentPlayerTurn = ThisGameData.CurrentPlayersTurn;
+                        if(ThisClientPlayerNumber === ThisGameData.CurrentPlayersTurn){
+                            Online_GameLocked = false;
+                        }
+                        // Fully Hide Voting Wrap:
+                        OnlineMultiPlayerGameStatusWrap.style.display = 'none';
+
+                        // Update Players Turn Style in Scoreboard:
+                        if(ThisGameData.CurrentPlayersTurn === 1){
+                            OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
+                            OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
+                        }
+                        if(ThisGameData.CurrentPlayersTurn === 2){
+                            OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff00';
+                            OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff';
+                        }
+                    }, 650);
+                    
+                }, 650)
+            }
+        }
+
+    }, (1200));
 }

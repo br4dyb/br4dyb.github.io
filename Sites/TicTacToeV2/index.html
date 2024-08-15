@@ -113,7 +113,7 @@
         <div id="MultiPlayerGameArea" class="HiddenOpacity">
 
 
-            <div id="ChooseMultiplayerModeArea" class="">
+            <div id="ChooseMultiplayerModeArea" class="" style="z-index: 5;">
                 <h2> Multiplayer Game: </h2>
                 <p style="margin: 5px; font-style: italic;"> Choose a Gamemode: </p>
                 <button id="LocalMultiPlayerButton" class="GamemodeButton" onclick="StartLocalMultiPlayer()"> Local Game </button>
@@ -229,6 +229,20 @@
                     </div>
     
                 </div>
+
+            </div>
+        </div>
+
+        <div id="OnlineGameStatusUpdateWrap">
+            <div id="OpponentLeftGameMsgWrap">
+                <h1> The other player has left . . .</h1>
+                <button id="OnlinePlayerLeftBackButton" class="GameStatusButtons"> Go Back </button>
+            </div>
+            <div id="RestartGameQuestionWrap">
+                <h1> Would you like to play again?</h1>
+                <div> <button id="OnlineGameAgainVoteYes" class="GameStatusButtons"> Yes </button> <button id="OnlineGameAgainVoteNo" class="GameStatusButtons"> No </button> </div>
+                <p style="display: flex; justify-content: center; align-items: center; text-align: center;"> Other Player's Vote: <span id="OnlineOpponentPlayAgainVoteIcon" class="material-symbols-rounded defaultCursor"> circle </span> </p>
+                <p id="OnlinePlayAgainVoteTimeText"> Time Left: 30(s)</p>
 
             </div>
         </div>

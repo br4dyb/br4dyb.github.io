@@ -72,6 +72,7 @@ header{
     /* background: rgb(50, 14, 94); */
     background: rgb(32, 32, 32);
     display: flex;
+    position: relative;
     flex-direction: column;
     flex: 1;
     justify-content: center;
@@ -122,11 +123,15 @@ header{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    min-height: 100%;
+    flex: 1;
 }
 
 #OnlineMultiPlayerArea{
     /* background: blue; */
     width: 100%;
+    flex: 1;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -421,6 +426,7 @@ header{
 #MultiPlayerGameArea{
     padding: 15px;
     width: 100%;
+    height: 100%;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -483,4 +489,83 @@ header{
     text-align: center;
     padding: 4px;
     border-radius: 5px;
+}
+
+#OnlineGameStatusUpdateWrap{
+    background: #000000b2;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+#OpponentLeftGameMsgWrap {
+    display: flex;
+    background: var(--HeaderGray);
+    padding: 25px 20px;
+    text-shadow: 0px 0px 1px black;
+    box-shadow: 1px 2px 4px black;
+    border-radius: 5px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#RestartGameQuestionWrap{
+    display: flex;
+    background: var(--HeaderGray);
+    padding: 25px 20px;
+    text-shadow: 0px 0px 1px black;
+    box-shadow: 1px 2px 4px black;
+    border-radius: 5px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.GameStatusButtons{
+    background: rgb(255, 255, 255);
+    padding: 5px;
+    margin: 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+    font-style: bolder;
+    border: 1.5px solid black;
+    transition: .33s;
+}
+
+#OnlineGameAgainVoteYes:hover{
+    scale: 1.1;
+    padding: 5px 10px;
+    background-color: #41d261;
+}
+
+#OnlineGameAgainVoteNo:hover{
+    scale: 1.1;
+    padding: 5px 10px;
+    background-color: #ed7666;
+}
+
+#OnlinePlayerLeftBackButton{
+    margin-top: 20px;
+}
+
+#OnlinePlayerLeftBackButton:hover{
+    scale: 1.1;
+    padding: 5px 10px;
+    background-color: #dded66;
+}
+
+#OnlinePlayAgainVoteTimeText{
+    color: #b7c54a;
+    text-shadow: 0px 0px 1px black;
+    margin-top: 7px;
+}
+
+#OnlineOpponentPlayAgainVoteIcon{
+    margin-left: 4px;
 }

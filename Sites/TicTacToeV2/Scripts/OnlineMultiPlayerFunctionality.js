@@ -41,12 +41,15 @@ OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
 
 // Add Document Visibility Listener:
 document.onvisibilitychange = () => {
-    // console.log('Document Visisbility Chnage!');
+
     if (document.visibilityState === 'hidden'){
         console.info('Page Hidden!');
+        // Wait for 30 secs to see if player has left the game, if returned cancel the game end
+        // or else: end game if player does not return
     } else 
     if (document.visibilityState === 'visible'){
         console.info('Page Shown!');
+        // Cancel the "end game timer here"
     }
 }
 

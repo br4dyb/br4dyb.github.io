@@ -39,6 +39,17 @@ let Online_GameLocked = true; // <-- Start Locked (only unlock for this clients 
 OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
 OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
 
+// Add Document Visibility Listener:
+document.onvisibilitychange = () => {
+    // console.log('Document Visisbility Chnage!');
+    if (document.visibilityState === 'hidden'){
+        console.info('Page Hidden!');
+    } else 
+    if (document.visibilityState === 'visible'){
+        console.info('Page Shown!');
+    }
+}
+
 // Initialize OnlineMultiplayer (define variables / unlock for Player 1):
 function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
     ThisClientPlayerNumber = PlayerNumber;
@@ -74,6 +85,8 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
                     if(!Online_GameEnded){
                         Player1sLastCell.style.background = 'unset';
                         OnlineCurrentPlayerTurn = ThisGameData.CurrentPlayersTurn;
+                        OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff00';
+                        OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff';
                         //Unlock for Next Player (client side):
                         if(!Online_GameEnded && ThisClientPlayerNumber === OnlineCurrentPlayerTurn){Online_GameLocked = false}
                     }
@@ -105,6 +118,8 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
                         if(!Online_GameEnded){
                             Player2sLastCell.style.background = 'unset';
                             OnlineCurrentPlayerTurn = ThisGameData.CurrentPlayersTurn;
+                            OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
+                            OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
                             //Unlock for Next Player (client side):
                             if(!Online_GameEnded && ThisClientPlayerNumber === OnlineCurrentPlayerTurn){Online_GameLocked = false}
                         }
@@ -122,26 +137,21 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
         
         
         // Update Each Player's Cells Collected:
-        
         OnlinePlr1_CellsCollected = ThisGameData.Players.Player1.PlayerCellsCollected;
         if(OnlinePlr1_CellsCollected != null){
-            // Cells Found in Array & Check for Win:
-            console.log('Plr1 Cells:', OnlinePlr1_CellsCollected);
+            // Cells Found in Array:
         }else{
             // No Cells Yet / Redefine as Array (prevent type error):
             OnlinePlr1_CellsCollected = [];
-            console.log('Plr1 Cells:', OnlinePlr1_CellsCollected);
         }
        
-
         OnlinePlr2_CellsCollected = ThisGameData.Players.Player2.PlayerCellsCollected;
         if(OnlinePlr2_CellsCollected != null){
-            // Cells Found in Array & Check for Win:
-            console.log('Plr2 Cells:', OnlinePlr2_CellsCollected);
+            // Cells Found in Array:
+
         }else{
             // No Cells Yet / Redefine as Array (prevent type error):
             OnlinePlr2_CellsCollected = [];
-            console.log('Plr2 Cells:', OnlinePlr2_CellsCollected);
         }
 
         // Check Win:

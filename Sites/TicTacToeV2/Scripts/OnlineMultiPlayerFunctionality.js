@@ -40,6 +40,9 @@ let Online_GameEnded = false;
 let Online_GameResetting = false;
 let Online_GameLocked = true; // <-- Start Locked (only unlock for this clients turn)
 
+let DebugGeneral = false;
+let DebugFirebase = false;
+
 // Add Player 1's Turn Style to Start: (first game only)
 OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
 OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
@@ -69,12 +72,12 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
     db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID)
     .onSnapshot((doc) => {
 
-        console.info('Game Data Chnage Detected!');
-        console.log('OnlineCurrentPlayerTurn: ', OnlineCurrentPlayerTurn);
+        if(DebugFirebase) {console.info('Game Data Chnage Detected!');}
+        if(DebugGeneral) {console.log('OnlineCurrentPlayerTurn: ', OnlineCurrentPlayerTurn);}
         let ThisGameData = doc.data();
 
         // Show Last Game Play & Switch Current Player Turn:
-        if(OnlineCurrentPlayerTurn === 1){
+        if(OnlineCurrentPlayerTurn === 1 & ThisGameData.Players.Player1.LastCellSelected != 0){
             
             let Player1sLastCell = document.getElementById(`OnlineMultiPlayerTblCell_${ThisGameData.Players.Player1.LastCellSelected}`);
             if(Player1sLastCell != null){
@@ -108,7 +111,7 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
                         if(ThisClientPlayerNumber === OnlineCurrentPlayerTurn){Online_GameLocked = false}
             }
         } else{
-            if(OnlineCurrentPlayerTurn === 2){
+            if(OnlineCurrentPlayerTurn === 2 && ThisGameData.Players.Player2.LastCellSelected != 0){
                 let Player2sLastCell = document.getElementById(`OnlineMultiPlayerTblCell_${ThisGameData.Players.Player2.LastCellSelected}`);
                 if(Player2sLastCell != null){
                     Player2sLastCell.classList.add('CellTaken');
@@ -284,7 +287,7 @@ function OnlineMultiPlayerSelectCell(Cell) {
                     CurrentPlayersTurn : 2,
                     LastMoveTime : Date()
                 }).then(() => {
-                    console.info('Player Pieces Updated in Database!');
+                    if(DebugFirebase) {console.info('Player Pieces Updated in Database!');}
                 }).catch((error) => {
                     console.warn('Error updating player pieces!');
                     console.log(error);
@@ -300,7 +303,7 @@ function OnlineMultiPlayerSelectCell(Cell) {
                     CurrentPlayersTurn : 1,
                     LastMoveTime : Date()
                 }).then(() => {
-                    console.info('Player Pieces Updated in Database!');
+                    if(DebugFirebase) {console.info('Player Pieces Updated in Database!');}
                 }).catch((error) => {
                     console.warn('Error updating player pieces!');
                     console.log(error);
@@ -329,64 +332,65 @@ function OnlineMultiPlayerSelectCell(Cell) {
 
 // Check for Win Function:
 function OnlineMultiPlayerCheckWinner(){
-    console.info('Win Check Functionality Not Completed Yet!');
 
-        // Check for Winning Combinations:
-        WinningCombinations.forEach(WinningCombination => {
-            // Check for Player 1 Win:
-            if(WinningCombination.every(Cell => OnlinePlr1_CellsCollected.includes(String(Cell)))){
-                    //console.info('Player 1 has won!');
-                    OnlineShowGameMsg('Player 1 has Won!', GreenCellColor, 1750);
-               OnlinePlr1_Score += 1;
-               OnlinePlayer1ScoreText.innerText = OnlinePlr1_Score;
-               Online_GameEnded = true;
-               Online_GameLocked = true;
-               WinningCombination.forEach(WinningCellNumber => {
-                    let CellToStyle = document.getElementById(`OnlineMultiPlayerTblCell_${WinningCellNumber}`);
-                    CellToStyle.style.background = GreenCellColor;
-               });
-               OnlinePlayer1NameWrap.style.border = `2px solid ${GreenCellColor}`;
-    
-                // Reset Game:
-                setTimeout(() => {
-                    OnlineMultiPlayerGameEnd()
-                }, 2000)
-               
-            }
-    
-            // Check for Player 2 Win:
-            if(WinningCombination.every(Cell => OnlinePlr2_CellsCollected.includes(String(Cell)))){
-                    //console.info('Player 2 has won!');
-                    OnlineShowGameMsg('Player 2 has Won!', GreenCellColor, 1750);
-                OnlinePlr2_Score += 1;
-                OnlinePlayer2ScoreText.innerText = OnlinePlr2_Score;
-                Online_GameEnded = true;
-                Online_GameLocked = true;
-               WinningCombination.forEach(WinningCellNumber => {
-                    let CellToStyle = document.getElementById(`OnlineMultiPlayerTblCell_${WinningCellNumber}`);
-                    CellToStyle.style.background = GreenCellColor;
-               });
-               OnlinePlayer2NameWrap.style.border = `2px solid ${GreenCellColor}`;
-    
-               // Reset Game:
-               setTimeout(() => {
-                    OnlineMultiPlayerGameEnd()
-               }, 2000)
-    
-            }
-    
-        });
-    
-        // If Draw Game / No Cells Left:
-        if(OnlineMultiGame_AvailableCells.length === 0){
-            //console.info('No Player Won! / Draw');
-            OnlineShowGameMsg('Game was a Draw!', YellowCellColor, 1750);
-            
+    // Check for Winning Combinations:
+    WinningCombinations.forEach(WinningCombination => {
+        // Check for Player 1 Win:
+        if(WinningCombination.every(Cell => OnlinePlr1_CellsCollected.includes(String(Cell)))){
+                //console.info('Player 1 has won!');
+                OnlineShowGameMsg('Player 1 has Won!', GreenCellColor, 1750);
+            OnlinePlr1_Score += 1;
+            OnlinePlayer1ScoreText.innerText = OnlinePlr1_Score;
+            Online_GameEnded = true;
+            Online_GameLocked = true;
+            WinningCombination.forEach(WinningCellNumber => {
+                let CellToStyle = document.getElementById(`OnlineMultiPlayerTblCell_${WinningCellNumber}`);
+                // CellToStyle.style.background = GreenCellColor;
+                CellToStyle.classList.add('WinningCell');
+            });
+            OnlinePlayer1NameWrap.style.border = `2px solid ${GreenCellColor}`;
+
             // Reset Game:
             setTimeout(() => {
                 OnlineMultiPlayerGameEnd()
-           }, 2000)
+            }, 2000)
+            
         }
+
+        // Check for Player 2 Win:
+        if(WinningCombination.every(Cell => OnlinePlr2_CellsCollected.includes(String(Cell)))){
+                //console.info('Player 2 has won!');
+                OnlineShowGameMsg('Player 2 has Won!', GreenCellColor, 1750);
+            OnlinePlr2_Score += 1;
+            OnlinePlayer2ScoreText.innerText = OnlinePlr2_Score;
+            Online_GameEnded = true;
+            Online_GameLocked = true;
+            WinningCombination.forEach(WinningCellNumber => {
+                let CellToStyle = document.getElementById(`OnlineMultiPlayerTblCell_${WinningCellNumber}`);
+                // CellToStyle.style.background = GreenCellColor;
+                CellToStyle.classList.add('WinningCell');
+            });
+            OnlinePlayer2NameWrap.style.border = `2px solid ${GreenCellColor}`;
+
+            // Reset Game:
+            setTimeout(() => {
+                OnlineMultiPlayerGameEnd()
+            }, 2000)
+
+        }
+
+    });
+
+    // If Draw Game / No Cells Left:
+    if(OnlineMultiGame_AvailableCells.length === 0){
+        //console.info('No Player Won! / Draw');
+        OnlineShowGameMsg('Game was a Draw!', YellowCellColor, 1750);
+        
+        // Reset Game:
+        setTimeout(() => {
+            OnlineMultiPlayerGameEnd()
+        }, 2000)
+    }
 
 }
 
@@ -409,10 +413,12 @@ function OnlineMultiPlayerGameEnd(){
     // Update Database:
     db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
         'Players.Player1.PlayerCellsCollected' : [],
+        'Players.Player1.LastCellSelected' : 0,
         'Players.Player2.PlayerCellsCollected' : [],
+        'Players.Player2.LastCellSelected' : 0,
         'CurrentPlayersTurn' : NextPlayerStartFirst
     }).then(() => {
-        console.log('Reset Database for Next Game!');
+        if(DebugFirebase) {console.log('Reset Database for Next Game!');}
     }).catch((error) => {
         console.warn('Error for Reset Database for Next Game!');
         console.log(error);
@@ -425,6 +431,7 @@ function OnlineMultiPlayerGameEnd(){
         AllOnlineMultiPlayerTblCells.forEach((cell) => {
             cell.innerText = '';
             cell.classList.remove('CellTaken');
+            cell.classList.remove('WinningCell');
             cell.style.background = 'unset';
         })
 
@@ -437,7 +444,7 @@ function OnlineMultiPlayerGameEnd(){
             OnlineMultiPlayerGameStatusWrap.classList.add('ShownOpacity');
         }, 650)
 
-    }, 1500);
+    }, 2500);
 }
 
 // Vote to Play Again Function:
@@ -448,7 +455,7 @@ function OnlinePlayAgainVoteYes(){
             'Players.Player1.PlayAgainVote' : true,
             'Players.Player1.Score' : OnlinePlr1_Score
         }).then(() => {
-            console.log('Player 1 Voted to Play Again!');
+            if(DebugGeneral) {console.log('Player 1 Voted to Play Again!');}
         }).catch((error) => {
             console.warn('Error Occured: Player 1 Vote to Play Again?');
             console.log(error);
@@ -460,7 +467,7 @@ function OnlinePlayAgainVoteYes(){
             'Players.Player2.PlayAgainVote' : true,
             'Players.Player2.Score' : OnlinePlr2_Score
         }).then(() => {
-            console.log('Player 2 Voted to Play Again!');
+            if(DebugGeneral) {console.log('Player 2 Voted to Play Again!');}
         }).catch((error) => {
             console.warn('Error Occured: Player 2 Vote to Play Again?');
             console.log(error);
@@ -487,7 +494,7 @@ function OnlinePlayAgainVoteNo(){
             'Players.Player1.PlayAgainVote' : false,
             'Players.Player1.Score' : OnlinePlr1_Score
         }).then(() => {
-            console.log('Player 1 Voted to NOT Play Again!');
+            if(DebugGeneral) {console.log('Player 1 Voted to NOT Play Again!');}
         }).catch((error) => {
             console.warn('Error Occured: Player 1 Vote to NOT Play Again?');
             console.log(error);
@@ -499,7 +506,7 @@ function OnlinePlayAgainVoteNo(){
             'Players.Player2.PlayAgainVote' : false,
             'Players.Player2.Score' : OnlinePlr2_Score
         }).then(() => {
-            console.log('Player 2 Voted to NOT Play Again!');
+            if(DebugGeneral) {console.log('Player 2 Voted to NOT Play Again!');}
         }).catch((error) => {
             console.warn('Error Occured: Player 2 Vote to NOT Play Again?');
             console.log(error);

@@ -420,7 +420,9 @@ header{
     background: rgba(228, 225, 225, 0.9);
 }
 
-
+.WinningCell{
+    background: #62BD67 !important;
+}
 
 
 #MultiPlayerGameArea{

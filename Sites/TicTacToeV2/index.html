@@ -184,8 +184,17 @@
 
                 <div id="EnterNameWrap">
                     <h2 style="font-style: italic;"> Enter Name: </h2>
-                    <input type="text" id="EnterNameImput" placeholder="First Name" required> 
+                    <div id="EnterNameImputWrap" oninput="UpdateNameCharsLeft()" style="position: relative;"> <input type="text" maxlength="10" id="EnterNameImput" placeholder="First Name" required> <p id="NameCharactersLeft"> 10/10 </p> </div>
                     <button onclick="SubmitName()" id="SubmitNameButton"> Go! </button>
+
+                    <script>
+                        function UpdateNameCharsLeft(){
+                           let NameImput = document.getElementById('EnterNameImput');
+                           let NameLength = NameImput.value.length;
+                           let RemainingChars = (10 - NameLength);
+                           document.getElementById('NameCharactersLeft').innerText = `${RemainingChars}/10`;
+                        }
+                    </script>
                 </div>
 
                 <div id="WaitingForPlayerWrap">
@@ -247,6 +256,7 @@
                 <p style="display: flex; justify-content: center; align-items: center; text-align: center;"> Other Player's Vote: <span id="OnlineOpponentPlayAgainVoteIcon" class="material-symbols-rounded defaultCursor"> circle </span> </p>
                 <p id="OnlinePlayAgainVoteTimeText"> Time Left: 30(s)</p>
             </div>
+
         </div>
 
     </main>

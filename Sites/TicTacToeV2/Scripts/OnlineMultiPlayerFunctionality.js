@@ -43,6 +43,7 @@ const OnlinePlr2Color = '#a73acc';
     // WinningCombinations = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8,], [3,6,9,], [1,5,9,], [3,5,7,]];
 let Online_GameEnded = false;
 let Online_GameLocked = true; // <-- Start Locked (only unlock for this clients turn)
+let GameEndedDisplayed = false;
 
 let DebugGeneral = false;
 let DebugFirebase = false;
@@ -72,7 +73,7 @@ let ThisGameData; // <-- Most Recent Game Data Snapshot
 function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
     ThisClientPlayerNumber = PlayerNumber;
     ThisClientName = PlayerName;
-    let GameEndedDisplayed = false;
+    
 
     //Add Listener to Database:
     db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID)
@@ -620,8 +621,8 @@ function WaitForVotesTimer(){
             // Check Final Votes:
             let Player1Vote = ThisGameData.Players.Player1.PlayAgainVote;
             let Player2Vote = ThisGameData.Players.Player2.PlayAgainVote;
-            console.log('Player 1 Vote:', Player1Vote);
-            console.log('Player 2 Vote:', Player2Vote);
+            if(DebugGeneral){console.log('Player 1 Vote:', Player1Vote);};
+            if(DebugGeneral){console.log('Player 2 Vote:', Player2Vote);};
 
             if(Player1Vote === false || Player2Vote === false){
                 console.warn('Game Canceled!');
@@ -638,8 +639,10 @@ function WaitForVotesTimer(){
                 })
             }
 
+            // If Playing Again:
             if(Player1Vote === true && Player2Vote === true){
                 console.info('Game will Continue!');
+                GameEndedDisplayed = false;
                 // Hide Voting Wrap:
                 OnlineMultiPlayerGameStatusWrap.style.display = 'flex';
                 RestartGameQuestionWrap.style.display = 'none';

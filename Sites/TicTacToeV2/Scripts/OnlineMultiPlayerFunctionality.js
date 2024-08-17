@@ -328,7 +328,7 @@ function OnlineMultiPlayerSelectCell(Cell) {
                     'Players.Player1.PlayerCellsCollected' : OnlinePlr1_CellsCollected,
                     'Players.Player1.LastCellSelected' : CellNumber,
                     CurrentPlayersTurn : 2,
-                    LastMoveTime : Date()
+                    LastMoveTime : new Date()
                 }).then(() => {
                     if(DebugFirebase) {console.info('Player Pieces Updated in Database!');}
                 }).catch((error) => {
@@ -344,7 +344,7 @@ function OnlineMultiPlayerSelectCell(Cell) {
                     'Players.Player2.PlayerCellsCollected' : OnlinePlr2_CellsCollected,
                     'Players.Player2.LastCellSelected' : CellNumber,
                     CurrentPlayersTurn : 1,
-                    LastMoveTime : Date()
+                    LastMoveTime : new Date()
                 }).then(() => {
                     if(DebugFirebase) {console.info('Player Pieces Updated in Database!');}
                 }).catch((error) => {
@@ -447,6 +447,7 @@ function OnlineMultiPlayerGameEnd(){
     Player1Vote = false;
     Player2Vote = false;
     ThisClientAlreadyVoted = false;
+    OnlinePlayAgainVoteTimeText.innerText = `Time Left: 15(s)`
     OnlineGameAgainVoteYes.classList.add('OnlineGameAgainVoteYes');
     OnlineGameAgainVoteNo.classList.add('OnlineGameAgainVoteNo');
     OnlineGameAgainVoteYes.style.padding = '';
@@ -527,6 +528,8 @@ function OnlinePlayAgainVoteYes(){
         }).catch((error) => {
             console.warn('Error Occured: Player 1 Vote to Play Again?');
             console.log(error);
+            alert(`An Error Occured:
+                ${error.code}`);
         })
     }
 
@@ -540,6 +543,8 @@ function OnlinePlayAgainVoteYes(){
         }).catch((error) => {
             console.warn('Error Occured: Player 2 Vote to Play Again?');
             console.log(error);
+            alert(`An Error Occured:
+                ${error.code}`);
         })
     }
 
@@ -567,6 +572,8 @@ function OnlinePlayAgainVoteNo(){
         }).catch((error) => {
             console.warn('Error Occured: Player 1 Vote to NOT Play Again?');
             console.log(error);
+            alert(`An Error Occured:
+                ${error.code}`);
         })
     }
 
@@ -580,6 +587,8 @@ function OnlinePlayAgainVoteNo(){
         }).catch((error) => {
             console.warn('Error Occured: Player 2 Vote to NOT Play Again?');
             console.log(error);
+            alert(`An Error Occured:
+                ${error.code}`);
         })
     }
 
@@ -616,65 +625,68 @@ function WaitForVotesTimer(){
         // End Interval if Out of Time:
         if(TimeToWaitForVotes <= 0){
             clearInterval(WaitForVotesInterval);
-            console.log('Voting Time has Ended!')
-
-            // Check Final Votes:
-            let Player1Vote = ThisGameData.Players.Player1.PlayAgainVote;
-            let Player2Vote = ThisGameData.Players.Player2.PlayAgainVote;
-            if(DebugGeneral){console.log('Player 1 Vote:', Player1Vote);};
-            if(DebugGeneral){console.log('Player 2 Vote:', Player2Vote);};
-
-            if(Player1Vote === false || Player2Vote === false){
-                console.warn('Game Canceled!');
-
-                //Update Database:
-                db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
-                    GameCanceled : true,
-                    GameEnded : Date()
-                }).then(() => {
-                    // Success
-                }).catch((error) => {
-                    console.warn('An Error Occured When Canceling the Game!')
-                    console.log(error)
-                })
-            }
-
-            // If Playing Again:
-            if(Player1Vote === true && Player2Vote === true){
-                console.info('Game will Continue!');
-                GameEndedDisplayed = false;
-                // Hide Voting Wrap:
-                OnlineMultiPlayerGameStatusWrap.style.display = 'flex';
-                RestartGameQuestionWrap.style.display = 'none';
-                OpponentLeftGameMsgWrap.style.display = 'none';
-
-                setTimeout(() => {
-                    OnlineMultiPlayerGameStatusWrap.classList.remove('ShownOpacity'); 
-                    OnlineMultiPlayerGameStatusWrap.classList.add('HiddenOpacity');
-                    setTimeout(() => {
-                        // Unlock for Client Players Turn:
-                        Online_GameEnded = false;
-                        OnlineCurrentPlayerTurn = ThisGameData.CurrentPlayersTurn;
-                        if(ThisClientPlayerNumber === ThisGameData.CurrentPlayersTurn){
-                            Online_GameLocked = false;
-                        }
-                        // Fully Hide Voting Wrap:
-                        OnlineMultiPlayerGameStatusWrap.style.display = 'none';
-
-                        // Update Players Turn Style in Scoreboard:
-                        if(ThisGameData.CurrentPlayersTurn === 1){
-                            OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
-                            OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
-                        }
-                        if(ThisGameData.CurrentPlayersTurn === 2){
-                            OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff00';
-                            OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff';
-                        }
-                    }, 650);
-                    
-                }, 650)
-            }
+            if(DebugGeneral) {console.log('Voting Time has Ended!');}
+            CheckFinalVotes();
         }
 
     }, (1200));
+}
+
+function CheckFinalVotes(){
+    // Check Final Votes:
+    let Player1Vote = ThisGameData.Players.Player1.PlayAgainVote;
+    let Player2Vote = ThisGameData.Players.Player2.PlayAgainVote;
+    if(DebugGeneral){console.log('Player 1 Vote:', Player1Vote);};
+    if(DebugGeneral){console.log('Player 2 Vote:', Player2Vote);};
+
+    if(Player1Vote === false || Player2Vote === false){
+        console.warn('Game Canceled!');
+
+        //Update Database:
+        db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
+            GameCanceled : true,
+            GameEnded : new Date()
+        }).then(() => {
+            // Success
+        }).catch((error) => {
+            console.warn('An Error Occured When Canceling the Game!')
+            console.log(error)
+        })
+    }
+
+    // If Playing Again:
+    if(Player1Vote === true && Player2Vote === true){
+        console.info('Game will Continue!');
+        GameEndedDisplayed = false;
+        // Hide Voting Wrap:
+        OnlineMultiPlayerGameStatusWrap.style.display = 'flex';
+        RestartGameQuestionWrap.style.display = 'none';
+        OpponentLeftGameMsgWrap.style.display = 'none';
+
+        setTimeout(() => {
+            OnlineMultiPlayerGameStatusWrap.classList.remove('ShownOpacity'); 
+            OnlineMultiPlayerGameStatusWrap.classList.add('HiddenOpacity');
+            setTimeout(() => {
+                // Unlock for Client Players Turn:
+                Online_GameEnded = false;
+                OnlineCurrentPlayerTurn = ThisGameData.CurrentPlayersTurn;
+                if(ThisClientPlayerNumber === ThisGameData.CurrentPlayersTurn){
+                    Online_GameLocked = false;
+                }
+                // Fully Hide Voting Wrap:
+                OnlineMultiPlayerGameStatusWrap.style.display = 'none';
+
+                // Update Players Turn Style in Scoreboard:
+                if(ThisGameData.CurrentPlayersTurn === 1){
+                    OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
+                    OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
+                }
+                if(ThisGameData.CurrentPlayersTurn === 2){
+                    OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff00';
+                    OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff';
+                }
+            }, 650);
+            
+        }, 650)
+    }
 }

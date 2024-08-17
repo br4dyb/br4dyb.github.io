@@ -578,7 +578,7 @@
                     },
                 },
                 GameCanceled: false,
-                GameCreated: Date(),
+                GameCreated: new Date(),
                 GameID: NewGameID,
 
             }).then(() => {
@@ -653,7 +653,7 @@
                     GameCreated: StartingGameDocData.GameCreated,
                     LastMoveTime: 'None',
                     CurrentPlayersTurn: 1,
-                    GameStarted: Date(),
+                    GameStarted: new Date(),
                     GameID: NewGameID,
 
                 }).then(() => {
@@ -780,7 +780,7 @@
                 GameHostName: CanceledGameData.Players.Player1.Name,
                 GameCreated: CanceledGameData.GameCreated,
                 WinningPlayer: 'No Win!',
-                GameEnded: Date()
+                GameEnded: new Date()
             }).then(() => {
                 console.info(`Game Successfully Logged as 'Ended'`);
                 db.collection('TicTacToeGames').doc('AllGames').collection('WaitingGames').doc(NewGameID).delete()

@@ -521,6 +521,9 @@
 
         // If creating new game:
         if(WaitingForPlayer){
+
+            let GameCreatedTime = new Date(); // <-- Time of game creation
+
             // Hide Enter Name Wrap & Show Waiting Wrap:
             EnterNameWrap.classList.add('HiddenOpacity');
             WaitingForPlayerWrap.classList.add('HiddenOpacity');
@@ -539,7 +542,6 @@
                 if(TypeStage === 0){
                     WaitingForPlayerText.innerHTML = 'Waiting for Player .';
                     TypeStage = 1;
-                    return
                 } else{ if(TypeStage === 1){
                     WaitingForPlayerText.innerHTML = 'Waiting for Player . .'; 
                     TypeStage = 2;
@@ -554,9 +556,34 @@
                     return
                 }}}}
                 
-                
-                
+                // Check if waiting too long:
+                console.log('Checking time left to wait!')
 
+                let CurrentTime = new Date();
+                let ElapsedTime = (CurrentTime - GameCreatedTime);
+                let ElapsedTimeInSecs = Math.floor(ElapsedTime / 1000);
+                let ElapsedTimeInMins = Math.floor(ElapsedTimeInSecs / 60);
+                console.info(`Waited for ${ElapsedTimeInMins}mins(s)`);
+
+                if(ElapsedTimeInMins >= 5){
+                    clearInterval(WaitingForPlayerTypeInterval);
+                    // Waiting too long! / Canceling Game!
+                    let WaitingForPlayerWrap = document.getElementById('WaitingForPlayerWrap');
+                    let GameCancelingText = document.createElement('p');
+                    GameCancelingText.innerHTML = 'No Opponent Joined! <br> This Game has been canceled!';
+                    GameCancelingText.style.color = '#d25241';
+                    GameCancelingText.style.background = 'rgba(0,0,0,.5)';
+                    GameCancelingText.style.borderRadius = '5px';
+                    GameCancelingText.style.padding = '5px';
+                    GameCancelingText.style.fontSize = 'smaller';
+                    GameCancelingText.style.textAlign = 'center';
+                    GameCancelingText.style.textShadow = '0px 0px 3px black';
+                    WaitingForPlayerWrap.appendChild(GameCancelingText);
+
+                    setTimeout(() => {
+                        location.reload();
+                    }, 10000)
+                }
 
             }, 1000);
 
@@ -697,7 +724,8 @@
 
     let RefreshCooldown = false;
     function GetWaitingGames(){
-        let WaitingGamesCollectionRef = db.collection('TicTacToeGames').doc('AllGames').collection('WaitingGames')
+        let WaitingGamesCollectionRef = db.collection('TicTacToeGames').doc('AllGames').collection('WaitingGames');
+        let StartedGamesCollectionRef = db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames');
         let RefreshAvailableGamesButton = document.getElementById('RefreshAvailableGamesButton');
 
         if(!RefreshCooldown){
@@ -714,31 +742,61 @@
                 RefreshAvailableGamesButton.classList.remove('waitCursor')
             }, 10000);
 
-            // Get Games in Database:
+            // Get Waiting Games in Database:
             WaitingGamesCollectionRef.get()
             .then((querySnapshot) => {
 
                 if(querySnapshot.size === 0){
+                    // No Waiting Games:
                     let NoGamesText = document.createElement('p');
                     NoGamesText.innerHTML = 'No Current Games . . .';
                     NoGamesText.style.fontStyle = 'italic';
                     OnlineGamesList.appendChild(NoGamesText);
                 }else{
+                    // Waiting Games Found:
                     querySnapshot.forEach((doc) => {
                         let WaitingGameData = doc.data()
 
                         // Make sure this game dosen't already have 2 players:
                         if(WaitingGameData.PlayerCount == 1){
-                            let newGameListContent = `
-                            <div style="display: flex; justify-content: center; align-items: center;" title="Players in Game"><span class="material-symbols-rounded defaultCursor">Group</span> ${WaitingGameData.PlayerCount} / 2</div> 
-                            <div style="display: flex; justify-content: center; align-items: center; margin-right: 4px;" title="GameID: 3HDI56NSKFN63DF67"><span class="material-symbols-rounded defaultCursor">Badge</span> ${WaitingGameData.Players.Player1.Name} </div> 
-                            <button onclick="JoinExistingOnlineGame('${WaitingGameData.GameID}')" class="JoinGameButton" title="Join Game"> <span style="font-size: small;" class="material-symbols-rounded defaultCursor">Login</span> Join Game </button> 
-                            `;
 
-                            let newListDiv = document.createElement('div');
-                            newListDiv.classList.add('AvailableGameWrap');
-                            newListDiv.innerHTML = newGameListContent;
-                            OnlineGamesList.appendChild(newListDiv);
+                            // Make sure waiting game is not older than 5 mins:
+                            let CurrentTime = new Date();
+                            let WaitingGameCreateTime = (WaitingGameData.GameCreated).toDate();
+                            let TimeElapsed = (CurrentTime - WaitingGameCreateTime);
+                            let TimeElapsedinSecs = Math.floor(TimeElapsed / 1000);
+                            let TimeElapsedinMins = Math.floor(TimeElapsedinSecs / 60);
+
+                            // console.log(`Game: ${WaitingGameData.Players.Player1.Name} was created ${TimeElapsedinMins} Min(s) Ago`);
+                            if(TimeElapsedinMins >= 5){
+                                // Game was created too long ago:
+                                db.collection('TicTacToeGames').doc('AllGames').collection('EndedGames').doc(WaitingGameData.GameID).set({
+                                GameCreated : WaitingGameData.GameCreated,
+                                GameCanceled : true,
+                                GameID : WaitingGameData.GameID,
+                                PlayerCount : WaitingGameData.PlayerCount,
+                                Players : WaitingGameData.Players
+                            }).then(() => {
+                                WaitingGamesCollectionRef.doc(WaitingGameData.GameID).delete();
+                                // console.info(`Successfully Moved Inactive Game(${StartedGameData.GameID}) to "Ended Games!"`)
+                            }).catch((error) => {
+                                console.warn('An Error Occured when trying to move an Inactive Game!');
+                                console.log(error);
+                            })
+
+                            } else{
+                                // Game is still active:
+                                let newGameListContent = `
+                                <div style="display: flex; justify-content: center; align-items: center;" title="Players in Game"><span class="material-symbols-rounded defaultCursor">Group</span> ${WaitingGameData.PlayerCount} / 2</div> 
+                                <div style="display: flex; justify-content: center; align-items: center; margin-right: 4px;" title="GameID: 3HDI56NSKFN63DF67"><span class="material-symbols-rounded defaultCursor">Badge</span> ${WaitingGameData.Players.Player1.Name} </div> 
+                                <button onclick="JoinExistingOnlineGame('${WaitingGameData.GameID}')" class="JoinGameButton" title="Join Game"> <span style="font-size: small;" class="material-symbols-rounded defaultCursor">Login</span> Join Game </button> 
+                                `;
+
+                                let newListDiv = document.createElement('div');
+                                newListDiv.classList.add('AvailableGameWrap');
+                                newListDiv.innerHTML = newGameListContent;
+                                OnlineGamesList.appendChild(newListDiv);
+                            }
 
                         }
 
@@ -758,6 +816,74 @@
             .catch((error) => {
                 console.error('Error getting available games!:', error);
             });
+
+            // Get Started Games in Database:
+            //(check for canceled/inactive)
+            StartedGamesCollectionRef.get()
+            .then((querySnapshot) => {
+                if(querySnapshot.size === 0){
+                    // No Started Games Found:
+                    // console.info('No Started Games found to check for inactivity!')
+                }else{
+                    // Started Games Found:
+
+                    let CurrentTime = new Date();
+
+                    // Check Each Game for Inactivity:
+                    querySnapshot.forEach((doc) => {
+                        let StartedGameData = doc.data();
+                        let GameStartTime = (StartedGameData.GameStarted).toDate();
+                        let ElapsedTime = (CurrentTime - GameStartTime);
+                        let ElapsedTimeinSecs = Math.floor((ElapsedTime / 1000));
+                        let ElapsedTimeinMins = Math.floor((ElapsedTimeinSecs / 60));
+
+                        let MaxGameAgeInMins = 45; // <-- If any game was started later in this time move it to ended games!
+
+                        // Check for Inactive Game(by time): 
+                        if(ElapsedTimeinMins >= MaxGameAgeInMins){
+                            // console.info(`Game - ${StartedGameData.GameID} is Inactive!`);
+                            // Add to Ended Games:
+                            db.collection('TicTacToeGames').doc('AllGames').collection('EndedGames').doc(StartedGameData.GameID).set({
+                                GameCreated : StartedGameData.GameCreated,
+                                GameStarted : StartedGameData.GameStarted,
+                                GameID : StartedGameData.GameID,
+                                PlayerCount : StartedGameData.PlayerCount,
+                                LastMoveTime : StartedGameData.LastMoveTime,
+                                Players : StartedGameData.Players
+                            }).then(() => {
+                                StartedGamesCollectionRef.doc(StartedGameData.GameID).delete();
+                                // console.info(`Successfully Moved Inactive Game(${StartedGameData.GameID}) to "Ended Games!"`)
+                            }).catch((error) => {
+                                console.warn('An Error Occured when trying to move an Inactive Game!');
+                                console.log(error);
+                            })
+                        }
+
+                        // Check for Game Canceled Reported:
+                        if(StartedGameData.GameCanceled === true){
+                            // console.info(`Game - ${StartedGameData.GameID} was Canceled!`);
+                            // Add to Ended Games:
+                            db.collection('TicTacToeGames').doc('AllGames').collection('EndedGames').doc(StartedGameData.GameID).set({
+                                GameCreated : StartedGameData.GameCreated,
+                                GameStarted : StartedGameData.GameStarted,
+                                GameID : StartedGameData.GameID,
+                                PlayerCount : StartedGameData.PlayerCount,
+                                LastMoveTime : StartedGameData.LastMoveTime,
+                                Players : StartedGameData.Players
+                            }).then(() => {
+                                StartedGamesCollectionRef.doc(StartedGameData.GameID).delete();
+                                // console.info(`Successfully Moved Inactive Game(${StartedGameData.GameID}) to "Ended Games!"`)
+                            }).catch((error) => {
+                                console.warn('An Error Occured when trying to move an Inactive Game!');
+                                console.log(error);
+                            })
+                        }
+                    });
+                }
+            }).catch((error) => {
+                console.warn('An Error Occured when trying to check "StartedGames"!');
+                console.log(error);
+            })
     
         } else{
             return console.warn('Please Wait!')

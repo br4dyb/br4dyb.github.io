@@ -52,7 +52,7 @@ let DebugFirebase = false;
 OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
 OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
 
-// Add Document Visibility Listener:
+// Add Document Visibility Listener [NOT COMPLETED]:
 document.onvisibilitychange = () => {
 
     if (document.visibilityState === 'hidden'){

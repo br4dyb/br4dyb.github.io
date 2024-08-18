@@ -32,6 +32,7 @@ let OnlinePlr1_CellsCollected = [];
 let OnlinePlr2_CellsCollected = [];
 let OnlinePlr1_Score = 0;
 let OnlinePlr2_Score = 0;
+let TimeForVoting = 16; //(seconds)
 let OnlinePlr1_PlayAgainVote = null;
 let OnlinePlr2_PlayAgainVote = null;
 const OnlinePlr1Color = '#3191e5';
@@ -40,11 +41,11 @@ const OnlinePlr2Color = '#a73acc';
     // RedCellColor = '#E45858';
     // YellowCellColor = '#CDD034';
     // GreenCellColor = '#62BD67';
-    // WinningCombinations = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8,], [3,6,9,], [1,5,9,], [3,5,7,]];
 let Online_GameEnded = false;
 let Online_GameLocked = true; // <-- Start Locked (only unlock for this clients turn)
 let GameEndedDisplayed = false;
 
+// Debugging:
 let DebugGeneral = false;
 let DebugFirebase = false;
 
@@ -52,7 +53,7 @@ let DebugFirebase = false;
 OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
 OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
 
-// Add Document Visibility Listener [NOT COMPLETED]:
+// Add Document Visibility Listener [NOT COMPLETED! / BEING USED]:
 document.onvisibilitychange = () => {
 
     if (document.visibilityState === 'hidden'){
@@ -80,7 +81,7 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
     .onSnapshot((doc) => {
 
         if(DebugFirebase) {console.info('Game Data Chnage Detected!');}
-        if(DebugGeneral) {console.log('OnlineCurrentPlayerTurn: ', OnlineCurrentPlayerTurn);}
+
         ThisGameData = doc.data();
 
         // Show Last Game Play & Switch Current Player Turn:
@@ -260,6 +261,16 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
                 OnlineMultiPlayerGameStatusWrap.classList.add('ShownOpacity');
             }, 650)
         }
+
+        // End Voting Early if Both Players Voted Yes:
+        if(Online_GameEnded && OnlinePlr1PlayAgainVote && OnlinePlr2PlayAgainVote){
+            if(DebugGeneral){console.info('[Voting Ended]: Both Players Voted to Keep Playing!')};
+
+            // Stop Countdown:
+            clearInterval(WaitForVotesInterval);
+            // Check Votes:
+            CheckFinalVotes();
+        }
     });
 }
 
@@ -428,6 +439,8 @@ function OnlineMultiPlayerCheckWinner(){
     if(OnlineMultiGame_AvailableCells.length === 0){
         //console.info('No Player Won! / Draw');
         OnlineShowGameMsg('Game was a Draw!', YellowCellColor, 1750);
+        Online_GameEnded = true;
+        Online_GameLocked = true;
         
         // Reset Game:
         setTimeout(() => {
@@ -443,7 +456,6 @@ function OnlineMultiPlayerGameEnd(){
     OnlinePlr1_CellsCollected = [];
     OnlinePlr2_CellsCollected = [];
     OnlineMultiGame_AvailableCells = [1,2,3,4,5,6,7,8,9]
-    TimeToWaitForVotes = 16;
     Player1Vote = false;
     Player2Vote = false;
     ThisClientAlreadyVoted = false;
@@ -469,6 +481,12 @@ function OnlineMultiPlayerGameEnd(){
         OnlinePlr1_StartedFirst = true;
     }
 
+    // Get Voting Times:
+    let CurrentTime = new Date();
+    let EndVoteTimeUTC = new Date(CurrentTime.getTime() + TimeForVoting * 1000)
+    console.log('Current Time: ', CurrentTime.toUTCString());
+    console.log('End Vote Time: ', EndVoteTimeUTC.toUTCString());
+
     // Update Database:
     db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
         'Players.Player1.PlayerCellsCollected' : [],
@@ -477,7 +495,8 @@ function OnlineMultiPlayerGameEnd(){
         'Players.Player2.PlayerCellsCollected' : [],
         'Players.Player2.PlayAgainVote' : false,
         'Players.Player2.LastCellSelected' : 0,
-        'CurrentPlayersTurn' : NextPlayerStartFirst
+        'CurrentPlayersTurn' : NextPlayerStartFirst,
+        'EndVoteTime' : EndVoteTimeUTC
     }).then(() => {
         if(DebugFirebase) {console.log('Reset Database for Next Game!');}
     }).catch((error) => {
@@ -486,7 +505,8 @@ function OnlineMultiPlayerGameEnd(){
     })
 
     // Start Vote Timer:
-    WaitForVotesTimer()
+    setTimeout(() => { WaitForVotesTimer() }, 1000)
+    
 
     // Show Continue Playing Decision:
     setTimeout(() => {
@@ -604,34 +624,43 @@ function OnlinePlayAgainVoteNo(){
 }
 
 // Timer for Play Again Vote
-let TimeToWaitForVotes = 16;
-
 function WaitForVotesTimer(){
     // Reset Time Left Color:
     OnlinePlayAgainVoteTimeText.style.color = '#CDD034';
+
+    // Countdown / Check Voting Time:
     WaitForVotesInterval = setInterval(() => {
         
+        // Get Available Voting Time:
+        let CurrentTime = new Date();
+        let VotingEndingTime = ThisGameData.EndVoteTime.toDate();
+        let AvaialbleTime = Math.floor(VotingEndingTime - CurrentTime);
+        let AvaialbleTimeSecs = Math.floor(AvaialbleTime / 1000);
+
+        let OnlineVotingTime = AvaialbleTimeSecs
+        if(DebugGeneral) {console.log(`Time left to Vote: ${OnlineVotingTime}`);};
+
         // Remove 1s every second:
-        if(TimeToWaitForVotes >> 0){
-            setTimeout(() => {
-                TimeToWaitForVotes -= 1;
-                OnlinePlayAgainVoteTimeText.innerText = `Time Left: ${TimeToWaitForVotes}(s)`
-                if(TimeToWaitForVotes < 4){
+        if(OnlineVotingTime >> 0){
+            // setTimeout(() => {
+                OnlinePlayAgainVoteTimeText.innerText = `Time Left: ${OnlineVotingTime}(s)`
+                if(OnlineVotingTime < 4){
                     OnlinePlayAgainVoteTimeText.style.color = 'red';
                 }
-            }, 1000)
+            // }, 1000)
         }
 
         // End Interval if Out of Time:
-        if(TimeToWaitForVotes <= 0){
+        if(OnlineVotingTime <= 0){
             clearInterval(WaitForVotesInterval);
             if(DebugGeneral) {console.log('Voting Time has Ended!');}
             CheckFinalVotes();
         }
 
-    }, (1200));
+    }, (1000));
 }
 
+// Check Votes to Restart Game:
 function CheckFinalVotes(){
     // Check Final Votes:
     let Player1Vote = ThisGameData.Players.Player1.PlayAgainVote;

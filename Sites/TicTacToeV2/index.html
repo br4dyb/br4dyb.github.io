@@ -557,13 +557,13 @@
                 }}}}
                 
                 // Check if waiting too long:
-                console.log('Checking time left to wait!')
+                // console.log('Checking time left to wait!')
 
                 let CurrentTime = new Date();
                 let ElapsedTime = (CurrentTime - GameCreatedTime);
                 let ElapsedTimeInSecs = Math.floor(ElapsedTime / 1000);
                 let ElapsedTimeInMins = Math.floor(ElapsedTimeInSecs / 60);
-                console.info(`Waited for ${ElapsedTimeInMins}mins(s)`);
+                // console.info(`Waited for ${ElapsedTimeInMins}mins(s)`);
 
                 if(ElapsedTimeInMins >= 5){
                     clearInterval(WaitingForPlayerTypeInterval);
@@ -623,6 +623,7 @@
                 // Game Started / Show Game Table:
                 if(doc.data() != null){
                     console.info('Player 2 has joined, game will start. . . ');
+                    clearInterval(WaitingForPlayerTypeInterval);
 
                     const OnlinePlayer1NameTxt = document.getElementById('OnlinePlayer1NameTxt');
                     const OnlinePlayer2NameTxt = document.getElementById('OnlinePlayer2NameTxt');

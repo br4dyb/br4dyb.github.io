@@ -522,6 +522,7 @@ header{
 
 #OpponentLeftGameMsgWrap {
     display: none;
+    max-width: 70%;
     background: var(--HeaderGray);
     padding: 25px 20px;
     text-shadow: 0px 0px 3px black;
@@ -529,11 +530,13 @@ header{
     border-radius: 5px;
     flex-direction: column;
     justify-content: center;
+    text-align: center;
     align-items: center;
 }
 
 #RestartGameQuestionWrap{
     display: none;
+    max-width: 70%;
     background: var(--HeaderGray);
     padding: 25px 20px;
     text-shadow: 0px 0px 3px black;
@@ -541,6 +544,7 @@ header{
     border-radius: 5px;
     flex-direction: column;
     justify-content: center;
+    text-align: center;
     align-items: center;
 }
 

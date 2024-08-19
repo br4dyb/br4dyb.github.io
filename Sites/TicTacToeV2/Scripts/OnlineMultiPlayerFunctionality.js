@@ -32,7 +32,9 @@ let OnlinePlr1_CellsCollected = [];
 let OnlinePlr2_CellsCollected = [];
 let OnlinePlr1_Score = 0;
 let OnlinePlr2_Score = 0;
-let TimeForVoting = 16; //(seconds)
+let OnlinePlr1_Name = 0;
+let OnlinePlr2_Name = 0;
+let TimeForVoting = 32; //(s) -- add extra second(s) for timeouts
 let OnlinePlr1_PlayAgainVote = null;
 let OnlinePlr2_PlayAgainVote = null;
 const OnlinePlr1Color = '#3191e5';
@@ -83,6 +85,14 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
         if(DebugFirebase) {console.info('Game Data Chnage Detected!');}
 
         ThisGameData = doc.data();
+
+        // Assign Plr Name Variables:
+        if(ThisGameData.Players.Player1.Name != "TBD"){
+            OnlinePlr1_Name = ThisGameData.Players.Player1.Name;
+        }
+        if(ThisGameData.Players.Player2.Name != "TBD"){
+            OnlinePlr2_Name = ThisGameData.Players.Player2.Name;
+        }
 
         // Show Last Game Play & Switch Current Player Turn:
         if(OnlineCurrentPlayerTurn === 1 & ThisGameData.Players.Player1.LastCellSelected != 0){
@@ -392,7 +402,7 @@ function OnlineMultiPlayerCheckWinner(){
         // Check for Player 1 Win:
         if(WinningCombination.every(Cell => OnlinePlr1_CellsCollected.includes(String(Cell)))){
                 //console.info('Player 1 has won!');
-                OnlineShowGameMsg('Player 1 has Won!', GreenCellColor, 1750);
+                OnlineShowGameMsg(`${OnlinePlr1_Name} has Won!`, GreenCellColor, 1750);
             OnlinePlr1_Score += 1;
             OnlinePlayer1ScoreText.innerText = OnlinePlr1_Score;
             Online_GameEnded = true;
@@ -414,7 +424,7 @@ function OnlineMultiPlayerCheckWinner(){
         // Check for Player 2 Win:
         if(WinningCombination.every(Cell => OnlinePlr2_CellsCollected.includes(String(Cell)))){
                 //console.info('Player 2 has won!');
-                OnlineShowGameMsg('Player 2 has Won!', GreenCellColor, 1750);
+                OnlineShowGameMsg(`${OnlinePlr2_Name} has Won!`, GreenCellColor, 1750);
             OnlinePlr2_Score += 1;
             OnlinePlayer2ScoreText.innerText = OnlinePlr2_Score;
             Online_GameEnded = true;
@@ -459,7 +469,7 @@ function OnlineMultiPlayerGameEnd(){
     Player1Vote = false;
     Player2Vote = false;
     ThisClientAlreadyVoted = false;
-    OnlinePlayAgainVoteTimeText.innerText = `Time Left: 15(s)`
+    OnlinePlayAgainVoteTimeText.innerText = `Time Left: 30(s)`
     OnlineGameAgainVoteYes.classList.add('OnlineGameAgainVoteYes');
     OnlineGameAgainVoteNo.classList.add('OnlineGameAgainVoteNo');
     OnlineGameAgainVoteYes.style.padding = '';
@@ -696,6 +706,18 @@ function CheckFinalVotes(){
             OnlineMultiPlayerGameStatusWrap.classList.remove('ShownOpacity'); 
             OnlineMultiPlayerGameStatusWrap.classList.add('HiddenOpacity');
             setTimeout(() => {
+
+                // Reset Player Votes in Database:
+                db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
+                    'Players.Player1.PlayAgainVote' : false,
+                    'Players.Player2.PlayAgainVote' : false
+                }).then(() => {
+                    // Success
+                }).catch((error) => {
+                    console.warn('An Error Occured When Resseting Player Votes!')
+                    console.log(error)
+                })
+
                 // Unlock for Client Players Turn:
                 Online_GameEnded = false;
                 OnlineCurrentPlayerTurn = ThisGameData.CurrentPlayersTurn;

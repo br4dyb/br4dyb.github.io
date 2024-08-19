@@ -493,7 +493,7 @@ function OnlineMultiPlayerGameEnd(){
 
     // Get Voting Times:
     let CurrentTime = new Date();
-    let EndVoteTimeUTC = new Date(CurrentTime.getTime() + TimeForVoting * 1000)
+    let EndVoteTimeUTC = new Date(CurrentTime.getTime() + (TimeForVoting * 1000));
     console.log('Current Time: ', CurrentTime.toUTCString());
     console.log('End Vote Time: ', EndVoteTimeUTC.toUTCString());
 
@@ -637,6 +637,14 @@ function OnlinePlayAgainVoteNo(){
 function WaitForVotesTimer(){
     // Reset Time Left Color:
     OnlinePlayAgainVoteTimeText.style.color = '#CDD034';
+
+    // Check for Correct Voting Time:
+        let CurrentTime = new Date();
+        let VotingEndingTime = ThisGameData.EndVoteTime.toDate();
+        let AvaialbleTime = Math.floor(VotingEndingTime - CurrentTime);
+        if(AvaialbleTime <= 5){
+            alert('Voting Time was NOT accuratly updated to database! Attempting to reassign!');
+        }
 
     // Countdown / Check Voting Time:
     WaitForVotesInterval = setInterval(() => {

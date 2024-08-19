@@ -1,13 +1,13 @@
-# Security Policy
+# 🔐 Security Policy
 
 ## Reporting a Vulnerability:
 
-If you need to report a critical security issue regarding the repository / website please click below to send an email as soon as possible. All of our contributors and site users will thank you! <3
+If you need to report a ***critical security issue*** regarding the repository / website please click below to send an email *as soon as possible*! All of our contributors and site users will thank you! ❣️
 
-### [Send Email](mailto:halting.credo.00@icloud.com)
+#### [Send Email Now](mailto:halting.credo.00@icloud.com)
 
 
-## Supported Versions
+## Supported Versions:
 
 | Version | Supported          |
 | ------- | ------------------ |

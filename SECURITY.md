@@ -6,7 +6,7 @@ If you need to report a critical security issue regarding the repository / websi
 
 (Send Email){mailto:test@email.com}
 
-<button> Test </button>
+<button style = "background:red;"> Test </button>
 
 ## Supported Versions
 

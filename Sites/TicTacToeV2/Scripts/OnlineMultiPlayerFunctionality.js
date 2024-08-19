@@ -259,6 +259,7 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
         if(ThisGameData.GameCanceled === true && !GameEndedDisplayed){
             console.info('This game has been canceled!')
             GameEndedDisplayed = true;
+            clearInterval(WaitForVotesInterval);
 
             // Show Notification Wrap:
             OnlineMultiPlayerGameStatusWrap.style.display = 'flex';
@@ -578,16 +579,18 @@ function OnlinePlayAgainVoteYes(){
         })
     }
 
-    OnlineGameAgainVoteYes.style.background = '#41d261';
-    OnlineGameAgainVoteYes.style.padding = '5px 10px';
-    OnlineGameAgainVoteYes.style.opacity = '.5';
-    OnlineGameAgainVoteYes.style.scale = '1.1';
-    OnlineGameAgainVoteNo.style.opacity = '.5';
+    // Maintain / Remove Styles:
+    if(!ThisClientAlreadyVoted){
+        OnlineGameAgainVoteYes.style.background = '#41d261';
+        OnlineGameAgainVoteYes.style.padding = '5px 10px';
+        OnlineGameAgainVoteYes.style.opacity = '.5';
+        OnlineGameAgainVoteYes.style.scale = '1.1';
+        OnlineGameAgainVoteNo.style.opacity = '.5';
 
 
-    OnlineGameAgainVoteYes.classList.remove('OnlineGameAgainVoteYes');
-    OnlineGameAgainVoteNo.classList.remove('OnlineGameAgainVoteNo');
-    
+        OnlineGameAgainVoteYes.classList.remove('OnlineGameAgainVoteYes');
+        OnlineGameAgainVoteNo.classList.remove('OnlineGameAgainVoteNo');
+    }
 }
 
 // Vote to NOT Play Again Function:
@@ -622,15 +625,21 @@ function OnlinePlayAgainVoteNo(){
         })
     }
 
-    OnlineGameAgainVoteNo.style.background = '#ed7666';
-    OnlineGameAgainVoteNo.style.padding = '5px 10px';
-    OnlineGameAgainVoteNo.style.opacity = '.5';
-    OnlineGameAgainVoteNo.style.scale = '1.1';
-    OnlineGameAgainVoteYes.style.opacity = '.5';
+    // Maintain / Remove Styles:
+    if(!ThisClientAlreadyVoted){
+        OnlineGameAgainVoteNo.style.background = '#ed7666';
+        OnlineGameAgainVoteNo.style.padding = '5px 10px';
+        OnlineGameAgainVoteNo.style.opacity = '.5';
+        OnlineGameAgainVoteNo.style.scale = '1.1';
+        OnlineGameAgainVoteYes.style.opacity = '.5';
 
 
-    OnlineGameAgainVoteYes.classList.remove('OnlineGameAgainVoteYes');
-    OnlineGameAgainVoteNo.classList.remove('OnlineGameAgainVoteNo');
+        OnlineGameAgainVoteYes.classList.remove('OnlineGameAgainVoteYes');
+        OnlineGameAgainVoteNo.classList.remove('OnlineGameAgainVoteNo');
+
+        // Check Votes to Force End:
+        CheckFinalVotes();
+    }
 }
 
 // Timer for Play Again Vote

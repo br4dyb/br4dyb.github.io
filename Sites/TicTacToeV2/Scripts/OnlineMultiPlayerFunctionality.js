@@ -35,6 +35,7 @@ let OnlinePlr2_Score = 0;
 let OnlinePlr1_Name = 0;
 let OnlinePlr2_Name = 0;
 let TimeForVoting = 32; //(s) -- add extra second(s) for timeouts
+let WaitForVotesInterval;
 let OnlinePlr1_PlayAgainVote = null;
 let OnlinePlr2_PlayAgainVote = null;
 const OnlinePlr1Color = '#3191e5';
@@ -318,6 +319,7 @@ function OnlineMultiPlayerSelectCell(Cell) {
     // Check if Cell is Available & Game is still going/unlocked:
     if(!Online_GameEnded && !Online_GameLocked && ThisClientPlayerNumber === OnlineCurrentPlayerTurn){
         // Move Accepted:
+        if(DebugGeneral) {console.log('[Select Cell]: Fuction has ran/begun!');};
         Online_GameLocked = true; // <-- Lock Game Table to Prevent Double Play
 
         if(Cell.classList.contains('CellTaken')){
@@ -651,40 +653,61 @@ function WaitForVotesTimer(){
         let CurrentTime = new Date();
         let VotingEndingTime = ThisGameData.EndVoteTime.toDate();
         let AvaialbleTime = Math.floor(VotingEndingTime - CurrentTime);
-        if(AvaialbleTime <= 5){
-            alert('Voting Time was NOT accuratly updated to database! Attempting to reassign!');
-        }
 
-    // Countdown / Check Voting Time:
-    WaitForVotesInterval = setInterval(() => {
-        
-        // Get Available Voting Time:
-        let CurrentTime = new Date();
-        let VotingEndingTime = ThisGameData.EndVoteTime.toDate();
-        let AvaialbleTime = Math.floor(VotingEndingTime - CurrentTime);
-        let AvaialbleTimeSecs = Math.floor(AvaialbleTime / 1000);
+    if(AvaialbleTime <= 5){ // <-- If Time Upload didn't work:
+        alert('Voting Time was NOT accuratly updated to database! Attempting to reassign!');
+        // Get New Voting Time:
+        // Get Voting Times:
+            let CurrentTime = new Date();
+            let EndVoteTimeUTC = new Date(CurrentTime.getTime() + (TimeForVoting * 1000));
+            console.log('Current Time: ', CurrentTime.toUTCString());
+            console.log('End Vote Time: ', EndVoteTimeUTC.toUTCString());
+        //RE-Upload to Database:
+        db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
+            'EndVoteTime' : EndVoteTimeUTC
+        }).then(() => {
+            console.warn('[Caught Error]: Reuploaded Vote End Time!');
+            // Re-Fire this func:
+            setTimeout(() => { WaitForVotesTimer(); }, 500)
+        }).catch((error) => {
+            console.warn('Error occured when attempting to reupload Vote End Time!!');
+            console.log(error.code);
+            console.log(error);
+        })
 
-        let OnlineVotingTime = AvaialbleTimeSecs
-        if(DebugGeneral) {console.log(`Time left to Vote: ${OnlineVotingTime}`);};
+    } else { // <-- If Time Upload worked:
+        // Countdown / Check Voting Time:
+        WaitForVotesInterval = setInterval(() => {
+            
+            // Get Available Voting Time:
+            let CurrentTime = new Date();
+            let VotingEndingTime = ThisGameData.EndVoteTime.toDate();
+            let AvaialbleTime = Math.floor(VotingEndingTime - CurrentTime);
+            let AvaialbleTimeSecs = Math.floor(AvaialbleTime / 1000);
 
-        // Remove 1s every second:
-        if(OnlineVotingTime >> 0){
-            // setTimeout(() => {
-                OnlinePlayAgainVoteTimeText.innerText = `Time Left: ${OnlineVotingTime}(s)`
-                if(OnlineVotingTime < 4){
-                    OnlinePlayAgainVoteTimeText.style.color = 'red';
-                }
-            // }, 1000)
-        }
+            let OnlineVotingTime = AvaialbleTimeSecs
+            if(DebugGeneral) {console.log(`Time left to Vote: ${OnlineVotingTime}`);};
 
-        // End Interval if Out of Time:
-        if(OnlineVotingTime <= 0){
-            clearInterval(WaitForVotesInterval);
-            if(DebugGeneral) {console.log('Voting Time has Ended!');}
-            CheckFinalVotes();
-        }
+            // Remove 1s every second:
+            if(OnlineVotingTime >> 0){
+                // setTimeout(() => {
+                    OnlinePlayAgainVoteTimeText.innerText = `Time Left: ${OnlineVotingTime}(s)`
+                    if(OnlineVotingTime < 4){
+                        OnlinePlayAgainVoteTimeText.style.color = 'red';
+                    }
+                // }, 1000)
+            }
 
-    }, (1000));
+            // End Interval if Out of Time:
+            if(OnlineVotingTime <= 0){
+                clearInterval(WaitForVotesInterval);
+                if(DebugGeneral) {console.log('Voting Time has Ended!');}
+                CheckFinalVotes();
+            }
+
+        }, (1000));
+    }
+
 }
 
 // Check Votes to Restart Game:

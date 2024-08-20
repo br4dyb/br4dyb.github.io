@@ -758,25 +758,24 @@
                     querySnapshot.forEach((doc) => {
                         let WaitingGameData = doc.data()
 
-                        // Make sure this game dosen't already have 2 players:
-                        if(WaitingGameData.PlayerCount == 1){
+                    
 
-                            // Make sure waiting game is not older than 5 mins:
-                            let CurrentTime = new Date();
-                            let WaitingGameCreateTime = (WaitingGameData.GameCreated).toDate();
-                            let TimeElapsed = (CurrentTime - WaitingGameCreateTime);
-                            let TimeElapsedinSecs = Math.floor(TimeElapsed / 1000);
-                            let TimeElapsedinMins = Math.floor(TimeElapsedinSecs / 60);
+                        // Make sure waiting game is not older than 5 mins:
+                        let CurrentTime = new Date();
+                        let WaitingGameCreateTime = (WaitingGameData.GameCreated).toDate();
+                        let TimeElapsed = (CurrentTime - WaitingGameCreateTime);
+                        let TimeElapsedinSecs = Math.floor(TimeElapsed / 1000);
+                        let TimeElapsedinMins = Math.floor(TimeElapsedinSecs / 60);
 
-                            // console.log(`Game: ${WaitingGameData.Players.Player1.Name} was created ${TimeElapsedinMins} Min(s) Ago`);
-                            if(TimeElapsedinMins >= 5){
-                                // Game was created too long ago:
-                                db.collection('TicTacToeGames').doc('AllGames').collection('EndedGames').doc(WaitingGameData.GameID).set({
-                                GameCreated : WaitingGameData.GameCreated,
-                                GameCanceled : true,
-                                GameID : WaitingGameData.GameID,
-                                PlayerCount : WaitingGameData.PlayerCount,
-                                Players : WaitingGameData.Players
+                        // console.log(`Game: ${WaitingGameData.Players.Player1.Name} was created ${TimeElapsedinMins} Min(s) Ago`);
+                        if(TimeElapsedinMins >= 5){
+                            // Game was created too long ago:
+                            db.collection('TicTacToeGames').doc('AllGames').collection('EndedGames').doc(WaitingGameData.GameID).set({
+                            GameCreated : WaitingGameData.GameCreated,
+                            GameCanceled : true,
+                            GameID : WaitingGameData.GameID,
+                            PlayerCount : WaitingGameData.PlayerCount,
+                            Players : WaitingGameData.Players
                             }).then(() => {
                                 WaitingGamesCollectionRef.doc(WaitingGameData.GameID).delete();
                                 // console.info(`Successfully Moved Inactive Game(${StartedGameData.GameID}) to "Ended Games!"`)
@@ -785,8 +784,10 @@
                                 console.log(error);
                             })
 
-                            } else{
-                                // Game is still active:
+                        } else{
+                            // Game is still active:
+                            // Make sure this game dosen't already have 2 players:
+                            if(WaitingGameData.PlayerCount == 1){
                                 let newGameListContent = `
                                 <div style="display: flex; justify-content: center; align-items: center;" title="Players in Game"><span class="material-symbols-rounded defaultCursor">Group</span> ${WaitingGameData.PlayerCount} / 2</div> 
                                 <div style="display: flex; justify-content: center; align-items: center; margin-right: 4px;" title="GameID: 3HDI56NSKFN63DF67"><span class="material-symbols-rounded defaultCursor">Badge</span> ${WaitingGameData.Players.Player1.Name} </div> 
@@ -798,7 +799,6 @@
                                 newListDiv.innerHTML = newGameListContent;
                                 OnlineGamesList.appendChild(newListDiv);
                             }
-
                         }
 
                     });

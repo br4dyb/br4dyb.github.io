@@ -497,8 +497,8 @@ function OnlineMultiPlayerGameEnd(){
     // Get Voting Times:
     let CurrentTime = new Date();
     let EndVoteTimeUTC = new Date(CurrentTime.getTime() + (TimeForVoting * 1000));
-    console.log('Current Time: ', CurrentTime.toUTCString());
-    console.log('End Vote Time: ', EndVoteTimeUTC.toUTCString());
+    if(DebugGeneral) {console.log('Current Time: ', CurrentTime.toUTCString());};
+    if(DebugGeneral) {console.log('End Vote Time: ', EndVoteTimeUTC.toUTCString());};
 
     // Update Database:
     db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
@@ -660,8 +660,8 @@ function WaitForVotesTimer(){
         // Get Voting Times:
             let CurrentTime = new Date();
             let EndVoteTimeUTC = new Date(CurrentTime.getTime() + (TimeForVoting * 1000));
-            console.log('Current Time: ', CurrentTime.toUTCString());
-            console.log('End Vote Time: ', EndVoteTimeUTC.toUTCString());
+            if(DebugGeneral) {console.log('Current Time: ', CurrentTime.toUTCString());};
+            if(DebugGeneral) {console.log('End Vote Time: ', EndVoteTimeUTC.toUTCString());};
         //RE-Upload to Database:
         db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
             'EndVoteTime' : EndVoteTimeUTC

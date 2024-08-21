@@ -657,7 +657,7 @@ function WaitForVotesTimer(){
         let VotingEndingTime = ThisGameData.EndVoteTime.toDate();
         let AvaialbleTime = Math.floor(VotingEndingTime - CurrentTime);
 
-    if(AvaialbleTime <= 5){ // <-- If Time Upload didn't work:
+    if(AvaialbleTime <= (TimeForVoting - 5)){ // <-- If Time Upload didn't work:
         alert('Voting Time was NOT accuratly updated to database! Attempting to reassign!');
         // Get New Voting Time:
         // Get Voting Times:
@@ -671,7 +671,7 @@ function WaitForVotesTimer(){
         }).then(() => {
             console.warn('[Caught Error]: Reuploaded Vote End Time!');
             // Re-Fire this func:
-            setTimeout(() => { WaitForVotesTimer(); }, 500)
+            setTimeout(() => { WaitForVotesTimer(); }, 1000)
         }).catch((error) => {
             console.warn('Error occured when attempting to reupload Vote End Time!!');
             console.log(error.code);

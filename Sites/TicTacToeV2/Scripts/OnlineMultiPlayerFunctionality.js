@@ -11,6 +11,7 @@ const OnlineGameAgainVoteYes = document.getElementById('OnlineGameAgainVoteYes')
 const OnlineGameAgainVoteNo = document.getElementById('OnlineGameAgainVoteNo');
 const OnlinePlayAgainVoteTimeText = document.getElementById('OnlinePlayAgainVoteTimeText');
 const OtherPlrVoteIcon = document.getElementById('OnlineOpponentPlayAgainVoteIcon');
+const VotingTimeProgressBar = document.getElementById('VotingTimeProgressBar');
     //Tables Cells:
     const OnlineMultiPlayerTblCell_1 = document.getElementById('OnlineMultiPlayerTblCell_1');
     const OnlineMultiPlayerTblCell_2 = document.getElementById('OnlineMultiPlayerTblCell_2');
@@ -483,6 +484,8 @@ function OnlineMultiPlayerGameEnd(){
     OnlineGameAgainVoteNo.style.opacity = '';
     OnlineGameAgainVoteNo.style.scale = '';
     OnlineGameAgainVoteNo.style.background = '';
+    VotingTimeProgressBar.max = TimeForVoting;
+    VotingTimeProgressBar.value = TimeForVoting;
 
 
     let NextPlayerStartFirst;
@@ -692,6 +695,7 @@ function WaitForVotesTimer(){
             if(OnlineVotingTime >> 0){
                 // setTimeout(() => {
                     OnlinePlayAgainVoteTimeText.innerText = `Time Left: ${OnlineVotingTime}(s)`
+                    VotingTimeProgressBar.value = OnlineVotingTime;
                     if(OnlineVotingTime < 4){
                         OnlinePlayAgainVoteTimeText.style.color = 'red';
                     }

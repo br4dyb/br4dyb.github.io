@@ -11,7 +11,7 @@ const OnlineGameAgainVoteYes = document.getElementById('OnlineGameAgainVoteYes')
 const OnlineGameAgainVoteNo = document.getElementById('OnlineGameAgainVoteNo');
 const OnlinePlayAgainVoteTimeText = document.getElementById('OnlinePlayAgainVoteTimeText');
 const OtherPlrVoteIcon = document.getElementById('OnlineOpponentPlayAgainVoteIcon');
-const VotingTimeProgressBar = document.getElementById('VotingTimeProgressBar');
+const VotingTimeProgressBar = document.getElementById('VotingTimeProgressBarProgress');
     //Tables Cells:
     const OnlineMultiPlayerTblCell_1 = document.getElementById('OnlineMultiPlayerTblCell_1');
     const OnlineMultiPlayerTblCell_2 = document.getElementById('OnlineMultiPlayerTblCell_2');
@@ -52,6 +52,13 @@ let GameEndedDisplayed = false;
 // Debugging:
 let DebugGeneral = false;
 let DebugFirebase = false;
+
+// FUTURE FIX:
+// ## Start vote timer from snapshot function... to prevent inacture vote time snapshot from starting:
+// preventing the voting time from ending before it even started...
+// REMOVE VOTESTART from GameEnd() function
+// Inside snapshot function check if it is null / assign it as null on game start!
+// Maybe only have plr 1 send db update for vote time?
 
 // Add Player 1's Turn Style to Start: (first game only)
 OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
@@ -484,8 +491,8 @@ function OnlineMultiPlayerGameEnd(){
     OnlineGameAgainVoteNo.style.opacity = '';
     OnlineGameAgainVoteNo.style.scale = '';
     OnlineGameAgainVoteNo.style.background = '';
-    VotingTimeProgressBar.max = TimeForVoting;
-    VotingTimeProgressBar.value = TimeForVoting;
+    VotingTimeProgressBar.style.width = '100%';
+    VotingTimeProgressBar.style.background = '#78d23b';
 
 
     let NextPlayerStartFirst;
@@ -695,9 +702,16 @@ function WaitForVotesTimer(){
             if(OnlineVotingTime >> 0){
                 // setTimeout(() => {
                     OnlinePlayAgainVoteTimeText.innerText = `Time Left: ${OnlineVotingTime}(s)`
-                    VotingTimeProgressBar.value = OnlineVotingTime;
-                    if(OnlineVotingTime < 4){
-                        OnlinePlayAgainVoteTimeText.style.color = 'red';
+                    VotingTimeProgressBar.style.width = (((OnlineVotingTime/TimeForVoting) * 100) + '%');
+
+                    if(OnlineVotingTime < (TimeForVoting/2)){
+                        OnlinePlayAgainVoteTimeText.style.color = YellowCellColor;
+                        VotingTimeProgressBar.style.background = YellowCellColor;
+                    }
+
+                    if(OnlineVotingTime < (TimeForVoting/4)){
+                        OnlinePlayAgainVoteTimeText.style.color = RedCellColor;
+                        VotingTimeProgressBar.style.background = RedCellColor;
                     }
                 // }, 1000)
             }

@@ -509,7 +509,7 @@ header{
 }
 
 #OnlineGameStatusUpdateWrap{
-    background: #000000b2;
+    background: #000000a1;
     display: none;
     flex-direction: column;
     justify-content: center;
@@ -550,12 +550,12 @@ header{
 }
 
 .GameStatusButtons{
-    background: rgb(255, 255, 255);
-    padding: 5px;
+    background: rgb(214, 205, 205);
+    padding: 4px 6px;
     margin-inline: 8px;
     cursor: pointer;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 17px;
     font-style: bolder;
     border: 1.5px solid black;
     transition: .33s;
@@ -563,13 +563,13 @@ header{
 
 .OnlineGameAgainVoteYes:hover{
     scale: 1.1;
-    padding: 5px 10px;
+    padding: 4px 10px;
     background-color: #41d261;
 }
 
 .OnlineGameAgainVoteNo:hover{
     scale: 1.1;
-    padding: 5px 10px;
+    padding: 4px 10px;
     background-color: #ed7666;
 }
 
@@ -579,11 +579,12 @@ header{
 
 #OnlinePlayerLeftBackButton:hover{
     scale: 1.1;
-    padding: 5px 10px;
+    padding: 4px 10px;
     background-color: #dded66;
 }
 
 #OnlinePlayAgainVoteTimeText{
+    display: none;
     color: #b7c54a;
     text-shadow: 0px 0px 3px black;
     /* margin-top: 7px; */
@@ -593,32 +594,25 @@ header{
     margin-left: 4px;
 }
 
-/* General Progress Bar Style */
-#VotingTimeProgressBar {
-    width: 38%;
-    height: 15px;
+#VotingTimeProgressBarWhole{
+    width: 42%;
+    height: 13px;
+    margin-top: 5px;
     background-color: #303030;
     border: none;
     border-radius: 5px; /* Optional: Rounded corners */
     transition: .33s all;
+    position: relative;
+    display: flex;
+    justify-content: start;
+    align-items: center;
 }
 
-/* WebKit Browsers (Chrome, Safari, Edge) */
-#VotingTimeProgressBar::-webkit-progress-bar {
-    background-color: #303030; /* Background color of the bar */
-    border-radius: 5px;
-    transition: .33s all;
-}
-
-#VotingTimeProgressBar::-webkit-progress-value {
-    background-color: #bf53e3; /* Fill color */
-    border-radius: 5px; /* Optional: Rounded corners on the fill */
-    transition: .33s all;
-}
-
-/* Firefox */
-#VotingTimeProgressBar::-moz-progress-bar {
-    background-color: #bf53e3; /* Fill color */
-    border-radius: 5px;
+#VotingTimeProgressBarProgress{
+    width: 5%;
+    height: 100%;
+    background-color: #78d23b;
+    border: none;
+    border-radius: 5px; /* Optional: Rounded corners */
     transition: .33s all;
 }

@@ -45,19 +45,9 @@
 }
 
 #HopefulReturnText{
-    animation: HopefulReturn 1s infinite alternate ease-in-out;
     /* color: rgb(155, 178, 255);  */
     font-size: 11px;
-}
+    position: relative;
 
-@keyframes HopefulReturn {
-    from {
-        opacity: 1;
-        scale: 1.2;
-    }
-
-    to {
-        opacity: 0;
-        scale: 1;
-    }
+    font-style: italic;
 }

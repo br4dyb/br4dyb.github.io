@@ -37,16 +37,52 @@
 
 <body>
 
-    <div id="UnderConstructionWrap">
+    <div id="UnderConstructionWrap" style="display: flex;">
 
-    <div id="ConstructionInfo">
-        <h2> We're currently undergoing maintenance...</h2>
-        <span id="ConstructionHeaderIcon" class="material-symbols-rounded"> Construction </span>
-        <div>
-            <p style="color: rgb(172, 255, 155); margin-bottom: 5px;"> We'll be right back! </p>
-            <p id="HopefulReturnText"> Hopefully &#128517; </p>
+        <div id="ConstructionInfo">
+            <h2 id="ConstructionHeading1"> We're currently <br> undergoing maintenance</h2>
+            <span id="ConstructionHeaderIcon" class="material-symbols-rounded"> Construction </span>
+            <div style="width: 100%;">
+                <p style="color: rgb(172, 255, 155); font-style: italic;"> We'll be right back! </p>
+                <p id="HopefulReturnText"> Hopefully &#128517; </p>
+            </div>
         </div>
-    </div>
+
+        <script>
+            const Heading1 = document.getElementById('ConstructionHeading1');
+            let TypingStage = 0;
+
+            let ConstructionTypingInterval = setInterval(() => {
+                
+                if(TypingStage == 0){
+                    Heading1.innerHTML = "We're currently <br> undergoing maintenance.";
+                    TypingStage = 1;
+                    return
+                }
+
+                if(TypingStage == 1){
+                    Heading1.innerHTML = "We're currently <br> undergoing maintenance..";
+                    TypingStage = 2;
+                    return
+                }
+
+                if(TypingStage == 2){
+                    Heading1.innerHTML = "We're currently <br> undergoing maintenance...";
+                    TypingStage = 3;
+                    return
+                }
+
+                if(TypingStage == 3){
+                    Heading1.innerHTML = "We're currently <br> undergoing maintenance";
+                    TypingStage = 0;
+                    return
+                }
+
+            }, 700);
+
+            clearInterval(ConstructionTypingInterval); // <-- Disabled ATM for asthetics
+
+        </script>
 
     </div>
 

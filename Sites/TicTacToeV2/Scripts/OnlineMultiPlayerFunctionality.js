@@ -48,6 +48,7 @@ const OnlinePlr2Color = '#a73acc';
 let Online_GameEnded = false;
 let Online_GameLocked = true; // <-- Start Locked (only unlock for this clients turn)
 let GameEndedDisplayed = false;
+let GameEndVotingNow = false;
 
 // Debugging:
 let DebugGeneral = false;
@@ -263,6 +264,43 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
                 OnlinePlr1_PlayAgainVote = null;
             }
         }
+
+        // Start Voting on VoteEndTime Update:
+        if(ThisGameData.EndVoteTime != 'null' && Online_GameEnded && !GameEndVotingNow){
+            console.info('Voting Times Found! | Starting Voting!');
+            GameEndVotingNow = true;
+
+            // Start Vote Timer:
+            setTimeout(() => { WaitForVotesTimer() }, 1000)
+            
+
+            // Show Continue Playing Decision:
+            setTimeout(() => {
+
+                // Clear Game Table:
+                AllOnlineMultiPlayerTblCells.forEach((cell) => {
+                    cell.innerText = '';
+                    cell.classList.remove('CellTaken');
+                    cell.classList.remove('WinningCell');
+                    cell.classList.add('GameTblCell');
+                    cell.style.background = '';
+                })
+
+
+                // Show Question Wrap:
+                OnlineMultiPlayerGameStatusWrap.style.display = 'flex';
+                RestartGameQuestionWrap.style.display = 'flex';
+                OpponentLeftGameMsgWrap.style.display = 'none';
+                OnlineMultiPlayerGameStatusWrap.classList.add('HiddenOpacity');
+
+                setTimeout(() => {
+                    OnlineMultiPlayerGameStatusWrap.classList.remove('HiddenOpacity'); 
+                    OnlineMultiPlayerGameStatusWrap.classList.add('ShownOpacity');
+                }, 650)
+
+            }, 500);
+
+        }
         
         // Check for Game Canceled:
         if(ThisGameData.GameCanceled === true && !GameEndedDisplayed){
@@ -360,7 +398,8 @@ function OnlineMultiPlayerSelectCell(Cell) {
                     'Players.Player1.PlayerCellsCollected' : OnlinePlr1_CellsCollected,
                     'Players.Player1.LastCellSelected' : CellNumber,
                     CurrentPlayersTurn : 2,
-                    LastMoveTime : new Date()
+                    LastMoveTime : new Date(),
+                    'EndVoteTime' : 'null'
                 }).then(() => {
                     if(DebugFirebase) {console.info('Player Pieces Updated in Database!');}
                 }).catch((error) => {
@@ -376,7 +415,8 @@ function OnlineMultiPlayerSelectCell(Cell) {
                     'Players.Player2.PlayerCellsCollected' : OnlinePlr2_CellsCollected,
                     'Players.Player2.LastCellSelected' : CellNumber,
                     CurrentPlayersTurn : 1,
-                    LastMoveTime : new Date()
+                    LastMoveTime : new Date(),
+                    'EndVoteTime' : 'null'
                 }).then(() => {
                     if(DebugFirebase) {console.info('Player Pieces Updated in Database!');}
                 }).catch((error) => {
@@ -504,11 +544,8 @@ function OnlineMultiPlayerGameEnd(){
         OnlinePlr1_StartedFirst = true;
     }
 
-    // Get Voting Times:
-    let CurrentTime = new Date();
-    let EndVoteTimeUTC = new Date(CurrentTime.getTime() + (TimeForVoting * 1000));
-    if(DebugGeneral) {console.log('Current Time: ', CurrentTime.toUTCString());};
-    if(DebugGeneral) {console.log('End Vote Time: ', EndVoteTimeUTC.toUTCString());};
+    // Get Vote End Time:
+    GetVoteEndTime();
 
     // Update Database:
     db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
@@ -519,43 +556,12 @@ function OnlineMultiPlayerGameEnd(){
         'Players.Player2.PlayAgainVote' : false,
         'Players.Player2.LastCellSelected' : 0,
         'CurrentPlayersTurn' : NextPlayerStartFirst,
-        'EndVoteTime' : EndVoteTimeUTC
     }).then(() => {
         if(DebugFirebase) {console.log('Reset Database for Next Game!');}
     }).catch((error) => {
         console.warn('Error for Reset Database for Next Game!');
         console.log(error);
     })
-
-    // Start Vote Timer:
-    setTimeout(() => { WaitForVotesTimer() }, 1000)
-    
-
-    // Show Continue Playing Decision:
-    setTimeout(() => {
-
-        // Clear Game Table:
-        AllOnlineMultiPlayerTblCells.forEach((cell) => {
-            cell.innerText = '';
-            cell.classList.remove('CellTaken');
-            cell.classList.remove('WinningCell');
-            cell.classList.add('GameTblCell');
-            cell.style.background = '';
-        })
-
-
-        // Show Question Wrap:
-        OnlineMultiPlayerGameStatusWrap.style.display = 'flex';
-        RestartGameQuestionWrap.style.display = 'flex';
-        OpponentLeftGameMsgWrap.style.display = 'none';
-        OnlineMultiPlayerGameStatusWrap.classList.add('HiddenOpacity');
-
-        setTimeout(() => {
-            OnlineMultiPlayerGameStatusWrap.classList.remove('HiddenOpacity'); 
-            OnlineMultiPlayerGameStatusWrap.classList.add('ShownOpacity');
-        }, 650)
-
-    }, 500);
 }
 
 // Vote to Play Again Function:
@@ -654,6 +660,26 @@ function OnlinePlayAgainVoteNo(){
     }
 }
 
+// Assign Vote End Time:
+function GetVoteEndTime(){
+
+    // Get Times:
+    let CurrentTime = new Date();
+    let EndVoteTimeUTC = new Date(CurrentTime.getTime() + (TimeForVoting * 1000));
+    if(DebugGeneral) {console.log('Current Time: ', CurrentTime.toUTCString());};
+    if(DebugGeneral) {console.log('End Vote Time: ', EndVoteTimeUTC.toUTCString());};
+
+    db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
+        'EndVoteTime' : EndVoteTimeUTC
+    }).then(() => {
+        if(DebugFirebase) {console.log('Voting End Time Updated!');}
+    }).catch((error) => {
+        console.warn('Error for Reset Database for Next Game!');
+        console.log(error);
+    })
+
+}
+
 // Timer for Play Again Vote
 function WaitForVotesTimer(){
     // Reset Time Left Color:
@@ -735,6 +761,7 @@ function CheckFinalVotes(){
     let Player2Vote = ThisGameData.Players.Player2.PlayAgainVote;
     if(DebugGeneral){console.log('Player 1 Vote:', Player1Vote);};
     if(DebugGeneral){console.log('Player 2 Vote:', Player2Vote);};
+    GameEndVotingNow = false;
 
     if(Player1Vote === false || Player2Vote === false){
         console.warn('Game Canceled!');

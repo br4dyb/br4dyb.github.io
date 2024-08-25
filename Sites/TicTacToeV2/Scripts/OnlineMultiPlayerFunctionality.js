@@ -797,47 +797,49 @@ function CheckFinalVotes(){
         console.info('Game will Continue!');
         GameEndedDisplayed = false;
         // Hide Voting Wrap:
-        OnlineMultiPlayerGameStatusWrap.style.display = 'flex';
-        RestartGameQuestionWrap.style.display = 'none';
-        OpponentLeftGameMsgWrap.style.display = 'none';
-
         setTimeout(() => {
-            OnlineMultiPlayerGameStatusWrap.classList.remove('ShownOpacity'); 
-            OnlineMultiPlayerGameStatusWrap.classList.add('HiddenOpacity');
+            OnlineMultiPlayerGameStatusWrap.style.display = 'flex';
+            RestartGameQuestionWrap.style.display = 'none';
+            OpponentLeftGameMsgWrap.style.display = 'none';
+    
             setTimeout(() => {
-
-                // Reset Player Votes in Database:
-                db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
-                    'Players.Player1.PlayAgainVote' : false,
-                    'Players.Player2.PlayAgainVote' : false,
-                    'EndVoteTime' : 'null'
-                }).then(() => {
-                    // Success
-                }).catch((error) => {
-                    console.warn('An Error Occured When Resseting Player Votes!')
-                    console.log(error)
-                })
-
-                // Unlock for Client Players Turn:
-                Online_GameEnded = false;
-                OnlineCurrentPlayerTurn = ThisGameData.CurrentPlayersTurn;
-                if(ThisClientPlayerNumber === ThisGameData.CurrentPlayersTurn){
-                    Online_GameLocked = false;
-                }
-                // Fully Hide Voting Wrap:
-                OnlineMultiPlayerGameStatusWrap.style.display = 'none';
-
-                // Update Players Turn Style in Scoreboard:
-                if(ThisGameData.CurrentPlayersTurn === 1){
-                    OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
-                    OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
-                }
-                if(ThisGameData.CurrentPlayersTurn === 2){
-                    OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff00';
-                    OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff';
-                }
-            }, 650);
-            
-        }, 650)
+                OnlineMultiPlayerGameStatusWrap.classList.remove('ShownOpacity'); 
+                OnlineMultiPlayerGameStatusWrap.classList.add('HiddenOpacity');
+                setTimeout(() => {
+    
+                    // Reset Player Votes in Database:
+                    db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
+                        'Players.Player1.PlayAgainVote' : false,
+                        'Players.Player2.PlayAgainVote' : false,
+                        'EndVoteTime' : 'null'
+                    }).then(() => {
+                        // Success
+                    }).catch((error) => {
+                        console.warn('An Error Occured When Resseting Player Votes!')
+                        console.log(error)
+                    })
+    
+                    // Unlock for Client Players Turn:
+                    Online_GameEnded = false;
+                    OnlineCurrentPlayerTurn = ThisGameData.CurrentPlayersTurn;
+                    if(ThisClientPlayerNumber === ThisGameData.CurrentPlayersTurn){
+                        Online_GameLocked = false;
+                    }
+                    // Fully Hide Voting Wrap:
+                    OnlineMultiPlayerGameStatusWrap.style.display = 'none';
+    
+                    // Update Players Turn Style in Scoreboard:
+                    if(ThisGameData.CurrentPlayersTurn === 1){
+                        OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
+                        OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
+                    }
+                    if(ThisGameData.CurrentPlayersTurn === 2){
+                        OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff00';
+                        OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff';
+                    }
+                }, 650);
+                
+            }, 650)
+        }, 1200);
     }
 }

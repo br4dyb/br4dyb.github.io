@@ -55,13 +55,6 @@ let GameEndVotingNow = false;
 let DebugGeneral = true;
 let DebugFirebase = false;
 
-// FUTURE FIX:
-// ## Start vote timer from snapshot function... to prevent inacture vote time snapshot from starting:
-// preventing the voting time from ending before it even started...
-// REMOVE VOTESTART from GameEnd() function
-// Inside snapshot function check if it is null / assign it as null on game start!
-// Maybe only have plr 1 send db update for vote time?
-
 // Add Player 1's Turn Style to Start: (first game only)
 OnlinePlayer1NameWrap.style.border = '2.5px solid #3ba3ff';
 OnlinePlayer2NameWrap.style.border = '2.5px solid #3ba3ff00';
@@ -224,7 +217,7 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
             OnlineMultiPlayerCheckWinner();
         }
 
-        // Check for Play Again Votes:
+        // Assign Play Again Votes:
         let OnlinePlr1PlayAgainVote = ThisGameData.Players.Player1.PlayAgainVote;
         let OnlinePlr2PlayAgainVote = ThisGameData.Players.Player2.PlayAgainVote;
 

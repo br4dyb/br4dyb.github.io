@@ -450,10 +450,22 @@
         }
     }
 
+    // Check for Enter Key Pressed on Name Imput:
+    function EnterKeyPressed(event) {
+        // console.log('Key Down Function!', event)
+        if (event.keyCode === 13 || event.key === 'Enter') {
+            SubmitName();
+        }
+    }
+
     function JoinExistingOnlineGame(JoiningID){
         WaitingForPlayer = false;
         NewGameID = JoiningID;
         console.info('GameID: ', NewGameID);
+
+        // Add Enter Key Event for Name Input:
+        document.addEventListener('keydown', EnterKeyPressed);
+
         // Hide Game List & Show Name Input Wrap:
             AvialableOnlineGamesWrap.classList.add('HiddenOpacity');
             EnterNameWrap.classList.add('HiddenOpacity');
@@ -481,7 +493,9 @@
             AvialableOnlineGamesWrap.classList.add('HiddenOpacity');
             EnterNameWrap.classList.add('HiddenOpacity');
             EnterNameWrap.style.display = 'flex';
-            
+
+        // Add Enter Key Event for Name Input:
+            document.addEventListener('keydown', EnterKeyPressed);
 
             setTimeout(() => {
                 AvialableOnlineGamesWrap.style.display = 'none';
@@ -518,7 +532,9 @@
         if(NameSubmitted === ''){
             NameSubmitted = 'Anonymous'
         }
-        //console.log('Name Submitted: ' + NameSubmitted)
+
+        console.log('Name Submitted: ' + NameSubmitted)
+        document.removeEventListener('keydown', EnterKeyPressed);
 
         // If creating new game:
         if(WaitingForPlayer){

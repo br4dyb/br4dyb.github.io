@@ -314,16 +314,20 @@ function InitializeOnlineMultiplayer(PlayerNumber, PlayerName){
             Online_GameCanceled = true;
             clearInterval(WaitForVotesInterval);
 
-            // Show Notification Wrap:
-            OnlineMultiPlayerGameStatusWrap.style.display = 'flex';
-            RestartGameQuestionWrap.style.display = 'none';
-            OpponentLeftGameMsgWrap.style.display = 'flex';
-            // OnlineMultiPlayerGameStatusWrap.classList.add('HiddenOpacity');
-
             setTimeout(() => {
-                OnlineMultiPlayerGameStatusWrap.classList.remove('HiddenOpacity'); 
-                OnlineMultiPlayerGameStatusWrap.classList.add('ShownOpacity');
-            }, 650)
+                // Show Notification Wrap:
+                OnlineMultiPlayerGameStatusWrap.style.display = 'flex';
+                RestartGameQuestionWrap.style.display = 'none';
+                OpponentLeftGameMsgWrap.style.display = 'flex';
+                // OnlineMultiPlayerGameStatusWrap.classList.add('HiddenOpacity');
+
+                setTimeout(() => {
+                    OnlineMultiPlayerGameStatusWrap.classList.remove('HiddenOpacity'); 
+                    OnlineMultiPlayerGameStatusWrap.classList.add('ShownOpacity');
+                }, 650)
+            }, 2500);
+
+            
         }
 
         // End Voting Early if Both Players Voted Yes:

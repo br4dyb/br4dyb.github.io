@@ -792,12 +792,14 @@ function CheckFinalVotes(){
         // Hide Voting Wrap:
         setTimeout(() => {
             OnlineMultiPlayerGameStatusWrap.style.display = 'flex';
-            RestartGameQuestionWrap.style.display = 'none';
-            OpponentLeftGameMsgWrap.style.display = 'none';
+            // RestartGameQuestionWrap.style.display = 'none';
+            // OpponentLeftGameMsgWrap.style.display = 'none';
     
             setTimeout(() => {
                 OnlineMultiPlayerGameStatusWrap.classList.remove('ShownOpacity'); 
                 OnlineMultiPlayerGameStatusWrap.classList.add('HiddenOpacity');
+                RestartGameQuestionWrap.style.display = 'none';
+                OpponentLeftGameMsgWrap.style.display = 'none';
                 setTimeout(() => {
     
                     // Reset Player Votes in Database:

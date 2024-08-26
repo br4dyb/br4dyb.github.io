@@ -246,14 +246,14 @@
         <div id="OnlineGameStatusUpdateWrap">
             <div id="OpponentLeftGameMsgWrap">
                 <h1> This Game Has Ended...</h1>
-                <p> The other player may have left or voted to end the game. </p>
+                <p> A Player may have left or voted to end the game. </p>
                 <button onclick="location.reload()" id="OnlinePlayerLeftBackButton" class="GameStatusButtons"> Go Back </button>
             </div>
 
             <div id="RestartGameQuestionWrap">
                 <h1> Would you like to play again?</h1>
                 <div> <button onclick="OnlinePlayAgainVoteYes()" id="OnlineGameAgainVoteYes" class="GameStatusButtons OnlineGameAgainVoteYes"> Yes </button> <button onclick="OnlinePlayAgainVoteNo()" id="OnlineGameAgainVoteNo" class="GameStatusButtons OnlineGameAgainVoteNo"> No </button> </div>
-                <p style="display: flex; justify-content: center; align-items: center; text-align: center;"> Other Player's Vote: <span id="OnlineOpponentPlayAgainVoteIcon" class="material-symbols-rounded defaultCursor"> circle </span> </p>
+                <p style="display: flex; justify-content: center; align-items: center; text-align: center;"> Other Player's Vote: <span id="OnlineOpponentPlayAgainVoteIcon" class="material-symbols-rounded defaultCursor"> Help </span> </p>
                 <p id="OnlinePlayAgainVoteTimeText"> Time Left: 30(s)</p>
                 <div id="VotingTimeProgressBarWhole"> <div id="VotingTimeProgressBarProgress"> </div> </div>
             </div>

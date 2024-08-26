@@ -553,10 +553,10 @@ function OnlineMultiPlayerGameEnd(){
     // Update Database:
     db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
         'Players.Player1.PlayerCellsCollected' : [],
-        'Players.Player1.PlayAgainVote' : false,
+        'Players.Player1.PlayAgainVote' : null,
         'Players.Player1.LastCellSelected' : 0,
         'Players.Player2.PlayerCellsCollected' : [],
-        'Players.Player2.PlayAgainVote' : false,
+        'Players.Player2.PlayAgainVote' : null,
         'Players.Player2.LastCellSelected' : 0,
         'CurrentPlayersTurn' : NextPlayerStartFirst,
     }).then(() => {
@@ -659,10 +659,13 @@ function OnlinePlayAgainVoteNo(){
 
         OnlineGameAgainVoteYes.classList.remove('OnlineGameAgainVoteYes');
         OnlineGameAgainVoteNo.classList.remove('OnlineGameAgainVoteNo');
-
-        // Check Votes to Force End:
-        CheckFinalVotes();
     }
+
+    // Check Votes to Force End:
+    setTimeout(() => {
+        CheckFinalVotes();
+    }, 1500);
+   
 }
 
 // Assign Vote End Time:
@@ -697,34 +700,34 @@ function WaitForVotesTimer(){
         let VotingEndingTime = ThisGameData.EndVoteTime.toDate();
         let AvaialbleTime = Math.floor(VotingEndingTime - CurrentTime);
 
-    if(AvaialbleTime <= (TimeForVoting - 5)){ // <-- If Time Upload didn't work:
-        alert('Voting Time was NOT accuratly updated to database! Attempting to reassign!');
-        // Get New Voting Time:
-        // Get Voting Times:
-            let CurrentTime = new Date();
-            let EndVoteTimeUTC = new Date(CurrentTime.getTime() + (TimeForVoting * 1000));
-            if(DebugGeneral) {console.log('Current Time: ', CurrentTime.toUTCString());};
-            if(DebugGeneral) {console.log('End Vote Time: ', EndVoteTimeUTC.toUTCString());};
-        //RE-Upload to Database:
-        db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
-            'EndVoteTime' : EndVoteTimeUTC
-        }).then(() => {
-            console.warn('[Caught Error]: Reuploaded Vote End Time!');
-            // Re-Fire this func:
-            setTimeout(() => { WaitForVotesTimer(); }, 1000)
-        }).catch((error) => {
-            console.warn('Error occured when attempting to reupload Vote End Time!!');
-            console.log(error.code);
-            console.log(error);
-        })
+    // if(AvaialbleTime <= (TimeForVoting - 5)){ // <-- If Time Upload didn't work:
+    //     alert('Voting Time was NOT accuratly updated to database! Attempting to reassign!');
+    //     // Get New Voting Time:
+    //     // Get Voting Times:
+    //         let CurrentTime = new Date();
+    //         let EndVoteTimeUTC = new Date(CurrentTime.getTime() + (TimeForVoting * 1000));
+    //         if(DebugGeneral) {console.log('Current Time: ', CurrentTime.toUTCString());};
+    //         if(DebugGeneral) {console.log('End Vote Time: ', EndVoteTimeUTC.toUTCString());};
+    //     //RE-Upload to Database:
+    //     db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
+    //         'EndVoteTime' : EndVoteTimeUTC
+    //     }).then(() => {
+    //         console.warn('[Caught Error]: Reuploaded Vote End Time!');
+    //         // Re-Fire this func:
+    //         setTimeout(() => { WaitForVotesTimer(); }, 1000)
+    //     }).catch((error) => {
+    //         console.warn('Error occured when attempting to reupload Vote End Time!!');
+    //         console.log(error.code);
+    //         console.log(error);
+    //    })
 
-    } else { // <-- If Time Upload worked:
+    //} else { // <-- If Time Upload worked:
         // Countdown / Check Voting Time:
         WaitForVotesInterval = setInterval(() => {
             
             // Get Available Voting Time:
             let CurrentTime = new Date();
-            let VotingEndingTime = ThisGameData.EndVoteTime.toDate();
+            // let VotingEndingTime = ThisGameData.EndVoteTime.toDate();
             let AvaialbleTime = Math.floor(VotingEndingTime - CurrentTime);
             let AvaialbleTimeSecs = Math.floor(AvaialbleTime / 1000);
 
@@ -753,11 +756,12 @@ function WaitForVotesTimer(){
             if(OnlineVotingTime <= 0){
                 clearInterval(WaitForVotesInterval);
                 if(DebugGeneral) {console.log('Voting Time has Ended!');}
+                VotingTimeProgressBar.style.width = '0px';
                 CheckFinalVotes();
             }
 
         }, (1000));
-    }
+    //}
 
 }
 
@@ -770,13 +774,32 @@ function CheckFinalVotes(){
     if(DebugGeneral){console.log('Player 2 Vote:', Player2Vote);};
     GameEndVotingNow = false;
 
+    // A Player Voted No:
     if(Player1Vote === false || Player2Vote === false){
         console.warn('Game Canceled!');
 
         //Update Database:
         db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
             GameCanceled : true,
-            GameEnded : new Date()
+            GameEnded : new Date(),
+            'EndVoteTime' : 'null'
+        }).then(() => {
+            // Success
+        }).catch((error) => {
+            console.warn('An Error Occured When Canceling the Game!')
+            console.log(error)
+        })
+    }
+
+    // A Player Didn't Vote:
+    if(Player1Vote === null || Player2Vote === null){
+        console.warn('Game Canceled!');
+
+        //Update Database:
+        db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
+            GameCanceled : true,
+            GameEnded : new Date(),
+            'EndVoteTime' : 'null'
         }).then(() => {
             // Success
         }).catch((error) => {
@@ -804,8 +827,8 @@ function CheckFinalVotes(){
     
                     // Reset Player Votes in Database:
                     db.collection('TicTacToeGames').doc('AllGames').collection('StartedGames').doc(NewGameID).update({
-                        'Players.Player1.PlayAgainVote' : false,
-                        'Players.Player2.PlayAgainVote' : false,
+                        'Players.Player1.PlayAgainVote' : null,
+                        'Players.Player2.PlayAgainVote' : null,
                         'EndVoteTime' : 'null'
                     }).then(() => {
                         // Success

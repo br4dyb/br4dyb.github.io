@@ -212,6 +212,7 @@ nav ul{
     width: fit-content;
     padding: 20px;
     border-radius: 7px;
+    z-index: -1;
 }
 
 footer {

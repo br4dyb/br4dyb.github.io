@@ -1,0 +1,81 @@
+:root {
+    --BodyBackground :rgb(39, 39, 39);
+    /* --BodyBackground: linear-gradient(to bottom right, #69c3ff, #e96aff) ; */
+    /* --BodyBackground: linear-gradient(to bottom left, #f3b353, #f55c7a); */
+    --SecondaryBodyBackground :rgb(166, 164, 178);
+
+    --BoxShadow2px: 0px 0px 2px rgba(0, 0, 0, 0.8);
+    --BoxShadow3px: 0px 0px 3px black;
+
+    --DefaultBorderColor: rgb(255,255,255);
+    /* --DefaultBorderColor: rgb(0,0,0); */
+
+    --PinkPurpleGradient: linear-gradient(to bottom right, #df76ff, #9d53e8);
+
+}
+
+/* Small Screen Styles: */
+@media (max-width: 768px) {
+    
+}
+
+/* Large Screen Styles: */
+@media (min-width: 769px){
+  
+}
+
+*{
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Istok Web';
+    
+}
+
+a, a:hover, a:active, a:visited{
+    color: unset;
+    text-decoration: unset;
+}
+
+.material-symbols-rounded {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    justify-self: center;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    cursor: default;
+
+}
+
+.RowdiesFont{
+    font-weight: 300;
+    font-family: 'Passion One';
+    padding-top: 2px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+body{
+    color: black;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    min-height: 100vh;
+    /*height: 100vh;
+    overflow: hidden;*/
+}
+
+header{
+    background: var(--SecondaryBodyBackground);
+    width: 100%;
+    padding: 8px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

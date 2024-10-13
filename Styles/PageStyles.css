@@ -94,7 +94,7 @@ ul, li {
     transform: translateX(-15px);
 }
 
-#contact-form input, textarea{
+#contact-form input{
     background: rgb(55, 55, 55);
     border: 1px solid white;
     padding: 8px;
@@ -103,7 +103,7 @@ ul, li {
     text-align: left;
     color: white;
 
-    width: 75%;
+    max-width: 75%;
 
     display: flex;
     /* transform: translateX(12%) */
@@ -111,10 +111,19 @@ ul, li {
 }
 
 #contactForm-message{
+    display: flex;
+    background: rgb(55, 55, 55);
+    border: 1px solid white;
+    padding: 8px;
+    margin: 10px 0px;
+    border-radius: 5px;
+    text-align: left;
+    color: white;
     overflow: auto;
     resize: both;
-    /* resize: none; */
+    position: relative;
     min-height: 100px;
+    min-width: 60%;
     max-width: 95%;
 }
 

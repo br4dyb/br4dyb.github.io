@@ -73,13 +73,12 @@ ul, li {
     border-radius: 8px;
     border: 2px solid white;
 
-    /* display: flex; */
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    scale: 1.15;
-    width: 255px;
+    width: 40%;
 }
 
 #contact-form label{
@@ -91,6 +90,8 @@ ul, li {
     width: fit-content;
     display: block;
     margin-left: 10px;
+    align-self: flex-start;
+    transform: translateX(-15px);
 }
 
 #contact-form input, textarea{
@@ -102,18 +103,19 @@ ul, li {
     text-align: left;
     color: white;
 
-    width: fit-content;
+    width: 75%;
 
     display: flex;
-    transform: translateX(12%)
+    /* transform: translateX(12%) */
 
 }
 
 #contactForm-message{
     overflow: auto;
-    resize: vertical;
+    resize: both;
     /* resize: none; */
-    min-height: 50px;
+    min-height: 100px;
+    max-width: 95%;
 }
 
 #ContactSubmit {

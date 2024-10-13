@@ -1,0 +1,132 @@
+:root{
+    --LightBodyBackground : rgb(220, 220, 220);
+    --DarkBodyBackground : #1b1b1b;
+    --BodyTextColor : white;
+    /* --HeaderFooterBackground : #a047d4; */
+    --HeaderFooterBackground : #47d484;
+}
+
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.material-symbols-rounded{
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    cursor: default;
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 0.3);
+}
+
+.text-shadow-light{
+    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 0.5);
+}
+
+.cursor_Pointer{
+    cursor: pointer !important;
+}
+
+.cursor_Default{
+    cursor: default !important;
+}
+
+body{
+    background: var(--DarkBodyBackground);
+    height: 100%;
+    width: 100%;
+    color: var(--BodyTextColor);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font-family: 'Kanit';
+    position: absolute;
+}
+
+header{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    flex-wrap: wrap;
+    padding: 5px;
+    background: burlywood;
+}
+
+#MenuButton{
+    background: rgb(78, 78, 78);
+    padding: 2px;
+    border-radius: 6px;
+    transition: .33s;
+    /* animation: MenuClick 1.5s ease 0s both; */
+}
+
+#MenuButton:hover{
+    /* background: #3366dd; */
+    background: #e22a49;
+    box-shadow: 0px 0px 4px black;
+    scale: 1.05;
+    padding: 2px;
+    border-radius: 6px;
+}
+
+#FullBodyArea{
+    /* background: blue; */
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+#FullNavArea{
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    position: absolute;
+    left: 0;
+    transition: .33s;
+}
+
+#NavRemainingSpace{
+    background: black;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex: 1;
+    position: absolute;
+    left: 0;
+    transition: .33s;
+}
+
+#NavMenu{
+    background: #e22a49;
+    width: 250px;
+    height: 100%;
+    z-index: 6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    position: absolute;
+    left: -250px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    transition: .33s;
+}
+

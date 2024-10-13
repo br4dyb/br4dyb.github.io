@@ -1,0 +1,19 @@
+@keyframes MenuClick {
+    1%{
+        scale: 1.2;
+    }
+
+    35%{
+        scale: 1;
+    }
+
+    50%{
+        scale: 0;
+    }
+    70%{
+        opacity: 0;
+    }
+    99%{
+        opacity: 0;
+    }
+}

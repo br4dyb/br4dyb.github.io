@@ -1,131 +1,173 @@
-const ShouldDebug = false //Set this to true for Debug statements in console!
+// Variables:
+const Rock_Button = document.getElementById('Rock_Button');
+const Paper_Button = document.getElementById('Paper_Button');
+const Scissors_Button = document.getElementById('Scissors_Button');
+const ComputersHandImg = document.getElementById('Computer_Hand');
+const WinnerMsgTxt = document.getElementById('WinnerMsg');
+const PlayerScoreTxt = document.getElementById('PlayerScoreTxt');
+const ComputerScoreTxt = document.getElementById('ComputerScoreTxt');
 
-const RockBtn = document.getElementById('SelRock');
-const PaperBtn = document.getElementById('SelPaper');
-const ScissorsBtn = document.getElementById('SelScissors');
-const SelectionButtons = [RockBtn, PaperBtn, ScissorsBtn];
+let PlayerScore = 0;
+let ComputerScore = 0;
 
-let UserScore = 0
-let ComputerScore = 0
+let PlayerHandBusy = false;
+let PlayerHand;
+let ComputerHand;
 
-function showNotification(TitleCont, TextCont, NotifTimeMS, IconColor, IconHtml) {
-    Swal.fire({
-        // icon: 'info',
-        iconHtml: IconHtml,
-        iconColor: IconColor,
-        title: TitleCont,
-        text: TextCont,
-        padding: '10px',
-        toast: 'false',
-        color: 'white',
-        background: 'grey',
-        position: 'bottom-end',
-        timer: NotifTimeMS,
-        timerProgressBar: 'true',
-        showConfirmButton: false,
-        showCancelButton: false,
-        confirmButtonText: 'Close',
-    });
-}
+const Debug = true;
 
-SelectionButtons.forEach(element => {
-	element.addEventListener("click", function(event) {
-        SelUserChoice(event.target.textContent);
-    });
-});
+// Choose Hand Function:
+function ChooseHand(elm){
 
-function SelUserChoice(UserChoice) {
-    document.getElementById('PlayerChoice').textContent = UserChoice;
+    //Check for Busy Hand:
+    if(!PlayerHandBusy){
 
-    // Get Computer's Choice:
-    GetComputerChoice(UserChoice);
-}
+        PlayerHandBusy = true;
 
-function GetComputerChoice(UserChoice) {
-    let NumChoice = Math.floor(Math.random() * 3) + 1;
-    let ComputerChoice = "null";
-
-    if (NumChoice === 1) {
-		ComputerChoice = "Rock";
-		document.getElementById('ComputerChoice').textContent = ComputerChoice;
-		
-	} else if (NumChoice === 2) {
-		ComputerChoice = "Paper"
-		document.getElementById('ComputerChoice').textContent = ComputerChoice;
-
-	} else if (NumChoice === 3) {
-		ComputerChoice = "Scissors"
-		document.getElementById('ComputerChoice').textContent = ComputerChoice;
-	}
-
-	// Compute Winner:
-	ComputeWinner(UserChoice, ComputerChoice);
-}
-
-function ComputeWinner(UserChoice, ComputerChoice) {
-    var ThisGameResult = "?";
-
-    // Trim whitespace and convert to lowercase for comparison
-    UserChoice = UserChoice.trim().toLowerCase();
-    ComputerChoice = ComputerChoice.trim().toLowerCase();
-
-    // Debugging:
-        if(ShouldDebug) {
-            console.log("Compute Winner Func Ran!");
-            console.log("UserChoice Passed = " + UserChoice);
-            console.log("ComputerChoice Passed = " + ComputerChoice);
+        //Get Player Hand:
+        function GetPlrHand(){
+            if(elm.id == "Rock_Button"){ return "Rock"};
+            if(elm.id == "Paper_Button"){ return "Paper"};
+            if(elm.id == "Scissors_Button"){ return "Scissors"};
         }
 
-    if(UserChoice === "rock" && ComputerChoice === "paper") {
-        ThisGameResult = "You Lose!";
-    } else if(UserChoice === "rock" && ComputerChoice === "scissors") {
-        ThisGameResult = "You Win!";
-    } else if(UserChoice === "paper" && ComputerChoice === "rock") {
-        ThisGameResult = "You Win!";
-    } else if(UserChoice === "paper" && ComputerChoice === "scissors") {
-        ThisGameResult = "You Lose!";
-    } else if(UserChoice === "scissors" && ComputerChoice === "rock") {
-        ThisGameResult = "You Lose!";
-    } else if(UserChoice === "scissors" && ComputerChoice === "paper") {
-        ThisGameResult = "You Win!";
-    } else if(UserChoice === ComputerChoice) {
-        ThisGameResult = "It's a Draw!";
-    } else {
-        console.warn("The if statements found no winner?!");
+        if(Debug){console.log('Player is: ',GetPlrHand())};
+        PlayerHand = GetPlrHand();
+
+        //Apply Styles:
+        Rock_Button.classList.remove('HandButton');
+        Paper_Button.classList.remove('HandButton');
+        Scissors_Button.classList.remove('HandButton');
+        let PlrHandButtonToStyle = document.getElementById(`${PlayerHand}_Button`);
+        PlrHandButtonToStyle.style.boxShadow = "0px 0px 15px #ddff64";
+
+        //Get Computer Hand:
+            ComputersHandImg.style.animation = 'ComputerHandLoading 2s infinite forwards, handButtonAnim .8s infinite forwards';
+            ComputersHandImg.src = "./Images/rock_emoji.png";
+            setTimeout(() => {
+                ComputersHandImg.src = "./Images/paper_emoji.png";
+            }, 500);
+            setTimeout(() => {
+                ComputersHandImg.src = "./Images/scissors_emoji.png";
+            }, 1000);
+
+            let ComputerRandChoice = Math.floor(Math.random()*3)
+            console.log(ComputerRandChoice) 
+
+            // Wait for Choosing Anim and Show Computer Hand:
+           setTimeout(() => {
+            ComputersHandImg.style.animation = 'unset';
+
+            // Apply Image:
+            if(ComputerRandChoice == 0){
+                ComputerHand = "Rock";
+                ComputersHandImg.src = "./Images/rock_emoji.png";
+                ComputersHandImg.style.boxShadow = "0px 0px 15px #ddff64";
+            }
+            if(ComputerRandChoice == 1){
+                ComputerHand = "Paper";
+                ComputersHandImg.src = "./Images/paper_emoji.png";
+                ComputersHandImg.style.boxShadow = "0px 0px 15px #ddff64";
+            }
+            if(ComputerRandChoice == 2){
+                ComputerHand = "Scissors";
+                ComputersHandImg.src = "./Images/scissors_emoji.png";
+                ComputersHandImg.style.boxShadow = "0px 0px 15px #ddff64";
+            }
+
+            setTimeout(() => {
+                //Check Winner:
+                CheckWinner();
+            }, 350)
+
+
+           }, 1500);
+            
     }
 
-    if (ThisGameResult === "You Lose!") {
-        document.getElementById(`GameResult`).style.color = "red"
-        document.getElementById(`GameResult`).textContent = ThisGameResult
-        ComputerScore = ComputerScore += 1
-        showNotification("Computer got a Point!", null, 1000, 'red', '&#10060;')
-    } else if (ThisGameResult === "You Win!") {
-        document.getElementById(`GameResult`).style.color = "limegreen"
-        document.getElementById(`GameResult`).textContent = ThisGameResult
-        UserScore = UserScore += 1
-        showNotification("You got a Point!", null, 1000, 'yellowgreen', '&#127941;')
-    } else if (ThisGameResult === "It's a Draw!") {
-        document.getElementById(`GameResult`).style.color = "yellow"
-        document.getElementById(`GameResult`).textContent = ThisGameResult
-        UserScore = UserScore += 1
-        ComputerScore = ComputerScore += 1
-        showNotification("You Tied!", null, 1000, 'orange', '&#127941;')
-    }
-
-        console.log("User Score: " + UserScore)
-        console.log("Computer Score: " + ComputerScore)
-        document.getElementById('UserScore').textContent = UserScore
-        document.getElementById('ComputerScore').textContent = ComputerScore
-    
-        if(UserScore > ComputerScore) {
-            document.getElementById('UserScore').style.color = "limegreen"
-            document.getElementById('ComputerScore').style.color = "red"
-        } else if(UserScore < ComputerScore) {
-            document.getElementById('UserScore').style.color = "red"
-            document.getElementById('ComputerScore').style.color = "limegreen"
-        } else if(UserScore === ComputerScore) {
-            document.getElementById('UserScore').style.color = "yellow"
-            document.getElementById('ComputerScore').style.color = "yellow"
-        }
 }
 
+// Check Winner Function:
+function CheckWinner(){
+    if(PlayerHand == "Rock" && ComputerHand == "Rock"){
+        //Draw
+        WinnerMsgTxt.innerText = "Draw Game!"
+        WinnerMsgTxt.style.color = "#ddff64"
+    }
+    if(PlayerHand == "Paper" && ComputerHand == "Paper"){
+        //Draw
+        WinnerMsgTxt.innerText = "Draw Game!"
+        WinnerMsgTxt.style.color = "#ddff64"
+    }
+    if(PlayerHand == "Scissors" && ComputerHand == "Scissors"){
+        //Draw
+        WinnerMsgTxt.innerText = "Draw Game!"
+        WinnerMsgTxt.style.color = "#ddff64"
+    }
+
+    if(PlayerHand == "Rock" && ComputerHand == "Scissors"){
+        //Player Won!
+        WinnerMsgTxt.innerText = "You Won!"
+        WinnerMsgTxt.style.color = "#47d484"
+        PlayerScore += 1;
+        PlayerScoreTxt.innerText = `You: ${PlayerScore}`;
+    }
+    if(PlayerHand == "Rock" && ComputerHand == "Paper"){
+        //Computer Won!
+        WinnerMsgTxt.innerText = "Computer Won!"
+        WinnerMsgTxt.style.color = "#d44747"
+        ComputerScore += 1;
+        ComputerScoreTxt.innerText = `You: ${ComputerScore}`;
+    }
+
+    if(PlayerHand == "Paper" && ComputerHand == "Scissors"){
+        //Computer Won!
+        WinnerMsgTxt.innerText = "Computer Won!"
+        WinnerMsgTxt.style.color = "#d44747"
+        ComputerScore += 1;
+        ComputerScoreTxt.innerText = `You: ${ComputerScore}`;
+    }
+    if(PlayerHand == "Paper" && ComputerHand == "Rock"){
+        //Player Won!
+        WinnerMsgTxt.innerText = "You Won!"
+        WinnerMsgTxt.style.color = "#47d484"
+        PlayerScore += 1;
+        PlayerScoreTxt.innerText = `You: ${PlayerScore}`;
+    }
+
+    if(PlayerHand == "Scissors" && ComputerHand == "Paper"){
+        //Player Won!
+        WinnerMsgTxt.innerText = "You Won!"
+        WinnerMsgTxt.style.color = "#47d484"
+        PlayerScore += 1;
+        PlayerScoreTxt.innerText = `You: ${PlayerScore}`;
+    }
+    if(PlayerHand == "Scissors" && ComputerHand == "Rock"){
+        //Computer Won!
+        WinnerMsgTxt.style.color = "#d44747"
+        WinnerMsgTxt.innerText = "Computer Won!"
+        ComputerScore += 1;
+        ComputerScoreTxt.innerText = `You: ${ComputerScore}`;
+    }
+
+    setTimeout(() => {
+        WinnerMsgTxt.style.opacity = 1;
+    }, 100)
+
+    setTimeout(() => {
+        ResetGame();
+        WinnerMsgTxt.style.opacity = 0;
+    }, 1350);
+}
+
+// Reset Game Function:
+function ResetGame(){
+    ComputersHandImg.style.boxShadow = 'unset';
+    Rock_Button.style.boxShadow = 'unset';
+    Paper_Button.style.boxShadow = 'unset';
+    Scissors_Button.style.boxShadow = 'unset';
+    Rock_Button.classList.add("HandButton");
+    Paper_Button.classList.add("HandButton");
+    Scissors_Button.classList.add("HandButton");
+    PlayerHandBusy = false
+}

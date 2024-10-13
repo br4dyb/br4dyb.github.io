@@ -1,19 +1,27 @@
 <!DOCTYPE html>
-<html> 
+<html lang="en">
 
-<head> 
+<head>
+    <!-- Site Title/Favicon: -->
+        <title>Rock Paper Scissors | V2</title>
+        <link rel="icon" href="./Images/favicon.ico">
 
-	<title> Rock Paper Scissors </title>
+    <!-- Linked StyleSheets: -->
+        <link rel="stylesheet" href="./Styles/Main.css">
+        <!-- <link rel="stylesheet" href="./Styles/Animations.css"> -->
+        <!-- <link rel="stylesheet" href="./Styles/Construction.css"> -->
 
-	<!-- SweetAlert2 Components: -->
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Google Fonts & Icons: -->
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kode+Mono:wght@400..700&family=Madimi+One&family=Rubik+Scribble&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+        </style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,200"/>
 
+    <!-- Meta Tags: -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Local StyleSheets: -->
-	<link rel="stylesheet" href="./Styles/Main.css">
-
-
-
+    <!-- Linked Scripts: -->
+        <!-- {Scripts Here} -->
 </head>
 
 <!-- Google tag (gtag.js) -->
@@ -26,105 +34,90 @@
   gtag('config', 'G-KE6ZQZED6H');
 </script>
 
-<body> 
 
-<main id= "FullBodyWrap"> 
+<body>
 
-<h1> Rock Paper Scissors | Game </h1>
+    <header>
+        <div class="HeaderSec1">
+            <span onclick="location.assign('/')" class="material-symbols-rounded HeaderButton" id="HomeButton" title="Homepage"> Widgets </span>
+        </div>
 
-<div id="ScoreBoardWrap">
+        <div class="HeaderSec2">
+           <h2 id="SiteTitle" class="text-shadow-light"> Rock Paper Scissors <p>V2</p> </h2>
+        </div>
+        
+        <div class="HeaderSec3">
+            <span class="material-symbols-rounded HeaderButton" id="SettingsButton" title="Game Settings"> Settings </span>
+        </div>
+    </header>
 
-		<h3 style="grid-column: 1 / 2;"> You: </h3>
-		<h4 style="grid-column: 2 / 3;"> VS </h4>
-		<h3 style="grid-column: 3 / 4;"> Computer: </h3>
+    <div id="FullBodyWrap">
 
+        <div id="MainGameArea">
 
+            <div id="PlayerHandArea">
+                <h2 style="display: flex; margin-bottom: 7px;"> Choose your Hand <p style="margin: -1px 0px 0px 2px;">:</p></h2>
 
-		<h3 id="UserScore"> 0 </h3>
-		<h4>  </h4>
-		<h3 id="ComputerScore"> 0 </h3>
+                <div id="HandButtonsWrap">
 
-</div>
+                    <img onclick="ChooseHand(this)" id="Rock_Button" class="HandButton cursor_Pointer" title="Rock" src="./Images/rock_emoji.png">
 
-<div id="UserChoiceButtonsWrap">
-	<h3> Select your Hand: </h3>
-	<div>
-		<button id="SelRock"> Rock </button>
-		<button id="SelPaper"> Paper </button>
-		<button id="SelScissors"> Scissors </button>
-	</div>
+                    <img onclick="ChooseHand(this)" id="Paper_Button" class="HandButton cursor_Pointer" title="Paper" src="./Images/paper_emoji.png">
 
-</div>
+                    <img onclick="ChooseHand(this)" id="Scissors_Button" class="HandButton cursor_Pointer" title="Scissors" src="./Images/scissors_emoji.png">
+                    
+                </div>
+            </div>
 
-<br>
+            <div id="ComputerHandArea">
+                <h2 style="display: flex; margin-bottom: 7px;"> Computer <p style="margin: -1px 0px 0px 2px;">:</p></h2>
 
-<div id="GameResultsWrap">
+                <div id="HandButtonsWrap">
 
-	<div id="HandsChoiceWrap">
-		<div id="PlayerChoiceWrap">
-			<p> <b> Your Choice: </b> </p>
-			<span id="PlayerChoice"> [] </span>
-		</div>
-		
-		<div id="ComputerChoiceWrap">
-			<p> <b> Computer's Choice: </b> </p>
-			<span id="ComputerChoice"> [] </span>
-		</div>
-	
-	</div>
+                    <img id="Computer_Hand" title="Computers Hand" src="">
 
-	<div id="GameResultWrap">
-		<p> Game Result: </p>
-		<span id="GameResult">  </span>
-	</div>
-	
+                </div>
+            </div>
 
+            <div id="ScoreboardArea">
 
+                <p id="WinnerMsg"> </p>
 
-</div>
+                <div id="ScoresWrap">
+                    <div id="PlayerScoreWrap">
+                        <p id="PlayerScoreTxt"> You: 0 </p>
+                    </div>
+    
+                    <div id="ComputerScoreWrap">
+                        <p id="ComputerScoreTxt"> Computer: 0 </p>
+                    </div>
+                </div>
+               
 
+            </div>
 
-<script src="./Scripts/GameFunctionality.js"> </script>
+            
+        </div>
 
+    </div>
 
+    <footer>
+        <div class="FooterSec1">
+            <p class="FooterLink" onclick="location.assign('/Pages/PrivacyPolicy.html')"> Privacy Policy </p>
+        </div>
 
-<script>
-
-
-window.onload = function() {
-	console.log("Window Loaded! | Testing Notification . . . ")
-	
-	function showNotification() {
-		Swal.fire({
-			iconHtml: '&starf;',
-			iconColor: 'white',
-			title: '<b><u>Welcome to Rock Paper Scissors:',
-			html: 'Select your hand to play the game!',
-			padding: '10px',
-			background: 'yellowgreen',
-			color: 'white',
-			toast: 'false',
-			position: 'bottom-end',
-			timer: '4500',
-			timerProgressBar: 'true',
-			showConfirmButton: false,
-			showCancelButton: false,
-			confirmButtonText: 'Close',
-		});
-	}
-	
-	showNotification()
-
-};
+        <div class="FooterSec2">
+            <p class="FooterLink" onclick="location.assign('https://github.com/br4dyb/br4dyb.github.io')"> Source Code </p>
+        </div>
+        
+        <div class="FooterSec3">
+            <p class="FooterLink" onclick="location.assign('/Pages/TermsAndConditions.html')"> Terms & Conditions </p>
+        </div>
+    </footer>
 
 
-</script>
-
-
-</main>
-
+    <!-- Script(s): -->
+     <script src="./Scripts/GameFunctionality.js"></script>
 
 </body>
-
-
 </html>

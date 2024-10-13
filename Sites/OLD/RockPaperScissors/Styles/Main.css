@@ -1,0 +1,99 @@
+body {
+    background: black;
+    color: white;
+}
+
+button { 
+    background: rgb(232, 164, 100); 
+    color: black; 
+    font-weight: 900; 
+    border-radius: 12px;
+}
+
+#FullBodyWrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#ScoreBoardWrap {
+    width: fit-content;
+    padding: 5px 20px 5px 5px;
+    display: grid;
+    border: 1px double rgb(40, 234, 255);
+    background: linear-gradient(to bottom right,purple, blue);
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+
+
+    border-radius: 15px;
+
+
+}
+
+#UserScore, #ComputerScore {
+    background: rgb(51, 51, 51);
+    box-shadow: 0px 0px 3px cyan;
+    border-radius: 4px;
+    width: fit-content;
+    padding: 7px;
+    margin-top: 0px;
+    justify-self: center;
+    align-self: center;
+}
+
+
+#ScoreBoardWrap h3, h4 {
+    display: block;
+    text-align: center;
+}
+
+#UserChoiceButtonsWrap {
+    /* background: rgb(63, 63, 63); */
+    background: linear-gradient(to bottom right,purple, blue);
+    width: fit-content;
+    padding: 0px 15px;
+    border-radius: 4px;
+    border: 1px double cyan;
+    padding-bottom: 20px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#GameResultsWrap {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 20px;
+    /* background: rgb(37, 37, 37); */
+}
+
+#HandsChoiceWrap {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: center;
+    margin-bottom: 10px;
+    padding-left: 20px;
+
+}
+
+#GameResultWrap {
+    border: 1px double rgb(40, 234, 255);
+    background: linear-gradient(to bottom right,purple, blue);
+    width: fit-content;
+    align-self: center;
+    margin-top: 35px;
+    padding: 0px 15px 15px 15px;
+    border-radius: 6px;
+    font-weight: bolder;
+}

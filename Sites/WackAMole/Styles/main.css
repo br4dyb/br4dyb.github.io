@@ -79,8 +79,10 @@ header{
 
 #FullBodyArea{
     /* background: blue; */
-    min-width: 100%;
+    width: 100%;
+    height: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     flex: 1;
@@ -128,5 +130,19 @@ header{
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
     transition: .33s;
+}
+
+#GameArea{
+    /* background: purple; */
+    width: 550px;
+    height: 550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#GrassBackground{
+    height: 100%;
+    width: 100%;
 }
 

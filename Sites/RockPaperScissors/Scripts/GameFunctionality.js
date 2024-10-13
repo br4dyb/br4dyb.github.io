@@ -117,7 +117,7 @@ function CheckWinner(){
         WinnerMsgTxt.innerText = "Computer Won!"
         WinnerMsgTxt.style.color = "#d44747"
         ComputerScore += 1;
-        ComputerScoreTxt.innerText = `You: ${ComputerScore}`;
+        ComputerScoreTxt.innerText = `Computer: ${ComputerScore}`;
     }
 
     if(PlayerHand == "Paper" && ComputerHand == "Scissors"){
@@ -125,7 +125,7 @@ function CheckWinner(){
         WinnerMsgTxt.innerText = "Computer Won!"
         WinnerMsgTxt.style.color = "#d44747"
         ComputerScore += 1;
-        ComputerScoreTxt.innerText = `You: ${ComputerScore}`;
+        ComputerScoreTxt.innerText = `Computer: ${ComputerScore}`;
     }
     if(PlayerHand == "Paper" && ComputerHand == "Rock"){
         //Player Won!
@@ -147,7 +147,7 @@ function CheckWinner(){
         WinnerMsgTxt.style.color = "#d44747"
         WinnerMsgTxt.innerText = "Computer Won!"
         ComputerScore += 1;
-        ComputerScoreTxt.innerText = `You: ${ComputerScore}`;
+        ComputerScoreTxt.innerText = `Computer: ${ComputerScore}`;
     }
 
     setTimeout(() => {

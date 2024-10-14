@@ -96,6 +96,7 @@ header{
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
@@ -148,8 +149,8 @@ header{
 
 #GameArea{
     /* background: purple; */
-    width: 550px;
-    height: 550px;
+    width: 450px;
+    height: 450px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -158,9 +159,10 @@ header{
 }
 
 #GrassBackground{
-    height: 550px;
-    width: 550px;
+    height: 100%;
+    width: 100%;
     cursor: url('../Images/Mallet.png') 16 16, auto;
+    position: relative;
 }
 
 .Clicking{
@@ -169,10 +171,38 @@ header{
 
 .Mole{
     position: absolute;
-    width: 55px;
-    height: 55px;
+    width: 55px !important;
+    height: 55px !important;
     cursor: url('../Images/Mallet.png') 16 16, auto;
-    /* background: #d4d447; */
 
+    /* bottom: 83%; << Max Top/Bottom */
+    /* left: 85%; << Max Left/Right */
+}
 
+#StrikesWrap{
+    background: #4b4a4a;
+    border-radius: 9px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+#StrikeCounter{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+#StrikesHeading{
+    font-size: 23px;
+    margin-bottom: 5px;
+}
+
+#Strike1Txt, #Strike2Txt, #Strike3Txt{
+    font-family: "Sixtyfour Convergence", serif;
+    opacity: .5;
 }

@@ -149,8 +149,8 @@ header{
 
 #GameArea{
     /* background: purple; */
-    width: 450px;
-    height: 450px;
+    width: 60%;
+
     display: flex;
     justify-content: center;
     align-items: center;

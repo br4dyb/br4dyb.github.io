@@ -1,4 +1,6 @@
 // Elements:
+const StartGameWrap = document.getElementById('StartGameWrap');
+const FullGameArea = document.getElementById('FullGameArea');
 const GameArea = document.getElementById('GameArea');
 const Strike1Txt = document.getElementById('Strike1Txt');
 const Strike2Txt = document.getElementById('Strike2Txt');
@@ -7,31 +9,136 @@ const InterMoleCole = '<img class="Mole" onclick="MoleSwing(this)" src="./Images
 
 // Variables:
 let GameRunning = false;
-let StrikeCount = 0;
+
+let SpawnRateTime = 2350; // (ms)
+let TimeToCapture = 1700; // (ms)
+let StrikeCount = 0; // 3 Max
+let MoleCount = 1 // Start at 1
 
 // Functions:
-let Debug_GameRun = true;
+let Debug_RunGame = true;
 
+// Show Game Area & RunGame():
 function StartGame(){
-    // Get Random Mole Placement:
-    let TopPos = Math.floor((Math.random()*84));
-    let RightPos = Math.floor((Math.random()*86));
+    // Hide StartGameWrap:
+    StartGameWrap.style.opacity = 0;
+    FullGameArea.style.display = 'flex';
+    // Wait for Animation:
+    setTimeout(() => {
+        StartGameWrap.style.display = 'none';
+        FullGameArea.style.opacity = 1;
+        GameRunning = true;
 
-    if(Debug_GameRun){console.info(
-        `Random Mole Placement:
-        TopPos: ${TopPos}
-        RightPos: ${RightPos}`)
+        // Wait for Animation & RunGame():
+        setTimeout(() => {
+            RunGame();
+        }, 650)   
+
+    }, 550)
+}
+
+// Begin Game Process:
+function RunGame(){
+
+    // Spawn Moles:
+    SpawnMole();
+    
+}
+
+// Spawn Mole:
+function SpawnMole(){
+    // Check for GameEnded:
+    if(GameRunning){
+        let NewMole = document.createElement('img');
+        // Get Random Mole Placement:
+        let TopPos = Math.floor((Math.random()*84));
+        let RightPos = Math.floor((Math.random()*86));
+        NewMole.classList.add('Mole')
+        NewMole.id = `Mole_${MoleCount}`
+        NewMole.src = './Images/Mole.png';
+        NewMole.draggable = false;
+        NewMole.style.top = TopPos+'%';
+        NewMole.style.right = RightPos+'%';
+        NewMole.style.opacity = 0;
+        GameArea.appendChild(NewMole)
+        NewMole.addEventListener('click', () => MoleSwing(NewMole));
+    
+        // Animate In:
+        setTimeout(() => { NewMole.style.opacity = 0.95}, 50)
+
+        // Set Capture Timer:
+        setTimeout(() => CheckForCapture(NewMole), TimeToCapture);
+        
+        // Decrease Spawn Wait:
+        if(SpawnRateTime > 400){
+            SpawnRateTime -= 3;
+        }else{ SpawnRateTime = 400}
+
+        // Schedule Next Spawn:
+        setTimeout(() => SpawnMole(), SpawnRateTime);
+        MoleCount += 1;
     }
+    
+}
 
-    // Spawn Mole:
-    let NewMole = document.createElement('img');
-    NewMole.classList.add('Mole')
-    NewMole.src = './Images/Mole.png';
-    NewMole.draggable = false;
-    NewMole.style.top = TopPos+'%';
-    NewMole.style.right = RightPos+'%';
-    NewMole.style.opacity = 0.95;
-    // NewMole.addEventListener('click', MoleSwing(this)); << Move this function to this file!
-    GameArea.appendChild(NewMole)
+// Check for Mole Capture:
+function CheckForCapture(MoleInQuestion){
+    if(GameRunning){
+        if(MoleInQuestion.classList.contains('Captured')){
+            // Mole was Captured!
+            if(Debug_RunGame){console.info(`${MoleInQuestion.id} was Captured!!`)};
+            MoleInQuestion.remove();
+        } else{
+            if(Debug_RunGame){console.warn(`${MoleInQuestion.id} was NOT Captured!!`)}
+            MoleInQuestion.classList.add('Escaped');
+            MoleInQuestion.style.animation = "MoleEscape 1.3s cubic-bezier(0.42, 0, 0.58, 1) 0s 1 forwards";
+            StrikeCount += 1;
+            if(StrikeCount == 1){
+                Strike1Txt.style.color = "red";
+                Strike1Txt.style.opacity = 1;
+                Strike1Txt.style.scale = 1.2;
+            }
+            if(StrikeCount == 2){
+                Strike2Txt.style.color = "red";
+                Strike2Txt.style.opacity = 1;
+                Strike2Txt.style.scale = 1.2;
+            }
+            if(StrikeCount == 3){
+                Strike3Txt.style.color = "red";
+                Strike3Txt.style.opacity = 1;
+                Strike3Txt.style.scale = 1.2;
+                // GAME OVER!
+                GameRunning = false;
+                setTimeout(() => {alert('Game has Ended! Too many moles escaped. . .')}, 750)
+            }
+        }
+    }
+    
+}
 
+// Background & Mole Hit:
+const GrassBackground = document.getElementById('GrassBackground');
+GrassBackground.addEventListener('mousedown', function() {
+    // Add the swinging class on mouse down (click)
+    GrassBackground.classList.add('Clicking');
+  
+    // Remove the swinging class after a short delay (to simulate swing)
+    setTimeout(function() {
+        GrassBackground.classList.remove('Clicking');
+    }, 200); // Adjust delay as needed to match the swing effect
+  });
+
+function MoleSwing(elm){
+    if(!elm.classList.contains('Escaped')){
+        elm.classList.add('Clicking');
+        elm.classList.add('Captured');
+        console.info('Mole Captured!')
+    
+        // Remove the swinging class after a short delay (to simulate swing)
+        setTimeout(function() {
+            elm.classList.remove('Clicking');
+            elm.style.animation = "MoleHit .3s cubic-bezier(0.42, 0, 0.58, 1) 0s 1 forwards";
+        }, 200); // Adjust delay a
+    }
+    
 }

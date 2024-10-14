@@ -47,7 +47,7 @@
         </div>
 
         <div id="HeaderSec2">
-            <h2 id="SiteTitle" class="cursor_Pointer" onclick="StartGame()"> WackAMole </h2>
+            <h2 id="SiteTitle" class="cursor_Pointer" onclick='location.reload()'> WackAMole </h2>
         </div>
 
         <div id="HeaderSec3">
@@ -68,25 +68,34 @@
 
     <main id="FullBodyArea">
 
-        <div id="GameArea">
-            <img id="GrassBackground" src="./Images/GrassBackground.png" draggable="false">
-            <!-- <img class="Mole" onclick="MoleSwing(this)" src="./Images/Mole.png" draggable="false"> -->
+        <div id="StartGameWrap">
+            <h1 style="font-size: 33px;"> Welcome ! </h1>
+            <h4 style="position: relative; bottom: 10px; left: 6px; font-size: 15px;"> to WackAMole . . .</h4>
+            <button id="StartGameButton" onclick="StartGame()"> Start Game </button>
         </div>
 
-        <div id="StrikesWrap">
-            <h2 id="StrikesHeading"> Strikes: </h2>
-            <div id="StrikeCounter">
-                <h2 id="Strike1Txt"> X </h2>
-                <h2 id="Strike2Txt"> X </h2>
-                <h2 id="Strike3Txt"> X </h2>
+        <div id="FullGameArea">
+            <div id="GameArea">
+                <img id="GrassBackground" src="./Images/GrassBackground.png" draggable="false">
+                <!-- <img class="Mole" onclick="MoleSwing(this)" src="./Images/Mole.png" draggable="false"> -->
+            </div>
+    
+            <div id="StrikesWrap">
+                <h2 id="StrikesHeading"> Strikes: </h2>
+                <div id="StrikeCounter">
+                    <h2 id="Strike1Txt"> X </h2>
+                    <h2 id="Strike2Txt"> X </h2>
+                    <h2 id="Strike3Txt"> X </h2>
+                </div>
             </div>
         </div>
+
+        
     </main>
 
 </body>
 
 <!-- Scripts: -->
 <script src="./Scripts/NavControl.js"> </script>
-<script src="./Scripts/MalletSwing.js"> </script>
 <script src="./Scripts/RunGame.js"> </script>
 </html>

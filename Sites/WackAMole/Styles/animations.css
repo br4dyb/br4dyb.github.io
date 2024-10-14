@@ -76,3 +76,24 @@
         display: none;
     }
 }
+
+@keyframes MoleEscape {
+
+    20%{
+        rotate: 10deg;
+    }
+    40%{
+        rotate: -10deg;
+    }
+    60%{
+        rotate: 0deg;
+    }
+    90%{
+        scale: 0;
+    }
+    100%{
+        scale: 0;
+        opacity: 0;
+        display: none;
+    }
+}

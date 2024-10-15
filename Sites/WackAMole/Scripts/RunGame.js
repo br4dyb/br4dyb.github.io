@@ -97,9 +97,10 @@ function CheckForCapture(MoleInQuestion){
             if(Debug_RunGame){console.info(`${MoleInQuestion.id} was Captured!!`)};
             MoleInQuestion.remove();
         } else{
+            // Mole has Escaped!
             if(Debug_RunGame){console.warn(`${MoleInQuestion.id} was NOT Captured!!`)}
             MoleInQuestion.classList.add('Escaped');
-            MoleInQuestion.style.animation = "MoleEscape 1.3s cubic-bezier(0.42, 0, 0.58, 1) 0s 1 forwards";
+            MoleInQuestion.style.animation = "MoleEscape .4s cubic-bezier(0.42, 0, 0.58, 1)forwards";
             StrikeCount += 1;
             if(StrikeCount == 1){
                 Strike1Txt.style.color = "red";
@@ -137,7 +138,7 @@ GrassBackground.addEventListener('mousedown', function() {
   });
 
 function MoleSwing(elm){
-    if(!elm.classList.contains('Escaped')){
+    if(!elm.classList.contains('Escaped') && !elm.classList.contains('Captured')){
         elm.classList.add('Clicking');
         elm.classList.add('Captured');
         CapturedMoleCount += 1;

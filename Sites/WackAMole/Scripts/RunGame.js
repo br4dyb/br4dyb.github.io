@@ -9,7 +9,7 @@ const CapturedCountTxt = document.getElementById('CapturedCountTxt');
 const GameVersionTxt = document.getElementById('GameVersionTxt');
 
 // Variables:
-let GameVersion = '1.1.2b'
+let GameVersion = '1.1.3c'
 let GameRunning = false;
 
 let SpawnRateTime = 1350; // (ms)

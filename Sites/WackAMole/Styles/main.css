@@ -6,6 +6,28 @@
     --HeaderFooterBackground : #47d484;
 }
 
+/* Smaller Screen Styles: */
+@media (max-width: 768px) {
+
+    #SiteTitle{
+        color: white;
+    }
+
+    #GameArea{
+        width: 90%;
+    }
+
+}
+
+/* Larger Screen Styles: */
+@media (min-width: 769px){
+
+    #GameArea{
+        width: 60%;
+    }
+
+}
+
 *{
     padding: 0px;
     margin: 0px;
@@ -199,7 +221,6 @@ header{
 
 #GameArea{
     /* background: purple; */
-    width: 60%;
     display: flex;
     justify-content: center;
     align-items: center;

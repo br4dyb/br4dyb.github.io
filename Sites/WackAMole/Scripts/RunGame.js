@@ -11,7 +11,7 @@ const InterMoleCole = '<img class="Mole" onclick="MoleSwing(this)" src="./Images
 let GameRunning = false;
 
 let SpawnRateTime = 1350; // (ms)
-let TimeToCapture = 1700; // (ms)
+let TimeToCapture = 2300; // (ms)
 let StrikeCount = 0; // 3 Max
 let MoleCount = 1 // Start at 1
 
@@ -71,8 +71,13 @@ function SpawnMole(){
         
         // Decrease Spawn Wait:
         if(SpawnRateTime > 400){
-            SpawnRateTime -= 7;
+            SpawnRateTime -= 10;
         }else{ SpawnRateTime = 400}
+
+        // Decrease Capture Time:
+        if(TimeToCapture > 1300){
+            TimeToCapture -= 10;
+        }else{ TimeToCapture = 400}
 
         // Schedule Next Spawn:
         setTimeout(() => SpawnMole(), SpawnRateTime);

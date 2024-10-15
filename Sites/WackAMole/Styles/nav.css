@@ -54,9 +54,11 @@
 
 #GamePausedTxt{
     display: none;
-    background: #cbb434;
+    opacity: 0;
+    background: #edd136ea;
     color: #202020;
-    padding: 2px 8px;
+    padding: 0px 8px;
+    margin-top: 3px;
     border-radius: 8px;
     transition: .33s;
 }
@@ -77,4 +79,57 @@
 .NavFooterLink:hover{
     text-decoration: underline;
     color: rgb(112, 201, 231);
+}
+
+#NavMainMenu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 13px;
+    width: 100%;
+}
+
+.NavMainLink{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #202020;
+    gap: 4px;
+    width: 75%;
+    padding: 8px 0px 8px 22px ;
+    font-size: 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: .33s;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px black;
+}
+
+.NavMainLink:hover{
+    background: #2a77e2;
+    width: 80%;
+}
+
+.NavLinkIcon{
+    position: absolute;
+    left: 5px;
+}
+
+#LightDarkModeButton:hover{
+    background: #7a2ae2;
+}
+
+#PrivacyPolicyButton:hover{
+    background: #cb9f1d;
+}
+
+#TermsAndConditionsButton{
+    font-size: 12px !important;
+    text-align: self-end;
+}
+#TermsAndConditionsButton:hover{
+    background: #e2672a;
 }

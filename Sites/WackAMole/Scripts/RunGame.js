@@ -6,11 +6,10 @@ const Strike1Txt = document.getElementById('Strike1Txt');
 const Strike2Txt = document.getElementById('Strike2Txt');
 const Strike3Txt = document.getElementById('Strike3Txt');
 const CapturedCountTxt = document.getElementById('CapturedCountTxt');
-const GameVersionTxt = document.getElementById('GameVersionTxt');
 
 // Variables:
-let GameVersion = '1.1.4a'
 let GameRunning = false;
+let GamePaused = false;
 
 let SpawnRateTime = 1350; // (ms)
 let TimeToCapture = 2300; // (ms)
@@ -19,7 +18,7 @@ let AllMoleCount = 1; // All Moles Spawned (total)
 let CapturedMoleCount = 0; // Ammount of Moles Captured
 
 // Functions:
-let Debug_RunGame = true;
+let Debug_RunGame = false;
 
 // Show Game Area & RunGame():
 function StartGame(){
@@ -43,6 +42,9 @@ function StartGame(){
 // Begin Game Process:
 function RunGame(){
 
+    // Show Pause Button:
+    MenuButton.innerText = "pause_circle";
+
     // Spawn Moles:
     SpawnMole();
     
@@ -51,7 +53,7 @@ function RunGame(){
 // Spawn Mole:
 function SpawnMole(){
     // Check for GameEnded:
-    if(GameRunning){
+    if(GameRunning && !GamePaused){
         let NewMole = document.createElement('img');
         // Get Random Mole Placement:
         let TopPos = Math.floor((Math.random()*84));
@@ -73,12 +75,12 @@ function SpawnMole(){
         setTimeout(() => CheckForCapture(NewMole), TimeToCapture);
         
         // Decrease Spawn Wait:
-        if(SpawnRateTime > 400){
+        if(SpawnRateTime > 400 && !GamePaused){
             SpawnRateTime -= 10;
         }else{ SpawnRateTime = 400}
 
         // Decrease Capture Time:
-        if(TimeToCapture > 1300){
+        if(TimeToCapture > 1300 && !GamePaused){
             TimeToCapture -= 10;
         }else{ TimeToCapture = 400}
 
@@ -87,11 +89,17 @@ function SpawnMole(){
         AllMoleCount += 1;
     }
     
+    if(GamePaused){
+        if(Debug_RunGame){console.warn('Game is PAUSED!');};
+        // Keep Checking for GamePaused:
+        setTimeout(() => SpawnMole(), 1000);
+    }
+
 }
 
 // Check for Mole Capture:
 function CheckForCapture(MoleInQuestion){
-    if(GameRunning){
+    if(GameRunning && !GamePaused){
         if(MoleInQuestion.classList.contains('Captured')){
             // Mole was Captured!
             if(Debug_RunGame){console.info(`${MoleInQuestion.id} was Captured!!`)};
@@ -121,6 +129,12 @@ function CheckForCapture(MoleInQuestion){
                 setTimeout(() => {alert('Game has Ended! Too many moles escaped. . .')}, 750)
             }
         }
+    }
+
+    if(GamePaused){
+        // MoleInQuestion.style.animation = "MoleEscape .4s cubic-bezier(0.42, 0, 0.58, 1)forwards";
+        MoleInQuestion.style.opacity = 0;
+        setTimeout(() => {MoleInQuestion.remove();}, 450);
     }
     
 }
@@ -152,6 +166,3 @@ function MoleSwing(elm){
     }
     
 }
-
-// Update Version in Nav:
-GameVersionTxt.innerText = `Version: ${GameVersion}`

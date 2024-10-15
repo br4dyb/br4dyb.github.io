@@ -3,6 +3,7 @@ const MenuButton = document.getElementById('MenuButton');
 const FullNavArea = document.getElementById('FullNavArea');
 const NavMenu = document.getElementById('NavMenu');
 const RemainingNavSpace = document.getElementById('NavRemainingSpace');
+const GamePausedTxt = document.getElementById('GamePausedTxt');
 
 // Variables:
 let ConsoleDebug = true;
@@ -29,6 +30,12 @@ function OpenNav(){
             }, 360);
         }, 100);
         
+        if(GameRunning){
+            // console.info('Pausing Game!');
+            GamePaused = true;
+            GamePausedTxt.style.display = 'flex';
+            GamePausedTxt.style.opacity = 1;
+        }
 
     }
     
@@ -45,4 +52,14 @@ function CloseNav(){
         FullNavArea.style.display = 'none';
         NavOpen = false;
     }, 500);
+
+    // Unpause Game if Paused:
+    if(GamePaused){
+        // console.info('Unpausing Game!');
+        GamePaused = false;
+        GamePausedTxt.style.opacity = 0;
+        setTimeout(() => {
+            GamePausedTxt.style.display = 'none';
+        }, 400);
+    }
 }

@@ -5,6 +5,9 @@
     <!-- Site Title/Favicon: -->
         <title>WackAMole</title>
         <link rel="icon" href="/Images/favicon.ico">
+        <script>
+            let SiteVersion = '1.2.4c'
+        </script>
 
     <!-- Linked StyleSheets: -->
         <link rel="stylesheet" href="./Styles/main.css">
@@ -69,13 +72,17 @@
             </div>
 
             <div id="NavMainMenu">
-                <h4> Coming Soon...</h4>
+                <!-- <h4> Coming Soon...</h4> -->
+                 <div id="HomepageButton" class="NavMainLink" onclick="location.assign('/')"> <span class="material-symbols-rounded NavLinkIcon"> Widgets </span> Homepage </div>
+                 <div id="LightDarkModeButton" class="NavMainLink"> <span class="material-symbols-rounded NavLinkIcon"> invert_colors </span> Light Mode</div>
+                 <div id="PrivacyPolicyButton" class="NavMainLink" onclick="location.assign('/Pages/PrivacyPolicy.html')"> <span class="material-symbols-rounded NavLinkIcon"> gpp_maybe </span> Privacy Policy</div>
+                 <div id="TermsAndConditionsButton" class="NavMainLink" onclick="location.assign('/Pages/TermsAndConditions.html')"> <span class="material-symbols-rounded NavLinkIcon"> gavel </span> Terms & Conditions</div>
             </div>
 
             <div id="NavFooter">
-                <p id="GameVersionTxt"> Version 1.01a </p>
-                <p class="NavFooterLink" onclick="location.assign('/Pages/PrivacyPolicy.html')"> Privacy Policy </p>
-                <p class="NavFooterLink" onclick="location.assign('/Pages/TermsAndConditions.html')"> Terms & Conditions </p>
+                <p id="SiteVersionTxt"> Version 1.01a </p>
+                <!-- <p class="NavFooterLink"> Privacy Policy </p> -->
+                <!-- <p class="NavFooterLink"> Terms & Conditions </p> -->
             </div>
 
         </section>
@@ -118,4 +125,9 @@
 <!-- Scripts: -->
 <script src="./Scripts/NavControl.js"> </script>
 <script src="./Scripts/RunGame.js"> </script>
+<script>
+    // Update Version in Nav:
+    const SiteVersionTxt = document.getElementById('SiteVersionTxt');
+    SiteVersionTxt.innerText = `Version: ${SiteVersion}`
+</script>
 </html>

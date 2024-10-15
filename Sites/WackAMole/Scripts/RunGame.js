@@ -9,7 +9,7 @@ const CapturedCountTxt = document.getElementById('CapturedCountTxt');
 const GameVersionTxt = document.getElementById('GameVersionTxt');
 
 // Variables:
-let GameVersion = '1.1.2a'
+let GameVersion = '1.1.2b'
 let GameRunning = false;
 
 let SpawnRateTime = 1350; // (ms)
@@ -70,7 +70,7 @@ function SpawnMole(){
         setTimeout(() => { NewMole.style.opacity = 0.95}, 50)
 
         // Set Capture Timer:
-        //setTimeout(() => CheckForCapture(NewMole), TimeToCapture);
+        setTimeout(() => CheckForCapture(NewMole), TimeToCapture);
         
         // Decrease Spawn Wait:
         if(SpawnRateTime > 400){
@@ -83,7 +83,7 @@ function SpawnMole(){
         }else{ TimeToCapture = 400}
 
         // Schedule Next Spawn:
-        //setTimeout(() => SpawnMole(), SpawnRateTime);
+        setTimeout(() => SpawnMole(), SpawnRateTime);
         AllMoleCount += 1;
     }
     

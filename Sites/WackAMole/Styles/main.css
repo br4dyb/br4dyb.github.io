@@ -24,6 +24,7 @@
 
     #GameArea{
         width: 60%;
+        max-width: 550px;
     }
 
 }

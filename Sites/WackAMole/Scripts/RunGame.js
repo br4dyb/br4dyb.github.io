@@ -9,7 +9,7 @@ const CapturedCountTxt = document.getElementById('CapturedCountTxt');
 const GameVersionTxt = document.getElementById('GameVersionTxt');
 
 // Variables:
-let GameVersion = '1.1.3c'
+let GameVersion = '1.1.4a'
 let GameRunning = false;
 
 let SpawnRateTime = 1350; // (ms)
@@ -138,7 +138,7 @@ GrassBackground.addEventListener('mousedown', function() {
   });
 
 function MoleSwing(elm){
-    if(!elm.classList.contains('Escaped') && !elm.classList.contains('Captured')){
+    if(!elm.classList.contains('Escaped') && !elm.classList.contains('Captured') && GameRunning){
         elm.classList.add('Clicking');
         elm.classList.add('Captured');
         CapturedMoleCount += 1;

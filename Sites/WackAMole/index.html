@@ -8,8 +8,8 @@
 
     <!-- Linked StyleSheets: -->
         <link rel="stylesheet" href="./Styles/main.css">
+        <link rel="stylesheet" href="./Styles/nav.css">
         <link rel="stylesheet" href="./Styles/animations.css">
-        <!-- <link rel="stylesheet" href="./Styles/Animations.css"> -->
         <!-- <link rel="stylesheet" href="./Styles/Construction.css"> -->
 
     <!-- Google Fonts & Icons: -->
@@ -62,15 +62,30 @@
         </section>
 
         <section id="NavMenu">
-            NAV MENU
+
+            <div id="NavHeader">
+                <h1> WackAMole </h1>
+                <h4 id="GamePausedTxt"> Game Paused! </h4>
+            </div>
+
+            <div id="NavMainMenu">
+                <h4> Coming Soon...</h4>
+            </div>
+
+            <div id="NavFooter">
+                <p id="GameVersionTxt"> Version 1.01a </p>
+                <p class="NavFooterLink"> Privacy Policy </p>
+                <p class="NavFooterLink"> Terms & Conditions </p>
+            </div>
+
         </section>
     </main>
 
     <main id="FullBodyArea">
 
         <div id="StartGameWrap">
-            <h1 style="font-size: 33px;"> Welcome ! </h1>
-            <h4 style="position: relative; bottom: 10px; left: 6px; font-size: 15px;"> to WackAMole . . .</h4>
+            <h1 style="font-size: 33px;"> Welcome! </h1>
+            <h4 style="position: relative; bottom: 10px; left: 6px; font-size: 15px;"> to WackAMole...</h4>
             <button id="StartGameButton" onclick="StartGame()"> Start Game </button>
         </div>
 
@@ -78,6 +93,10 @@
             <div id="GameArea">
                 <img id="GrassBackground" src="./Images/GrassBackground.png" draggable="false">
                 <!-- <img class="Mole" onclick="MoleSwing(this)" src="./Images/Mole.png" draggable="false"> -->
+            </div>
+
+            <div id="MoleCounterWrap">
+                <p id="CapturedCountTxt"> Moles Captured: 0</p>
             </div>
     
             <div id="StrikesWrap">
@@ -88,6 +107,7 @@
                     <h2 id="Strike3Txt"> X </h2>
                 </div>
             </div>
+
         </div>
 
         

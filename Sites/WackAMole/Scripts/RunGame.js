@@ -5,15 +5,18 @@ const GameArea = document.getElementById('GameArea');
 const Strike1Txt = document.getElementById('Strike1Txt');
 const Strike2Txt = document.getElementById('Strike2Txt');
 const Strike3Txt = document.getElementById('Strike3Txt');
-const InterMoleCole = '<img class="Mole" onclick="MoleSwing(this)" src="./Images/Mole.png" draggable="false">';
+const CapturedCountTxt = document.getElementById('CapturedCountTxt');
+const GameVersionTxt = document.getElementById('GameVersionTxt');
 
 // Variables:
+let GameVersion = '1.1.2a'
 let GameRunning = false;
 
 let SpawnRateTime = 1350; // (ms)
 let TimeToCapture = 2300; // (ms)
 let StrikeCount = 0; // 3 Max
-let MoleCount = 1 // Start at 1
+let AllMoleCount = 1; // All Moles Spawned (total)
+let CapturedMoleCount = 0; // Ammount of Moles Captured
 
 // Functions:
 let Debug_RunGame = true;
@@ -54,7 +57,7 @@ function SpawnMole(){
         let TopPos = Math.floor((Math.random()*84));
         let RightPos = Math.floor((Math.random()*86));
         NewMole.classList.add('Mole')
-        NewMole.id = `Mole_${MoleCount}`
+        NewMole.id = `Mole_${AllMoleCount}`
         NewMole.src = './Images/Mole.png';
         NewMole.draggable = false;
         NewMole.style.top = TopPos+'%';
@@ -67,7 +70,7 @@ function SpawnMole(){
         setTimeout(() => { NewMole.style.opacity = 0.95}, 50)
 
         // Set Capture Timer:
-        setTimeout(() => CheckForCapture(NewMole), TimeToCapture);
+        //setTimeout(() => CheckForCapture(NewMole), TimeToCapture);
         
         // Decrease Spawn Wait:
         if(SpawnRateTime > 400){
@@ -80,8 +83,8 @@ function SpawnMole(){
         }else{ TimeToCapture = 400}
 
         // Schedule Next Spawn:
-        setTimeout(() => SpawnMole(), SpawnRateTime);
-        MoleCount += 1;
+        //setTimeout(() => SpawnMole(), SpawnRateTime);
+        AllMoleCount += 1;
     }
     
 }
@@ -137,7 +140,8 @@ function MoleSwing(elm){
     if(!elm.classList.contains('Escaped')){
         elm.classList.add('Clicking');
         elm.classList.add('Captured');
-        console.info('Mole Captured!')
+        CapturedMoleCount += 1;
+        CapturedCountTxt.innerText = `Moles Captured: ${CapturedMoleCount}`;
     
         // Remove the swinging class after a short delay (to simulate swing)
         setTimeout(function() {
@@ -147,3 +151,6 @@ function MoleSwing(elm){
     }
     
 }
+
+// Update Version in Nav:
+GameVersionTxt.innerText = `Version: ${GameVersion}`

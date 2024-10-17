@@ -6,7 +6,7 @@
         <title>WackAMole</title>
         <link rel="icon" href="/Images/favicon.ico">
         <script>
-            let SiteVersion = '1.3.2b'
+            let SiteVersion = '1.5.2a'
         </script>
 
     <!-- Linked StyleSheets: -->
@@ -122,6 +122,14 @@
                 <h2> GAME OVER! </h2>
                 <p> Too many moles escaped! </p>
                 <button id="PlayAgainButton" class="box-shadow-light" onclick="RestartGame()"> Play Again </button>
+            </div>
+
+            <div id="GameOverInfoWrap">
+                <p class="GameOverInfoTxt" id="GameOverCapturedTxt"> Moles Captured: 0 </p>
+                <div id="BestScoresWrap">
+                    <p id="NewBestScoreAlert"> NEW HIGH SCORE!</p>
+                    <p class="GameOverInfoTxt" id="GameOverBestScoreTxt"> Best Score: [NOT FOUND] </p>
+                </div>
             </div>
 
         </div>

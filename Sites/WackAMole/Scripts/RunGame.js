@@ -7,6 +7,9 @@ const Strike2Txt = document.getElementById('Strike2Txt');
 const Strike3Txt = document.getElementById('Strike3Txt');
 const CapturedCountTxt = document.getElementById('CapturedCountTxt');
 const FullGameOverWrap = document.getElementById('FullGameOverWrap');
+const GameOverCapturedTxt = document.getElementById('GameOverCapturedTxt');
+const GameOverBestScoreTxt = document.getElementById('GameOverBestScoreTxt');
+const NewBestScoreAlert = document.getElementById('NewBestScoreAlert')
 
 // Variables:
 let GameRunning = false;
@@ -109,6 +112,7 @@ function CheckForCapture(MoleInQuestion){
             // Mole has Escaped!
             if(Debug_RunGame){console.warn(`${MoleInQuestion.id} was NOT Captured!!`)}
             MoleInQuestion.classList.add('Escaped');
+            MoleInQuestion.style.zIndex = 2;
             MoleInQuestion.style.animation = "MoleEscape .4s cubic-bezier(0.42, 0, 0.58, 1)forwards";
             StrikeCount += 1;
             if(StrikeCount == 1){
@@ -126,16 +130,7 @@ function CheckForCapture(MoleInQuestion){
                 Strike3Txt.style.opacity = 1;
                 Strike3Txt.style.scale = 1.2;
                 // GAME OVER!
-                GameRunning = false;
-                MenuButton.innerText = "Menu";
-                // setTimeout(() => {alert('Game has Ended! Too many moles escaped. . .')}, 750)
-
-                // Show Game Over Wrap:
-                FullGameOverWrap.style.display = 'flex';
-                setTimeout(() => {
-                    FullGameOverWrap.style.opacity = 1;
-                    FullGameArea.style.opacity = 0;
-                }, 350)
+                EndGame()
                 
             }
         }
@@ -165,6 +160,7 @@ function MoleSwing(elm){
     if(!elm.classList.contains('Escaped') && !elm.classList.contains('Captured') && GameRunning){
         elm.classList.add('Clicking');
         elm.classList.add('Captured');
+        elm.style.zIndex = 2;
         CapturedMoleCount += 1;
         CapturedCountTxt.innerText = `Moles Captured: ${CapturedMoleCount}`;
     
@@ -175,6 +171,43 @@ function MoleSwing(elm){
         }, 200); // Adjust delay a
     }
     
+}
+
+// End Game:
+function EndGame(){
+    GameRunning = false;
+    MenuButton.innerText = "Menu";
+
+    // Show Captured in this game:
+    GameOverCapturedTxt.innerText = `Moles Captured: ${CapturedMoleCount}`;
+
+    // Get Best Score:
+    let BestScore = localStorage.getItem('BestScore');
+    if (BestScore === null) {
+        // No BestScore yet, so set it
+        localStorage.setItem('BestScore', CapturedMoleCount);
+        GameOverBestScoreTxt.innerText = `Best Score: ${CapturedMoleCount}`;
+    } else {
+        // Best Score Exists:
+        BestScore = Number(BestScore);
+        if (BestScore < CapturedMoleCount) {
+            // New best score!:
+            localStorage.setItem('BestScore', CapturedMoleCount);
+            GameOverBestScoreTxt.innerText = `Best Score: ${CapturedMoleCount}`;
+            NewBestScoreAlert.style.display = 'flex';
+        } else{
+            // Didn't beat best score:
+            NewBestScoreAlert.style.display = 'none';
+            GameOverBestScoreTxt.innerText = `Best Score: ${BestScore}`;
+        }
+    }
+
+    // Show Game Over Wrap:
+    FullGameOverWrap.style.display = 'flex';
+    setTimeout(() => {
+        FullGameOverWrap.style.opacity = 1;
+        FullGameArea.style.opacity = 0;
+    }, 350)
 }
 
 // Restart Game:

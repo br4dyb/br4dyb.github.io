@@ -4,6 +4,7 @@ const FullNavArea = document.getElementById('FullNavArea');
 const NavMenu = document.getElementById('NavMenu');
 const RemainingNavSpace = document.getElementById('NavRemainingSpace');
 const GamePausedTxt = document.getElementById('GamePausedTxt');
+const LightDarkModeButton = document.getElementById('LightDarkModeButton')
 
 // Variables:
 let NavDebug = true;
@@ -69,15 +70,22 @@ function CloseNav(){
 }
 
 function ToggleColorMode(){
+    if(NavDebug){console.info('Switching Color Mode:')};
     if(DarkMode){
         DarkMode = false;
+        if(NavDebug){console.info('Light Mode Activated')};
+        LightDarkModeButton.innerHTML = '<span class="material-symbols-rounded NavLinkIcon"> invert_colors </span> Dark Mode';
         document.documentElement.style.setProperty('--BodyBackground', LightBodyBackground);
         // document.documentElement.style.setProperty('--BodyTextColor', 'black');
+    }else{
+        if(!DarkMode){
+            DarkMode = true;
+            if(NavDebug){console.info('Dark Mode Activated')};
+            LightDarkModeButton.innerHTML = '<span class="material-symbols-rounded NavLinkIcon"> invert_colors </span> Light Mode';
+            document.documentElement.style.setProperty('--BodyBackground', DarkBodyBackground);
+            // document.documentElement.style.setProperty('--BodyTextColor', 'white');
+        }
     }
 
-    if(!DarkMode){
-        DarkMode = true;
-        document.documentElement.style.setProperty('--BodyBackground', DarkBodyBackground);
-        // document.documentElement.style.setProperty('--BodyTextColor', 'white');
-    }
+    
 }

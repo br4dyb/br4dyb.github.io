@@ -97,3 +97,24 @@
         display: none;
     }
 }
+
+@keyframes RainbowBackground {
+    0%{
+        background: red;
+    }
+    30%{
+        background: orange;
+    }
+    45%{
+        background: rgb(161, 161, 50);
+    }
+    60%{
+        background: rgb(112, 162, 37);
+    }
+    75%{
+        background: rgb(0, 102, 255);
+    }
+    100%{
+        background: rgb(108, 37, 162);
+    }
+}

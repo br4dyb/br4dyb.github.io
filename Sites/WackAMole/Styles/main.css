@@ -310,6 +310,7 @@ header{
     position: relative;
     justify-content: center;
     align-items: center;
+    text-align: center;
     width: fit-content;
     /* max-width: 250px; */
     margin: 5px;
@@ -322,6 +323,7 @@ header{
     margin: 5px;
     padding: 4px 6px;
     border-radius: 12px;
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -329,6 +331,7 @@ header{
 
 #BestScoresWrap{
     display: flex;
+    text-align: center;
     justify-content: center;
     align-items: center;
     flex-direction: row;
@@ -340,6 +343,7 @@ header{
     font-weight: bolder;
     position: relative;
     width: fit-content;
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -355,4 +359,5 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }

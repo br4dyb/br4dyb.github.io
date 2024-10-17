@@ -6,8 +6,12 @@ const RemainingNavSpace = document.getElementById('NavRemainingSpace');
 const GamePausedTxt = document.getElementById('GamePausedTxt');
 
 // Variables:
-let ConsoleDebug = true;
+let NavDebug = true;
+let DarkMode = true;
 let NavOpen = false;
+
+let LightBodyBackground = '#f0f0f0';
+let DarkBodyBackground = '#1b1b1b';
 
 // Functions:
 
@@ -61,5 +65,17 @@ function CloseNav(){
         setTimeout(() => {
             GamePausedTxt.style.display = 'none';
         }, 400);
+    }
+}
+
+function ToggleColorMode(){
+    if(DarkMode){
+        document.documentElement.style.setProperty('--BodyBackground', LightBodyBackground);
+        // document.documentElement.style.setProperty('--BodyTextColor', 'black');
+    }
+
+    if(!DarkMode){
+        document.documentElement.style.setProperty('--BodyBackground', DarkBodyBackground);
+        // document.documentElement.style.setProperty('--BodyTextColor', 'white');
     }
 }

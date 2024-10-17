@@ -6,7 +6,7 @@
         <title>WackAMole</title>
         <link rel="icon" href="/Images/favicon.ico">
         <script>
-            let SiteVersion = '1.2.4c'
+            let SiteVersion = '1.2.5b'
         </script>
 
     <!-- Linked StyleSheets: -->
@@ -74,7 +74,7 @@
             <div id="NavMainMenu">
                 <!-- <h4> Coming Soon...</h4> -->
                  <div id="HomepageButton" class="NavMainLink" onclick="location.assign('/')"> <span class="material-symbols-rounded NavLinkIcon"> Widgets </span> Homepage </div>
-                 <div id="LightDarkModeButton" class="NavMainLink"> <span class="material-symbols-rounded NavLinkIcon"> invert_colors </span> Light Mode</div>
+                 <div id="LightDarkModeButton" class="NavMainLink" onclick="ToggleColorMode()"> <span class="material-symbols-rounded NavLinkIcon"> invert_colors </span> Light Mode</div>
                  <div id="PrivacyPolicyButton" class="NavMainLink" onclick="location.assign('/Pages/PrivacyPolicy.html')"> <span class="material-symbols-rounded NavLinkIcon"> gpp_maybe </span> Privacy Policy</div>
                  <div id="TermsAndConditionsButton" class="NavMainLink" onclick="location.assign('/Pages/TermsAndConditions.html')"> <span class="material-symbols-rounded NavLinkIcon"> gavel </span> Terms & Conditions</div>
             </div>
@@ -90,7 +90,7 @@
 
     <main id="FullBodyArea">
 
-        <div id="StartGameWrap">
+        <div id="StartGameWrap" class="box-shadow-light">
             <h1 style="font-size: 33px;"> Welcome! </h1>
             <h4 style="position: relative; bottom: 10px; left: 6px; font-size: 15px;"> to WackAMole...</h4>
             <button id="StartGameButton" onclick="StartGame()"> Start Game </button>
@@ -102,11 +102,11 @@
                 <!-- <img class="Mole" onclick="MoleSwing(this)" src="./Images/Mole.png" draggable="false"> -->
             </div>
 
-            <div id="MoleCounterWrap">
+            <div id="MoleCounterWrap" class="box-shadow-light">
                 <p id="CapturedCountTxt"> Moles Captured: 0</p>
             </div>
     
-            <div id="StrikesWrap">
+            <div id="StrikesWrap" class="box-shadow-light">
                 <h2 id="StrikesHeading"> Strikes: </h2>
                 <div id="StrikeCounter">
                     <h2 id="Strike1Txt"> X </h2>

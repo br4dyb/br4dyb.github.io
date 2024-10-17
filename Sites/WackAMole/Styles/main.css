@@ -1,9 +1,10 @@
 :root{
-    --LightBodyBackground : rgb(220, 220, 220);
+    --LightBodyBackground : #f0f0f0;
     --DarkBodyBackground : #1b1b1b;
+    --BodyBackground : var(--DarkBodyBackground);
     --BodyTextColor : white;
     /* --HeaderFooterBackground : #a047d4; */
-    --HeaderFooterBackground : #47d484;
+    --HeaderFooterBackground : burlywood;
 }
 
 /* Smaller Screen Styles: */
@@ -61,6 +62,10 @@ img {
     text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 0.5);
 }
 
+.box-shadow-light{
+    box-shadow: 0px 0px 5.5px rgba(0, 0, 0, .8);
+}
+
 .cursor_Pointer{
     cursor: pointer !important;
 }
@@ -70,7 +75,7 @@ img {
 }
 
 body{
-    background: var(--DarkBodyBackground);
+    background: var(--BodyBackground);
     height: 100%;
     width: 100%;
     color: var(--BodyTextColor);
@@ -88,7 +93,7 @@ header{
     align-items: end;
     flex-wrap: wrap;
     padding: 5px;
-    background: burlywood;
+    background: var(--HeaderFooterBackground);
     min-width: 100%;
     height: fit-content;
 }
@@ -149,7 +154,7 @@ header{
     align-items: center;
     flex-direction: column;
     /* background: rgba(222, 184, 135, 0.617); */
-    background: burlywood;
+    background: var(--HeaderFooterBackground);
     text-shadow: 2px 2px 1px black;
     padding: 10px 15px;
     border-radius: 12px;

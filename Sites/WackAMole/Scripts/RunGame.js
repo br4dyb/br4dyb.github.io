@@ -6,6 +6,7 @@ const Strike1Txt = document.getElementById('Strike1Txt');
 const Strike2Txt = document.getElementById('Strike2Txt');
 const Strike3Txt = document.getElementById('Strike3Txt');
 const CapturedCountTxt = document.getElementById('CapturedCountTxt');
+const FullGameOverWrap = document.getElementById('FullGameOverWrap');
 
 // Variables:
 let GameRunning = false;
@@ -126,7 +127,16 @@ function CheckForCapture(MoleInQuestion){
                 Strike3Txt.style.scale = 1.2;
                 // GAME OVER!
                 GameRunning = false;
-                setTimeout(() => {alert('Game has Ended! Too many moles escaped. . .')}, 750)
+                MenuButton.innerText = "Menu";
+                // setTimeout(() => {alert('Game has Ended! Too many moles escaped. . .')}, 750)
+
+                // Show Game Over Wrap:
+                FullGameOverWrap.style.display = 'flex';
+                setTimeout(() => {
+                    FullGameOverWrap.style.opacity = 1;
+                    FullGameArea.style.opacity = 0;
+                }, 350)
+                
             }
         }
     }
@@ -165,4 +175,48 @@ function MoleSwing(elm){
         }, 200); // Adjust delay a
     }
     
+}
+
+// Restart Game:
+function RestartGame(){
+    SpawnRateTime = 1350; // (ms)
+    TimeToCapture = 2300; // (ms)
+    StrikeCount = 0; // 3 Max
+    AllMoleCount = 1; // All Moles Spawned (total)
+    CapturedMoleCount = 0; // Ammount of Moles Captured
+
+    // Clear Any Leftover Moles:
+    let LeftoverMoles = FullGameArea.querySelectorAll('.Mole');
+    LeftoverMoles.forEach(element => {
+        element.remove();
+    });
+
+    Strike1Txt.style.color = "white";
+    Strike1Txt.style.opacity = .5;
+    Strike1Txt.style.scale = 1;
+    Strike2Txt.style.color = "white";
+    Strike2Txt.style.opacity = .5;
+    Strike2Txt.style.scale = 1;
+    Strike3Txt.style.color = "white";
+    Strike3Txt.style.opacity = .5;
+    Strike3Txt.style.scale = 1;
+
+    CapturedCountTxt.innerText = `Moles Captured: 0`;
+
+    GamePaused = false;
+    GameEnded = false;
+    GameRunning = true;
+
+    // Hide GameOver Wrap and Show Game:
+    FullGameOverWrap.style.opacity = 0;
+    FullGameArea.style.display = 'flex';
+    setTimeout(() => {
+        FullGameOverWrap.style.display = 'none';
+        FullGameArea.style.opacity = 1;
+        MenuButton.innerText = 'pause_circle';
+        // Spawn Mole:
+        setTimeout(() => {
+            SpawnMole();
+        }, 1000);
+    }, 365);
 }

@@ -70,11 +70,13 @@ function CloseNav(){
 
 function ToggleColorMode(){
     if(DarkMode){
+        DarkMode = false;
         document.documentElement.style.setProperty('--BodyBackground', LightBodyBackground);
         // document.documentElement.style.setProperty('--BodyTextColor', 'black');
     }
 
     if(!DarkMode){
+        DarkMode = true;
         document.documentElement.style.setProperty('--BodyBackground', DarkBodyBackground);
         // document.documentElement.style.setProperty('--BodyTextColor', 'white');
     }

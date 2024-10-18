@@ -7,7 +7,7 @@ const GamePausedTxt = document.getElementById('GamePausedTxt');
 const LightDarkModeButton = document.getElementById('LightDarkModeButton')
 
 // Variables:
-let NavDebug = true;
+let NavDebug = false;
 let DarkMode = true;
 let NavOpen = false;
 
@@ -73,6 +73,7 @@ function ToggleColorMode(){
     if(NavDebug){console.info('Switching Color Mode:')};
     if(DarkMode){
         DarkMode = false;
+        localStorage.setItem('ColorMode', 'Light');
         if(NavDebug){console.info('Light Mode Activated')};
         LightDarkModeButton.innerHTML = '<span class="material-symbols-rounded NavLinkIcon"> invert_colors </span> Dark Mode';
         document.documentElement.style.setProperty('--BodyBackground', LightBodyBackground);
@@ -80,6 +81,7 @@ function ToggleColorMode(){
     }else{
         if(!DarkMode){
             DarkMode = true;
+            localStorage.setItem('ColorMode', 'Dark');
             if(NavDebug){console.info('Dark Mode Activated')};
             LightDarkModeButton.innerHTML = '<span class="material-symbols-rounded NavLinkIcon"> invert_colors </span> Light Mode';
             document.documentElement.style.setProperty('--BodyBackground', DarkBodyBackground);
@@ -89,3 +91,32 @@ function ToggleColorMode(){
 
     
 }
+
+// Gave Previous Saved Color Mode:
+//document.addEventListener('DOMContentLoaded', function(){
+    let ColorModeSave = localStorage.getItem('ColorMode');
+
+    // No Previous Save:
+    if(ColorModeSave === null){
+        // console.info('No Previous ColorMode Saved!')
+        // Set to Default (dark):
+        localStorage.setItem('ColorMode', 'Dark');
+    }
+
+    // Previous Save Found:
+    if(ColorModeSave != null){
+        if(ColorModeSave === 'Light'){
+            DarkMode = false;
+            if(NavDebug){console.info('Light Mode Activated')};
+            LightDarkModeButton.innerHTML = '<span class="material-symbols-rounded NavLinkIcon"> invert_colors </span> Dark Mode';
+            document.documentElement.style.setProperty('--BodyBackground', LightBodyBackground);
+        }
+
+        if(ColorModeSave === 'Dark'){
+            DarkMode = true;
+            if(NavDebug){console.info('Dark Mode Activated')};
+            LightDarkModeButton.innerHTML = '<span class="material-symbols-rounded NavLinkIcon"> invert_colors </span> Light Mode';
+            document.documentElement.style.setProperty('--BodyBackground', DarkBodyBackground);
+        }
+    }
+//})

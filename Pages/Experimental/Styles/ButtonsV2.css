@@ -28,7 +28,7 @@ button{
 
 button:hover{
     padding: 6px;
-    background: rgba(255, 255, 255, 0.302);
+    background: rgba(255, 255, 255, 1);
 
 }
 
@@ -42,13 +42,13 @@ button::before{
     content: '';
     z-index: -1;
     position: absolute;
-    filter: blur(2px);
+    /* filter: blur(2px); */
     padding: 2.5px;
     border-radius: 5px;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(var(--background-angle), rgb(0, 255, 55), rgb(128, 0, 255));
-    animation: Spin 1.5s infinite linear;
+    background-image: linear-gradient(var(--background-angle), red, blue);
+    animation: Spin 1s infinite linear;
 }
 
 @keyframes Spin {

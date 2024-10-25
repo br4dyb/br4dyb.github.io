@@ -1,0 +1,127 @@
+#fullNavArea{
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    position: absolute;
+    left: 0;
+    transition: .33s;
+}
+
+#NavRemainingSpace{
+    background: black;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex: 1;
+    position: absolute;
+    left: 0;
+    transition: .33s;
+}
+
+#NavMenu{
+    background: #4aa089;
+    width: 250px;
+    height: 100%;
+    padding: 10px 20px;
+    z-index: 6;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    position: absolute;
+    left: -250px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    transition: .5s ease-in-out;
+}
+
+#NavHeader{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#NavFooter{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.NavFooterLink{
+    transition: .33s;
+    cursor: pointer;
+}
+
+.NavFooterLink:hover{
+    text-decoration: underline;
+    color: rgb(112, 201, 231);
+}
+
+#NavMainMenu{
+    display: flex;
+    padding-top: 13px;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    gap: 13px;
+    width: 100%;
+    flex: 1;
+}
+
+.NavMainLink{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #202020;
+    color: white;
+    gap: 4px;
+    width: 90%;
+    padding: 8px 0px 8px 22px ;
+    font-size: 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: .33s;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px black;
+}
+
+.NavMainLink:hover{
+    background: #2a77e2;
+    width: 95%;
+}
+
+.NavLinkIcon{
+    position: absolute;
+    left: 8px;
+}
+
+#LightDarkModeButton:hover{
+    background: #7a2ae2;
+}
+
+#PrivacyPolicyButton:hover{
+    background: #cb9f1d;
+}
+
+#TermsAndConditionsButton{
+    font-size: 12px !important;
+    text-align: self-end;
+}
+#TermsAndConditionsButton:hover{
+    background: #e2672a;
+}

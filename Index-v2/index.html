@@ -1,0 +1,65 @@
+<html lang="en">
+    
+<head>
+    <!-- Title & FavIcon -->
+    <title> Homepage | Br4dyB </title>
+    <link rel="icon" href="/favicon.ico">
+
+    <!-- Linked StyleSheets: -->
+
+    <link rel="stylesheet" href="./Styles/main.css">
+    <link rel="stylesheet" href="./Styles/nav.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- Meta Tags: -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <header>
+        <span id="menuButton" onclick="OpenNav()" class="material-symbols-rounded"> menu </span>
+        <h2 id="siteTitle" onclick="location.reload()"> Br4dyB's GitHub </h2>
+        <span id="accountButton" class="material-symbols-rounded"> person </span>
+    </header>
+
+    <main id="fullNavArea">
+        <!-- FULL NAV -->
+        <section id="NavRemainingSpace" onclick="CloseNav()">
+            <!-- NAV REMAINING SPACE -->
+        </section>
+
+        <section id="NavMenu">
+
+            <!-- <div id="NavHeader">
+                <h3> Br4dyB GitHub </h3>
+            </div> -->
+
+            <div id="NavMainMenu">
+                <!-- <h4> Coming Soon...</h4> -->
+                 <div id="HomepageButton" class="NavMainLink" onclick="location.assign('/')"> <span class="material-symbols-rounded NavLinkIcon"> Widgets </span> Homepage </div>
+                 <div id="LightDarkModeButton" class="NavMainLink" onclick="ToggleColorMode()"> <span class="material-symbols-rounded NavLinkIcon"> invert_colors </span> Light Mode</div>
+                 <div id="PrivacyPolicyButton" class="NavMainLink" onclick="location.assign('/Pages/PrivacyPolicy.html')"> <span class="material-symbols-rounded NavLinkIcon"> gpp_maybe </span> Privacy Policy</div>
+                 <div id="TermsAndConditionsButton" class="NavMainLink" onclick="location.assign('/Pages/TermsAndConditions.html')"> <span class="material-symbols-rounded NavLinkIcon"> gavel </span> Terms & Conditions</div>
+            </div>
+
+            <div id="NavFooter">
+                <p id="SiteVersionTxt"> Version 1.01a </p>
+                <!-- <p class="NavFooterLink"> Privacy Policy </p> -->
+                <!-- <p class="NavFooterLink"> Terms & Conditions </p> -->
+            </div>
+
+        </section>
+    </main>
+
+    <main id="fullBodyWrap">
+        FullBody
+    </main>
+
+</body>
+
+<!-- Required Scripts -->
+ <script src="./Scripts/NavControl.js"></script>
+
+</html>

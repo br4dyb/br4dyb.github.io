@@ -1,0 +1,97 @@
+/* Google Fonts: */
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root{
+    --BodyBackground : rgb(33, 33, 33);
+    --TextColor : white;
+}
+
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: 'DynaPuff';
+    text-align: center;
+}
+
+.material-symbols-rounded{
+    cursor: default;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    text-shadow: 1px 1px 2px rgb(86, 86, 86);
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 700,
+    'GRAD' 0,
+    'opsz' 40
+}
+
+body{
+    background: var(--BodyBackground);
+    color: var(--TextColor);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    position: relative;
+    transition: background .33s, color .33s;
+}
+
+header{
+    background: #4aa089;
+    display: flex; justify-content: space-between; align-items: center;
+    width: minmax(550px, 80%);
+    box-shadow: 0px 0px 3px rgb(86, 86, 86);
+    padding: 8px;
+    border-radius: 8px;
+    color: white;
+    max-width: 80%;
+    width: 750px;
+    margin-block: 10px;
+    position: relative;
+}
+
+#siteTitle{
+    cursor: pointer;
+    font-variant: small-caps;
+    font-size: 30px;
+    text-shadow: 1px 1px 5px rgb(86, 86, 86);
+    position: relative;
+}
+
+#menuButton, #accountButton{
+    border: 2px solid white;
+    background: rgb(126, 126, 126);
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 4px;
+    box-shadow: 1px 1px 3px rgb(86, 86, 86);
+    cursor: pointer;
+    transition: .33s;
+}
+
+#menuButton:hover{
+    scale: 1.1;
+    background: rgb(147, 67, 67);
+}
+
+#accountButton:hover{
+    scale: 1.1;
+    background: rgb(67, 95, 147);
+}
+
+#fullBodyWrap{
+    /* background: rgba(0, 0, 255, 0.216); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex: 1;
+    width: 100%;
+    position: relative;
+    color: var(--TextColor);
+}

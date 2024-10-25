@@ -5,6 +5,11 @@
     <title> Homepage | Br4dyB </title>
     <link rel="icon" href="/favicon.ico">
 
+    <!-- Version: -->
+     <script>
+        let SiteVersion = '0.0.1c';
+     </script>
+
     <!-- Linked StyleSheets: -->
 
     <link rel="stylesheet" href="./Styles/main.css">
@@ -61,5 +66,10 @@
 
 <!-- Required Scripts -->
  <script src="./Scripts/NavControl.js"></script>
+
+ <script>
+    let SiteVersionTxt = document.getElementById('SiteVersionTxt');
+    SiteVersionTxt.innerText = 'Version: ' + SiteVersion;
+ </script>
 
 </html>

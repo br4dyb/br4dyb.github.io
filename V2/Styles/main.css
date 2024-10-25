@@ -45,6 +45,7 @@ header{
     display: flex; justify-content: space-between; align-items: center;
     width: minmax(550px, 80%);
     box-shadow: 0px 0px 3px rgb(86, 86, 86);
+    border: 1.5px solid var(--TextColor);
     padding: 8px;
     border-radius: 8px;
     color: white;

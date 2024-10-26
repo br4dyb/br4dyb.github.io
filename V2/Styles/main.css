@@ -96,7 +96,7 @@ header{
     width: 100%;
     position: relative;
     color: var(--TextColor);
-    gap: 15px;
+    /* gap: 15px; */
     padding-top: 5px;
 }
 
@@ -106,8 +106,17 @@ header{
     display: flex; justify-content: center; align-items: center; flex-direction: column;
     gap: 10px;
     /* margin-top: 20px; */
-    padding: 30px;
+    padding: 50px 30px 30px 30px;
     position: relative;
+}
+
+#LandingSearchFullWrap::before{
+    position: absolute;
+    top: 0px;
+    content: '';
+    height: 15px;
+    width: 100%;
+    background: linear-gradient(var(--BodyBackground) ,#4a5ea0);
 }
 
 #LandingSearchWrap{
@@ -128,13 +137,14 @@ header{
     left: .5px;
     border: 1px solid white;
     color: white;
-    background: #714aa0;
+    background: #4a5ea0;
     border-radius: 3px;
 }
 
 #LandingSearchInput{
-    padding: 6px;
+    padding: 5px;
     width: 100%;
+    font-size: 14px;
     border-radius: 3px;
     border: unset;
     box-shadow: 0px 0px 3px rgb(86, 86, 86);
@@ -148,5 +158,15 @@ header{
     width: 100%;
     display: flex; justify-content: center; align-items: center; flex-direction: column;
     gap: 10px;
-    padding: 30px;
+    padding: 40px 30px 30px 30px;
+    position: relative;
+}
+
+#NewFeaturedSitesHomepage::before{
+    position: absolute;
+    top: 0px;
+    content: '';
+    height: 40px;
+    width: 100%;
+    background: linear-gradient(#4a5ea0, #714aa0);
 }

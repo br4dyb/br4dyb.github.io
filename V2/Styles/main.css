@@ -14,6 +14,21 @@
     text-align: center;
 }
 
+/* Smaller Screen Styles: */
+@media (max-width: 768px) {
+
+
+}
+
+/* Larger Screen Styles: */
+@media (min-width: 769px){
+
+    header{
+        width: 100% !important;
+    }
+
+}
+
 .material-symbols-rounded{
     cursor: default;
     user-select: none;
@@ -232,6 +247,7 @@ header{
 
 #ExampleSiteCell{
     display: flex;
+    color: white;
     justify-content: center;
     align-items: center;
     flex-direction: column;

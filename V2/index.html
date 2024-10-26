@@ -7,7 +7,7 @@
 
     <!-- Version: -->
      <script>
-        let SiteVersion = '0.0.1c';
+        let SiteVersion = '0.0.2a';
      </script>
 
     <!-- Linked StyleSheets: -->
@@ -25,7 +25,7 @@
 
     <header>
         <span id="menuButton" onclick="OpenNav()" class="material-symbols-rounded"> menu </span>
-        <h2 id="siteTitle" onclick="location.reload()"> Br4dyB's GitHub </h2>
+        <h2 id="siteTitle" class="text-shadow-dark" onclick="location.reload()"> Br4dyB's GitHub </h2>
         <span id="accountButton" class="material-symbols-rounded"> person </span>
     </header>
 
@@ -44,7 +44,8 @@
             <div id="NavMainMenu">
                 <!-- <h4> Coming Soon...</h4> -->
                  <div id="NavMainTopLinks">
-                    <div id="HomepageButton" class="NavMainLink" onclick="location.assign('/')"> <span class="material-symbols-rounded NavLinkIcon"> Home </span> Homepage </div>
+                    <h3 class="text-shadow"> Br4dyB's GitHub </h3>
+                    <!-- <div id="HomepageButton" class="NavMainLink" onclick="location.assign('/')"> <span class="material-symbols-rounded NavLinkIcon"> Home </span> Homepage </div> -->
                     <div id="AllSitesNavButton" class="NavMainLink" onclick=""> <span class="material-symbols-rounded NavLinkIcon"> Widgets </span> All Sites </div>
                     <div id="SearchSitesNavButton" class="NavMainLink" onclick=""> <span class="material-symbols-rounded NavLinkIcon"> Search </span> Search Sites </div>
                     <div id="AccountNavButton" class="NavMainLink" onclick=""> <span class="material-symbols-rounded NavLinkIcon"> Person </span> My Account </div>
@@ -55,7 +56,7 @@
                  <div id="NavMainBottomLinks">
                     <div id="PrivacyPolicyButton" class="NavFooterLink" onclick="location.assign('/Pages/PrivacyPolicy.html')"> <span class="material-symbols-rounded NavLinkIcon"> gpp_maybe </span> Privacy Policy</div>
                     <div id="TermsAndConditionsButton" class="NavFooterLink" onclick="location.assign('/Pages/TermsAndConditions.html')"> <span class="material-symbols-rounded NavLinkIcon"> gavel </span> Terms & Conditions</div>
-                    <div id="SourceCodeNavButton" class="NavFooterLink" onclick=""> <span class="material-symbols-rounded NavLinkIcon"> Code </span> Source Code </div>
+                    <div id="SourceCodeNavButton" class="NavFooterLink" onclick="location.assign(`https://github.com/br4dyb/br4dyb.github.io`)"> <span class="material-symbols-rounded NavLinkIcon"> Code </span> Source Code </div>
                  </div>
             </div>
 
@@ -70,17 +71,51 @@
 
     <main id="fullBodyWrap">
         <section id="LandingSearchFullWrap">
-            <h2> Looking for something specific? </h2>
-            <div id="LandingSearchWrap">
-                <div id="LandingSearchInputWrap"> <input id="LandingSearchInput" type="text"> <span id="LandingSearchInputIcon" class="material-symbols-rounded"> manage_search </span> </div>
-                <span class="material-symbols-rounded"> search </span>
+            <h2 id="LandingSearchHeading" class="body-heading text-shadow-dark"> Looking for something specific? </h2>
+            <div id="LandingSearchLineWrap">
+                <div id="LandingSearchInputWrap"> <input id="LandingSearchInput" type="text" placeholder="Search Sites. . ."> <span id="LandingSearchInputIcon" class="material-symbols-rounded"> manage_search </span> </div>
+                <span id="LandingSearchButton" class="material-symbols-rounded box-shadow-dark"> search </span>
             </div>
             
         </section>
 
         <section id="NewFeaturedSitesHomepage">
-            <h2> Featured Sites: </h2>
-            
+            <h2 class="text-shadow-dark body-heading" id="NewFeaturedSitesHomepageHeading"> Featured Sites: </h2>
+            <div id="HomepageFeaturedSiteGridWrap">
+                <div id="HomepageFeaturedSiteGrid">
+                    <div id="ExampleSiteCell">
+                        <h4 class="text-shadow-dark"> SiteName </h4>
+                        <img src="/favicon.ico">
+                        <button> Visit </button>
+                    </div>
+                    <div id="ExampleSiteCell">
+                        <h4 class="text-shadow-dark"> SiteName </h4>
+                        <img src="/favicon.ico">
+                        <button> Visit </button>
+                    </div>
+                    <div id="ExampleSiteCell">
+                        <h4 class="text-shadow-dark"> SiteName </h4>
+                        <img src="/favicon.ico">
+                        <button> Visit </button>
+                    </div>
+                    <div id="ExampleSiteCell">
+                        <h4 class="text-shadow-dark"> SiteName </h4>
+                        <img src="/favicon.ico">
+                        <button> Visit </button>
+                    </div>
+                    <div id="ExampleSiteCell">
+                        <h4 class="text-shadow-dark"> SiteName </h4>
+                        <img src="/favicon.ico">
+                        <button> Visit </button>
+                    </div>
+                    <div id="ExampleSiteCell">
+                        <h4 class="text-shadow-dark"> SiteName </h4>
+                        <img src="/favicon.ico">
+                        <button> Visit </button>
+                    </div>
+
+                </div>
+            </div>
         </section>
     </main>
 

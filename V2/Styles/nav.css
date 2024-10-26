@@ -41,7 +41,7 @@
     left: -250px;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
-    transition: .5s ease-in-out;
+    transition: .5s ease;
 }
 
 #NavHeader{
@@ -60,20 +60,10 @@
     align-items: center;
 }
 
-.NavFooterLink{
-    transition: .33s;
-    cursor: pointer;
-}
-
-.NavFooterLink:hover{
-    text-decoration: underline;
-    color: rgb(112, 201, 231);
-}
-
 #NavMainMenu{
     display: flex;
-    padding-top: 13px;
-    justify-content: start;
+    padding-block: 13px;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
     gap: 13px;
@@ -81,7 +71,20 @@
     flex: 1;
 }
 
-.NavMainLink{
+#NavMainTopLinks, #NavMainBottomLinks{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    gap: 13px;
+}
+
+#NavMainBottomLinks{
+    gap: 5px !important;
+}
+
+.NavMainLink, .NavFooterLink{
     display: flex;
     position: relative;
     justify-content: center;
@@ -98,6 +101,11 @@
     transition: .33s;
     cursor: pointer;
     box-shadow: 0px 0px 5px black;
+    text-shadow: 0px 0px 5px black;
+}
+
+.NavFooterLink{
+    scale: .85;
 }
 
 .NavMainLink:hover{
@@ -110,12 +118,34 @@
     left: 8px;
 }
 
+#AllSitesNavButton:hover{
+    background: #7bbf21;
+    width: 95%;
+}
+
+#SearchSitesNavButton:hover{
+    background: #ddb833;
+    width: 95%;
+}
+
+#AccountNavButton:hover{
+    background: #bf2195;
+    width: 95%;
+}
+
 #LightDarkModeButton:hover{
     background: #7a2ae2;
+    width: 95%;
+}
+
+#ChangeLogNavButton:hover{
+    background: #ee4e39;
+    width: 95%;
 }
 
 #PrivacyPolicyButton:hover{
     background: #cb9f1d;
+    width: 95%;
 }
 
 #TermsAndConditionsButton{
@@ -124,4 +154,10 @@
 }
 #TermsAndConditionsButton:hover{
     background: #e2672a;
+    width: 95%;
+}
+
+#SourceCodeNavButton:hover{
+    background: #2a46e2;
+    width: 95%;
 }

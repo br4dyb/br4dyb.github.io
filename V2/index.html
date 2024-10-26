@@ -43,10 +43,20 @@
 
             <div id="NavMainMenu">
                 <!-- <h4> Coming Soon...</h4> -->
-                 <div id="HomepageButton" class="NavMainLink" onclick="location.assign('/')"> <span class="material-symbols-rounded NavLinkIcon"> Widgets </span> Homepage </div>
-                 <div id="LightDarkModeButton" class="NavMainLink" onclick="ToggleColorMode()"> <span class="material-symbols-rounded NavLinkIcon"> invert_colors </span> Light Mode</div>
-                 <div id="PrivacyPolicyButton" class="NavMainLink" onclick="location.assign('/Pages/PrivacyPolicy.html')"> <span class="material-symbols-rounded NavLinkIcon"> gpp_maybe </span> Privacy Policy</div>
-                 <div id="TermsAndConditionsButton" class="NavMainLink" onclick="location.assign('/Pages/TermsAndConditions.html')"> <span class="material-symbols-rounded NavLinkIcon"> gavel </span> Terms & Conditions</div>
+                 <div id="NavMainTopLinks">
+                    <div id="HomepageButton" class="NavMainLink" onclick="location.assign('/')"> <span class="material-symbols-rounded NavLinkIcon"> Home </span> Homepage </div>
+                    <div id="AllSitesNavButton" class="NavMainLink" onclick=""> <span class="material-symbols-rounded NavLinkIcon"> Widgets </span> All Sites </div>
+                    <div id="SearchSitesNavButton" class="NavMainLink" onclick=""> <span class="material-symbols-rounded NavLinkIcon"> Search </span> Search Sites </div>
+                    <div id="AccountNavButton" class="NavMainLink" onclick=""> <span class="material-symbols-rounded NavLinkIcon"> Person </span> My Account </div>
+                    <div id="LightDarkModeButton" class="NavMainLink" onclick="ToggleColorMode()"> <span class="material-symbols-rounded NavLinkIcon"> invert_colors </span> Light Mode</div>
+                    <div id="ChangeLogNavButton" class="NavMainLink" onclick=""> <span class="material-symbols-rounded NavLinkIcon"> Overview </span> Change Log </div>
+                 </div>
+                 
+                 <div id="NavMainBottomLinks">
+                    <div id="PrivacyPolicyButton" class="NavFooterLink" onclick="location.assign('/Pages/PrivacyPolicy.html')"> <span class="material-symbols-rounded NavLinkIcon"> gpp_maybe </span> Privacy Policy</div>
+                    <div id="TermsAndConditionsButton" class="NavFooterLink" onclick="location.assign('/Pages/TermsAndConditions.html')"> <span class="material-symbols-rounded NavLinkIcon"> gavel </span> Terms & Conditions</div>
+                    <div id="SourceCodeNavButton" class="NavFooterLink" onclick=""> <span class="material-symbols-rounded NavLinkIcon"> Code </span> Source Code </div>
+                 </div>
             </div>
 
             <div id="NavFooter">
@@ -59,7 +69,19 @@
     </main>
 
     <main id="fullBodyWrap">
-        FullBody
+        <section id="LandingSearchFullWrap">
+            <h2> Looking for something specific? </h2>
+            <div id="LandingSearchWrap">
+                <div id="LandingSearchInputWrap"> <input id="LandingSearchInput" type="text"> <span id="LandingSearchInputIcon" class="material-symbols-rounded"> manage_search </span> </div>
+                <span class="material-symbols-rounded"> search </span>
+            </div>
+            
+        </section>
+
+        <section id="NewFeaturedSitesHomepage">
+            <h2> Featured Sites: </h2>
+            
+        </section>
     </main>
 
 </body>
@@ -67,6 +89,7 @@
 <!-- Required Scripts -->
  <script src="./Scripts/NavControl.js"></script>
 
+<!-- Version Updater: -->
  <script>
     let SiteVersionTxt = document.getElementById('SiteVersionTxt');
     SiteVersionTxt.innerText = 'Version: ' + SiteVersion;

@@ -32,7 +32,7 @@ function OpenNav(){
             setTimeout(() => { // Wait for FullNav to Open
                 NavMenu.style.left = '0px';
                 RemainingNavSpace.style.opacity = '.5';
-            }, 360);
+            }, 250);
         // }, 100);
 
     }

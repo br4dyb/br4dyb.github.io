@@ -23,7 +23,7 @@
 
 <body>
 
-    <header>
+    <header class="box-shadow-dark">
         <span id="menuButton" onclick="OpenNav()" class="material-symbols-rounded"> menu </span>
         <h2 id="siteTitle" class="text-shadow-dark" onclick="location.reload()"> Br4dyB's GitHub </h2>
         <span id="accountButton" class="material-symbols-rounded"> person </span>
@@ -74,17 +74,17 @@
         <section id="LandingSearchFullWrap">
             <h2 id="LandingSearchHeading" class="body-heading text-shadow-dark"> Looking for something specific? </h2>
 
-            <div id="LandingSearchLineWrap">
-                <div id="LandingSearchInputWrap"> 
-                    <input id="LandingSearchInput" type="text" placeholder="Search. . ."> <span id="LandingSearchInputIcon" class="material-symbols-rounded"> manage_search </span> 
-                    
-                    <div id="SearchInputAutoComplete" class="box-shadow-dark">
-                        <p class="AutoCompleteOption"> Option 1 </p>
-                        <p class="AutoCompleteOption"> Option 2 </p>
-                        <p class="AutoCompleteOption"> Option 3 </p>
-                    </div>
+            <div id="LandingSearchInputFullWrap" class="box-shadow-dark">
+                <span id="LandingSearchInputIcon" class="material-symbols-rounded">
+                    manage_search
+                </span>
+                <input id="LandingSearchInput" type="text" placeholder="Search. . .">
+
+                <div id="SearchInputAutoComplete">
+                    <p class="AutoCompleteOption"> Option 1</p>
+                    <p class="AutoCompleteOption"> Option 2</p>
+                    <p class="AutoCompleteOption"> Option 3</p>
                 </div>
-                <span id="LandingSearchButton" class="material-symbols-rounded box-shadow-dark"> search </span>
             </div>
             
         </section>

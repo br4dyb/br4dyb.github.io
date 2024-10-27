@@ -64,6 +64,7 @@
     border-radius: 5px;
     box-shadow: 1px 1px 3px rgb(0, 0, 0);
     color: white;
+    padding: 10px 40px;
 }
 
 body{
@@ -139,7 +140,7 @@ header{
 
 #LandingSearchFullWrap{
     width: 100%;
-    display: none; justify-content: center; align-items: center; flex-direction: column;
+    display: flex; justify-content: center; align-items: center; flex-direction: column;
     gap: 10px;
     position: relative;
     margin-block: 5px;
@@ -155,8 +156,7 @@ header{
 
 #LandingSearchHeading{
     background: #4a5ea0;
-    padding: 10px;
-    width: 100%;
+    margin-block: 5px;
 }
 
 #LandingSearchInputWrap{
@@ -167,6 +167,7 @@ header{
     border-radius: 5px;
     border: 2px solid var(--TextColor);
     box-shadow: 0px 0px 5px black;
+    /* background: gray; */
 }
 
 #LandingSearchInput{
@@ -178,12 +179,18 @@ header{
     accent-color: black;
     caret-color: black;
     text-align: left;
-    padding-left: 28px;
+    padding-left: 30px;
+    background: lightgray;
+}
+
+#LandingSearchInput::placeholder{
+    color: gray;
 }
 
 #LandingSearchInputIcon{
     position: absolute;
     left: -2px;
+    padding-left: 1px;
     color: white;
     background: #4a5ea0;
     border: 2px solid var(--TextColor);
@@ -191,14 +198,16 @@ header{
 }
 
 #LandingSearchButton{
-    border: 1px solid var(--TextColor);
+    border: 2px solid var(--TextColor);
     border-radius: 5px;
-    font-size: 24px;
+    font-size: 20px;
     margin-left: 5px;
     padding: 1.5px;
     position: relative;
     bottom: .5px;
     cursor: pointer;
+    background: lightgray;
+    color: rgb(34, 34, 34);
     transition: .33s;
 }
 
@@ -207,6 +216,32 @@ header{
     scale: 1.15;
 }
 
+#SearchInputAutoComplete{
+    position: absolute;
+    background: lightgray;
+    color: black;
+    top: 100%;
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    width: 101%;
+    border: 2px solid var(--TextColor);
+    z-index: 3;
+    display: flex; justify-content: center; align-items: start; flex-direction: column;
+}
+
+.AutoCompleteOption{
+    width: 100%;
+    text-align: start;
+    padding: 4px 3px;
+    padding-bottom: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.AutoCompleteOption:hover{
+    background: rgb(183, 183, 183);
+}
 
 #NewFeaturedSitesHomepage{
     width: 100%;
@@ -217,7 +252,6 @@ header{
 
 #NewFeaturedSitesHomepageHeading{
     background: #714aa0;
-    padding: 10px;
 }
 
 #HomepageFeaturedSiteGridWrap{
@@ -235,12 +269,12 @@ header{
     /* background: blue; */
     width: 100%;
     height: fit-content;
-    padding: 10px 10px;
+    padding: 15px 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
     position: relative;
 }
 
@@ -261,7 +295,6 @@ header{
 }
 
 .SiteTagWrap{
-    /* background: red; */
     display: flex;
     justify-content: space-between;
     align-items: start;
@@ -293,17 +326,26 @@ header{
 }
 
 .SiteCellName{
-    font-size: 20px;
+    font-size: 18px;
     background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 3px rgb(0, 0, 0);
     color: white;
-    width: 100%;
+    /* width: 100%; */
     height: fit-content;
-    padding: 4px;
+    padding: 6px 8px;
+    border-radius: 8px;
+}
+
+.TagMargin{
+    margin-top: 5px;
 }
 
 .SiteCellImg{
     font-size: 20px;
-    width: 50%;
+    width: 40%;
+    filter: drop-shadow(0px 0px 3px black);
+
+
 }
 
 .VisitSiteButton{
@@ -311,7 +353,8 @@ header{
     background: unset; 
     border: 1.5px solid white;
     color: white;
-    background: rgba(0, 0, 0, 0.5);
+    /* background: rgba(0, 0, 0, 0.5); */
+    box-shadow: 0px 0px 5px rgb(0, 0, 0);
     padding: 3px 0px;
     border-radius: 5px;
     width: 50%;
@@ -320,4 +363,41 @@ header{
 
 .VisitSiteButton:hover{
     background: #4aa089;
+}
+
+#MoreResourcesWrap{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#HomepageResourcesWrap{
+    /* background: green; */
+    width: 100%;
+    max-width: 620px;
+    width: 100%;
+    margin-block: 15px;
+    display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 15px;
+}
+
+#MoreResourcesHeading{
+    background: #11828d;
+    margin-bottom: 10px;
+}
+
+.ResourceButton{
+    background: #a91593;
+    color: white;
+    width: fit-content;
+    padding: 7px;
+    border-radius: 5px;
+    display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 7px;
+    transition: .33s;
+    cursor: pointer;
+}
+
+.ResourceButton:hover{
+    scale: 1.05;
 }

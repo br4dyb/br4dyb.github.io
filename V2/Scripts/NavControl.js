@@ -10,7 +10,7 @@ let NavDebug = false;
 let DarkMode = true;
 let NavOpen = false;
 
-let LightBodyBackground = '#f0f0f0';
+let LightBodyBackground = '#e1dfdf';
 let DarkBodyBackground = '#1b1b1b';
 
 // Functions:

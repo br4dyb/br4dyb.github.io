@@ -70,11 +70,20 @@
     </main>
 
     <main id="fullBodyWrap">
+        
         <section id="LandingSearchFullWrap">
             <h2 id="LandingSearchHeading" class="body-heading text-shadow-dark"> Looking for something specific? </h2>
 
             <div id="LandingSearchLineWrap">
-                <div id="LandingSearchInputWrap"> <input id="LandingSearchInput" type="text" placeholder="Search Sites. . ."> <span id="LandingSearchInputIcon" class="material-symbols-rounded"> manage_search </span> </div>
+                <div id="LandingSearchInputWrap"> 
+                    <input id="LandingSearchInput" type="text" placeholder="Search. . ."> <span id="LandingSearchInputIcon" class="material-symbols-rounded"> manage_search </span> 
+                    
+                    <div id="SearchInputAutoComplete">
+                        <p class="AutoCompleteOption"> Option 1 </p>
+                        <p class="AutoCompleteOption"> Option 2 </p>
+                        <p class="AutoCompleteOption"> Option 3 </p>
+                    </div>
+                </div>
                 <span id="LandingSearchButton" class="material-symbols-rounded box-shadow-dark"> search </span>
             </div>
             
@@ -85,20 +94,50 @@
             <div id="HomepageFeaturedSiteGridWrap">
                 <div id="HomepageFeaturedSiteGrid">
 
-                    <div class="SiteCell box-shadow-dark">
+                    <div class="SiteCell box-shadow-dark" data-SiteTags="Example, Site, Cell">
                         <div style="display: none;" class="SiteTagWrap"> 
                             <p class="FeaturedSiteTag text-shadow-dark"> Featured</p> 
-                            <p class="NewSiteTag text-shadow-dark"> New</p>
+                            <p style="display: none;" class="NewSiteTag text-shadow-dark"> New</p>
                         </div>
                         <h4 class="SiteCellName text-shadow-dark"> SiteName </h4>
-                        <img class="SiteCellImg" src="/favicon.ico">
+                        <img class="SiteCellImg" src="/favicon.ico" draggable="false">
                         <button class="VisitSiteButton text-shadow-dark"> Visit </button>
                     </div>
-                
 
                 </div>
             </div>
         </section>
+
+        <section id="MoreResourcesWrap">
+            <h2 id="MoreResourcesHeading" class="body-heading text-shadow-dark"> More Resources: </h2>
+            
+            <div id="HomepageResourcesWrap">
+
+                <div class="ResourceButton box-shadow-dark text-shadow-dark">
+                    <span class="material-symbols-rounded">Person</span>
+                    <p> My Account </p>
+                </div>
+                <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #721eb7;">
+                    <span class="material-symbols-rounded">Mail</span>
+                    <p> Contact Us </p>
+                </div>
+                <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #cb3615;">
+                    <span class="material-symbols-rounded">Overview</span>
+                    <p> Change Log </p>
+                </div>
+                <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #1551cb;">
+                    <span class="material-symbols-rounded">Code</span>
+                    <p> Source Code </p>
+                </div>
+                <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #12aa51;">
+                    <span class="material-symbols-rounded">online_prediction</span>
+                    <p> Status Page </p>
+                </div>
+
+            </div>
+            
+        </section>
+
     </main>
 
 </body>

@@ -7,7 +7,7 @@
 
     <!-- Version: -->
      <script>
-        let SiteVersion = '0.0.2a';
+        let SiteVersion = '0.1.2b';
      </script>
 
     <!-- Linked StyleSheets: -->
@@ -78,7 +78,7 @@
                 <span id="LandingSearchInputIcon" class="material-symbols-rounded">
                     manage_search
                 </span>
-                <input id="LandingSearchInput" type="text" placeholder="Search. . .">
+                <input id="LandingSearchInput" type="text" placeholder="Search. . ." oninput="LandingSearchAutoComplete()">
 
                 <div id="SearchInputAutoComplete">
                     <p class="AutoCompleteOption"> Option 1</p>
@@ -144,6 +144,7 @@
 
 <!-- Required Scripts -->
  <script src="./Scripts/NavControl.js"></script>
+ <script src="./Scripts/Search.js"></script>
 
 <!-- Version Updater: -->
  <script>

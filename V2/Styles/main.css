@@ -204,6 +204,7 @@ header{
     margin-left: 5px;
     padding: 1.5px;
     position: relative;
+    display: none;
     bottom: .5px;
     cursor: pointer;
     background: lightgray;

@@ -329,6 +329,7 @@ header{
     padding: 3px 0px;
     border-radius: 5px;
     width: 50%;
+    cursor: pointer;
     transition: .33s;
 }
 

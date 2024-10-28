@@ -3,7 +3,7 @@ const LandingSearchBar = document.getElementById('LandingSearchInput');
 const LandingSearchAutoCompleteWrap = document.getElementById('SearchInputAutoComplete');
 
 // Variables:
-let SearchableTags = ['example'];
+let SearchableTags = ['Example'];
 let AvaialbleSearchTags = [];
 let SearchableTagFound = false;
         
@@ -28,13 +28,18 @@ function LandingSearchAutoComplete(){
         SearchedArray.forEach(SearchedTag => {
             SearchableTags.forEach(SearchableTag => {
                 SearchableTag = SearchableTag.toLowerCase().trim();
+
                 if(SearchableTag.includes(SearchedTag)){
                     let NewSearchableTagElm = document.createElement('p');
                     NewSearchableTagElm.classList.add('AutoCompleteOption');
+                    let FirstChar = SearchableTag.charAt(0);
+                    let FirstCharUpper = FirstChar.toUpperCase();
+                    SearchableTag = SearchableTag.replace(FirstChar, FirstCharUpper);
                     NewSearchableTagElm.innerText = SearchableTag;
                     LandingSearchAutoCompleteWrap.appendChild(NewSearchableTagElm);
                     SearchableTagFound = true;
                 }
+
             });
         });
     }

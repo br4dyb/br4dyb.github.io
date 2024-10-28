@@ -7,7 +7,7 @@
 
     <!-- Version: -->
      <script>
-        let SiteVersion = '0.1.3b';
+        let SiteVersion = '0.1.51a';
      </script>
 
     <!-- Linked StyleSheets: -->
@@ -94,7 +94,7 @@
             <div id="HomepageFeaturedSiteGridWrap">
                 <div id="HomepageFeaturedSiteGrid">
 
-                    <div class="SiteCell box-shadow-dark" data-SiteTags="Example, Site, Cell">
+                    <div style="display: none;" class="SiteCell box-shadow-dark" data-SiteTags="Example, Site, Cell">
                         <div style="display: none;" class="SiteTagWrap"> 
                             <p class="FeaturedSiteTag text-shadow-dark"> Featured</p> 
                             <p style="display: none;" class="NewSiteTag text-shadow-dark"> New</p>
@@ -125,7 +125,7 @@
                     <span class="material-symbols-rounded">Overview</span>
                     <p> Change Log </p>
                 </div>
-                <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #1551cb;">
+                <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #1551cb;" onclick="location.assign(`https://github.com/br4dyb/br4dyb.github.io`)">
                     <span class="material-symbols-rounded">Code</span>
                     <p> Source Code </p>
                 </div>
@@ -138,6 +138,28 @@
             
         </section>
 
+        <section id="AllSitesFullWrap" class="hidden">
+            <h2 class="text-shadow-dark body-heading" id="AllSitesHeading"> All Sites: </h2>
+            <div id="AllSitesGridWrap">
+                <div id="AllSitesGrid">
+
+                  <!-- Site Listings Here: -->
+
+                </div>
+            </div>
+        </section>
+
+        <section id="SearchSitesFullWrap" class="hidden">
+            <h2 class="text-shadow-dark body-heading" id="AllSitesHeading"> Search Sites: </h2>
+            <div id="SearchSitesGridWrap">
+                <div id="SearchSitesGrid">
+
+                  <!-- Site Listings Here: -->
+
+                </div>
+            </div>
+        </section>
+
     </main>
 
 </body>
@@ -145,6 +167,7 @@
 <!-- Required Scripts -->
  <script src="./Scripts/NavControl.js"></script>
  <script src="./Scripts/Search.js"></script>
+ <script src="./Scripts/SiteList.js"></script>
 
 <!-- Version Updater: -->
  <script>

@@ -42,6 +42,10 @@
     'opsz' 40
 }
 
+.hidden{
+    display: none !important;
+}
+
 .text-shadow{
     text-shadow: 0px 0px 4px rgb(86, 86, 86);
 }
@@ -59,7 +63,7 @@
 }
 
 .body-heading{
-    width: 100%;
+    width: 90%;
     max-width: 650px;
     border-radius: 5px;
     box-shadow: 1px 1px 3px rgb(0, 0, 0);
@@ -155,7 +159,7 @@ header{
     display: flex; justify-content: center; align-items: center; flex-direction: row;
     width: 50%;
     margin-top: 5px;
-    max-width: 400px;
+    max-width: 450px;
     min-width: 250px;
 }
 
@@ -180,6 +184,7 @@ header{
     background: lightgray;
     border: 1px solid white;
     border-left: unset;
+    border-radius: unset;
     z-index: 3;
 }
 
@@ -191,7 +196,7 @@ header{
     background: lightgray;
     color: black;
     width: 50%;
-    max-width: 400px;
+    max-width: 450px;
     min-width: 250px;
     /* border-radius: 5px;
     border-top-left-radius: 0px;
@@ -214,18 +219,18 @@ header{
     background: rgb(183, 183, 183);
 }
 
-#NewFeaturedSitesHomepage{
+#NewFeaturedSitesHomepage, #AllSitesFullWrap, #SearchSitesFullWrap{
     width: 100%;
     display: flex; justify-content: center; align-items: center; flex-direction: column;
     gap: 10px;
     position: relative;
 }
 
-#NewFeaturedSitesHomepageHeading{
+#NewFeaturedSitesHomepageHeading, #AllSitesHeading, #SearchSitesHeading{
     background: #714aa0;
 }
 
-#HomepageFeaturedSiteGridWrap{
+#HomepageFeaturedSiteGridWrap, #AllSitesGridWrap, #SearchSitesGridWrap{
     /* background: red; */
     width: 100%;
     max-width: 650px;
@@ -236,7 +241,7 @@ header{
     position: relative;
 }
 
-#HomepageFeaturedSiteGrid{
+#HomepageFeaturedSiteGrid, #AllSitesGrid, #SearchSitesGrid{
     /* background: blue; */
     width: 100%;
     height: fit-content;
@@ -280,10 +285,12 @@ header{
     background: #a91593;
     padding: 2px 4px;
     font-size: 14px;
-    border-top-left-radius: 7px;
-    border-bottom-right-radius: 7px;
-    position: absolute;
-    left: 0px;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+    /* position: absolute; */
+    /* left: 0px; */
+    border-radius: 7px;
+    margin: 2px;
 }
 
 .NewSiteTag{
@@ -292,8 +299,10 @@ header{
     font-size: 14px;
     border-top-left-radius: 7px;
     border-bottom-right-radius: 7px;
-    position: absolute;
-    left: 0px;
+    /* position: absolute; */
+    /* right: 0px; */
+    border-radius: 7px;
+    margin: 2px;
 }
 
 .SiteCellName{
@@ -309,6 +318,14 @@ header{
 
 .TagMargin{
     margin-top: 5px;
+}
+
+.ShowTag{
+    display: flex;
+}
+
+.HideTag{
+    display: none;
 }
 
 .SiteCellImg{
@@ -347,9 +364,8 @@ header{
 
 #HomepageResourcesWrap{
     /* background: green; */
-    width: 100%;
     max-width: 620px;
-    width: 100%;
+    width: 80%;
     margin-block: 15px;
     display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 15px;
 }

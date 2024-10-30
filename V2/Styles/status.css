@@ -1,0 +1,152 @@
+#StatusPageHeading{
+    /* background: #1540a3; */
+    background: #516f08;
+}
+
+.Cell-Border-Right{
+    border-right: 2px black solid;
+}
+
+.Padding{
+    padding: 5px;
+}
+
+.Operational{
+    color: rgb(87, 168, 6);
+    text-shadow: 1px 1px 2px rgb(86, 86, 86);
+}
+
+.NonOperational{
+    color: rgb(192, 1, 1);
+    text-shadow: 1px 1px 2px rgb(86, 86, 86);
+}
+
+.Limited{
+    color: rgb(192, 103, 1);
+    text-shadow: 1px 1px 2px rgb(86, 86, 86);
+}
+
+.OfflineIcon{
+    font-size: 20px !important;
+    padding-right: 3px !important;
+}
+
+.FlexAlignCenterRow{
+    display: flex; justify-content: center; align-items: center; flex-direction: row;
+}
+
+.FlexAlignCenterColumn{
+    display: flex; justify-content: center; align-items: center; flex-direction: column;
+}
+
+#StatusTable{
+    /* background: rgb(105, 105, 105); */
+    background: rgba(56, 56, 56, 0.5);
+    border: 2px black solid;
+    width: 85%;
+    max-width: 600px;
+    display: flex; justify-content: space-evenly; align-items: center; flex-direction: column;
+    border-radius: 4px;
+    color: var(--TextColor);
+}
+
+.TableHeadingRow{
+    display: flex; justify-content: space-evenly; align-items: center; flex-direction: row;
+    width: 100%;
+    color: white;
+    background: rgb(29, 29, 29);
+}
+
+.TableRow{
+    display: flex; justify-content: space-evenly; align-items: center; flex-direction: row;
+    width: 100%;
+    height: 60px;
+}
+
+.HeadingCell{
+    padding: 5px;
+    border: 2px solid black;
+    width: 100%;
+    /* text-decoration: underline; */
+    /* text-underline-offset: 2px; */
+}
+
+.Cell{
+    display: flex; justify-content: center; align-items: center; flex-direction: column;
+    border: 2px black solid;
+    width: 100%;
+    height: 100%;
+    padding: 15px 5px;
+}
+
+.ErrorDetails{
+    color: var(--TextColor);
+    padding-top: 2px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.ErrorDetails:hover{
+    color: rgb(16, 88, 255);
+    text-decoration: underline;
+}
+
+#ErrorInformationFullWrap{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* background: rgba(0, 0, 0, 0.5); */
+    display: flex; justify-content: center; align-items: center;
+}
+
+#ErrorInfoWrap{
+    background: rgb(24, 24, 24);
+    border-radius: 7px;
+    width: 500px;
+    max-width: 70%;
+    max-height: 450px;
+    overflow-y: auto;
+    display: flex; justify-content: center; align-items: center; flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    position: relative;
+    bottom: 10%;
+}
+
+#SystemErrorDescriptionWrap{
+    gap: 15px;
+}
+
+#SystemErrorInfoName{
+    background: gray;
+    min-width: 60%;
+    max-width: 80%;
+    padding: 3px;
+    border-radius: 7px;
+    /* margin-bottom: 15px; */
+}
+
+#SystemErrorInfoDesc{
+    background: rgb(63, 63, 63);
+    min-width: 60%;
+    max-width: 80%;
+    padding: 3px;
+    border-radius: 7px;
+    /* margin-bottom: 15px; */
+}
+
+#SystemErrorInfoReportDate{
+    font-size: small;
+}
+
+#ErrorInfoCloseButton{
+    font-size: 15px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin: 7px;
+    padding: 3px;
+    border-radius: 5px;
+    background: rgb(126, 3, 3);
+    cursor: pointer;
+}

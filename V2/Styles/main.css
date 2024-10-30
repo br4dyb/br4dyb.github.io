@@ -12,6 +12,7 @@
     box-sizing: border-box;
     font-family: 'DynaPuff';
     text-align: center;
+    transition: opacity .33s;
 }
 
 /* Smaller Screen Styles: */
@@ -69,6 +70,7 @@
     box-shadow: 1px 1px 3px rgb(0, 0, 0);
     color: white;
     padding: 10px 40px;
+    margin-block: 10px;
 }
 
 body{
@@ -142,6 +144,11 @@ header{
     padding-top: 5px;
 }
 
+#HomepageContent{
+    width: 100%;
+    display: flex; justify-content: center; align-items: center; flex-direction: column;
+}
+
 #LandingSearchFullWrap{
     width: 100%;
     display: flex; justify-content: center; align-items: center; flex-direction: column;
@@ -156,16 +163,17 @@ header{
     margin-block: 5px 10px;
 }
 
-#LandingSearchInputFullWrap{
+#LandingSearchInputFullWrap, #SearchInputFullWrap{
     display: flex; justify-content: center; align-items: center; flex-direction: row;
-    margin-top: 5px;
+    margin: 5px;
     width: 65%;
-    max-width: 600px;
+    max-width: 500px;
     min-width: 250px;
     box-shadow: 0px 0px 4px #00000080;
+    position: relative;
 }
 
-#LandingSearchInputIcon{
+#LandingSearchInputIcon, #SearchInputIcon{
     background: #4a5ea0ac;
     color: white;
     font-size: 20px;
@@ -175,7 +183,7 @@ header{
     right: 0px;
 }
 
-#LandingSearchInput{
+#LandingSearchInput, #SearchSitesInput{
     padding: 1px;
     padding-left: 3px;
     font-size: 15px;
@@ -193,13 +201,13 @@ header{
 }
 
 
-#SearchInputAutoComplete{
+#LandingSearchInputAutoComplete, #SearchSitesInputAutoComplete{
     position: absolute;
     top: 100%;
     display: none; justify-content: center; align-items: start; flex-direction: column;
     background: lightgray;
     color: black;
-    width: 65%;
+    width: 100%;
     max-width: 600px;
     min-width: 250px;
     /* border-radius: 5px;
@@ -238,7 +246,7 @@ header{
     /* background: red; */
     width: 100%;
     max-width: 650px;
-    padding: 0px 15px;
+    padding: 0px 15px 15px 15px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -249,7 +257,7 @@ header{
     /* background: blue; */
     width: 100%;
     height: fit-content;
-    padding: 15px 10px;
+    padding: 0px 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -377,7 +385,6 @@ header{
 
 #MoreResourcesHeading{
     background: #11828d;
-    margin-bottom: 10px;
 }
 
 .ResourceButton{

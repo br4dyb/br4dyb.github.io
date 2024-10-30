@@ -1,7 +1,7 @@
 const SitesArray = [
-    {Name: 'WackAMole', Link: '/Sites/WackAMole/index.html', Img: '/favicon.ico', Tags: 'Example, Game, Fun, Wack A Mole', Featured: true, New: false},
-    {Name: 'BouncyBlocks', Link: '/Sites/BouncyBlocks/index.html', Img: '/favicon.ico', Tags: 'Example, Game, Fun, Bouncy Blocks', Featured: true, New: true},
-    {Name: 'Tic Tac Toe', Link: '/Sites/TicTacToeV2/index.html', Img: '/favicon.ico', Tags: 'Example, Game, Fun, Tic Tac Toe', Featured: false, New: false},
+    {Name: 'WackAMole', Link: '/Sites/WackAMole/index.html', Img: '/favicon.ico', Tags: 'Game, Fun, Wack A Mole', Featured: true, New: false},
+    {Name: 'BouncyBlocks', Link: '/Sites/BouncyBlocks/index.html', Img: '/favicon.ico', Tags: 'Game, Fun, Bouncy Blocks', Featured: true, New: true},
+    {Name: 'Tic Tac Toe', Link: '/Sites/TicTacToeV2/index.html', Img: '/favicon.ico', Tags: 'Game, Fun, Tic Tac Toe', Featured: false, New: false},
 ]
 
 // Elements:
@@ -96,6 +96,3 @@ SitesArray.forEach(Site => {
         }
     })
 });
-
-    // console.log('Searchable Tags:');
-    // console.log(SearchableTags)

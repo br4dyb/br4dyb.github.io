@@ -7,7 +7,7 @@
 
     <!-- Version: -->
      <script>
-        let SiteVersion = '0.1.52b';
+        let SiteVersion = '0.1.53a';
      </script>
 
     <!-- Linked StyleSheets: -->
@@ -46,8 +46,9 @@
                  <div id="NavMainTopLinks">
                     <h3 class="text-shadow"> Br4dyB's GitHub </h3>
                     <!-- <div id="HomepageButton" class="NavMainLink" onclick="location.assign('/')"> <span class="material-symbols-rounded NavLinkIcon"> Home </span> Homepage </div> -->
-                    <div id="AllSitesNavButton" class="NavMainLink" onclick=""> <span class="material-symbols-rounded NavLinkIcon"> Widgets </span> All Sites </div>
-                    <div id="SearchSitesNavButton" class="NavMainLink" onclick=""> <span class="material-symbols-rounded NavLinkIcon"> Search </span> Search Sites </div>
+                    <div id="HomepageNavButton" class="NavMainLink hidden" onclick="CloseNav(), SwitchPage('Homepage')"> <span class="material-symbols-rounded NavLinkIcon"> Home </span> Homepage </div>
+                    <div id="AllSitesNavButton" class="NavMainLink" onclick="CloseNav(), SwitchPage('AllSites')"> <span class="material-symbols-rounded NavLinkIcon"> Widgets </span> All Sites </div>
+                    <div id="SearchSitesNavButton" class="NavMainLink" onclick="CloseNav(), SwitchPage('SearchSites')"> <span class="material-symbols-rounded NavLinkIcon"> Search </span> Search Sites </div>
                     <div id="AccountNavButton" class="NavMainLink" onclick=""> <span class="material-symbols-rounded NavLinkIcon"> Person </span> My Account </div>
                     <div id="LightDarkModeButton" class="NavMainLink" onclick="ToggleColorMode()"> <span class="material-symbols-rounded NavLinkIcon"> invert_colors </span> Light Mode</div>
                     <div id="ChangeLogNavButton" class="NavMainLink" onclick=""> <span class="material-symbols-rounded NavLinkIcon"> Overview </span> Change Log </div>
@@ -70,73 +71,75 @@
     </main>
 
     <main id="fullBodyWrap">
-        
-        <section id="LandingSearchFullWrap">
-            <h2 id="LandingSearchHeading" class="body-heading text-shadow-dark"> Looking for something specific? </h2>
 
-            <div id="LandingSearchInputFullWrap" class="">
-                <span id="LandingSearchInputIcon" class="material-symbols-rounded">
-                    manage_search
-                </span>
-                <input id="LandingSearchInput" type="search" placeholder="Search. . ." oninput="LandingSearchAutoComplete()">
+        <main id="HomepageContent">
+            <section id="LandingSearchFullWrap">
+                <h2 id="LandingSearchHeading" class="body-heading text-shadow-dark"> Looking for something specific? </h2>
 
-                <div id="SearchInputAutoComplete">
-                    <p class="AutoCompleteOption"> Option 1</p>
-                    <p class="AutoCompleteOption"> Option 2</p>
-                    <p class="AutoCompleteOption"> Option 3</p>
+                <div id="LandingSearchInputFullWrap" class="">
+                    <span id="LandingSearchInputIcon" class="material-symbols-rounded">
+                        manage_search
+                    </span>
+                    <input id="LandingSearchInput" type="search" placeholder="Search. . ." oninput="SearchAutoComplete('HomepageSearch')">
+
+                    <div id="LandingSearchInputAutoComplete">
+                        <p class="AutoCompleteOption"> Option 1</p>
+                        <p class="AutoCompleteOption"> Option 2</p>
+                        <p class="AutoCompleteOption"> Option 3</p>
+                    </div>
                 </div>
-            </div>
-            
-        </section>
+                
+            </section>
 
-        <section id="NewFeaturedSitesHomepage">
-            <h2 class="text-shadow-dark body-heading" id="NewFeaturedSitesHomepageHeading"> Featured Sites: </h2>
-            <div id="HomepageFeaturedSiteGridWrap">
-                <div id="HomepageFeaturedSiteGrid">
+            <section id="NewFeaturedSitesHomepage">
+                <h2 class="text-shadow-dark body-heading" id="NewFeaturedSitesHomepageHeading"> Featured Sites: </h2>
+                <div id="HomepageFeaturedSiteGridWrap">
+                    <div id="HomepageFeaturedSiteGrid">
 
-                    <div style="display: none;" class="SiteCell box-shadow-dark" data-SiteTags="Example, Site, Cell">
-                        <div style="display: none;" class="SiteTagWrap"> 
-                            <p class="FeaturedSiteTag text-shadow-dark"> Featured</p> 
-                            <p style="display: none;" class="NewSiteTag text-shadow-dark"> New</p>
+                        <div style="display: none;" class="SiteCell box-shadow-dark" data-SiteTags="Example, Site, Cell">
+                            <div style="display: none;" class="SiteTagWrap"> 
+                                <p class="FeaturedSiteTag text-shadow-dark"> Featured</p> 
+                                <p style="display: none;" class="NewSiteTag text-shadow-dark"> New</p>
+                            </div>
+                            <h4 class="SiteCellName text-shadow-dark"> SiteName </h4>
+                            <img class="SiteCellImg" src="/favicon.ico" draggable="false">
+                            <button class="VisitSiteButton text-shadow-dark"> Visit </button>
                         </div>
-                        <h4 class="SiteCellName text-shadow-dark"> SiteName </h4>
-                        <img class="SiteCellImg" src="/favicon.ico" draggable="false">
-                        <button class="VisitSiteButton text-shadow-dark"> Visit </button>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="MoreResourcesWrap">
+                <h2 id="MoreResourcesHeading" class="body-heading text-shadow-dark"> More Resources: </h2>
+                
+                <div id="HomepageResourcesWrap">
+
+                    <div class="ResourceButton box-shadow-dark text-shadow-dark">
+                        <span class="material-symbols-rounded">Person</span>
+                        <p> My Account </p>
+                    </div>
+                    <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #721eb7;">
+                        <span class="material-symbols-rounded">Mail</span>
+                        <p> Contact Us </p>
+                    </div>
+                    <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #cb3615;">
+                        <span class="material-symbols-rounded">Overview</span>
+                        <p> Change Log </p>
+                    </div>
+                    <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #1551cb;" onclick="location.assign(`https://github.com/br4dyb/br4dyb.github.io`)">
+                        <span class="material-symbols-rounded">Code</span>
+                        <p> Source Code </p>
+                    </div>
+                    <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #12aa51;">
+                        <span class="material-symbols-rounded">online_prediction</span>
+                        <p> Status Page </p>
                     </div>
 
                 </div>
-            </div>
-        </section>
-
-        <section id="MoreResourcesWrap">
-            <h2 id="MoreResourcesHeading" class="body-heading text-shadow-dark"> More Resources: </h2>
-            
-            <div id="HomepageResourcesWrap">
-
-                <div class="ResourceButton box-shadow-dark text-shadow-dark">
-                    <span class="material-symbols-rounded">Person</span>
-                    <p> My Account </p>
-                </div>
-                <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #721eb7;">
-                    <span class="material-symbols-rounded">Mail</span>
-                    <p> Contact Us </p>
-                </div>
-                <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #cb3615;">
-                    <span class="material-symbols-rounded">Overview</span>
-                    <p> Change Log </p>
-                </div>
-                <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #1551cb;" onclick="location.assign(`https://github.com/br4dyb/br4dyb.github.io`)">
-                    <span class="material-symbols-rounded">Code</span>
-                    <p> Source Code </p>
-                </div>
-                <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #12aa51;">
-                    <span class="material-symbols-rounded">online_prediction</span>
-                    <p> Status Page </p>
-                </div>
-
-            </div>
-            
-        </section>
+                
+            </section>
+        </main>
 
         <section id="AllSitesFullWrap" class="hidden">
             <h2 class="text-shadow-dark body-heading" id="AllSitesHeading"> All Sites: </h2>
@@ -151,6 +154,20 @@
 
         <section id="SearchSitesFullWrap" class="hidden">
             <h2 class="text-shadow-dark body-heading" id="AllSitesHeading"> Search Sites: </h2>
+
+            <div id="SearchInputFullWrap" style="margin-bottom: 15px;">
+                <span id="SearchInputIcon" class="material-symbols-rounded">
+                    manage_search
+                </span>
+                <input id="SearchSitesInput" type="search" placeholder="Search. . ." oninput="SearchAutoComplete('SearchSitesSearch')">
+
+                <div id="SearchSitesInputAutoComplete">
+                    <p class="AutoCompleteOption"> Option 1</p>
+                    <p class="AutoCompleteOption"> Option 2</p>
+                    <p class="AutoCompleteOption"> Option 3</p>
+                </div>
+            </div>
+
             <div id="SearchSitesGridWrap">
                 <div id="SearchSitesGrid">
 
@@ -166,6 +183,7 @@
 
 <!-- Required Scripts -->
  <script src="./Scripts/NavControl.js"></script>
+ <script src="./Scripts/PageSwitch.js"></script>
  <script src="./Scripts/Search.js"></script>
  <script src="./Scripts/SiteList.js"></script>
 

@@ -102,8 +102,8 @@ function SubmitSiteSearch(SearchValue){
     LandingSearchBar.value = '';
     LandingSearchAutoCompleteWrap.style.display = 'none';
 
-    console.info('Searching for:');
-    console.log(SearchValue);
+    // console.info('Searching for:');
+    // console.log(SearchValue);
 
     // Perform Search:
 

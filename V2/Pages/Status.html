@@ -20,7 +20,7 @@
 
     <header class="box-shadow-dark">
         <span id="menuButton" onclick="location.assign('../')" class="material-symbols-rounded"> Home </span>
-        <h2 id="siteTitle" class="text-shadow-dark" onclick="location.reload()"> Br4dyB's GitHub </h2>
+        <h2 id="siteTitle" class="text-shadow-dark" onclick="location.assign('../')"> Br4dyB's GitHub </h2>
         <span id="accountButton" onclick="location.reload()" class="material-symbols-rounded"> refresh </span>
     </header>
 
@@ -37,38 +37,36 @@
 
                 <div class="TableRow">
                     <p class="Cell"> GitHub: </p>
-                    <div class="Cell Operational"> 
-                        <div class="FlexAlignCenterRow"> <span class="material-symbols-rounded"> Check </span> Operational </div>
+                    <div id="GitHubStatusCell" class="Cell"> 
+                        <div class="FlexAlignCenterRow Loading"> <span class="material-symbols-rounded LoadingAnim"> autorenew </span> Loading </div>
                     </div>
                 </div>
 
                 <div class="TableRow">
                     <p class="Cell"> User Accounts: </p>
-                    <div class="Cell NonOperational"> 
-                        <div class="FlexAlignCenterRow"> <span class="material-symbols-rounded OfflineIcon"> Warning </span> Non Operational </div> 
-                        <p class="ErrorDetails"> More Information </p>
+                    <div id="UserAccountsStatusCell" class="Cell"> 
+                        <div class="FlexAlignCenterRow Loading"> <span class="material-symbols-rounded LoadingAnim">  autorenew </span> Loading </div> 
                     </div>
                 </div>
 
                 <div class="TableRow">
                     <p class="Cell"> Firebase Storage: </p>
-                    <div class="Cell Operational"> 
-                        <div class="FlexAlignCenterRow"> <span class="material-symbols-rounded"> Check </span> Operational </div> 
+                    <div id="FirebaseStatusCell" class="Cell"> 
+                        <div class="FlexAlignCenterRow Loading"> <span class="material-symbols-rounded LoadingAnim">  autorenew </span> Loading </div> 
                     </div>
                 </div>
 
                 <div class="TableRow">
                     <p class="Cell"> Game Leaderboards: </p>
-                    <div class="Cell Limited"> 
-                        <div class="FlexAlignCenterRow"> <span class="material-symbols-rounded"> Exclamation </span> Limited </div> 
-                        <p class="ErrorDetails"> More Information </p>
+                    <div id="GameLeaderboardsCell" class="Cell"> 
+                        <div class="FlexAlignCenterRow Loading"> <span class="material-symbols-rounded LoadingAnim">  autorenew </span> Loading </div> 
                     </div>
                 </div>
 
                 <div class="TableRow">
                     <p class="Cell"> Contact Portal: </p>
-                    <div class="Cell Operational"> 
-                        <div class="FlexAlignCenterRow"> <span class="material-symbols-rounded"> Check </span> Operational </div> 
+                    <div id="ContactPortalStatusCell" class="Cell"> 
+                        <div class="FlexAlignCenterRow Loading"> <span class="material-symbols-rounded LoadingAnim"> autorenew </span> Loading </div> 
                     </div>
                 </div>
 
@@ -91,7 +89,15 @@
 
 </body>
 
+<!-- Firebase: -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"> </script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="../Scripts/Firebase.js"></script>
+
 <!-- Required Scripts -->
 <script src="../Scripts/ColorMode.js"></script>
+<script src="../Scripts/StatusUpdates.js"></script>
+
 
 </html>

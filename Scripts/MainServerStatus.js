@@ -39,3 +39,8 @@ function CheckMainServerStatus() {
         location.assign('/Pages/Offline.html')
     }
 }
+
+// Alert NoRedirect if true:
+if(NoRedirect){
+    console.error('[MainServerStatus]: NoRedirect is TRUE')
+}

@@ -7,7 +7,7 @@
 
     <!-- Version: -->
      <script>
-        let SiteVersion = '0.1.58b';
+        let SiteVersion = '0.1.59a';
      </script>
 
     <!-- Linked StyleSheets: -->
@@ -182,11 +182,20 @@
 </body>
 
 <!-- Required Scripts -->
- <script src="./Scripts/NavControl.js"></script>
- <script src="./Scripts/ColorMode.js"></script>
- <script src="./Scripts/PageSwitch.js"></script>
- <script src="./Scripts/Search.js"></script>
- <script src="./Scripts/SiteList.js"></script>
+
+<!-- Firebase: -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"> </script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="./Scripts/Firebase.js"></script>
+
+<!-- Local Scripts: -->
+<script src="./Scripts/NavControl.js"></script>
+<script src="./Scripts/ColorMode.js"></script>
+<script src="./Scripts/PageSwitch.js"></script>
+<script src="./Scripts/Search.js"></script>
+<script src="./Scripts/SiteList.js"></script>
+<script src="./Scripts/MainServerStatus.js"></script>
 
 <!-- Version Updater: -->
  <script>

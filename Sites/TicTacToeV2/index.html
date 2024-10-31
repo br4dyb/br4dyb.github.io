@@ -290,27 +290,27 @@
     const WaitingForPlayerText = document.getElementById('WaitingForPlayerText');
     const OnlineMultiPlayerTableArea = document.getElementById('OnlineMultiPlayerTableArea');
 
-    // Firebase Config:
-    const firebaseConfig = {
-        apiKey: "AIzaSyCF2LGmFyy8eZtXPoZ0kuzAUrPFDAO2ZmQ",
-        authDomain: "bradys-github.firebaseapp.com",
-        projectId: "bradys-github",
-        storageBucket: "bradys-github.appspot.com",
-        messagingSenderId: "868340368524",
-        appId: "1:868340368524:web:bdcdee795eade397a2a7a9"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    // // Firebase Config:
+    // const firebaseConfig = {
+    //     apiKey: "AIzaSyCF2LGmFyy8eZtXPoZ0kuzAUrPFDAO2ZmQ",
+    //     authDomain: "bradys-github.firebaseapp.com",
+    //     projectId: "bradys-github",
+    //     storageBucket: "bradys-github.appspot.com",
+    //     messagingSenderId: "868340368524",
+    //     appId: "1:868340368524:web:bdcdee795eade397a2a7a9"
+    // };
+    // // Initialize Firebase
+    // firebase.initializeApp(firebaseConfig);
 
-    // Initialize Firestore
-    const db = firebase.firestore();
+    // // Initialize Firestore
+    // const db = firebase.firestore();
 
-        var getOptions = {
-            source: 'server'
-        };
+    //     var getOptions = {
+    //         source: 'server'
+    //     };
 
-    //Initialize Authentication:
-    const auth = firebase.auth();
+    // //Initialize Authentication:
+    // const auth = firebase.auth();
 
     //Animate in Landing Screen:
     setTimeout(() => {
@@ -966,5 +966,9 @@
  <script src="./Scripts/SinglePlayerGameFunctionality.js"> </script>
  <script src="./Scripts/LocalMultiPlayerGameFunctionality.js"> </script>
  <script src="./Scripts/OnlineMultiPlayerFunctionality.js"> </script>
+
+<!-- MainServerStatus: -->
+ <script src="/Scripts/Firebase.js"></script>
+ <script src="/Scripts/MainServerStatus.js"></script>
 
 </html>

@@ -1,6 +1,8 @@
 let MainServerStatus = sessionStorage.getItem('MainServerOnline');
 let MainServerStatus_Debug = false;
 
+let NoRedirect = false;
+
 // Check for Session Storage:
 if(MainServerStatus){
     // Found:
@@ -15,6 +17,7 @@ if(MainServerStatus){
         let AllSystemsDocData = AllSystemsDoc.data();
         let MainSystemOnline = AllSystemsDocData.Operational;
         sessionStorage.setItem('MainServerOnline', MainSystemOnline);
+        MainServerStatus = sessionStorage.getItem('MainServerOnline');
         CheckMainServerStatus();
     }).catch((error) => {
         console.warn('Error Getting MainSystemStatus:');
@@ -30,7 +33,7 @@ function CheckMainServerStatus() {
     }
 
     // Offline:
-    if(MainServerStatus === "false"){
+    if(MainServerStatus === "false" && !NoRedirect){
         if(MainServerStatus_Debug){console.warn('MainServer: Offline')};
         // Redirect:
         location.assign('/Pages/Offline.html')

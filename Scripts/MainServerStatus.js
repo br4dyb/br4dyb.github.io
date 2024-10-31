@@ -36,7 +36,8 @@ function CheckMainServerStatus() {
     if(MainServerStatus === "false" && !NoRedirect){
         if(MainServerStatus_Debug){console.warn('MainServer: Offline')};
         // Redirect:
-        location.assign('/Pages/Offline.html')
+        location.assign('/Pages/Offline.html');
+        
     }
 }
 

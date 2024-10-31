@@ -271,8 +271,8 @@ header{
     background: #4a5ea0;
     border-radius: 7px;
     width: 150px;
-    min-height: 200px;
-    padding: 20px 0px; 
+    height: 200px;
+    padding: 20px 0px 15px 0px; 
     gap: 10px;
     position: relative;
     transition: .33s;
@@ -324,13 +324,15 @@ header{
     box-shadow: 0px 0px 3px rgb(0, 0, 0);
     color: white;
     /* width: 100%; */
+    margin-inline: 10px;
+    text-align: center;
     height: fit-content;
     padding: 6px 8px;
     border-radius: 8px;
 }
 
 .TagMargin{
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .ShowTag{

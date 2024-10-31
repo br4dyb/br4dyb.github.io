@@ -1,7 +1,7 @@
 let MainServerStatus = sessionStorage.getItem('MainServerOnline');
 let MainServerStatus_Debug = false;
 
-let NoRedirect = false;
+let NoRedirect = false; // [IMPORTANT]: Set to FALSE before publishing
 
 // Check for Session Storage:
 if(MainServerStatus){

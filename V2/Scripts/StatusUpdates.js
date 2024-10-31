@@ -6,6 +6,8 @@ GameLeaderboardsCell = document.getElementById('GameLeaderboardsCell');
 ContactPortalStatusCell = document.getElementById('ContactPortalStatusCell');
 let AllStatusCells = [GitHubStatusCell, UserAccountsStatusCell, FirebaseStatusCell, GameLeaderboardsCell, ContactPortalStatusCell];
 
+let ErrorInformationFullWrap = document.getElementById('ErrorInformationFullWrap');
+
 // Variables:
 let AllSystemsData = {Name: 'AllSystems', Data: null}
 let GitHubSystemData = {Name: 'GitHub', Data: null};
@@ -89,6 +91,9 @@ function GetSystemStatuses() {
         console.log(error);
     })
 
+    setTimeout(() => {
+        UpdateStatusTable();
+    }, 1000);
     
 }
 
@@ -164,6 +169,31 @@ function UpdateStatusTable() {
     })
 }
 
-setTimeout(() => {
-    UpdateStatusTable();
-}, 1000);
+function GetIssueDetails(SystemName) {
+    let SystemIssueDataObject = SystemsArray.find(system => system.Name === SystemName);
+    let SystemIssueData = SystemIssueDataObject.Data;
+
+    let SystemErrorInfoName = document.getElementById('SystemErrorInfoName');
+    let SystemErrorInfoDesc = document.getElementById('SystemErrorInfoDesc');
+    let SystemErrorInfoReportDate = document.getElementById('SystemErrorInfoReportDate');
+
+    // Update Information:
+    SystemErrorInfoName.innerText = SystemIssueDataObject.Name;
+    SystemErrorInfoDesc.innerText = SystemIssueData.IssueDetails.Desc;
+    SystemErrorInfoReportDate.innerText = SystemIssueData.IssueDetails.ReportedDate;
+
+    // Show Details Wrap:
+    ErrorInformationFullWrap.style.opacity = 0;
+    ErrorInformationFullWrap.classList.remove('hidden');
+    setTimeout(() => {
+        ErrorInformationFullWrap.style.opacity = 1;
+    }, 450)
+
+}
+
+function CloseIssueDetails(){
+    ErrorInformationFullWrap.style.opacity = 0;
+    setTimeout(() => {
+        ErrorInformationFullWrap.classList.add('hidden');
+    }, 450)
+}

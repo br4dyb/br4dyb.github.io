@@ -1,72 +1,98 @@
-let SitesToPopulate = [
-    {Name: 'WackAMole', Img: './Images/favicon.ico', Link: './Sites/WackAMole/index.html', Tags: 'game, wack, a, mole, fun', Featured: false, New: true},
-    {Name: 'Bouncy Blocks', Img: './Images/favicon.ico', Link: './Sites/BouncyBlocks/index.html', Tags: 'game, flappy, bird, fun, bouncy, blocks', Featured: false, New: false},
-    {Name: 'Rock Papper Scissors', Img: './Images/favicon.ico', Link: './Sites/RockPaperScissors/index.html', Tags: 'game, fun, rock, paper, scissors', Featured: true, New: true},
-    {Name: 'Tic Tac Toe', Img: './Images/favicon.ico', Link: './Sites/TicTacToe/index.html', Tags: 'game, tic, tac, toe, fun', Featured: false, New: false},
-    {Name: 'Tic Tac Toe v2', Img: './Sites/TicTacToeV2/FavIcon.ico', Link: './Sites/TicTacToeV2/index.html', Tags: 'game, tic, tac, toe, fun', Featured: false, New: true},
-    {Name: 'Hangman', Img: './Images/favicon.ico', Link: './Sites/Hangman/index.html', Tags: 'game, fun, hang, man, hangman', Featured: false, New: false},
-    
-    
-    {Name: 'Site Template', Img: './Images/favicon.ico', Link: './Sites/Starter_Template/index.html', Tags: 'site, template, starter, html, css', Featured: false, New: false},
+const SitesArray = [
+    {Name: 'WackAMole', Link: '/Sites/WackAMole/index.html', Img: '/favicon.ico', Tags: 'Game, Fun, Wack A Mole', Featured: true, New: false},
+    {Name: 'BouncyBlocks', Link: '/Sites/BouncyBlocks/index.html', Img: '/favicon.ico', Tags: 'Game, Fun, Bouncy Blocks', Featured: true, New: true},
+    {Name: 'Tic Tac Toe', Link: '/Sites/TicTacToeV2/index.html', Img: '/favicon.ico', Tags: 'Game, Fun, Tic Tac Toe', Featured: false, New: false},
+]
 
-    // {Name: 'SITE_NAME', Img: './Images/favicon.ico', Link: './Sites/_SITE_PATH', Tags: 'SITE_TAGS', Featured: false, New: false},
-];
+// Elements:
+let HomepageFeaturedSiteGrid = document.getElementById('HomepageFeaturedSiteGrid');
+let AllSitesGrid = document.getElementById('AllSitesGrid');
+let SearchSitesGrid = document.getElementById('SearchSitesGrid');
 
-let SitesGridElement = document.getElementById('AllSitesGrid');
-let FeaturedSiteGrid = document.getElementById('FeaturedSitesGrid');
-let SearchSiteGrid = document.getElementById('SearchSitesGrid');
-
-SitesToPopulate.forEach(Site => {
-    let NewCell = document.createElement('main');
-    NewCell.className = "SiteCellWrap";
-    NewCell.dataset.tags = Site.Tags;
-    NewCell.innerHTML = `
-
-        <div class="SiteCellTitleWrap">
-            <div class="SiteTagsWrap hidden">
-                <p class="NewSiteTag hidden"> New! </p>
-                <p class="FeaturedSiteTag hidden"> Featured! </p>
-            </div>
-            <h3 class="SiteCellTitle"> ${Site.Name} </h3>
-            
+// Load Sites:
+SitesArray.forEach(Site => {
+    // Create New Listing Element(s):
+    let AllSitesListing = document.createElement('div');
+    AllSitesListing.classList.add('SiteCell', 'box-shadow-dark');
+    AllSitesListing.dataset.SiteTags = Site.Tags;
+    AllSitesListing.innerHTML = `
+        <div class="SiteTagWrap HideTag"> 
+        <p class="FeaturedSiteTag HideTag text-shadow-dark box-shadow"> Featured</p> 
+        <p class="NewSiteTag HideTag text-shadow-dark box-shadow"> New</p>
         </div>
-        <img class="SiteCellImage" src=${Site.Img}> </img>
-        <a href=${Site.Link}> <button> Visit </button> </a>
-   
-    `;
+        <h4 class="SiteCellName text-shadow-dark"> ${Site.Name} </h4>
+        <img class="SiteCellImg" src="${Site.Img}" draggable="false">
+        <button class="VisitSiteButton text-shadow-dark" onclick=location.assign('${Site.Link}')> Visit </button>`;
 
+    let SearchSitesListing = document.createElement('div');
+    SearchSitesListing.classList.add('SiteCell', 'box-shadow-dark');
+    SearchSitesListing.dataset.SiteTags = Site.Tags;
+    SearchSitesListing.innerHTML = `
+        <div class="SiteTagWrap HideTag"> 
+        <p class="FeaturedSiteTag HideTag text-shadow-dark box-shadow"> Featured</p> 
+        <p class="NewSiteTag HideTag text-shadow-dark box-shadow"> New</p>
+        </div>
+        <h4 class="SiteCellName text-shadow-dark"> ${Site.Name} </h4>
+        <img class="SiteCellImg" src="${Site.Img}" draggable="false">
+        <button class="VisitSiteButton text-shadow-dark" onclick=location.assign('${Site.Link}')> Visit </button>`;
+
+
+    let FeaturedSiteListing = document.createElement('div');
+    FeaturedSiteListing.classList.add('SiteCell', 'box-shadow-dark');
+    FeaturedSiteListing.dataset.SiteTags = Site.Tags;
+    FeaturedSiteListing.innerHTML = `
+        <div class="SiteTagWrap HideTag"> 
+        <p class="FeaturedSiteTag HideTag text-shadow-dark box-shadow"> Featured</p> 
+        <p class="NewSiteTag HideTag text-shadow-dark box-shadow"> New</p>
+        </div>
+        <h4 class="SiteCellName text-shadow-dark"> ${Site.Name} </h4>
+        <img class="SiteCellImg" src="${Site.Img}" draggable="false">
+        <button class="VisitSiteButton text-shadow-dark" onclick=location.assign('${Site.Link}')> Visit </button>`;
+
+    let AllListings = [AllSitesListing, SearchSitesListing, FeaturedSiteListing];
+
+    // Site is Featured:
+    if(Site.Featured){
+        // Add Site Tag:
+        AllListings.forEach(SiteToFeature => {
+            let SiteTagWrap = SiteToFeature.querySelector('.SiteTagWrap')
+            SiteToFeature.querySelector('.SiteCellName').classList.add('TagMargin')
+            SiteTagWrap.classList.remove('HideTag');
+            SiteTagWrap.classList.add('ShowTag');
+            SiteTagWrap.querySelector('.FeaturedSiteTag').classList.remove('HideTag');
+            SiteTagWrap.querySelector('.FeaturedSiteTag').classList.add('ShowTag');
+        });
+    }
+
+    // Site is New:
+    if(Site.New){
+        // Add Site Tag:
+        AllListings.forEach(SiteToFeature => {
+            let SiteTagWrap = SiteToFeature.querySelector('.SiteTagWrap')
+            SiteToFeature.querySelector('.SiteCellName').classList.add('TagMargin')
+            SiteTagWrap.classList.remove('HideTag');
+            SiteTagWrap.classList.add('ShowTag');
+            SiteTagWrap.querySelector('.NewSiteTag').classList.remove('HideTag');
+            SiteTagWrap.querySelector('.NewSiteTag').classList.add('ShowTag');
+        });
+    }
+
+    // Show on Homepage if Featured/New:
+    if(Site.Featured || Site.New){
+        HomepageFeaturedSiteGrid.appendChild(FeaturedSiteListing);
+    }
     
-        let FeatureThisSite = false;
+    // Add to All/Search Sites:
+    AllSitesGrid.appendChild(AllSitesListing)
+    SearchSitesGrid.appendChild(SearchSitesListing)
 
-        if(Site.New === true){
-            let TagsWrap = NewCell.querySelector('.SiteTagsWrap');
-            TagsWrap.classList.remove('hidden');
-            let NewTag = TagsWrap.querySelector('.NewSiteTag');
-            NewTag.classList.remove('hidden');
-            FeatureThisSite = true;
+    // Add SiteTags to SearchableTag Array:
+    ThisSiteTags = Site.Tags.split(',')
+    ThisSiteTags.forEach(Tag => {
+        Tag = Tag.trim();
+        // Check for Duplicate Tags:
+        if(!SearchableTags.includes(Tag)){
+            SearchableTags.push(Tag);
         }
-        if(Site.Featured === true){
-            let TagsWrap = NewCell.querySelector('.SiteTagsWrap');
-            TagsWrap.classList.remove('hidden');
-            let FeaturedTag = TagsWrap.querySelector('.FeaturedSiteTag');
-            FeaturedTag.classList.remove('hidden');
-            FeatureThisSite = true;
-        }
-
-        setTimeout(() => {
-            if(FeatureThisSite){
-                FeaturedSiteGrid.appendChild(NewCell);
-                let SiteImage = NewCell.querySelector('img');
-                SiteImage.style.marginTop = '10%';
-            } else{
-                SitesGridElement.appendChild(NewCell);
-            }
-
-            let NewSearchCell = document.createElement('main');
-            NewSearchCell.className = "SiteCellWrap";
-            NewSearchCell.dataset.tags = Site.Tags;
-            NewSearchCell.innerHTML = NewCell.innerHTML
-            SearchSiteGrid.appendChild(NewSearchCell)
-        }, 50);
-
+    })
 });

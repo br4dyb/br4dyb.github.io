@@ -58,6 +58,33 @@
     display: flex; justify-content: center; align-items: center; flex-direction: column;
 }
 
+#AllSystemInfoWrap{
+    background: rgba(186, 49, 49, 0.5);
+    border: 2px black solid;
+    width: 55%;
+    max-width: 400px;
+    display: flex; justify-content: center; align-items: center; flex-direction: column;
+    border-radius: 8px;
+    color: var(--TextColor);
+    padding: 10px 15px;
+    gap: 10px;
+}
+
+#AllSystemsMoreInfoButton{
+    border: 2px solid black;
+    padding: 3px 5px;
+    border-radius: 5px;
+    background: #ffffff80;
+    color: black;
+    cursor: pointer;
+    font-size: small;
+    transition: .33s;
+}
+
+#AllSystemsMoreInfoButton:hover{
+    background: rgba(16, 88, 255, 0.727);
+}
+
 #StatusTable{
     /* background: rgb(105, 105, 105); */
     background: rgba(56, 56, 56, 0.5);
@@ -139,8 +166,8 @@
 
 #SystemErrorInfoName{
     background: gray;
-    min-width: 60%;
-    max-width: 80%;
+    /* min-width: 60%;
+    max-width: 80%; */
     padding: 3px;
     border-radius: 7px;
     /* margin-bottom: 15px; */

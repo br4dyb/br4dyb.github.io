@@ -7,15 +7,18 @@ ContactPortalStatusCell = document.getElementById('ContactPortalStatusCell');
 let AllStatusCells = [GitHubStatusCell, UserAccountsStatusCell, FirebaseStatusCell, GameLeaderboardsCell, ContactPortalStatusCell];
 
 let ErrorInformationFullWrap = document.getElementById('ErrorInformationFullWrap');
+let AllSystemInfoWrap = document.getElementById('AllSystemInfoWrap');
 
 // Variables:
-let AllSystemsData = {Name: 'AllSystems', Data: null}
+let AllSystemsData = {Name: 'All Systems', Data: null}
 let GitHubSystemData = {Name: 'GitHub', Data: null};
 let UserAccountsSystemData = {Name: 'User Accounts', Data: null};
 let FirebaseSystemData = {Name: 'Firebase Storage', Data: null};
 let GameLeaderboardSystemData = {Name: 'Game Leaderboards', Data: null};
 let ContactPortalSystemData = {Name: 'Contact Portal', Data: null};
-let SystemsArray = [AllSystemsData, GitHubSystemData, UserAccountsSystemData, FirebaseSystemData, GameLeaderboardSystemData, ContactPortalSystemData]
+let SystemsArray = [AllSystemsData, GitHubSystemData, UserAccountsSystemData, FirebaseSystemData, GameLeaderboardSystemData, ContactPortalSystemData];
+
+let MainSystemOperational = true;
 
 // Load Statuses:
 function GetSystemStatuses() {
@@ -106,30 +109,46 @@ function UpdateStatusTable() {
         GetSystemName();
 
         function GetSystemName(){
-            
-            if(SystemData.Name === 'GitHub'){
-                ElementToUpdate = GitHubStatusCell;
-                UpdateSystemInformation();
-            }
 
-            if(SystemData.Name === 'User Accounts'){
-                ElementToUpdate = UserAccountsStatusCell;
-                UpdateSystemInformation();
-            }
+            if(SystemData.Name === 'All Systems' && SystemData.Data.Operational === false){
+                console.warn('All Systems: NOT OPERATIONAL!')
+                MainSystemOperational = false;
+                AllSystemInfoWrap.classList.remove('hidden')
 
-            if(SystemData.Name === 'Firebase Storage'){
-                ElementToUpdate = FirebaseStatusCell;
-                UpdateSystemInformation();
-            }
+                // Set Each Cell to NonOperational!
+                AllStatusCells.forEach(Cell => {
+                    Cell.classList.remove('Operational', 'Limited');
+                    Cell.classList.add('NonOperational');
+                    Cell.innerHTML = `
+                <div class="FlexAlignCenterRow"> <span class="material-symbols-rounded OfflineIcon"> Warning </span> Non Operational </div>`;
+                })
 
-            if(SystemData.Name === 'Game Leaderboards'){
-                ElementToUpdate = GameLeaderboardsCell;
-                UpdateSystemInformation();
-            }
-
-            if(SystemData.Name === 'Contact Portal'){
-                ElementToUpdate = ContactPortalStatusCell;
-                UpdateSystemInformation();
+            }if(MainSystemOperational){
+                // Update Each System:
+                if(SystemData.Name === 'GitHub'){
+                    ElementToUpdate = GitHubStatusCell;
+                    UpdateSystemInformation();
+                }
+    
+                if(SystemData.Name === 'User Accounts'){
+                    ElementToUpdate = UserAccountsStatusCell;
+                    UpdateSystemInformation();
+                }
+    
+                if(SystemData.Name === 'Firebase Storage'){
+                    ElementToUpdate = FirebaseStatusCell;
+                    UpdateSystemInformation();
+                }
+    
+                if(SystemData.Name === 'Game Leaderboards'){
+                    ElementToUpdate = GameLeaderboardsCell;
+                    UpdateSystemInformation();
+                }
+    
+                if(SystemData.Name === 'Contact Portal'){
+                    ElementToUpdate = ContactPortalStatusCell;
+                    UpdateSystemInformation();
+                }
             }
             
         }

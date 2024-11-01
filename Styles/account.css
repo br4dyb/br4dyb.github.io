@@ -112,7 +112,7 @@
     font-size: small;
 }
 
-#MyAccountPanel{
+#MyAccountPanel, #ChangeAccountPicturePanel, #DeleteAccountConfirmPanel{
     background: rgba(0,0,0,.5);
     text-shadow: 0px 0px 4px black;
     color: white;
@@ -153,6 +153,7 @@
     border: 2px solid darkgray;
     cursor: pointer;
     transition: .33s;
+    font-size: small;
 }
 
 .AccountButton:hover{

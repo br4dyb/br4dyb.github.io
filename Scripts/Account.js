@@ -2,6 +2,10 @@
 const LoginUserWrap = document.getElementById('AccountLoginPanel');
 const CreateUserWrap = document.getElementById('AccountCreatePanel');
 const SubmitErrorMsg = document.getElementById('AccountSubmitErrorMsg');
+const MyAccountPanel = document.getElementById('MyAccountPanel');
+const ChangeAccountPicturePanel = document.getElementById('ChangeAccountPicturePanel');
+const DeleteAccountConfirmPanel = document.getElementById('DeleteAccountConfirmPanel');
+const MyAccount_Username = document.getElementById('MyAccount_Username');
 
     //Inputs:
 const AccountLogin_EmailInput = document.getElementById('AccountLogin_EmailInput');
@@ -14,6 +18,9 @@ const AccountCreate_PasswordInput = document.getElementById('AccountCreate_Passw
 let Account_Debug = true;
 let CurrentSignInType = 'Sign In';
 let CurrentUser = null;
+let CurrentUserName = 'null';
+let CurrentUserEmail = 'null';
+let CurrentUserPicture = null;
 
 
 // Functions:
@@ -71,4 +78,44 @@ function ShowSubmitError(ErrorMsg){
         SubmitErrorMsg.style.opacity = 0;
         setTimeout(() => {SubmitErrorMsg.classList.remove('hidden'); SubmitErrorMsg.innerText = '%ERROR%';}, 350)
     }, 1500);
+}
+
+function BackToAccountPanel(){
+    ChangeAccountPicturePanel.style.opacity = 0;
+    DeleteAccountConfirmPanel.style.opacity = 0;
+    setTimeout(() => {
+        ChangeAccountPicturePanel.classList.add('hidden');
+        DeleteAccountConfirmPanel.classList.add('hidden');
+        MyAccountPanel.style.opacity = 0;
+        MyAccountPanel.classList.remove('hidden');
+        setTimeout(() => {MyAccountPanel.style.opacity = 1;}, 50)
+    },350)
+}
+
+function ChangeAccountPicture(){
+    document.getElementById('MyAccountPicture_Username').innerText = CurrentUserName;
+    document.getElementById('MyAccountPicture_Image').src = CurrentUserPicture;
+    MyAccountPanel.style.opacity = 0;
+    setTimeout(() => {
+        MyAccountPanel.classList.add('hidden');
+        ChangeAccountPicturePanel.style.opacity = 0;
+        ChangeAccountPicturePanel.classList.remove('hidden');
+        setTimeout(() => {ChangeAccountPicturePanel.style.opacity = 1;}, 50)
+    },350)
+}
+
+function BeginDeleteAccount(){
+    document.getElementById('MyAccountDelete_Username').innerText = CurrentUserName;
+    document.getElementById('MyAccountDelete_Image').src = CurrentUserPicture;
+    MyAccountPanel.style.opacity = 0;
+    setTimeout(() => {
+        MyAccountPanel.classList.add('hidden');
+        DeleteAccountConfirmPanel.style.opacity = 0;
+        DeleteAccountConfirmPanel.classList.remove('hidden');
+        setTimeout(() => {DeleteAccountConfirmPanel.style.opacity = 1;}, 50)
+    },350)
+}
+
+function LogOutAccount(){
+    console.info('Attempting to Log Out!')
 }

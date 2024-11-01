@@ -124,6 +124,10 @@ function UpdateStatusTable() {
                 })
 
             }if(MainSystemOperational){
+
+                // Assign MainSystemOnline SessionStorage:
+                sessionStorage.setItem('MainServerOnline', 'true');
+
                 // Update Each System:
                 if(SystemData.Name === 'GitHub'){
                     ElementToUpdate = GitHubStatusCell;

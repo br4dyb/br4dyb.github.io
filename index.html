@@ -73,7 +73,7 @@
 
     <main id="fullBodyWrap">
 
-        <main id="HomepageContent" class="">
+        <main id="HomepageContent" class="hidden">
             <section id="LandingSearchFullWrap">
                 <h2 id="LandingSearchHeading" class="body-heading text-shadow-dark"> Looking for something specific? </h2>
 
@@ -178,11 +178,11 @@
             </div>
         </section>
 
-        <section id="MyAccountFullWrap" class="hidden">
+        <section id="MyAccountFullWrap" class="">
 
             <div id="AccountFullPanelsWrap">
 
-                <div id="AccountLoginPanel" class="box-shadow-dark">
+                <div id="AccountLoginPanel" class="box-shadow-dark hidden">
                     <h2> Welcome! </h2>
                     <p> Please Sign In: </p>
     
@@ -241,6 +241,23 @@
                 <div id="AccountSubmitErrorMsg" class="hidden">
                     <p> %Error% </p>
                 </div>
+
+                <div id="MyAccountPanel" class="box-shadow-dark">
+                    <h2> Welcome! </h2>
+                    <h3 id="MyAccount_Username"> {NAME} <!-- <span class="material-symbols-rounded AdminUserIcon" title="Admin"> gavel </span> --> </h3> 
+
+                    <img id="MyAccount_Image" src="https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-photo-700-205577532.jpg" draggable="false"> 
+
+                    <p id="MyAccount_Email" style="font-size: small;"> Email: <br> {EMAIL}</p>
+
+                    <p id="MyAccount_UID" style="font-size: small;"> UID: <br> {UDI}</p>
+
+                    <div class="AccountButton"> Change Picture </div>
+                    <div class="AccountButton" style="background: #953535;"> Delete Account </div>
+                    <div class="AccountButton" style="background: #453595;"> Log Out </div>
+                    
+                </div>
+
             </div>
 
             

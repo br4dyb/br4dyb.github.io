@@ -78,7 +78,7 @@
     border-radius: 5px;
     border: 1px solid darkgray;
     margin-bottom: 7px;
-    font-size: 16px;
+    font-size: 13px;
     cursor: pointer;
     transition: .33s;
 }
@@ -110,4 +110,51 @@
     position: absolute;
     bottom: -40px;
     font-size: small;
+}
+
+#MyAccountPanel{
+    background: rgba(0,0,0,.5);
+    text-shadow: 0px 0px 4px black;
+    color: white;
+    padding: 12px 20px;
+    width: 400px;
+    max-width: 70%;
+    border-radius: 7px;
+    border: 1px solid darkgray;
+    display: flex; justify-content: center; align-items: center; flex-direction: column; flex-wrap: wrap;
+    gap: 10px;
+    padding-bottom: 17px;
+}
+
+#MyAccount_Username{
+    position: relative;
+    width: 100%;
+}
+
+.AdminUserIcon{
+    background: rebeccapurple;
+    padding: 4px;
+    border-radius: 50px;
+    font-size: medium !important;
+}
+
+#MyAccount_Image{
+    width: 25%;
+    border-radius: 50px;
+    border: 2px solid darkgray;
+    margin-block: 5px;
+}
+
+.AccountButton{
+    background: grey;
+    padding: 5px 8px;
+    border-radius: 4px;
+    margin-top: 5px;
+    border: 2px solid darkgray;
+    cursor: pointer;
+    transition: .33s;
+}
+
+.AccountButton:hover{
+    scale: 1.1;
 }

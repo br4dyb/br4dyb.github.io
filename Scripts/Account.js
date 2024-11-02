@@ -33,6 +33,8 @@ let CurrentUserPicture = null;
 // TO DO:
     // -- Finish ChangePicture Function
         // -- Update and Confirm Image Url as Entered?
+        // -- Maybe change this to an "Edit Account" option
+            // -- Change Name, Picture, Password, etc.
 
     // -- Add a Password Reset Option?:
         // -- Or at least a change password option

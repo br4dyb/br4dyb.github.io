@@ -145,6 +145,32 @@
     margin-block: 5px;
 }
 
+#AccountEmailNotVerifiedMsg{
+    font-size: small;
+    color: #953535;
+    padding: 4px 6px;
+    border: 1px dotted darkgray;
+    border-radius: 4px;
+}
+
+#EmailVerificationSentMsg{
+    background: rgba(0,0,0,.5);
+    text-shadow: 0px 0px 4px black;
+    color: white;
+    padding: 12px 20px;
+    /* width: 400px; */
+    max-width: 70%;
+    border-radius: 7px;
+    border: 1px solid darkgray;
+    display: flex; justify-content: center; align-items: center; flex-direction: column; flex-wrap: wrap;
+    gap: 10px;
+    position: absolute;
+    bottom: -70px;
+    color: rgb(132, 193, 11);
+    transition: .33s;
+    font-size: 16px;
+}
+
 .AccountButton{
     background: grey;
     padding: 5px 8px;

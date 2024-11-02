@@ -34,6 +34,9 @@ let CurrentUserPicture = null;
     // -- Finish ChangePicture Function
         // -- Update and Confirm Image Url as Entered?
 
+    // -- Add a Password Reset Option?:
+        // -- Or at least a change password option
+
     // -- Update New/Existing Users to FIRESTORE:
         // -- Create and Utilize the AdminUser flag
 

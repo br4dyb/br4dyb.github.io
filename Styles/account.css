@@ -138,7 +138,7 @@
     font-size: medium !important;
 }
 
-#MyAccount_Image{
+#MyAccount_Image, #MyAccountPicture_Image, #MyAccountDelete_Image{
     width: 25%;
     border-radius: 50px;
     border: 2px solid darkgray;

@@ -164,8 +164,8 @@
     border: 1px solid darkgray;
     display: flex; justify-content: center; align-items: center; flex-direction: column; flex-wrap: wrap;
     gap: 10px;
-    position: absolute;
-    bottom: -70px;
+    position: relative;
+    top: 20px;
     color: rgb(132, 193, 11);
     transition: .33s;
     font-size: 16px;

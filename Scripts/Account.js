@@ -217,35 +217,6 @@ function SubmitCreateAccount(){
     });
 }
 
-function ShowSubmitError(ErrorMsg){
-    SubmitErrorMsg.innerText = ErrorMsg;
-    SubmitErrorMsg.style.opacity = 0;
-    SubmitErrorMsg.classList.remove('hidden');
-    setTimeout(() => {SubmitErrorMsg.style.opacity = 1;}, 150)
-
-    // Hide after wait:
-    setTimeout(() => {
-        SubmitErrorMsg.style.opacity = 0;
-        setTimeout(() => {SubmitErrorMsg.classList.remove('hidden'); SubmitErrorMsg.innerText = '%ERROR%';}, 350)
-    }, 1500);
-}
-
-function ShowEmailVerificationSentMsg(){
-    EmailVerificationSentMsg.style.opacity = 0;
-    EmailVerificationSentMsg.classList.remove('hidden');
-    setTimeout(() => {
-        EmailVerificationSentMsg.style.opacity = 1;
-    }, 380)
-
-    // Hide After Wait:
-    setTimeout(() => {
-        EmailVerificationSentMsg.style.opacity = 0;
-        setTimeout(() => {
-            EmailVerificationSentMsg.classList.add('hidden');
-        }, 350);
-    }, 3350)
-}
-
 function ResendEmailVerification(){
     // Send Verification Email:
     firebase.auth().currentUser.sendEmailVerification()
@@ -345,7 +316,6 @@ function ConfirmDeleteAccount() {
     });
 }
 
-
 function LogOutAccount(){
     // console.info('Attempting to Log Out!')
     // Sign out user
@@ -356,4 +326,33 @@ function LogOutAccount(){
     .catch((error) => {
     console.error("Error signing out:", error);
     });
+}
+
+function ShowSubmitError(ErrorMsg){
+    SubmitErrorMsg.innerText = ErrorMsg;
+    SubmitErrorMsg.style.opacity = 0;
+    SubmitErrorMsg.classList.remove('hidden');
+    setTimeout(() => {SubmitErrorMsg.style.opacity = 1;}, 150)
+
+    // Hide after wait:
+    setTimeout(() => {
+        SubmitErrorMsg.style.opacity = 0;
+        setTimeout(() => {SubmitErrorMsg.classList.remove('hidden'); SubmitErrorMsg.innerText = '%ERROR%';}, 350)
+    }, 1500);
+}
+
+function ShowEmailVerificationSentMsg(){
+    EmailVerificationSentMsg.style.opacity = 0;
+    EmailVerificationSentMsg.classList.remove('hidden');
+    setTimeout(() => {
+        EmailVerificationSentMsg.style.opacity = 1;
+    }, 380)
+
+    // Hide After Wait:
+    setTimeout(() => {
+        EmailVerificationSentMsg.style.opacity = 0;
+        setTimeout(() => {
+            EmailVerificationSentMsg.classList.add('hidden');
+        }, 350);
+    }, 3350)
 }

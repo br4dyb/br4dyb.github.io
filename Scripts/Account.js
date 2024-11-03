@@ -34,10 +34,8 @@ let CurrentUserEmail = null;
 let CurrentUserPicture = null;
 
 // TO DO:
-    // -- Finish ChangePicture Function
+    // -- Change Name, Email, Picture, Password, etc. Functions
         // -- Update and Confirm Image Url as Entered?
-        // -- Maybe change this to an "Edit Account" option
-            // -- Change Name, Picture, Password, etc.
 
     // -- Add a Password Reset Option?:
         // -- Or at least a change password option
@@ -57,11 +55,11 @@ firebase.auth().onAuthStateChanged((user) => {
         CurrentUserPicture = CurrentUser.photoURL;
             // Check for Email Verified:
             if(user.emailVerified){
-                console.info('email verified!')
+                if(Account_Debug){console.info('email verified!');}
                 VerifyEmailButton.classList.add('hidden');
                 AccountEmailNotVerifiedMsg.classList.add('hidden');
             }else{
-                console.info('email NOT verified!')
+                if(Account_Debug){console.info('email NOT verified!');}
             }
 
             // Debug:

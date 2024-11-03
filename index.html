@@ -7,7 +7,7 @@
 
     <!-- Version: -->
      <script>
-        let SiteVersion = '1.0.13c';
+        let SiteVersion = '1.0.14a';
      </script>
 
     <!-- Linked StyleSheets: -->
@@ -253,10 +253,44 @@
 
                     <p id="MyAccount_UID" style="font-size: 10px; color: darkgray;"> UID: <br> {UDI}</p>
 
-                    <div onclick="ChangeAccountPicture()" class="AccountButton"> Change Picture </div>
+                    <div onclick="OpenManageAccount()" class="AccountButton" style="background: #955535;"> Manage Account </div>
+                    
                     <div id="VerifyEmailButton" onclick="ResendEmailVerification()" class="AccountButton" style="background: #689535;"> Resend Verification </div>
-                    <div onclick="BeginDeleteAccount()" class="AccountButton" style="background: #953535;"> Delete Account </div>
+                    
                     <div onclick="LogOutAccount()" class="AccountButton" style="background: #453595;"> Log Out </div>
+                    
+                </div>
+
+                <div id="ManageAccountPanel" class="box-shadow-dark hidden"> 
+                    <h2> Manage Account: </h2>
+                    <h3 id="ManageMyAccount_Username"> {NAME} <!-- <span class="material-symbols-rounded AdminUserIcon" title="Admin"> gavel </span> --> </h3>
+                    <p id="ManageMyAccount_Email" style="font-size: small;"> Email: {EMAIL}</p>
+                    <img id="ManageMyAccount_Image" src="https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-photo-700-205577532.jpg" draggable="false"> 
+
+                    <div id="ConfirmPassword_ManageAccountWrap">
+                        <p> Confirm Your Password:</p>
+                        <input id="ManageAccount_PasswordConfrimInput" class="AccInputText" type="password" placeholder="Password">
+                        <div style="
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: row;
+                    gap: 10px;
+                    flex-wrap: wrap;
+                    ">
+                        <div onclick="BackToAccountPanel()" class="AccountButton" style="background: #953535;"> Cancel </div>
+                        <div onclick="ManageAccountConfirmPassword()" class="AccountButton" style="background: #267a34;"> Confirm </div>
+                    </div>
+                    </div>
+                    
+                    
+                    <div id="ManageAccountOptionButtonsWrap" class="hidden">
+                        <div onclick="ChangeAccountEmail()" class="AccountButton"> Change Email </div>
+                        <div onclick="ChangeAccountPicture()" class="AccountButton"> Change Picture </div>
+                        <div onclick="ChangeAccountPassword()" class="AccountButton"> Change Password </div>
+                        <div onclick="BeginDeleteAccount()" class="AccountButton" style="background: #953535;"> Delete Account </div>
+                        <div onclick="BackToAccountPanel()" class="AccountButton" style="background: #354795;"> Go Back </div>
+                    </div>
                     
                 </div>
 
@@ -275,7 +309,7 @@
                     gap: 10px;
                     flex-wrap: wrap;
                     margin-top: 10px;">
-                    <div onclick="BackToAccountPanel()" class="AccountButton" style="background: #453595;"> Cancel </div>
+                    <div onclick="BackToManagePanel()" class="AccountButton" style="background: #453595;"> Cancel </div>
                     <div onclick="SubmitAccountPicture()" class="AccountButton" style="background: #267a34;"> Submit Picture </div>
                     </div>
                     
@@ -287,8 +321,8 @@
                     <img id="MyAccountDelete_Image" src="https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-photo-700-205577532.jpg" draggable="false"> 
                     <p style="font-size: small;"> Are you sure you want to delete your account? <br> This cannot be undone!</p>
 
-                    <p style="margin-top: 10px"> Confirm Your Password:</p>
-                    <input id="ConfirmDelete_PasswordInput" class="AccInputText" type="password" placeholder="Password">
+                    <!-- <p style="margin-top: 10px"> Confirm Your Password:</p>
+                    <input id="ConfirmDelete_PasswordInput" class="AccInputText" type="password" placeholder="Password"> -->
 
                     <div style="
                     display: flex;
@@ -298,7 +332,7 @@
                     gap: 10px;
                     flex-wrap: wrap;
                     margin-top: 10px;">
-                        <div onclick="BackToAccountPanel()" class="AccountButton" style="background: #267a34;"> Cancel </div>
+                        <div onclick="BackToManagePanel()" class="AccountButton" style="background: #267a34;"> Cancel </div>
                         <div onclick="ConfirmDeleteAccount()" class="AccountButton" style="background: #953535;"> Confirm </div>
                     </div>
                     

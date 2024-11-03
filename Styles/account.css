@@ -112,7 +112,7 @@
     font-size: small;
 }
 
-#MyAccountPanel, #ChangeAccountPicturePanel, #DeleteAccountConfirmPanel{
+#MyAccountPanel, #ManageAccountPanel, #ChangeAccountPicturePanel, #DeleteAccountConfirmPanel{
     background: rgba(0,0,0,.5);
     text-shadow: 0px 0px 4px black;
     color: white;
@@ -138,7 +138,7 @@
     font-size: medium !important;
 }
 
-#MyAccount_Image, #MyAccountPicture_Image, #MyAccountDelete_Image{
+#MyAccount_Image, #MyAccountPicture_Image, #MyAccountDelete_Image, #ManageMyAccount_Image{
     width: 25%;
     border-radius: 50px;
     border: 2px solid darkgray;
@@ -184,4 +184,19 @@
 
 .AccountButton:hover{
     scale: 1.1;
+}
+
+#ConfirmPassword_ManageAccountWrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 17px;
+}
+
+#ManageAccountOptionButtonsWrap{
+    width: 400px;
+    max-width: 70%;
+    display: flex; justify-content: center; align-items: center; flex-direction: column; flex-wrap: wrap;
+    gap: 10px;
 }

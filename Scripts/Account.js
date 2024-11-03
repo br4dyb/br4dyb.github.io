@@ -3,6 +3,9 @@ const LoginUserWrap = document.getElementById('AccountLoginPanel');
 const CreateUserWrap = document.getElementById('AccountCreatePanel');
 const SubmitErrorMsg = document.getElementById('AccountSubmitErrorMsg');
 const MyAccountPanel = document.getElementById('MyAccountPanel');
+const ManageAccountPanel = document.getElementById('ManageAccountPanel');
+const ConfirmPassword_ManageAccountWrap = document.getElementById('ConfirmPassword_ManageAccountWrap');
+const ManageAccountOptionButtonsWrap = document.getElementById('ManageAccountOptionButtonsWrap');
 const ChangeAccountPicturePanel = document.getElementById('ChangeAccountPicturePanel');
 const DeleteAccountConfirmPanel = document.getElementById('DeleteAccountConfirmPanel');
 
@@ -20,10 +23,10 @@ const AccountLogin_PasswordInput = document.getElementById('AccountLogin_Passwor
 const AccountCreate_UsernameInput = document.getElementById('AccountCreate_UsernameInput');
 const AccountCreate_EmailInput = document.getElementById('AccountCreate_EmailInput');
 const AccountCreate_PasswordInput = document.getElementById('AccountCreate_PasswordInput');
-const ConfirmDelete_PasswordInput = document.getElementById('ConfirmDelete_PasswordInput');
+const ManageAccount_PasswordConfrimInput = document.getElementById('ManageAccount_PasswordConfrimInput');
 
 // Variables:
-let Account_Debug = true;
+let Account_Debug = false;
 let CurrentSignInType = 'Sign In';
 let CurrentUser = null;
 let CurrentUserName = null;
@@ -190,6 +193,7 @@ function SubmitCreateAccount(){
             console.log(error);
           });
         // Send Verification Email:
+        AccountEmailNotVerifiedMsg.classList.remove('hidden');
         firebase.auth().currentUser.sendEmailVerification()
         .then(() => {
             // Email verification sent!
@@ -236,64 +240,41 @@ function ResendEmailVerification(){
     })
 }
 
-function BackToAccountPanel(){
-    ChangeAccountPicturePanel.style.opacity = 0;
-    DeleteAccountConfirmPanel.style.opacity = 0;
-    setTimeout(() => {
-        ChangeAccountPicturePanel.classList.add('hidden');
-        DeleteAccountConfirmPanel.classList.add('hidden');
-        MyAccountPanel.style.opacity = 0;
-        MyAccountPanel.classList.remove('hidden');
-        setTimeout(() => {MyAccountPanel.style.opacity = 1;}, 50)
-    },350)
-}
-
-function ChangeAccountPicture(){
-    document.getElementById('MyAccountPicture_Username').innerText = CurrentUserName;
-    document.getElementById('MyAccountPicture_Image').src = CurrentUserPicture;
+function OpenManageAccount(){
+    // Update Panel Elements:
+    document.getElementById('ManageMyAccount_Username').innerText = CurrentUserName;
+    document.getElementById('ManageMyAccount_Email').innerText = CurrentUserEmail;
+    document.getElementById('ManageMyAccount_Image').src = CurrentUserPicture;
     MyAccountPanel.style.opacity = 0;
+    ManageAccountPanel.style.opacity = 0;
+    ConfirmPassword_ManageAccountWrap.classList.remove('hidden');
+    ConfirmPassword_ManageAccountWrap.style.opacity = 1;
+    ManageAccountOptionButtonsWrap.classList.add('hidden');
     setTimeout(() => {
+        ManageAccountPanel.classList.remove('hidden');
         MyAccountPanel.classList.add('hidden');
-        ChangeAccountPicturePanel.style.opacity = 0;
-        ChangeAccountPicturePanel.classList.remove('hidden');
-        setTimeout(() => {ChangeAccountPicturePanel.style.opacity = 1;}, 50)
-    },350)
+        setTimeout(() => {ManageAccountPanel.style.opacity = 1;}, 50)
+    }, 350);
 }
 
-function BeginDeleteAccount(){
-    document.getElementById('MyAccountDelete_Username').innerText = CurrentUserName;
-    document.getElementById('MyAccountDelete_Image').src = CurrentUserPicture;
-    MyAccountPanel.style.opacity = 0;
-    setTimeout(() => {
-        MyAccountPanel.classList.add('hidden');
-        DeleteAccountConfirmPanel.style.opacity = 0;
-        DeleteAccountConfirmPanel.classList.remove('hidden');
-        setTimeout(() => {DeleteAccountConfirmPanel.style.opacity = 1;}, 50)
-    },350)
-}
-
-function ConfirmDeleteAccount() {
+function ManageAccountConfirmPassword(){
     // Get Credentials
     let credential = firebase.auth.EmailAuthProvider.credential(
         CurrentUserEmail,
-        ConfirmDelete_PasswordInput.value
+        ManageAccount_PasswordConfrimInput.value
     );
     
     CurrentUser.reauthenticateWithCredential(credential).then(() => {
         // User re-authenticated
         if(Account_Debug){console.log('Re-Authenticated!')};
-        CurrentUser.delete().then(() => {
-            // User deleted.
-            if(Account_Debug){console.info('User Deleted!')}
-            // Go back to SignIn Panel:
-            DeleteAccountConfirmPanel.style.opacity = 0;
-            setTimeout(() => {
-                DeleteAccountConfirmPanel.classList.add('hidden');
-            }, 350);
-          }).catch((error) => {
-            console.warn('An Error Occured - Deleting Account:')
-            console.log(error)
-          });
+        // Show Manage Account Options:
+        ConfirmPassword_ManageAccountWrap.style.opacity = 0;
+        setTimeout(() => {
+            ConfirmPassword_ManageAccountWrap.classList.add('hidden');
+            ManageAccountOptionButtonsWrap.style.opacity = 0;
+            ManageAccountOptionButtonsWrap.classList.remove('hidden');
+            setTimeout(() => {ManageAccountOptionButtonsWrap.style.opacity = 1;}, 50)
+        }, 350);
     }).catch((error) => {
         // Handle errors
         console.warn('Not Authenticated!');
@@ -319,6 +300,69 @@ function ConfirmDeleteAccount() {
             console.log(error.message);
         }
     });
+}
+
+function BackToAccountPanel(){
+    ManageAccountPanel.style.opacity = 0;
+    setTimeout(() => {
+        ManageAccountPanel.classList.add('hidden');
+        MyAccountPanel.style.opacity = 0;
+        MyAccountPanel.classList.remove('hidden');
+        setTimeout(() => {MyAccountPanel.style.opacity = 1;}, 50)
+    },350)
+}
+
+function BackToManagePanel(){
+    ChangeAccountPicturePanel.style.opacity = 0;
+    DeleteAccountConfirmPanel.style.opacity = 0;
+    setTimeout(() => {
+        ChangeAccountPicturePanel.classList.add('hidden');
+        DeleteAccountConfirmPanel.classList.add('hidden');
+        ManageAccountPanel.style.opacity = 0;
+        ManageAccountPanel.classList.remove('hidden');
+        setTimeout(() => {ManageAccountPanel.style.opacity = 1;}, 50)
+    },350)
+}
+
+function ChangeAccountPicture(){
+    document.getElementById('MyAccountPicture_Username').innerText = CurrentUserName;
+    document.getElementById('MyAccountPicture_Image').src = CurrentUserPicture;
+    ManageAccountPanel.style.opacity = 0;
+    setTimeout(() => {
+        ManageAccountPanel.classList.add('hidden');
+        ChangeAccountPicturePanel.style.opacity = 0;
+        ChangeAccountPicturePanel.classList.remove('hidden');
+        setTimeout(() => {ChangeAccountPicturePanel.style.opacity = 1;}, 50)
+    },350)
+}
+
+function BeginDeleteAccount(){
+    document.getElementById('MyAccountDelete_Username').innerText = CurrentUserName;
+    document.getElementById('MyAccountDelete_Image').src = CurrentUserPicture;
+    ManageAccountPanel.style.opacity = 0;
+    setTimeout(() => {
+        ManageAccountPanel.classList.add('hidden');
+        DeleteAccountConfirmPanel.style.opacity = 0;
+        DeleteAccountConfirmPanel.classList.remove('hidden');
+        setTimeout(() => {DeleteAccountConfirmPanel.style.opacity = 1;}, 50)
+    },350)
+}
+
+function ConfirmDeleteAccount() {
+    CurrentUser.delete().then(() => {
+        // User deleted:
+            if(Account_Debug){console.info('User Deleted!')}
+        // Go back to SignIn Panel:
+            DeleteAccountConfirmPanel.style.opacity = 0;
+            setTimeout(() => {
+                DeleteAccountConfirmPanel.classList.add('hidden');
+            }, 350);
+        }).catch((error) => {
+        // Error:
+            ShowSubmitError('Could Not Delete Account, Try Again!');
+            console.warn('An Error Occured - Deleting Account:')
+            console.log(error)
+        });
 }
 
 function LogOutAccount(){

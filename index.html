@@ -7,7 +7,7 @@
 
     <!-- Version: -->
      <script>
-        let SiteVersion = '1.0.14a';
+        let SiteVersion = '1.0.15a';
      </script>
 
     <!-- Linked StyleSheets: -->
@@ -189,7 +189,7 @@
                     <div class="InputWrap">
                         <div class="AccountInputLineWrap">
                             <span class="material-symbols-rounded AccInputIcon"> Person </span>
-                            <input type="text" id="AccountLogin_EmailInput" class="AccInputText" placeholder="Email">
+                            <input type="email" id="AccountLogin_EmailInput" class="AccInputText" placeholder="Email">
                         </div>
                         <div class="AccountInputLineWrap">
                             <span class="material-symbols-rounded AccInputIcon"> Key </span>
@@ -218,15 +218,15 @@
                     <div class="InputWrap">
                         <div class="AccountInputLineWrap">
                             <span class="material-symbols-rounded AccInputIcon"> Badge </span>
-                            <input type="text" id="AccountCreate_UsernameInput" class="AccInputText" placeholder="Username">
+                            <input type="text" id="AccountCreate_UsernameInput" autocomplete="nickname" class="AccInputText" placeholder="Display Name">
                         </div>
                         <div class="AccountInputLineWrap">
                             <span class="material-symbols-rounded AccInputIcon"> Person </span>
-                            <input type="text" id="AccountCreate_EmailInput" class="AccInputText" placeholder="Email">
+                            <input type="email" id="AccountCreate_EmailInput" autocomplete="username" class="AccInputText" placeholder="Email">
                         </div>
                         <div class="AccountInputLineWrap">
                             <span class="material-symbols-rounded AccInputIcon"> Key </span>
-                            <input type="password" id="AccountCreate_PasswordInput" class="AccInputText" placeholder="Password">
+                            <input type="password" id="AccountCreate_PasswordInput" autocomplete="current-password" class="AccInputText" placeholder="Password">
                         </div>
                     </div>
     
@@ -269,27 +269,71 @@
 
                     <div id="ConfirmPassword_ManageAccountWrap">
                         <p> Confirm Your Password:</p>
-                        <input id="ManageAccount_PasswordConfrimInput" class="AccInputText" type="password" placeholder="Password">
+                        <input id="ManageAccount_PasswordConfrimInput" autocomplete="current-password" class="AccInputText" type="password" placeholder="Password">
                         <div style="
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            flex-direction: row;
+                            gap: 10px;
+                            flex-wrap: wrap;
+                            ">
+                        <div onclick="BackToAccountPanel()" class="AccountButton" style="background: #953535;"> Cancel </div>
+                        <div onclick="ManageAccountConfirmPassword()" class="AccountButton" style="background: #267a34;"> Confirm </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div id="ManageAccountOptionButtonsWrap" class="hidden">
+                        <div onclick="ShowChangeAccountEmail()" class="AccountButton hidden"> Change Email </div> <!-- NOT WORKING - Firebase Limitations -->
+                        <div onclick="ShowChangeAccountPicture()" class="AccountButton"> Change Picture </div>
+                        <div onclick="ShowChangeAccountPassword()" class="AccountButton"> Change Password </div>
+                        <div onclick="BeginDeleteAccount()" class="AccountButton" style="background: #953535;"> Delete Account </div>
+                        <div onclick="BackToAccountPanel()" class="AccountButton" style="background: #354795;"> Go Back </div>
+                    </div>
+                    
+                </div>
+
+                <div id="ChangeAccountEmailPanel" class="box-shadow-dark hidden">
+
+                    <h3 id="ManageAccountEmail_Username"> {NAME} <!-- <span class="material-symbols-rounded AdminUserIcon" title="Admin"> gavel </span> --> </h3> 
+                    <img id="ManageAccountEmail_Image" src="https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-photo-700-205577532.jpg" draggable="false"> 
+
+                    <p id="ManageAccountEmail_OldEmail" style="font-size: small;"> Email: {EMAIL} </p>
+
+                    <input id="ManageAccount_EmailInput" class="AccInputText" type="email" placeholder="New Email" autocomplete="email">
+
+                    <div style="
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     flex-direction: row;
                     gap: 10px;
-                    flex-wrap: wrap;
-                    ">
-                        <div onclick="BackToAccountPanel()" class="AccountButton" style="background: #953535;"> Cancel </div>
-                        <div onclick="ManageAccountConfirmPassword()" class="AccountButton" style="background: #267a34;"> Confirm </div>
-                    </div>
+                    flex-wrap: wrap;">
+                    <div onclick="BackToManagePanel()" class="AccountButton" style="background: #453595;"> Cancel </div>
+                    <div onclick="SubmitAccountEmail()" class="AccountButton" style="background: #267a34;"> Submit Email </div>
                     </div>
                     
-                    
-                    <div id="ManageAccountOptionButtonsWrap" class="hidden">
-                        <div onclick="ChangeAccountEmail()" class="AccountButton"> Change Email </div>
-                        <div onclick="ChangeAccountPicture()" class="AccountButton"> Change Picture </div>
-                        <div onclick="ChangeAccountPassword()" class="AccountButton"> Change Password </div>
-                        <div onclick="BeginDeleteAccount()" class="AccountButton" style="background: #953535;"> Delete Account </div>
-                        <div onclick="BackToAccountPanel()" class="AccountButton" style="background: #354795;"> Go Back </div>
+                </div>
+
+                <div id="ChangeAccountPasswordPanel" class="box-shadow-dark hidden">
+
+                    <h3 id="ManageAccountPassword_Username"> {NAME} <!-- <span class="material-symbols-rounded AdminUserIcon" title="Admin"> gavel </span> --> </h3> 
+                    <img id="ManageAccountPassword_Image" src="https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-photo-700-205577532.jpg" draggable="false"> 
+
+                    <p id="ManageAccountPassword_Email" style="font-size: small;"> Email: {EMAIL} </p>
+
+                    <input id="ManageAccount_NewPasswordInput" class="AccInputText" type="text" placeholder="New Password" autocomplete="current-password">
+
+                    <div style="
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: row;
+                    gap: 10px;
+                    flex-wrap: wrap;">
+                    <div onclick="BackToManagePanel()" class="AccountButton" style="background: #453595;"> Cancel </div>
+                    <div onclick="SubmitAccountPassword()" class="AccountButton" style="background: #267a34;"> Submit Password </div>
                     </div>
                     
                 </div>
@@ -299,7 +343,7 @@
                     <h3 id="MyAccountPicture_Username"> {NAME} <!-- <span class="material-symbols-rounded AdminUserIcon" title="Admin"> gavel </span> --> </h3> 
                     <img id="MyAccountPicture_Image" src="https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-photo-700-205577532.jpg" draggable="false"> 
 
-                    <input class="AccInputText" type="url" placeholder="Image Url" autocomplete="url">
+                    <input id="ManageAccount_ImageInput" oninput="TestAccountPicture()" class="AccInputText" type="url" placeholder="Image Url" autocomplete="url">
 
                     <div style="
                     display: flex;
@@ -307,8 +351,7 @@
                     align-items: center;
                     flex-direction: row;
                     gap: 10px;
-                    flex-wrap: wrap;
-                    margin-top: 10px;">
+                    flex-wrap: wrap;">
                     <div onclick="BackToManagePanel()" class="AccountButton" style="background: #453595;"> Cancel </div>
                     <div onclick="SubmitAccountPicture()" class="AccountButton" style="background: #267a34;"> Submit Picture </div>
                     </div>

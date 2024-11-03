@@ -8,6 +8,8 @@ const ConfirmPassword_ManageAccountWrap = document.getElementById('ConfirmPasswo
 const ManageAccountOptionButtonsWrap = document.getElementById('ManageAccountOptionButtonsWrap');
 const ChangeAccountPicturePanel = document.getElementById('ChangeAccountPicturePanel');
 const DeleteAccountConfirmPanel = document.getElementById('DeleteAccountConfirmPanel');
+const ChangeAccountEmailPanel = document.getElementById('ChangeAccountEmailPanel');
+const ChangeAccountPasswordPanel = document.getElementById('ChangeAccountPasswordPanel');
 
 const MyAccount_Username = document.getElementById('MyAccount_Username');
 const MyAccount_Image = document.getElementById('MyAccount_Image');
@@ -24,6 +26,9 @@ const AccountCreate_UsernameInput = document.getElementById('AccountCreate_Usern
 const AccountCreate_EmailInput = document.getElementById('AccountCreate_EmailInput');
 const AccountCreate_PasswordInput = document.getElementById('AccountCreate_PasswordInput');
 const ManageAccount_PasswordConfrimInput = document.getElementById('ManageAccount_PasswordConfrimInput');
+const ManageAccount_ImageInput = document.getElementById('ManageAccount_ImageInput');
+const ManageAccount_EmailInput = document.getElementById('ManageAccount_EmailInput');
+const ManageAccount_NewPasswordInput = document.getElementById('ManageAccount_NewPasswordInput');
 
 // Variables:
 let Account_Debug = false;
@@ -34,11 +39,9 @@ let CurrentUserEmail = null;
 let CurrentUserPicture = null;
 
 // TO DO:
-    // -- Change Name, Email, Picture, Password, etc. Functions
-        // -- Update and Confirm Image Url as Entered?
+    // -- Fix Not Allowed Error When Updating User's Email
 
     // -- Add a Password Reset Option?:
-        // -- Or at least a change password option
 
     // -- Update New/Existing Users to FIRESTORE:
         // -- Create and Utilize the AdminUser flag
@@ -192,6 +195,8 @@ function SubmitCreateAccount(){
           });
         // Send Verification Email:
         AccountEmailNotVerifiedMsg.classList.remove('hidden');
+        VerifyEmailButton.classList.add('hidden');
+
         firebase.auth().currentUser.sendEmailVerification()
         .then(() => {
             // Email verification sent!
@@ -313,16 +318,84 @@ function BackToAccountPanel(){
 function BackToManagePanel(){
     ChangeAccountPicturePanel.style.opacity = 0;
     DeleteAccountConfirmPanel.style.opacity = 0;
+    ChangeAccountEmailPanel.style.opacity = 0;
+    ChangeAccountPasswordPanel.style.opacity = 0;
     setTimeout(() => {
         ChangeAccountPicturePanel.classList.add('hidden');
         DeleteAccountConfirmPanel.classList.add('hidden');
+        ChangeAccountEmailPanel.classList.add('hidden');
+        ChangeAccountPasswordPanel.classList.add('hidden');
         ManageAccountPanel.style.opacity = 0;
         ManageAccountPanel.classList.remove('hidden');
         setTimeout(() => {ManageAccountPanel.style.opacity = 1;}, 50)
     },350)
 }
 
-function ChangeAccountPicture(){
+function ShowChangeAccountEmail(){
+    document.getElementById('ManageAccountEmail_Username').innerText = CurrentUserName;
+    document.getElementById('ManageAccountEmail_Image').src = CurrentUserPicture;
+    document.getElementById('ManageAccountEmail_OldEmail').innerText = `Email: ${CurrentUserEmail}`;
+    ManageAccountPanel.style.opacity = 0;
+    setTimeout(() => {
+        ManageAccountPanel.classList.add('hidden');
+        ChangeAccountEmailPanel.style.opacity = 0;
+        ChangeAccountEmailPanel.classList.remove('hidden');
+        setTimeout(() => {ChangeAccountEmailPanel.style.opacity = 1;}, 50)
+    },350)
+}
+
+function SubmitAccountEmail(){
+    let newEmail = ManageAccount_EmailInput.value;
+    firebase.auth().currentUser.updateEmail(newEmail).then(() => {
+        // Update successful
+        CurrentUserEmail = newEmail;
+        BackToAccountPanel();
+      }).catch((error) => {
+        // An error occurred
+        if(error.code === 'auth/invalid-email'){
+            ShowSubmitError('Invalid Email, Try Again!');
+        } else if(error.code === 'auth/operation-not-allowed'){
+            ShowSubmitError('Not Allowed, Contact Us!');
+            console.log(error);
+        } else{
+            ShowSubmitError('An Error Occured!');
+            console.warn(`Couldn't Update Email:`);
+            console.log(error);
+        }
+      });
+}
+
+function ShowChangeAccountPassword(){
+    document.getElementById('ManageAccountPassword_Username').innerText = CurrentUserName;
+    document.getElementById('ManageAccountPassword_Image').src = CurrentUserPicture;
+    document.getElementById('ManageAccountPassword_Email').innerText = `Email: ${CurrentUserEmail}`;
+    ManageAccountPanel.style.opacity = 0;
+    setTimeout(() => {
+        ManageAccountPanel.classList.add('hidden');
+        ChangeAccountPasswordPanel.style.opacity = 0;
+        ChangeAccountPasswordPanel.classList.remove('hidden');
+        setTimeout(() => {ChangeAccountPasswordPanel.style.opacity = 1;}, 50)
+    },350)
+}
+
+function SubmitAccountPassword(){
+    let newPassword = ManageAccount_NewPasswordInput.value;
+    CurrentUser.updatePassword(newPassword).then(() => {
+        // Update successful
+        BackToManagePanel();
+      }).catch((error) => {
+        // An error occurred
+        if(error.code === 'auth/operation-not-allowed'){
+            ShowSubmitError('Not Allowed, Contact Us!');
+        } else{
+            ShowSubmitError('An Error Occured!');
+            console.warn(`Couldn't Update Email:`);
+            console.log(error);
+        }
+      });
+}
+
+function ShowChangeAccountPicture(){
     document.getElementById('MyAccountPicture_Username').innerText = CurrentUserName;
     document.getElementById('MyAccountPicture_Image').src = CurrentUserPicture;
     ManageAccountPanel.style.opacity = 0;
@@ -332,6 +405,62 @@ function ChangeAccountPicture(){
         ChangeAccountPicturePanel.classList.remove('hidden');
         setTimeout(() => {ChangeAccountPicturePanel.style.opacity = 1;}, 50)
     },350)
+}
+
+function TestAccountPicture() {
+    let MyAccountPicture_Image = document.getElementById('MyAccountPicture_Image');
+    let NewImageURL = ManageAccount_ImageInput.value;
+
+    // Regular expression to check for common image file extensions
+    let imagePattern = /\.(jpeg|jpg|png|gif)$/i;
+    
+    if (imagePattern.test(NewImageURL)) {
+        MyAccountPicture_Image.src = NewImageURL;
+    } else {
+        MyAccountPicture_Image.src = CurrentUserPicture;
+    }
+}
+
+function SubmitAccountPicture(){
+    let MyAccountPicture_Image = document.getElementById('MyAccountPicture_Image');
+    let NewImageURL = ManageAccount_ImageInput.value;
+
+    // Regular expression to check for common image file extensions
+    let imagePattern = /\.(jpeg|jpg|png|gif)$/i;
+    
+    if (imagePattern.test(NewImageURL)) {
+        MyAccountPicture_Image.src = NewImageURL;
+        CurrentUser.updateProfile({
+            photoURL: NewImageURL
+          }).then(() => {
+            // Update successful
+            CurrentUserPicture = NewImageURL;
+            MyAccount_Image.src = NewImageURL;
+            MyAccountPicture_Image.src = NewImageURL;
+            document.getElementById('ManageMyAccount_Image').src = NewImageURL;
+            document.getElementById('MyAccountDelete_Image').src = NewImageURL;
+            document.getElementById('ManageAccountEmail_Image').src = NewImageURL;
+            document.getElementById('ManageAccountPassword_Image').src = NewImageURL;
+
+            // Go Back to Manage Account:
+            ChangeAccountPicturePanel.style.opacity = 0;
+            setTimeout(() => {
+                ChangeAccountPicturePanel.classList.add('hidden');
+                ManageAccountPanel.style.opacity = 0;
+                ManageAccountPanel.classList.remove('hidden');
+                setTimeout(() => {ManageAccountPanel.style.opacity = 1;}, 50)
+            },350)
+
+          }).catch((error) => {
+            // An error occurred
+            ShowSubmitError('Error Updating Photo!');
+            console.warn('An Error Occured Updating the Profile:');
+            console.log(error);
+          });
+    } else {
+        MyAccountPicture_Image.src = CurrentUserPicture;
+        ShowSubmitError('Please Enter A Valid Image!');
+    }
 }
 
 function BeginDeleteAccount(){

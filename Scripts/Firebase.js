@@ -16,3 +16,4 @@ const db = firebase.firestore();
 
 //Initialize Authentication:
 const auth = firebase.auth();
+let isAdminUser = false;

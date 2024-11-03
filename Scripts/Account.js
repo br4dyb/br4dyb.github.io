@@ -34,6 +34,7 @@ const ManageAccount_NewPasswordInput = document.getElementById('ManageAccount_Ne
 let Account_Debug = false;
 let CurrentSignInType = 'Sign In';
 let CurrentUser = null;
+let CurrentUserUID = null;
 let CurrentUserName = null;
 let CurrentUserEmail = null;
 let CurrentUserPicture = null;
@@ -53,6 +54,7 @@ firebase.auth().onAuthStateChanged((user) => {
         if(Account_Debug){console.info('User is Signed In!')};
             // Assign Variables:
         CurrentUser = user;
+        CurrentUserUID = user.uid;
         CurrentUserEmail = CurrentUser.email;
         CurrentUserName = CurrentUser.displayName;
         CurrentUserPicture = CurrentUser.photoURL;
@@ -146,7 +148,22 @@ function SubmitSignIn(){
 
     auth.signInWithEmailAndPassword(AccountLogin_EmailInput.value, AccountLogin_PasswordInput.value)
     .then((userCredential) => {
-        // Signed in
+        // Signed in - CheckForAdmin:
+        db.collection('Users').doc(userCredential.user.uid).get().then((UserDoc) => {
+            if(UserDoc.exists){
+                let UserData = UserDoc.data();
+                if(UserData.AdminUser){
+                    if(Account_Debug){console.info('Admin User!');}
+                    isAdminUser = true;
+                    // Add Badge:
+                    MyAccount_Username.innerHTML = `${userCredential.user.displayName} <span class="material-symbols-rounded AdminUserIcon" title="Admin"> gavel </span>`;
+                }else{
+                    if(Account_Debug){console.info('Non Admin User!');}
+                }
+            }
+        }).catch((error) => {
+            console.warn(error);
+        })
     })
     .catch((error) => {
         var errorCode = error.code;
@@ -178,33 +195,50 @@ function SubmitCreateAccount(){
     .then((userCredential) => {
     // Signed in 
         // Update User Variables:
+            CurrentUser = userCredential.user;
             CurrentUserName = AccountCreate_UsernameInput.value;
             CurrentUserPicture = "https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-photo-700-205577532.jpg";
+        
         // Update Profile in Auth:
-        userCredential.user.updateProfile({
-            displayName: AccountCreate_UsernameInput.value,
-            photoURL: "https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-photo-700-205577532.jpg"
-          }).then(() => {
-            // Update successful
-            MyAccount_Username.innerText = AccountCreate_UsernameInput.value;
-            MyAccount_Image.src = "https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-photo-700-205577532.jpg";
-          }).catch((error) => {
-            // An error occurred
-            console.warn('An Error Occured Updating the Profile:');
-            console.log(error);
-          });
-        // Send Verification Email:
-        AccountEmailNotVerifiedMsg.classList.remove('hidden');
-        VerifyEmailButton.classList.add('hidden');
+            userCredential.user.updateProfile({
+                displayName: AccountCreate_UsernameInput.value,
+                photoURL: "https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-photo-700-205577532.jpg"
+            }).then(() => {
+                // Update successful
+                MyAccount_Username.innerText = AccountCreate_UsernameInput.value;
+                MyAccount_Image.src = "https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-photo-700-205577532.jpg";
+            }).catch((error) => {
+                // An error occurred
+                console.warn('An Error Occured Updating the Profile:');
+                console.log(error);
+            });
 
-        firebase.auth().currentUser.sendEmailVerification()
-        .then(() => {
-            // Email verification sent!
-            // Show Alert:
-            setTimeout(() => {ShowEmailVerificationSentMsg();}, 1500)
-        }).catch((error) => {
-            ShowSubmitError('Verification Email was not Sent, Try Again Later!');
-        })
+        
+        // Add New User to Database:
+            db.collection('Users').doc(userCredential.user.uid).set({
+                isAdminUser : false,
+                Email : userCredential.user.email,
+                DisplayName : AccountCreate_UsernameInput.value,
+                AccountCreatedDate : userCredential.user.metadata.creationTime
+            }).then(() => {
+                if(Account_Debug){console.info('User added to database!');}
+            }).catch((error) => {
+                console.warn('Error adding new user to database:');
+                console.log(error);
+            })
+
+        // Send Verification Email:
+            AccountEmailNotVerifiedMsg.classList.remove('hidden');
+            VerifyEmailButton.classList.add('hidden');
+
+            firebase.auth().currentUser.sendEmailVerification()
+            .then(() => {
+                // Email verification sent!
+                // Show Alert:
+                setTimeout(() => {ShowEmailVerificationSentMsg();}, 1500)
+            }).catch((error) => {
+                ShowSubmitError('Verification Email was not Sent, Try Again Later!');
+            })
     })
     .catch((error) => {
         var errorCode = error.code;
@@ -476,6 +510,16 @@ function BeginDeleteAccount(){
 }
 
 function ConfirmDeleteAccount() {
+    // Delete UserDoc:
+    db.collection('Users').doc(CurrentUserUID).delete().then(() => {
+        // UserDoc Deleted!
+        if(Account_Debug){console.info('UserDoc has been delted!')}
+    }).catch((error) => {
+        console.warn('Error Deleting UserDoc:');
+        console.log(error);
+    })
+
+    // Delete Auth User:
     CurrentUser.delete().then(() => {
         // User deleted:
             if(Account_Debug){console.info('User Deleted!')}

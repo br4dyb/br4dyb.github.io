@@ -7,7 +7,7 @@
 
     <!-- Version: -->
      <script>
-        let SiteVersion = '1.0.15a';
+        let SiteVersion = '1.0.15b';
      </script>
 
     <!-- Linked StyleSheets: -->
@@ -116,6 +116,10 @@
                 
                 <div id="HomepageResourcesWrap">
 
+                    <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #1551cb; padding-inline: 20px;" onclick="SwitchPage('AllSites')">
+                        <span class="material-symbols-rounded">Code</span>
+                        <p> All Sites </p>
+                    </div>
                     <div class="ResourceButton box-shadow-dark text-shadow-dark" onclick="SwitchPage('Account')">
                         <span class="material-symbols-rounded">Person</span>
                         <p> My Account </p>
@@ -127,10 +131,6 @@
                     <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #cb3615;">
                         <span class="material-symbols-rounded">Overview</span>
                         <p> Change Log </p>
-                    </div>
-                    <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #1551cb;" onclick="location.assign(`https://github.com/br4dyb/br4dyb.github.io`)">
-                        <span class="material-symbols-rounded">Code</span>
-                        <p> Source Code </p>
                     </div>
                     <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #12aa51;" onclick="location.assign('./Pages/Status.html')">
                         <span class="material-symbols-rounded">online_prediction</span>

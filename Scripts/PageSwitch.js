@@ -3,6 +3,7 @@ let HomepageWrap = document.getElementById('HomepageContent');
 let AllSitesWrap = document.getElementById('AllSitesFullWrap');
 let SearchSitesWrap = document.getElementById('SearchSitesFullWrap');
 let AccountWrap = document.getElementById('MyAccountFullWrap');
+let ChangeLog = document.getElementById('ChangeLogFullWrap');
 
 // Variables:
 let HomepageNavButton = document.getElementById('HomepageNavButton');
@@ -21,6 +22,10 @@ function SwitchPage(NewPage){
 
     if(NewPage == 'Account'){
         NewPage = AccountWrap;
+    }
+
+    if(NewPage == 'ChangeLog'){
+        NewPage = ChangeLog;
     }
 
     if(NewPage == 'Homepage'){

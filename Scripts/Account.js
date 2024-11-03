@@ -40,25 +40,30 @@ let CurrentUserEmail = null;
 let CurrentUserPicture = null;
 
 // TO DO:
+    // Switch isAdminUser Variable to Session Storage!
+
     // -- Fix Not Allowed Error When Updating User's Email
 
     // -- Add a Password Reset Option?:
-
-    // -- Update New/Existing Users to FIRESTORE:
-        // -- Create and Utilize the AdminUser flag
+//
 
 // AuthState Observer:
 firebase.auth().onAuthStateChanged((user) => {
     if(user){
         // Signed In:
         if(Account_Debug){console.info('User is Signed In!')};
-            // Assign Variables:
+        // Assign Variables:
         CurrentUser = user;
         CurrentUserUID = user.uid;
         CurrentUserEmail = CurrentUser.email;
         CurrentUserName = CurrentUser.displayName;
         CurrentUserPicture = CurrentUser.photoURL;
-            // Check for Email Verified:
+        // Check for Admin:
+        if(isAdminUser){
+            // Show Admin Abilities:
+            document.getElementById('NewChangeLogEntryButton').classList.remove('hidden');
+        }
+        // Check for Email Verified:
             if(user.emailVerified){
                 if(Account_Debug){console.info('email verified!');}
                 VerifyEmailButton.classList.add('hidden');
@@ -66,21 +71,20 @@ firebase.auth().onAuthStateChanged((user) => {
             }else{
                 if(Account_Debug){console.info('email NOT verified!');}
             }
-
-            // Debug:
+        // Debug:
         if(Account_Debug){
             console.log('Email:',CurrentUserEmail);
             console.log('DisplayName:',CurrentUserName);
             console.log('PhotoURL:',CurrentUserPicture);
         }
 
-            // Update MyAccount Panel:
+        // Update MyAccount Panel:
         MyAccount_Username.innerText = CurrentUserName;
         if(MyAccount_Image != null){MyAccount_Image.src = CurrentUserPicture;}
         MyAccount_Email.innerText = 'Email: ' + CurrentUser.email;
         MyAccount_UID.innerText = 'UID: ' + CurrentUser.uid;
 
-            // Show Account Panel:
+        // Show Account Panel:
         LoginUserWrap.style.opacity = 0;
         CreateUserWrap.style.opacity = 0;
         setTimeout(() => {
@@ -157,6 +161,8 @@ function SubmitSignIn(){
                     isAdminUser = true;
                     // Add Badge:
                     MyAccount_Username.innerHTML = `${userCredential.user.displayName} <span class="material-symbols-rounded AdminUserIcon" title="Admin"> gavel </span>`;
+                    // Show Admin Abilities:
+                    document.getElementById('NewChangeLogEntryButton').classList.remove('hidden');
                 }else{
                     if(Account_Debug){console.info('Non Admin User!');}
                 }

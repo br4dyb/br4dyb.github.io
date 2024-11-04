@@ -133,9 +133,11 @@ firebase.auth().onAuthStateChanged((user) => {
             }, 50)
         }, 350);
 
-        // Remove Admin Flag (if exists):
+        // Remove Admin Flag / Abilities (if exists):
         if(sessionStorage.getItem('AdminUser_SECURE') != null){
             sessionStorage.setItem('AdminUser_SECURE', false);
+            // Hide Admin Abilities:
+            document.getElementById('NewChangeLogEntryButton').classList.add('hidden');
         }
     }
 });

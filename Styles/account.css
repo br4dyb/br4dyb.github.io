@@ -134,6 +134,7 @@
 .AdminUserIcon{
     background: rebeccapurple;
     padding: 4px;
+    margin-left: 4px;
     border-radius: 50px;
     font-size: medium !important;
 }

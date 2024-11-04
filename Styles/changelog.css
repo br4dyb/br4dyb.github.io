@@ -5,7 +5,6 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    overflow: auto;
 }
 
 #ChangeLogHeading{
@@ -13,7 +12,7 @@
 }
 
 #NewChangeLogEntryButton{
-    background: rgb(61, 8, 113);
+    background: rgb(61, 8, 113, 0.7);
     position: absolute;
     bottom: 20px;
     right: 20px;
@@ -23,7 +22,7 @@
     width: 40px;
     height: 40px;
     border-radius: 7px;
-    font-size: 30px;
+    font-size: 22px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,26 +39,24 @@
     width: 75%;
     margin-top: 15px;
     display: table;
+    color: var(--textColor);
 }
 
 .ChangeLog_Row{
     background: rgb(94, 94, 94, 0.7);
     width: 100%;
     height: 100%;
-    /* border: 1.5px solid black; */
     display: table-row;
-    align-items: start;
 }
 
 .ChnageLog_HeadingCell{
     background: rgb(61, 8, 113, .7);
     border: 1.5px solid black;
     color: white;
-    padding: 10px 5px;
+    padding: 10px;
     display: table-cell;
-    justify-content: center;
-    flex-direction: column;
     border-radius: 4px;
+    text-align: center;
 }
 
 .ChnageLog_ContentCell{
@@ -68,9 +65,99 @@
     height: 100%;
     padding: 8px;
     border-radius: 4px;
+    text-align: center;
 }
 
-.text-align-start{
-    text-align: start;
+#CreateNew_ChangeLog_FullWrap{
+    position: absolute;
+    bottom: 0px;
+    top: 0px;
+    background: rgba(0,0,0,.5);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
     align-items: start;
+}
+
+#CreateNew_ChangeLog_EntryWrap{
+    background: #2e1d51;
+    border: 2px solid gray;
+    border-radius: 5px;
+    width: 90%;
+    max-width: 500px;
+    margin-top: 85px;
+    padding: 20px 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+.ChangeLog_InputRow{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: row;
+    gap: 5px;
+    width: 100%;
+    position: relative;
+}
+
+.ChangeLog_InputIcon{
+    background: rgba(28, 31, 169, 0.5);
+    border: 2px solid gray;
+    font-size: 13px !important;
+    padding: 4px;
+    color: white;
+    border-radius: 4px;
+}
+
+.ChangeLog_Input{
+    position: relative;
+    color: black;
+    accent-color: black;
+    caret-color: black;
+    height: 24px;
+    border: 2px solid rgb(144, 144, 144);
+    padding: 4px;
+    border-radius: 4px;
+    text-align: start;
+    margin-top: 1px;
+    font-size: 15px;
+}
+
+#ChangeLog_InputDetails{
+    resize: vertical;
+    height: 75px;
+    width: 203px;
+
+}
+
+#ChangeLog_InputSubmit{
+    margin-top: 10px;
+    background: rgba(28, 31, 169, 0.5);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    border: 2px solid rgb(144, 144, 144);
+    transition: .33s;
+}
+
+#ChangeLog_InputSubmit:hover{
+    padding: 5px 15px;
+}
+
+#ChangeLog_CloseEntryButton{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px !important;
+    background: darkred;
+    border: 1.5px solid rgb(144, 144, 144);
+    border-radius: 2px;
+    cursor: pointer;
 }

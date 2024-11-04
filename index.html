@@ -7,7 +7,7 @@
 
     <!-- Version: -->
      <script>
-        let SiteVersion = '1.0.16b';
+        let SiteVersion = '1.0.16a';
      </script>
 
     <!-- Linked StyleSheets: -->
@@ -53,7 +53,7 @@
                     <div id="SearchSitesNavButton" class="NavMainLink" onclick="CloseNav(), SwitchPage('SearchSites')"> <span class="material-symbols-rounded NavLinkIcon"> Search </span> Search Sites </div>
                     <div id="AccountNavButton" class="NavMainLink" onclick="CloseNav(), SwitchPage('Account')"> <span class="material-symbols-rounded NavLinkIcon"> Person </span> My Account </div>
                     <div id="LightDarkModeButton" class="NavMainLink" onclick="ToggleColorMode()"> <span class="material-symbols-rounded NavLinkIcon"> invert_colors </span> Light Mode</div>
-                    <div id="ChangeLogNavButton" class="NavMainLink" onclick=""> <span class="material-symbols-rounded NavLinkIcon"> Overview </span> Change Log </div>
+                    <div id="ChangeLogNavButton" class="NavMainLink" onclick="SwitchPage('ChangeLog')"> <span class="material-symbols-rounded NavLinkIcon"> Overview </span> Change Log </div>
                  </div>
                  
                  <div id="NavMainBottomLinks">
@@ -423,7 +423,33 @@
 
             </table>
 
-            <span class="material-symbols-rounded hidden" id="NewChangeLogEntryButton"> edit_square </span>
+            <span onclick="OpenChnageLogNewEntry()" class="material-symbols-rounded hidden" id="NewChangeLogEntryButton"> edit_square </span>
+
+            <section id="CreateNew_ChangeLog_FullWrap" class="hidden">
+                <main id="CreateNew_ChangeLog_EntryWrap">
+                    <h2 class="text-shadow-dark"> Create New: </h2>
+
+                    <div class="ChangeLog_InputRow">
+                        <span class="material-symbols-rounded ChangeLog_InputIcon"> info </span>
+                        <input id="ChangeLog_InputVersion" autocomplete="off" placeholder="Version" class="ChangeLog_Input">
+                    </div>
+
+                    <div class="ChangeLog_InputRow">
+                        <span class="material-symbols-rounded ChangeLog_InputIcon"> info </span>
+                        <textarea id="ChangeLog_InputDetails" placeholder="Details" class="ChangeLog_Input"></textarea>
+                    </div>
+
+                    <div class="ChangeLog_InputRow">
+                        <span class="material-symbols-rounded ChangeLog_InputIcon"> info </span>
+                        <input id="ChangeLog_InputDate" type="date" autocomplete="off" placeholder="Date" class="ChangeLog_Input">
+                    </div>
+
+                    <div id="ChangeLog_InputSubmit"> Submit </div>
+
+                    <span id="ChangeLog_CloseEntryButton" onclick="CloseChnageLogNewEntry()" class="material-symbols-rounded"> close </span>
+
+                </main>
+            </section>
 
         </section>
 
@@ -447,6 +473,7 @@
 <script src="./Scripts/SiteList.js"></script>
 <script src="./Scripts/MainServerStatus.js"></script>
 <script src="./Scripts/Account.js"></script>
+<script src="./Scripts/ChangeLog.js"></script>
 
 <!-- Version Updater: -->
  <script>

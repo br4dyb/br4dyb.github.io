@@ -43,7 +43,7 @@
 }
 
 .ChangeLog_Row{
-    background: rgb(94, 94, 94, 0.7);
+    /* background: rgb(94, 94, 94, 0.7); */
     width: 100%;
     height: 100%;
     display: table-row;
@@ -60,6 +60,7 @@
 }
 
 .ChnageLog_ContentCell{
+    background: rgb(94, 94, 94, 0.7);
     border: 1.5px solid black;
     display: table-cell;
     height: 100%;
@@ -82,6 +83,7 @@
 
 #CreateNew_ChangeLog_EntryWrap{
     background: #2e1d51;
+    color: white;
     border: 2px solid gray;
     border-radius: 5px;
     width: 90%;

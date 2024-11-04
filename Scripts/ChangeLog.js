@@ -1,6 +1,10 @@
 // Elements:
-let ChangeLogGrid = document.getElementById('ChangeLogGrid');
-let ChangeLog_NewEntryFullWrap = document.getElementById('CreateNew_ChangeLog_FullWrap');
+const ChangeLogGrid = document.getElementById('ChangeLogGrid');
+const ChangeLog_NewEntryFullWrap = document.getElementById('CreateNew_ChangeLog_FullWrap');
+    // Inputs:
+    const ChangeLog_InputVersion = document.getElementById('ChangeLog_InputVersion');
+    const ChangeLog_InputDetails = document.getElementById('ChangeLog_InputDetails');
+    const ChangeLog_InputDate = document.getElementById('ChangeLog_InputDate');
 
 // Functions:
 

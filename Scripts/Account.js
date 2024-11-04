@@ -51,18 +51,34 @@ let CurrentUserPicture = null;
 firebase.auth().onAuthStateChanged((user) => {
     if(user){
         // Signed In:
-        if(Account_Debug){console.info('User is Signed In!')};
+            if(Account_Debug){console.info('User is Signed In!')};
         // Assign Variables:
-        CurrentUser = user;
-        CurrentUserUID = user.uid;
-        CurrentUserEmail = CurrentUser.email;
-        CurrentUserName = CurrentUser.displayName;
-        CurrentUserPicture = CurrentUser.photoURL;
-        // Check for Admin:
-        if(isAdminUser){
-            // Show Admin Abilities:
-            document.getElementById('NewChangeLogEntryButton').classList.remove('hidden');
-        }
+            CurrentUser = user;
+            CurrentUserUID = user.uid;
+            CurrentUserEmail = CurrentUser.email;
+            CurrentUserName = CurrentUser.displayName;
+            CurrentUserPicture = CurrentUser.photoURL;
+        // Check for Admin User:
+            db.collection('Users').doc(CurrentUserUID).get().then((UserDoc) => {
+                if(UserDoc.exists){
+                    let UserData = UserDoc.data();
+                    if(UserData.AdminUser){
+                        if(Account_Debug){console.info('Admin User!');}
+                        // Set Session Storage:
+                        sessionStorage.setItem('AdminUser_SECURE', true);
+                        // Add Badge:
+                        MyAccount_Username.innerHTML = `${CurrentUserName} <span class="material-symbols-rounded AdminUserIcon" title="Admin"> gavel </span>`;
+                        // Show Admin Abilities:
+                        document.getElementById('NewChangeLogEntryButton').classList.remove('hidden');
+                    }else{
+                        if(Account_Debug){console.info('Non Admin User!');}
+                    }
+                }
+            }).catch((error) => {
+                console.warn('Cannot get user doc:');
+                console.log(error);
+            })
+
         // Check for Email Verified:
             if(user.emailVerified){
                 if(Account_Debug){console.info('email verified!');}
@@ -72,30 +88,30 @@ firebase.auth().onAuthStateChanged((user) => {
                 if(Account_Debug){console.info('email NOT verified!');}
             }
         // Debug:
-        if(Account_Debug){
-            console.log('Email:',CurrentUserEmail);
-            console.log('DisplayName:',CurrentUserName);
-            console.log('PhotoURL:',CurrentUserPicture);
-        }
+            if(Account_Debug){
+                console.log('Email:',CurrentUserEmail);
+                console.log('DisplayName:',CurrentUserName);
+                console.log('PhotoURL:',CurrentUserPicture);
+            }
 
         // Update MyAccount Panel:
-        MyAccount_Username.innerText = CurrentUserName;
-        if(MyAccount_Image != null){MyAccount_Image.src = CurrentUserPicture;}
-        MyAccount_Email.innerText = 'Email: ' + CurrentUser.email;
-        MyAccount_UID.innerText = 'UID: ' + CurrentUser.uid;
+            MyAccount_Username.innerText = CurrentUserName;
+            if(MyAccount_Image != null){MyAccount_Image.src = CurrentUserPicture;}
+            MyAccount_Email.innerText = 'Email: ' + CurrentUser.email;
+            MyAccount_UID.innerText = 'UID: ' + CurrentUser.uid;
 
         // Show Account Panel:
-        LoginUserWrap.style.opacity = 0;
-        CreateUserWrap.style.opacity = 0;
-        setTimeout(() => {
-            LoginUserWrap.classList.add('hidden');
-            CreateUserWrap.classList.add('hidden');
-            MyAccountPanel.style.opacity = 0;
-            MyAccountPanel.classList.remove('hidden')
+            LoginUserWrap.style.opacity = 0;
+            CreateUserWrap.style.opacity = 0;
             setTimeout(() => {
-                MyAccountPanel.style.opacity = 1;
-            }, 50)
-        }, 350);
+                LoginUserWrap.classList.add('hidden');
+                CreateUserWrap.classList.add('hidden');
+                MyAccountPanel.style.opacity = 0;
+                MyAccountPanel.classList.remove('hidden')
+                setTimeout(() => {
+                    MyAccountPanel.style.opacity = 1;
+                }, 50)
+            }, 350);
 
     }else{
         // Signed Out:
@@ -116,6 +132,11 @@ firebase.auth().onAuthStateChanged((user) => {
                 CurrentSignInType = 'Sign In';
             }, 50)
         }, 350);
+
+        // Remove Admin Flag (if exists):
+        if(sessionStorage.getItem('AdminUser_SECURE') != null){
+            sessionStorage.setItem('AdminUser_SECURE', false);
+        }
     }
 });
 
@@ -152,24 +173,7 @@ function SubmitSignIn(){
 
     auth.signInWithEmailAndPassword(AccountLogin_EmailInput.value, AccountLogin_PasswordInput.value)
     .then((userCredential) => {
-        // Signed in - CheckForAdmin:
-        db.collection('Users').doc(userCredential.user.uid).get().then((UserDoc) => {
-            if(UserDoc.exists){
-                let UserData = UserDoc.data();
-                if(UserData.AdminUser){
-                    if(Account_Debug){console.info('Admin User!');}
-                    isAdminUser = true;
-                    // Add Badge:
-                    MyAccount_Username.innerHTML = `${userCredential.user.displayName} <span class="material-symbols-rounded AdminUserIcon" title="Admin"> gavel </span>`;
-                    // Show Admin Abilities:
-                    document.getElementById('NewChangeLogEntryButton').classList.remove('hidden');
-                }else{
-                    if(Account_Debug){console.info('Non Admin User!');}
-                }
-            }
-        }).catch((error) => {
-            console.warn(error);
-        })
+        // Signed in
     })
     .catch((error) => {
         var errorCode = error.code;

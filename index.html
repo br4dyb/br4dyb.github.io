@@ -74,7 +74,7 @@
 
     <main id="fullBodyWrap">
 
-        <main id="HomepageContent" class="">
+        <main id="HomepageContent" class="hidden">
             <section id="LandingSearchFullWrap">
                 <h2 id="LandingSearchHeading" class="body-heading text-shadow-dark"> Looking for something specific? </h2>
 
@@ -395,24 +395,33 @@
             
         </section>
 
-        <section id="ChangeLogFullWrap" class="hidden">
+        <section id="ChangeLogFullWrap" class="">
             <h2 class="text-shadow-dark body-heading" id="ChangeLogHeading"> Change Log: </h2>
 
-            <div id="ChangeLogGrid">
+            <table id="ChangeLogGrid">
 
-                <div class="ChangeLog_HeadingRow">
-                    <p class="ChangeLog_HeadingCell"> Site Version: </p>
-                    <p class="ChangeLog_HeadingCell"> Changes Made: </p>
-                    <p class="ChangeLog_HeadingCell"> Date Published: </p>
-                </div>
+                <!-- Header Row: -->
+                <tr class="ChangeLog_Row">
+                    <th class="ChnageLog_HeadingCell"> Version: </th>
+                    <th class="ChnageLog_HeadingCell"> Changes: </th>
+                    <th class="ChnageLog_HeadingCell"> Date: </th>
+                </tr>
 
-                <div class="ChangeLog_ContentRow">
-                    <p class="ChangeLog_ContentCell"> > 1.0.15c </p>
-                    <p class="ChangeLog_ContentCell"> GitHub Homepage has been recreated with new features and improved flow. </p>
-                    <p class="ChangeLog_ContentCell"> 1/3/24 </p>
-                </div>
+                <!-- Content Rows: -->
+                <tr class="ChangeLog_Row">
+                    <td class="ChnageLog_ContentCell"> 1.0.16 </td>
+                    <td class="ChnageLog_ContentCell"> Improvments made on the account system. Now will flag and keep track of admin users. </td>
+                    <td class="ChnageLog_ContentCell"> 11/1/24 </td>
+                </tr>
 
-            </div>
+                <tr class="ChangeLog_Row">
+                    <td class="ChnageLog_ContentCell"> > 1.0.15 </td>
+                    <td class="ChnageLog_ContentCell"> Homepage has been recreated with new feature and improvements to site flow. </td>
+                    <td class="ChnageLog_ContentCell"> 11/1/24 </td>
+                </tr>
+
+
+            </table>
 
             <span class="material-symbols-rounded hidden" id="NewChangeLogEntryButton"> edit_square </span>
 

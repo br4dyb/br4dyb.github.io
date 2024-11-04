@@ -159,7 +159,7 @@ header{
 }
 
 #LandingSearchHeading{
-    background: #4a5ea0;
+    background: #4a5ea0da;
     margin-block: 5px 10px;
 }
 
@@ -185,19 +185,24 @@ header{
 
 #LandingSearchInput, #SearchSitesInput{
     padding: 1px;
-    padding-left: 3px;
+    padding-left: 5px;
     font-size: 15px;
     width: 100%;
     min-height: 26px;
     border: unset;
-    accent-color: black;
-    caret-color: black;
+    accent-color: var(--TextColor);
+    caret-color: var(--TextColor);
     text-align: left;
-    background: lightgray;
+    background: rgba(77, 77, 77, 0.4);
+    color: var(--TextColor);
     border: 1px solid white;
     border-left: unset;
     border-radius: unset;
     z-index: 3;
+}
+
+#LandingSearchInput::placeholder, #SearchSitesInput::placeholder{
+    color: rgba(255, 255, 255, 0.699);
 }
 
 
@@ -239,7 +244,7 @@ header{
 }
 
 #NewFeaturedSitesHomepageHeading, #AllSitesHeading, #SearchSitesHeading{
-    background: #714aa0;
+    background: #714aa0cb;
 }
 
 #HomepageFeaturedSiteGridWrap, #AllSitesGridWrap, #SearchSitesGridWrap{
@@ -268,7 +273,7 @@ header{
 
 .SiteCell{
     display: flex; justify-content: space-evenly; align-items: center; flex-direction: column;
-    background: #4a5ea0;
+    background: #4a5ea0d4;
     border-radius: 7px;
     width: 150px;
     height: 200px;
@@ -295,7 +300,7 @@ header{
 
 .FeaturedSiteTag{
     /* background: #a91593; */
-    background: #fe9022;
+    background: #fe9022d0;
     padding: 2px 4px;
     font-size: 14px;
     border-top-right-radius: 7px;
@@ -307,7 +312,7 @@ header{
 }
 
 .NewSiteTag{
-    background: #15a953;
+    background: #15a953a8;
     padding: 2px 4px;
     font-size: 14px;
     border-top-left-radius: 7px;
@@ -320,7 +325,7 @@ header{
 
 .SiteCellName{
     font-size: 18px;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.35);
     box-shadow: 0px 0px 3px rgb(0, 0, 0);
     color: white;
     /* width: 100%; */
@@ -386,11 +391,11 @@ header{
 }
 
 #MoreResourcesHeading{
-    background: #11828d;
+    background: #11838dc4;
 }
 
 .ResourceButton{
-    background: #a91593;
+    background: #a91593c9;
     color: white;
     width: fit-content;
     padding: 7px;

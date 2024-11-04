@@ -46,6 +46,10 @@ function AddChangeLogEntry(){
         // console.info('Doc Set!')
         CloseChnageLogNewEntry();
 
+        setTimeout(() => {
+            InitiateChangeLog();
+        }, 1000);
+
     }).catch((error) => {
         console.warn('Upload Unsuccessful');
         console.log(error);
@@ -55,6 +59,18 @@ function AddChangeLogEntry(){
 
 function InitiateChangeLog(){
 
+    // Reset ChangeLogGrid:
+    ChangeLogGrid.innerHTML = `
+    <!-- Header Row: -->
+    <tr class="ChangeLog_Row">
+        <th class="ChnageLog_HeadingCell"> Version: </th>
+        <th class="ChnageLog_HeadingCell"> Changes: </th>
+        <th class="ChnageLog_HeadingCell"> Date: </th>
+    </tr>
+
+    <!-- Content Rows: -->`;
+
+    // Get ChnageLog Data:
     db.collection('ChangeLog').doc('Data').get().then((docRef) => {
 
         let ChangeLogData = docRef.data();

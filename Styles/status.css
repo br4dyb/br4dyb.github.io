@@ -1,6 +1,6 @@
 #StatusPageHeading{
     /* background: #1540a3; */
-    background: #516f08;
+    background: #526f08bb;
 }
 
 .Cell-Border-Right{
@@ -12,27 +12,32 @@
 }
 
 .Operational{
-    color: rgb(87, 168, 6);
-    text-shadow: 1px 1px 2px rgb(86, 86, 86);
+    color: rgba(101, 189, 14, 0.927);
+    text-shadow: 1px 1px 1px rgb(22, 22, 22);
 }
 
 .NonOperational{
-    color: rgb(192, 1, 1);
-    text-shadow: 1px 1px 2px rgb(86, 86, 86);
+    color: rgb(202, 7, 7, .85);
+    text-shadow: .5px .5px 1px rgb(22, 22, 22, .85);
 }
 
 .Limited{
-    color: rgb(192, 103, 1);
-    text-shadow: 1px 1px 2px rgb(86, 86, 86);
+    color: rgb(252, 135, 0);
+    text-shadow: 1px 1px 2px rgb(22, 22, 22);
 }
 
 .OfflineIcon{
     font-size: 20px !important;
     padding-right: 3px !important;
+    text-shadow: .5px .5px 1px rgb(22, 22, 22, .85) !important;
+}
+
+.material-symbols-rounded{
+    text-shadow: .5px .5px 1px rgb(22, 22, 22);
 }
 
 .Loading{
-    color: rgb(123, 123, 123);
+    color: rgba(89, 89, 89, 0.7);
     gap: 5px;
 }
 
@@ -87,8 +92,8 @@
 
 #StatusTable{
     /* background: rgb(105, 105, 105); */
-    background: rgba(56, 56, 56, 0.5);
-    border: 2px black solid;
+    background: rgba(56, 56, 56, 0.55);
+    border: 2px solid rgba(0, 0, 0, 0.5);
     width: 85%;
     max-width: 600px;
     display: flex; justify-content: space-evenly; align-items: center; flex-direction: column;
@@ -100,18 +105,19 @@
     display: flex; justify-content: space-evenly; align-items: center; flex-direction: row;
     width: 100%;
     color: white;
-    background: rgb(29, 29, 29);
+    background: rgb(29, 29, 29, .65);
 }
 
 .TableRow{
     display: flex; justify-content: space-evenly; align-items: center; flex-direction: row;
     width: 100%;
     height: 60px;
+    color: white;
 }
 
 .HeadingCell{
     padding: 5px;
-    border: 2px solid black;
+    border: 2px solid rgba(0, 0, 0, 0.4);
     width: 100%;
     /* text-decoration: underline; */
     /* text-underline-offset: 2px; */
@@ -119,7 +125,7 @@
 
 .Cell{
     display: flex; justify-content: center; align-items: center; flex-direction: column;
-    border: 2px black solid;
+    border: 2px solid rgba(0, 0, 0, 0.5);
     width: 100%;
     height: 100%;
     padding: 15px 5px;
@@ -128,13 +134,15 @@
 
 .ErrorDetails{
     color: var(--TextColor);
+    opacity: .6;
     padding-top: 2px;
     font-size: 12px;
     cursor: pointer;
+    text-shadow: .5px .5px 1px rgb(22, 22, 22, .85);
 }
 
 .ErrorDetails:hover{
-    color: rgb(16, 88, 255);
+    color: rgba(17, 104, 180, 0.9);
     text-decoration: underline;
 }
 
@@ -148,9 +156,10 @@
 
 #ErrorInfoWrap{
     background: rgb(24, 24, 24);
+    color: white;
     border-radius: 7px;
     width: 500px;
-    max-width: 70%;
+    max-width: 90%;
     max-height: 450px;
     overflow-y: auto;
     display: flex; justify-content: center; align-items: center; flex-direction: column;

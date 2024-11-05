@@ -4,6 +4,7 @@ const LandingSearchAutoCompleteWrap = document.getElementById('LandingSearchInpu
 const SearchSitesSearchBar = document.getElementById('SearchSitesInput');
 const SearchSitesAutoCompleteWrap = document.getElementById('SearchSitesInputAutoComplete');
 SearchSitesGird = SearchSitesGrid // Already Defined
+const NoSearchResultsFound = document.getElementById('NoSearchResultsFound');
 
 
 let CurrentSearchInput;
@@ -114,6 +115,7 @@ function SubmitSiteSearch(SearchValue){
     // Check Each Site:
     SearchableSites.forEach(Site => {
         Site.classList.add('hidden'); // Initally Hide until Searched for
+        NoSearchResultsFound.classList.add('hidden');
         
         let SiteTags = String(Site.dataset.SiteTags)
         SiteTags = SiteTags.split(',') // Convert to Array
@@ -132,6 +134,11 @@ function SubmitSiteSearch(SearchValue){
                 Site.classList.remove('hidden')
             }
         })
+
+        if(!ResultFound){
+            // No Results Found:
+            NoSearchResultsFound.classList.remove('hidden');
+        }
 
     });
 }

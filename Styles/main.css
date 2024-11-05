@@ -193,7 +193,7 @@ header{
     accent-color: var(--TextColor);
     caret-color: var(--TextColor);
     text-align: left;
-    background: rgba(77, 77, 77, 0.4);
+    background: #79797959;
     color: var(--TextColor);
     border: 1px solid white;
     border-left: unset;
@@ -202,7 +202,7 @@ header{
 }
 
 #LandingSearchInput::placeholder, #SearchSitesInput::placeholder{
-    color: rgba(255, 255, 255, 0.699);
+    color: rgba(255, 255, 255, 0.842);
 }
 
 

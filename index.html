@@ -7,7 +7,7 @@
 
     <!-- Version: -->
      <script>
-        let SiteVersion = '1.0.18c';
+        let SiteVersion = '1.0.18d';
      </script>
 
     <!-- Linked StyleSheets: -->
@@ -126,7 +126,7 @@
                         <span class="material-symbols-rounded">Person</span>
                         <p> My Account </p>
                     </div>
-                    <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #721eb7c8;">
+                    <div class="ResourceButton box-shadow-dark text-shadow-dark" onclick="SwitchPage('ContactUs')" style="background: #721eb7c8;">
                         <span class="material-symbols-rounded">Mail</span>
                         <p> Contact Us </p>
                     </div>
@@ -448,26 +448,33 @@
         </section>
 
         <section id="ContactUsFullWrap" class="hidden">
-            <h2 class="text-shadow-dark body-heading" id="ChangeLogHeading" style="background: #958535df;"> Get in Contact: </h2>
+            <h2 class="text-shadow-dark body-heading" id="ChangeLogHeading" style="background: #356d95b6;"> Get in Contact: </h2>
 
-            <div id="ContactUsFormWrap">
+            <div id="ContactUsFormFullWrap">
 
-                <div class="ContactInputLineWrap">
-                    <span class="ContactInputIcon material-symbols-rounded"> Face </span>
-                    <input id="ContactInputName" class="ContactInput" type="email" placeholder="Your Name">
-                </div>
+                <form id="ContactUsForm" action="https://formsubmit.co/halting.credo.00@icloud.com" method="POST">
 
-                <div class="ContactInputLineWrap">
-                    <span class="ContactInputIcon material-symbols-rounded"> Email </span>
-                    <input id="ContactInputEmail" class="ContactInput" type="email" placeholder="Your Email">
-                </div>
+                    <h2 style="padding-bottom: 30px;"> Contact Form: </h2>
 
-                <div class="ContactInputLineWrap">
-                    <div id="DetailsIconWrap"> <span class="ContactInputIcon material-symbols-rounded"> description </span> </div>
-                    <textarea id="ContactInputDetails" type="email" placeholder="Content"></textarea>
-                </div>
+                    <div class="ContactInputLineWrap">
+                        <span class="ContactInputIcon material-symbols-rounded"> Face </span>
+                        <input id="Contact-Name" class="ContactInput" name="Sender Name" type="text" placeholder="Your Name">
+                    </div>
 
-                <div id="SubmitContactFormButton"> Send </div>
+                    <div class="ContactInputLineWrap">
+                        <span class="ContactInputIcon material-symbols-rounded"> Email </span>
+                        <input id="Contact-Email" class="ContactInput" type="email" name="Sender Email" placeholder="Your Email">
+                    </div>
+
+                    <div class="ContactInputLineWrap">
+                        <span class="ContactInputIcon material-symbols-rounded"> description </span>
+                        <textarea id="Contact-Details" type="email" name="Contact Details" placeholder="Reason for Contacting"></textarea>
+                    </div>
+
+                    <button type="submit" id="SubmitContactFormButton"> Send </button>
+
+                </form>
+                
             </div>
 
         </section>
@@ -487,7 +494,7 @@
 <!-- Local Scripts: -->
 <script src="./Scripts/NavControl.js"></script>
 <script src="./Scripts/ColorMode.js"></script>
-<script src="./Scripts/PageSwitch.js"></script>
+<script src="./Scripts/SwitchPage.js"></script>
 <script src="./Scripts/Search.js"></script>
 <script src="./Scripts/SiteList.js"></script>
 <script src="./Scripts/MainServerStatus.js"></script>

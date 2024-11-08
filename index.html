@@ -7,7 +7,7 @@
 
     <!-- Version: -->
      <script>
-        let SiteVersion = '1.0.19a';
+        let SiteVersion = '1.0.20a';
      </script>
 
     <!-- Linked StyleSheets: -->
@@ -28,7 +28,7 @@
 
     <header class="box-shadow-dark">
         <span id="menuButton" onclick="OpenNav()" class="material-symbols-rounded"> menu </span>
-        <h2 id="siteTitle" class="text-shadow-dark" onclick="location.reload()"> Br4dyB's GitHub </h2>
+        <h2 id="siteTitle" class="text-shadow-dark" onclick="SwitchPage('Homepage')"> Br4dyB's GitHub </h2>
         <span id="accountButton" onclick="SwitchPage('Account')" class="material-symbols-rounded"> person </span>
     </header>
 
@@ -54,7 +54,7 @@
                     <div id="SearchSitesNavButton" class="NavMainLink" onclick="CloseNav(), SwitchPage('SearchSites')"> <span class="material-symbols-rounded NavLinkIcon"> Search </span> Search Sites </div>
                     <div id="AccountNavButton" class="NavMainLink" onclick="CloseNav(), SwitchPage('Account')"> <span class="material-symbols-rounded NavLinkIcon"> Person </span> My Account </div>
                     <div id="LightDarkModeButton" class="NavMainLink" onclick="ToggleColorMode()"> <span class="material-symbols-rounded NavLinkIcon"> invert_colors </span> Light Mode</div>
-                    <div id="ChangeLogNavButton" class="NavMainLink" onclick="SwitchPage('ChangeLog')"> <span class="material-symbols-rounded NavLinkIcon"> Overview </span> Change Log </div>
+                    <div id="ChangeLogNavButton" class="NavMainLink" onclick="CloseNav(), SwitchPage('ChangeLog'), InitiateChangeLog()"> <span class="material-symbols-rounded NavLinkIcon"> Overview </span> Change Log </div>
                  </div>
                  
                  <div id="NavMainBottomLinks">
@@ -130,7 +130,7 @@
                         <span class="material-symbols-rounded">Mail</span>
                         <p> Contact Us </p>
                     </div>
-                    <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #cb3615cc;" onclick="SwitchPage('ChangeLog')">
+                    <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #cb3615cc;" onclick="SwitchPage('ChangeLog'), InitiateChangeLog()">
                         <span class="material-symbols-rounded">Overview</span>
                         <p> Change Log </p>
                     </div>
@@ -454,7 +454,7 @@
 
                 <form id="ContactUsForm" action="https://formsubmit.co/halting.credo.00@icloud.com" method="POST">
 
-                    <h2 style="padding-bottom: 30px;"> Contact Form: </h2>
+                    <h2 style="padding-bottom: 30px; color: var(--TextColor);"> Contact Form: </h2>
 
                     <div class="ContactInputLineWrap">
                         <span class="ContactInputIcon material-symbols-rounded"> Face </span>

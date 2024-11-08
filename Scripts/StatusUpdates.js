@@ -20,88 +20,44 @@ let SystemsArray = [AllSystemsData, GitHubSystemData, UserAccountsSystemData, Fi
 
 let MainSystemOperational = true;
 
-// Load Statuses:
-function GetSystemStatuses() {
+document.addEventListener('DOMContentLoaded', LoadSystemStatuses);
+
+// Load Data:
+function LoadSystemStatuses(){
+    db.collection('SystemStatus').doc('Data').get().then((doc) => {
+        let docData = doc.data();
+        
         // All Systems:
-    db.collection('SystemStatus').doc('AllSystems').get().then((doc) => {
-        if(doc.exists){
-            AllSystemsData.Data = doc.data();
-        }else{
-            console.warn('Doc not Found!')
-        }
-    }).catch((error) => {
-        console.warn('Error Getting System Status:');
-        console.log(error);
-    })
+        AllSystemsData.Data = docData.AllSystems;
 
         // GitHub:
-    db.collection('SystemStatus').doc('GitHub').get().then((doc) => {
-        if(doc.exists){
-            GitHubSystemData.Data = doc.data();
-        }else{
-            console.warn('Doc not Found!')
-        }
-    }).catch((error) => {
-        console.warn('Error Getting System Status:');
-        console.log(error);
-    })
+        GitHubSystemData.Data = docData.GitHub;
 
-        // UserAccounts:
-    db.collection('SystemStatus').doc('UserAccounts').get().then((doc) => {
-        if(doc.exists){
-            UserAccountsSystemData.Data = doc.data();
-        }else{
-            console.warn('Doc not Found!')
-        }
-    }).catch((error) => {
-        console.warn('Error Getting System Status:');
-        console.log(error);
-    })
+        // User Accounts:
+        UserAccountsSystemData.Data = docData.UserAccounts;
 
         // Firebase Storage:
-    db.collection('SystemStatus').doc('FirebaseStorage').get().then((doc) => {
-        if(doc.exists){
-            FirebaseSystemData.Data = doc.data();
-        }else{
-            console.warn('Doc not Found!')
-        }
-    }).catch((error) => {
-        console.warn('Error Getting System Status:');
-        console.log(error);
-    })
+        FirebaseSystemData.Data = docData.FirebaseStorage;
 
         // Game Leaderboards:
-    db.collection('SystemStatus').doc('GameLeaderboards').get().then((doc) => {
-        if(doc.exists){
-            GameLeaderboardSystemData.Data = doc.data();
-        }else{
-            console.warn('Doc not Found!')
-        }
-    }).catch((error) => {
-        console.warn('Error Getting System Status:');
-        console.log(error);
-    })
+        GameLeaderboardSystemData.Data = docData.GameLeaderboards;
 
         // Contact Portal:
-    db.collection('SystemStatus').doc('ContactPortal').get().then((doc) => {
-        if(doc.exists){
-            ContactPortalSystemData.Data = doc.data();
-        }else{
-            console.warn('Doc not Found!')
-        }
+        ContactPortalSystemData.Data = docData.ContactPortal;
+
+        // Update Table:
+        setTimeout(() => {
+            UpdateStatusTable();
+        }, 1000);
+
+
     }).catch((error) => {
         console.warn('Error Getting System Status:');
         console.log(error);
     })
-
-    setTimeout(() => {
-        UpdateStatusTable();
-    }, 1000);
-    
 }
 
-document.addEventListener('DOMContentLoaded', GetSystemStatuses);
-
+// Upload Data:
 let ElementToUpdate;
 function UpdateStatusTable() {
     SystemsArray.forEach(SystemData => {
@@ -192,6 +148,7 @@ function UpdateStatusTable() {
     })
 }
 
+// View Issue:
 function GetIssueDetails(SystemName) {
     let SystemIssueDataObject = SystemsArray.find(system => system.Name === SystemName);
     let SystemIssueData = SystemIssueDataObject.Data;
@@ -214,6 +171,7 @@ function GetIssueDetails(SystemName) {
 
 }
 
+// Close Issue Details:
 function CloseIssueDetails(){
     ErrorInformationFullWrap.style.opacity = 0;
     setTimeout(() => {

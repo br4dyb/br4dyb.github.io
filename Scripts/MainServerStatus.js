@@ -13,9 +13,9 @@ if(MainServerStatus){
     if(MainServerStatus_Debug){console.warn('MainServerStatus NOT Found!')};
 
     // Load & Create Storage:
-    db.collection('SystemStatus').doc('AllSystems').get().then(AllSystemsDoc => {
-        let AllSystemsDocData = AllSystemsDoc.data();
-        let MainSystemOnline = AllSystemsDocData.Operational;
+    db.collection('SystemStatus').doc('Data').get().then(SystemStatusDataDoc => {
+        let AllSystemsDocData = SystemStatusDataDoc.data();
+        let MainSystemOnline = AllSystemsDocData.AllSystems.Operational;
         sessionStorage.setItem('MainServerOnline', MainSystemOnline);
         MainServerStatus = sessionStorage.getItem('MainServerOnline');
         CheckMainServerStatus();

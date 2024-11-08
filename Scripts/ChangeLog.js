@@ -6,6 +6,12 @@ const ChangeLog_NewEntryFullWrap = document.getElementById('CreateNew_ChangeLog_
     const ChangeLog_InputDetails = document.getElementById('ChangeLog_InputDetails');
     const ChangeLog_InputDate = document.getElementById('ChangeLog_InputDate');
 
+// Variables:
+
+let ChangeLogLoaded = false;
+let ChangeLog_Debug = true;
+
+
 // Functions:
 
 function OpenChnageLogNewEntry(){
@@ -38,6 +44,7 @@ function AddChangeLogEntry(){
     let VersionDetails = ChangeLog_InputDetails.value;
     let VersionDate = ChangeLog_InputDate.value;
     let sanitizedVersion = VersionNumber.replace(/\./g, '_');
+    ChangeLogLoaded = false;
 
     db.collection('ChangeLog').doc('Data').update({
         [sanitizedVersion] : {Version : VersionNumber, Details: VersionDetails, Date : VersionDate}
@@ -59,64 +66,74 @@ function AddChangeLogEntry(){
 
 function InitiateChangeLog(){
 
-    // Reset ChangeLogGrid:
-    ChangeLogGrid.innerHTML = `
-    <!-- Header Row: -->
-    <tr class="ChangeLog_Row">
-        <th class="ChnageLog_HeadingCell"> Version: </th>
-        <th class="ChnageLog_HeadingCell"> Changes: </th>
-        <th class="ChnageLog_HeadingCell"> Date: </th>
-    </tr>
+    if(!ChangeLogLoaded){
 
-    <!-- Content Rows: -->`;
+        ChangeLogLoaded = true;
+        if(ChangeLog_Debug){console.info('ChangeLog Loading!');}
 
-    // Get ChnageLog Data:
-    db.collection('ChangeLog').doc('Data').get().then((docRef) => {
+        // Reset ChangeLogGrid:
+        ChangeLogGrid.innerHTML = `
+        <!-- Header Row: -->
+        <tr class="ChangeLog_Row">
+            <th class="ChnageLog_HeadingCell"> Version: </th>
+            <th class="ChnageLog_HeadingCell"> Changes: </th>
+            <th class="ChnageLog_HeadingCell"> Date: </th>
+        </tr>
 
-        let ChangeLogData = docRef.data();
-        let EachVersionArray = Object.values(ChangeLogData);
+        <!-- Content Rows: -->`;
 
-        // Sort EachVersionArray by version number
-        EachVersionArray.sort((a, b) => {
-            // Split version numbers by dots, then compare each part as integers
-            let aParts = a.Version.split('.').map(Number);
-            let bParts = b.Version.split('.').map(Number);
+        // Get ChnageLog Data:
+        db.collection('ChangeLog').doc('Data').get().then((docRef) => {
 
-            for (let i = 0; i < Math.max(aParts.length, bParts.length); i++) {
-                let aNum = aParts[i] || 0; // Default to 0 if part is missing
-                let bNum = bParts[i] || 0;
+            let ChangeLogData = docRef.data();
+            let EachVersionArray = Object.values(ChangeLogData);
 
-                if (aNum !== bNum) {
-                    return bNum - aNum;
+            // Sort EachVersionArray by version number
+            EachVersionArray.sort((a, b) => {
+                // Split version numbers by dots, then compare each part as integers
+                let aParts = a.Version.split('.').map(Number);
+                let bParts = b.Version.split('.').map(Number);
+
+                for (let i = 0; i < Math.max(aParts.length, bParts.length); i++) {
+                    let aNum = aParts[i] || 0; // Default to 0 if part is missing
+                    let bNum = bParts[i] || 0;
+
+                    if (aNum !== bNum) {
+                        return bNum - aNum;
+                    }
                 }
-            }
-            return 0;
-        });
+                return 0;
+            });
 
 
-        EachVersionArray.forEach((entry) => {
+            EachVersionArray.forEach((entry) => {
+                // console.log('-----------------');
+                // console.log(`Version: ${entry.Version}`);
+                // console.log(`Date: ${entry.Date}`);
+                // console.log(`Details: ${entry.Details}`);
+
+                let NewRowElement = document.createElement('tr')
+                NewRowElement.classList.add('ChangeLog_Row');
+                NewRowElement.innerHTML = `
+                    <td class="ChnageLog_ContentCell"> ${entry.Version} </td>
+                    <td class="ChnageLog_ContentCell"> ${entry.Details} </td>
+                    <td class="ChnageLog_ContentCell"> ${entry.Date} </td>`;
+
+                ChangeLogGrid.appendChild(NewRowElement);
+
+            });
             // console.log('-----------------');
-            // console.log(`Version: ${entry.Version}`);
-            // console.log(`Date: ${entry.Date}`);
-            // console.log(`Details: ${entry.Details}`);
+            
 
-            let NewRowElement = document.createElement('tr')
-            NewRowElement.classList.add('ChangeLog_Row');
-            NewRowElement.innerHTML = `
-                <td class="ChnageLog_ContentCell"> ${entry.Version} </td>
-                <td class="ChnageLog_ContentCell"> ${entry.Details} </td>
-                <td class="ChnageLog_ContentCell"> ${entry.Date} </td>`;
+        }).catch((error) => {
+            console.warn('Error:')
+            console.log(error)
+        })
 
-            ChangeLogGrid.appendChild(NewRowElement);
-
-        });
-        // console.log('-----------------');
-        
-
-    }).catch((error) => {
-        console.warn('Error:')
-        console.log(error)
-    })
+    } else{
+        if(ChangeLog_Debug){console.info('ChangeLog Already Loaded!');}
+    }
 }
 
-InitiateChangeLog()
+// InitiateChangeLog()
+// Only Fire when Viewing ^^

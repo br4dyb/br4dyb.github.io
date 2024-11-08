@@ -78,6 +78,10 @@
     text-align: center;
 }
 
+.textAlignLeft{
+    text-align: start !important;
+}
+
 #CreateNew_ChangeLog_FullWrap{
     position: absolute;
     bottom: 0px;

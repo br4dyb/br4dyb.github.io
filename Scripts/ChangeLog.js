@@ -116,7 +116,7 @@ function InitiateChangeLog(){
                 NewRowElement.classList.add('ChangeLog_Row');
                 NewRowElement.innerHTML = `
                     <td class="ChnageLog_ContentCell"> ${entry.Version} </td>
-                    <td class="ChnageLog_ContentCell"> ${entry.Details} </td>
+                    <td class="ChnageLog_ContentCell textAlignLeft"> ${entry.Details} </td>
                     <td class="ChnageLog_ContentCell"> ${entry.Date} </td>`;
 
                 ChangeLogGrid.appendChild(NewRowElement);

@@ -40,11 +40,7 @@ let CurrentUserEmail = null;
 let CurrentUserPicture = null;
 
 // TO DO:
-    // Switch isAdminUser Variable to Session Storage!
-
     // -- Fix Not Allowed Error When Updating User's Email
-
-    // -- Add a Password Reset Option?:
 //
 
 // AuthState Observer:
@@ -52,32 +48,45 @@ firebase.auth().onAuthStateChanged((user) => {
     if(user){
         // Signed In:
             if(Account_Debug){console.info('User is Signed In!')};
+        
         // Assign Variables:
             CurrentUser = user;
             CurrentUserUID = user.uid;
             CurrentUserEmail = CurrentUser.email;
             CurrentUserName = CurrentUser.displayName;
             CurrentUserPicture = CurrentUser.photoURL;
-        // Check for Admin User:
-            db.collection('Users').doc(CurrentUserUID).get().then((UserDoc) => {
-                if(UserDoc.exists){
-                    let UserData = UserDoc.data();
-                    if(UserData.AdminUser){
-                        if(Account_Debug){console.info('Admin User!');}
-                        // Set Session Storage:
-                        sessionStorage.setItem('AdminUser_SECURE', true);
-                        // Add Badge:
-                        MyAccount_Username.innerHTML = `${CurrentUserName} <span class="material-symbols-rounded AdminUserIcon" title="Admin"> gavel </span>`;
-                        // Show Admin Abilities:
-                        document.getElementById('NewChangeLogEntryButton').classList.remove('hidden');
-                    }else{
-                        if(Account_Debug){console.info('Non Admin User!');}
+
+        // Check for Admin User (if not in session storage):
+            if(sessionStorage.getItem('AdminUser_SECURE') === null && sessionStorage.getItem('NonAdmin') === null){
+                if(Account_Debug){console.info(`AdminUser_SECURE DOES NOT Exist -- Loading User Doc`)}
+                db.collection('Users').doc(CurrentUserUID).get().then((UserDoc) => {
+                    if(UserDoc.exists){
+                        let UserData = UserDoc.data();
+                        if(UserData.AdminUser){
+                            if(Account_Debug){console.info('Admin User!');}
+                            // Set Session Storage:
+                            sessionStorage.setItem('AdminUser_SECURE', true);
+                            sessionStorage.setItem('NonAdmin', false);
+                            // Add Badge:
+                            MyAccount_Username.innerHTML = `${CurrentUserName} <span class="material-symbols-rounded AdminUserIcon" title="Admin"> gavel </span>`;
+                            // Show Admin Abilities:
+                            document.getElementById('NewChangeLogEntryButton').classList.remove('hidden');
+                            document.getElementById('AdminResourcesWrap').classList.remove('hidden');
+                        }else{
+                            if(Account_Debug){console.info('Non Admin User!');}
+                            sessionStorage.setItem('NonAdmin', true);
+                        }
                     }
-                }
-            }).catch((error) => {
-                console.warn('Cannot get user doc:');
-                console.log(error);
-            })
+                }).catch((error) => {
+                    console.warn('Cannot get user doc:');
+                    console.log(error);
+                })
+            }else{
+                if(Account_Debug){console.info(`AdminUser_SECURE Exists: ${sessionStorage.getItem('AdminUser_SECURE')}`)}
+                // Show Admin Abilities:
+                document.getElementById('NewChangeLogEntryButton').classList.remove('hidden');
+                document.getElementById('AdminResourcesWrap').classList.remove('hidden');
+            }
 
         // Check for Email Verified:
             if(user.emailVerified){
@@ -138,6 +147,7 @@ firebase.auth().onAuthStateChanged((user) => {
             sessionStorage.setItem('AdminUser_SECURE', false);
             // Hide Admin Abilities:
             document.getElementById('NewChangeLogEntryButton').classList.add('hidden');
+            document.getElementById('AdminResourcesWrap').classList.add('hidden');
         }
     }
 });

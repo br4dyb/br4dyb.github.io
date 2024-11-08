@@ -6,10 +6,15 @@ const SitesArray = [
     {Name: 'Hangman', Link: '/Sites/Hangman/index.html', Img: '/favicon.ico', Tags: 'Game, Fun, Hangman', Featured: false, New: false},
 ]
 
+const HiddenSitesArray = [
+    {Name: 'SkyLine', Link: '/Sites/SkyLine/index.html'},
+]
+
 // Elements:
-let HomepageFeaturedSiteGrid = document.getElementById('HomepageFeaturedSiteGrid');
-let AllSitesGrid = document.getElementById('AllSitesGrid');
-let SearchSitesGrid = document.getElementById('SearchSitesGrid');
+const HomepageFeaturedSiteGrid = document.getElementById('HomepageFeaturedSiteGrid');
+const AllSitesGrid = document.getElementById('AllSitesGrid');
+const SearchSitesGrid = document.getElementById('SearchSitesGrid');
+const HiddenSitesList = document.getElementById('HiddenSitesList');
 
 // Load Sites:
 SitesArray.forEach(Site => {
@@ -98,3 +103,14 @@ SitesArray.forEach(Site => {
         }
     })
 });
+
+// Load Hidden Sites:
+HiddenSitesArray.forEach(Site => {
+    let NewSiteListing = document.createElement('div');
+    NewSiteListing.classList.add('HiddenSiteButton');
+    NewSiteListing.innerText = Site.Name;
+    NewSiteListing.addEventListener('click', function(e){
+        location.assign(Site.Link)
+    });
+    HiddenSitesList.appendChild(NewSiteListing);
+})

@@ -18,15 +18,10 @@
 /* Smaller Screen Styles: */
 @media (max-width: 768px) {
 
-
 }
 
 /* Larger Screen Styles: */
 @media (min-width: 769px){
-
-    header{
-        width: 100% !important;
-    }
 
 }
 
@@ -45,6 +40,10 @@
 
 .hidden{
     display: none !important;
+}
+
+.cursorPointer{
+    cursor: pointer !important;
 }
 
 .text-shadow{
@@ -193,7 +192,7 @@ header{
     accent-color: var(--TextColor);
     caret-color: var(--TextColor);
     text-align: left;
-    background: #79797959;
+    background: #797979b5;
     color: var(--TextColor);
     border: 1px solid white;
     border-left: unset;
@@ -398,13 +397,67 @@ header{
     background: #a91593c9;
     color: white;
     width: fit-content;
+    min-width: 100px;
     padding: 7px;
     border-radius: 5px;
     display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 7px;
     transition: .33s;
-    cursor: pointer;
+    cursor: pointer !important;
 }
 
 .ResourceButton:hover{
     scale: 1.05;
+}
+
+#AdminResourcesWrap{
+    /* background: green; */
+    width: 100% !important;
+    margin-bottom: 50px;
+    display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 15px;
+    flex-direction: column;
+}
+
+#AdminResourcesHeading{
+    background: #8d4311c4;
+}
+
+#AdminResourcesContentWrap{
+    max-width: 620px;
+    width: 100%;
+    display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 15px;
+}
+
+#HiddenSitesFullWrap{
+    display: flex; justify-content: start; align-items: center; flex-direction: column; flex-wrap: wrap;
+    flex: 1;
+    width: 100%;
+    padding-bottom: 50px;
+}
+
+#HiddenSitesHeading{
+    background: #5c37a0c4;
+    margin-bottom: 20px;
+}
+
+#HiddenSitesList{
+    display: flex; justify-content: start; align-items: center; flex-direction: column; flex-wrap: wrap;
+    width: 100%;
+    gap: 10px;
+}
+
+.HiddenSiteButton{
+    background: rgba(169, 169, 169, 0.69);
+    width: 70%;
+    max-width: 420px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid darkgray;
+    text-shadow: 0px 0px 2px black;
+    box-shadow: 0px 0px 2px black;
+    transition: .33s;
+    cursor: pointer;
+}
+
+.HiddenSiteButton:hover{
+    background: rgba(106, 106, 106, 0.69);
 }

@@ -4,7 +4,8 @@ let AllSitesWrap = document.getElementById('AllSitesFullWrap');
 let SearchSitesWrap = document.getElementById('SearchSitesFullWrap');
 let AccountWrap = document.getElementById('MyAccountFullWrap');
 let ChangeLogWrap = document.getElementById('ChangeLogFullWrap');
-let ContactUsWrap = document.getElementById('ContactUsFullWrap')
+let ContactUsWrap = document.getElementById('ContactUsFullWrap');
+let HiddenSites = document.getElementById('HiddenSitesFullWrap');
 
 // Variables:
 let HomepageNavButton = document.getElementById('HomepageNavButton');
@@ -31,6 +32,10 @@ function SwitchPage(NewPage){
 
     if(NewPage == 'ContactUs'){
         NewPage = ContactUsWrap;
+    }
+
+    if(NewPage == 'HiddenSites'){
+        NewPage = HiddenSites;
     }
 
     if(NewPage == 'Homepage'){

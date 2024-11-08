@@ -119,28 +119,50 @@
                 <div id="HomepageResourcesWrap">
 
                     <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #1552cbbb; padding-inline: 20px;" onclick="SwitchPage('AllSites')">
-                        <span class="material-symbols-rounded">Code</span>
+                        <span class="material-symbols-rounded cursorPointer">Code</span>
                         <p> All Sites </p>
                     </div>
                     <div class="ResourceButton box-shadow-dark text-shadow-dark" onclick="SwitchPage('Account')">
-                        <span class="material-symbols-rounded">Person</span>
+                        <span class="material-symbols-rounded cursorPointer">Person</span>
                         <p> My Account </p>
                     </div>
                     <div class="ResourceButton box-shadow-dark text-shadow-dark" onclick="SwitchPage('ContactUs')" style="background: #721eb7c8;">
-                        <span class="material-symbols-rounded">Mail</span>
+                        <span class="material-symbols-rounded cursorPointer">Mail</span>
                         <p> Contact Us </p>
                     </div>
                     <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #cb3615cc;" onclick="SwitchPage('ChangeLog'), InitiateChangeLog()">
-                        <span class="material-symbols-rounded">Overview</span>
+                        <span class="material-symbols-rounded cursorPointer">Overview</span>
                         <p> Change Log </p>
                     </div>
                     <div class="ResourceButton box-shadow-dark text-shadow-dark" style="background: #12aa51c8;" onclick="location.assign('./Pages/Status.html')">
-                        <span class="material-symbols-rounded">online_prediction</span>
+                        <span class="material-symbols-rounded cursorPointer">online_prediction</span>
                         <p> Status Page </p>
                     </div>
 
                 </div>
                 
+            </section>
+
+            <section id="AdminResourcesWrap" class="hidden">
+                <h2 id="AdminResourcesHeading" class="body-heading text-shadow-dark"> Admin Resources: </h2>
+                <div id="AdminResourcesContentWrap">
+
+                    <div class="ResourceButton" style="background: #aeb02fcd;" onclick="SwitchPage('HiddenSites')">
+                        <span class="material-symbols-rounded cursorPointer">hide_image</span>
+                        <p> Hidden Sites </p>
+                    </div>
+
+                    <div class="ResourceButton" style="background: #686868cd;">
+                        <span class="material-symbols-rounded cursorPointer">square</span>
+                        <p> null </p>
+                    </div>
+
+                    <div class="ResourceButton" style="background: #686868cd;">
+                        <span class="material-symbols-rounded cursorPointer">square</span>
+                        <p> null </p>
+                    </div>
+
+                </div>
             </section>
         </main>
 
@@ -475,6 +497,16 @@
 
                 </form>
                 
+            </div>
+
+        </section>
+
+        <section id="HiddenSitesFullWrap" class="hidden">
+
+            <h2 id="HiddenSitesHeading" class="body-heading text-shadow-dark"> Hidden Sites: </h2>
+
+            <div id="HiddenSitesList">
+                <!-- Sites Populated by Script -->
             </div>
 
         </section>

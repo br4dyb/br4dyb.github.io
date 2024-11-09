@@ -17,7 +17,7 @@
 
 <body>
 
-    <header>
+    <header id="header">
         <span class="material-symbols-rounded cursorPointer headerButton" style="padding-left: 2px;">
             widgets
         </span>
@@ -29,9 +29,20 @@
         </span>
     </header>
 
-    <main id="fullBodyWrap">
-        
+    <main id="fullBodyWrap" class="">
+        <div id="startGamePanel" class="box-shadow-dark">
+            <p> Tap to fly up... </p>
+            <p> Dont hit an obstacle! </p>
+            <p> See how far you can get </p>
+            <button onclick="StartGame()" id="startGameButton" class="text-shadow-dark box-shadow-dark"> Start Game </button>
+        </div>
+    </main>
+
+    <main id="fullGameWrap" class="hidden" onclick="BirdJump()">
+        <div id="playerBird"></div>
     </main>
     
 </body>
+    <!-- Scripts: -->
+     <script src="./Scripts/game.js"></script>
 </html>

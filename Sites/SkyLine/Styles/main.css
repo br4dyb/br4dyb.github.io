@@ -154,5 +154,5 @@ header{
     border-radius: 300px;
     position: absolute;
     left: 10px;
-    transition: .3s ease !important;
+    transition: all .3s ease !important;
 }

@@ -2,7 +2,13 @@
 const fullBodyWrap = document.getElementById('fullBodyWrap');
 const header = document.getElementById('header');
 const fullGameWrap = document.getElementById('fullGameWrap');
-const playerBird = document.getElementById('playerBird');
+let playerBird = document.getElementById('playerBird');
+
+// Variables:
+
+let birdJumpPower = 40;
+let gravityPullPower = 35;
+let birdJumping = false;
 
 
 function StartGame(){
@@ -15,14 +21,45 @@ function StartGame(){
         fullGameWrap.classList.remove('hidden');
         setTimeout(() => {
             fullGameWrap.style.opacity = 1;
+
+            setTimeout(() => {StartGameLoop()}, 500)
+
         }, 250);
     }, 350)
 
 
 }
 
-function BirdJump(){
-    let currentBirdHeight = getComputedStyle(playerBird).y
-    let newBirdHeight = Number(currentBirdHeight.replace(' px', '').trim()) + 25;
+function StartGameLoop(){
+    setInterval(() => {ApplyGravity()}, 350)
+}
 
+function BirdJump(){
+    if(!birdJumping){
+        birdJumping = true;
+        let currentBirdHeight = parseInt(getComputedStyle(playerBird).bottom);
+        let newBirdHeight = (currentBirdHeight + birdJumpPower);
+
+        if(parseInt(getComputedStyle(playerBird).top) > birdJumpPower){
+            playerBird.style.bottom = newBirdHeight + 'px';
+        }
+
+        setTimeout(() => {birdJumping = false;}, 300);
+    }
+}
+
+function ApplyGravity(){
+    let currentBirdHeight = parseInt(getComputedStyle(playerBird).bottom);
+    let newBirdHeight = (currentBirdHeight - gravityPullPower);
+
+    // Pull bird down:
+    if(parseInt(getComputedStyle(playerBird).bottom) > gravityPullPower && !birdJumping){
+        playerBird.style.bottom = newBirdHeight + 'px';
+    } 
+    
+    // Hit the ground:
+    if(parseInt(getComputedStyle(playerBird).bottom) <= gravityPullPower){
+        playerBird.style.bottom = '0px';
+        playerBird.style.background = 'red';
+    }
 }

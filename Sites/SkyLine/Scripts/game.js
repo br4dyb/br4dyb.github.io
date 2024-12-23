@@ -40,26 +40,38 @@ function BirdJump(){
         let currentBirdHeight = parseInt(getComputedStyle(playerBird).bottom);
         let newBirdHeight = (currentBirdHeight + birdJumpPower);
 
+        // Check for Sky Hit:
         if(parseInt(getComputedStyle(playerBird).top) > birdJumpPower){
             playerBird.style.bottom = newBirdHeight + 'px';
+        }else{
+            playerBird.style.top ='5 px';
         }
 
         setTimeout(() => {birdJumping = false;}, 300);
     }
+
+    if(birdJumping){
+        playerBird.style.color = 'yellow';
+    }
 }
 
 function ApplyGravity(){
-    let currentBirdHeight = parseInt(getComputedStyle(playerBird).bottom);
-    let newBirdHeight = (currentBirdHeight - gravityPullPower);
 
-    // Pull bird down:
-    if(parseInt(getComputedStyle(playerBird).bottom) > gravityPullPower && !birdJumping){
-        playerBird.style.bottom = newBirdHeight + 'px';
-    } 
-    
-    // Hit the ground:
-    if(parseInt(getComputedStyle(playerBird).bottom) <= gravityPullPower){
-        playerBird.style.bottom = '0px';
-        playerBird.style.background = 'red';
+    if(!birdJumping){
+        let currentBirdHeight = parseInt(getComputedStyle(playerBird).bottom);
+        let newBirdHeight = (currentBirdHeight - gravityPullPower);
+
+        // Pull bird down:
+        if(parseInt(getComputedStyle(playerBird).bottom) > gravityPullPower){
+            playerBird.style.bottom = newBirdHeight + 'px';
+        } 
+        
+        // Hit the ground:
+        if(parseInt(getComputedStyle(playerBird).bottom) <= gravityPullPower){
+            playerBird.style.bottom = '5px';
+            playerBird.style.background = 'red';
+        }
     }
+
+    
 }

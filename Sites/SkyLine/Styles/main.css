@@ -7,7 +7,7 @@
     padding: 0px;
     box-sizing: border-box;
     font-family: 'DynaPuff';
-    transition: .33s;
+    transition: .3s;
 }
 
 :root{
@@ -118,14 +118,15 @@ header{
     padding: 20px 10px;
     height: 175px;
     width: 80%;
-    max-width: 300px;
+    max-width: 350px;
     position: relative;
 }
 
 #startGameButton{
     cursor: pointer;
     color: white;
-    background: orange;
+    width: 50%;
+    background: rgb(178, 119, 10);
     padding: 4px;
     border: 2px solid rgba(169, 169, 169, 0.804);
     border-radius: 8px;
@@ -135,7 +136,29 @@ header{
 
 #startGameButton:hover{
     scale: 1.1;
-    background: rgb(12, 205, 12);
+    background: rgb(12, 168, 12);
+}
+
+#howToPlayHeader{
+    background: rgba(163, 61, 35, 0.511);
+    padding: 3px 5px;
+    border: 2px solid rgba(169, 169, 169, 0.804);
+    border-radius: 5px;
+    font-size: small;
+    margin-bottom: 5px;
+    width: 70%;
+}
+
+#howToPlayList{
+    list-style: inside ;
+    padding-top: 8px;
+}
+
+.instructionTxt{
+    text-align: start;
+    padding-left: 22px;
+    font-size: small;
+    opacity: .5;
 }
 
 #fullGameWrap{
@@ -154,5 +177,5 @@ header{
     border-radius: 300px;
     position: absolute;
     left: 10px;
-    transition: all .3s ease !important;
+    transition: .3s !important;
 }

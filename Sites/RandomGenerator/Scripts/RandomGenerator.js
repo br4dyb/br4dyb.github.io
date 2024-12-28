@@ -97,6 +97,8 @@ function RandomlyChoose(){
         RandomItem: ${RandomItem}
         `);
 
+        alert(RandomItem);
+
     }
     
 }

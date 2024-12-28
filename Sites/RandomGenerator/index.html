@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Doc Setup: -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Sky Line | Game </title>
+    <link rel="icon" href="./favicon.ico">
+
+    <!-- StyleSheets: -->
+    <link rel="stylesheet" href="./Styles/main.css">
+
+    <!-- Google Icons: -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+<body>
+
+    <header id="header">
+        <span onclick="location.assign('/')" class="material-symbols-rounded cursorPointer headerButton" style="padding-left: 2px;">
+             
+        </span>
+        <h2 id="siteTitle" class="cursorPointer" onclick="location.assign('./')">
+            Random Generator
+        </h2>
+        <span class="material-symbols-rounded cursorPointer headerButton">
+        
+        </span>
+    </header>
+
+    <main id="fullBodyWrap" class="">
+        <div id="MainGeneratorWrap">
+
+            <div id="ChoicesWrap">
+                <div style="display: flex; justify-content: center; align-items: center;"> <p id="ChoicesHeader"> Choices: </p> <p style="font-size: 10px; color: gray; " id="ChoiceCount">(0) </p> </div> 
+
+                <div id="ChoicesContainer">
+                    <!-- <p id="NoChoicesYetTxt"> No Choices Yet . . . </p> -->
+
+                    <!-- <div class="ChoiceObj"> Item <p class="RemoveChoiceButton">X</p> </div> -->
+                </div>
+            </div>
+
+            <div id="MainObjInputWrap">
+                <input id="ChoiceInput" placeholder="Add Choice(s) . . . ">
+                <button id="AddChoiceButton"> + </button>
+            </div>
+
+            <p id="InputInfo"> Add multiple choices by seperating with comma ","</p>
+           
+        </div>
+    </main>
+    
+</body>
+    <!-- Scripts: -->
+     <script> </script>
+</html>

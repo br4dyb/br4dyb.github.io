@@ -6,8 +6,11 @@ const NoChoicesYetTxt = document.getElementById('NoChoicesYetTxt');
 const ResetChoicesButton = document.getElementById('ResetChoicesButton');
 const GenerateChoiceButton = document.getElementById('GenerateChoiceButton');
 const ChoiceCountTxt = document.getElementById('ChoiceCount');
+const ResultItemWrap = document.getElementById('ResultItemWrap');
+const ResultItemText = document.getElementById('ResultItemText');
 
 let ChoiceArray = [];
+let Cooldown = false;
 
 // Enter KeyPress Event:
 ChoiceInput.addEventListener('keydown', function(event) {
@@ -66,6 +69,7 @@ function ResetChoices(){
 
     let ChoiceCount = ChoiceArray.length
     ChoiceCountTxt.innerText = `(${ChoiceCount})`;
+    HideResult()
 }
 
 function RemoveThisChoice(elm){
@@ -79,6 +83,7 @@ function RemoveThisChoice(elm){
         if(ChoiceArray.length == 0){
             ResetChoicesButton.style.opacity = .5;
             NoChoicesYetTxt.classList.remove('hidden');
+            HideResult()
         }
 
         let ChoiceCount = ChoiceArray.length
@@ -89,16 +94,32 @@ function RemoveThisChoice(elm){
 function RandomlyChoose(){
     let ChoicesQuantity = (ChoiceArray.length)
 
-    if(ChoicesQuantity != 0){
+    if(ChoicesQuantity != 0 && !Cooldown){
+        Cooldown = true
+        GenerateChoiceButton.style.opacity = .5;
         let RandomIndex = Math.floor(Math.random() * ChoicesQuantity);
         let RandomItem = ChoiceArray.at((RandomIndex - 1));
-
-    console.log(`
-        RandomItem: ${RandomItem}
-        `);
-
-        alert(RandomItem);
-
+        
+        ResultItemWrap.style.opacity = 0;
+        ResultItemWrap.classList.remove('hidden');
+        setTimeout(() => {
+            ResultItemWrap.style.opacity = 1;
+            ResultItemText.innerText = RandomItem;
+        }, 350)
+        setTimeout(() => {
+            Cooldown = false;
+            GenerateChoiceButton.style.opacity = 1;
+        }, 550);
+    }else{
+        console.info('Too Fast or No Choices!')
     }
     
+}
+
+function HideResult(){
+    ResultItemWrap.style.opacity = 0;
+    setTimeout(() => {
+        ResultItemWrap.classList.add('hidden');
+    }, 350)
+       
 }

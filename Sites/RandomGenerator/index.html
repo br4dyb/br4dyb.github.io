@@ -45,12 +45,12 @@
             <div id="MainObjInputWrap">
                 <input id="ChoiceInput" placeholder="Add Choice(s) . . . ">
                 <button id="AddChoiceButton" onclick="AddChoice()"> + </button>
-                <button id="ResetChoicesButton" class="NonActiveResetButton" title="Remove All Choices"> Reset </button>
+                <button id="ResetChoicesButton" onclick="ResetChoices()" class="NonActiveResetButton" title="Remove All Choices"> Reset </button>
             </div>
 
             <p id="InputInfo"> Add multiple choices by seperating with comma ","</p>
            
-            <button style="margin-bottom: 10px;" id="GenerateChoiceButton" class="Button" title="Remove All Choices"> Generate </button>
+            <button onclick="RandomlyChoose()" style="margin-bottom: 10px;" id="GenerateChoiceButton" class="Button" title="Remove All Choices"> Generate </button>
 
         </div>
     </main>

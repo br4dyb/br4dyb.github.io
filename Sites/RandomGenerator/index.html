@@ -19,7 +19,7 @@
 
     <header id="header">
         <span onclick="location.assign('/')" class="material-symbols-rounded cursorPointer headerButton" style="padding-left: 2px;">
-             
+             house
         </span>
         <h2 id="siteTitle" class="cursorPointer" onclick="location.assign('./')">
             Random Generator
@@ -36,7 +36,7 @@
                 <div style="display: flex; justify-content: center; align-items: center;"> <p id="ChoicesHeader"> Choices: </p> <p style="font-size: 10px; color: gray; " id="ChoiceCount">(0) </p> </div> 
 
                 <div id="ChoicesContainer">
-                    <!-- <p id="NoChoicesYetTxt"> No Choices Yet . . . </p> -->
+                    <p id="NoChoicesYetTxt"> No Choices Yet . . . </p>
 
                     <!-- <div class="ChoiceObj"> Item <p class="RemoveChoiceButton">X</p> </div> -->
                 </div>
@@ -44,15 +44,18 @@
 
             <div id="MainObjInputWrap">
                 <input id="ChoiceInput" placeholder="Add Choice(s) . . . ">
-                <button id="AddChoiceButton"> + </button>
+                <button id="AddChoiceButton" onclick="AddChoice()"> + </button>
+                <button id="ResetChoicesButton" class="NonActiveResetButton" title="Remove All Choices"> Reset </button>
             </div>
 
             <p id="InputInfo"> Add multiple choices by seperating with comma ","</p>
            
+            <button style="margin-bottom: 10px;" id="GenerateChoiceButton" class="Button" title="Remove All Choices"> Generate </button>
+
         </div>
     </main>
     
 </body>
     <!-- Scripts: -->
-     <script> </script>
+     <script src="./Scripts/RandomGenerator.js"> </script>
 </html>

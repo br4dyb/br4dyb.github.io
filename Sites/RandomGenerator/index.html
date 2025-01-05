@@ -5,7 +5,7 @@
     <!-- Doc Setup: -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Sky Line | Game </title>
+    <title> Random Generator </title>
     <link rel="icon" href="./favicon.ico">
 
     <!-- StyleSheets: -->
@@ -24,7 +24,7 @@
         <h2 id="siteTitle" class="cursorPointer" onclick="location.assign('./')">
             Random Generator
         </h2>
-        <span class="material-symbols-rounded cursorPointer headerButton">
+        <span class="material-symbols-rounded cursorPointer headerButton disabledHeaderButton">
         
         </span>
     </header>
@@ -50,7 +50,12 @@
 
             <p id="InputInfo"> Add multiple choices by seperating with comma ","</p>
            
-            <button onclick="RandomlyChoose()" style="margin-bottom: 10px;" id="GenerateChoiceButton" class="Button" title="Remove All Choices"> Generate </button>
+            <button onclick="RandomlyChoose()" style="margin-bottom: 5px;" id="GenerateChoiceButton" class="Button" title="Remove All Choices"> Generate </button>
+
+            <div id="VanishOptionWrap">
+                <p> Remove Items after Selection: </p>
+                <input type="checkbox" id="VanishModeInput">
+            </div>
 
             <div id="ResultItemWrap" class="hidden">
                 <p id="ResultItemText"> Item </p> <p onclick="HideResult()" id="CloseResultButton"> X </p>

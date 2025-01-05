@@ -8,6 +8,7 @@ const GenerateChoiceButton = document.getElementById('GenerateChoiceButton');
 const ChoiceCountTxt = document.getElementById('ChoiceCount');
 const ResultItemWrap = document.getElementById('ResultItemWrap');
 const ResultItemText = document.getElementById('ResultItemText');
+const VanishModeInputBox = document.getElementById('VanishModeInput');
 
 let ChoiceArray = [];
 let Cooldown = false;
@@ -37,6 +38,8 @@ function AddChoice(){
         Choice = Choice.trim()
         let newChoiceElm = document.createElement('div');
         newChoiceElm.classList.add('ChoiceObj')
+        newChoiceElm.id = Choice;
+        newChoiceElm.dataset.ChoiceData = Choice;
         newChoiceElm.innerHTML = `
         <p class="ChoiceText"> ${Choice} </p> <p onclick="RemoveThisChoice(this)" class="RemoveChoiceButton">X</p>`;
 
@@ -110,6 +113,29 @@ function RandomlyChoose(){
             Cooldown = false;
             GenerateChoiceButton.style.opacity = 1;
         }, 550);
+
+        if(VanishModeInputBox.checked){
+            let IndexToRemove = ChoiceArray.indexOf(RandomItem);
+            ChoiceArray.splice(IndexToRemove, 1);
+
+            let CurrentChoiceElms = ChoicesContainer.querySelectorAll(`.ChoiceObj`);
+
+            CurrentChoiceElms.forEach(Elm => {
+                if(Elm.dataset.ChoiceData == RandomItem){
+                    setTimeout(() => {
+                        Elm.remove();
+                    }, 500);
+                }
+            })
+
+            setTimeout(() => {
+                if(ChoiceArray.length == 0){
+                    ResetChoicesButton.style.opacity = .5;
+                    NoChoicesYetTxt.classList.remove('hidden');
+                }
+            }, 500);
+        }
+
     }else{
         console.info('Too Fast or No Choices!')
     }

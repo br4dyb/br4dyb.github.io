@@ -15,6 +15,10 @@
     transition: opacity .33s;
 }
 
+a, a:visited, a:active{
+    color: rgb(56, 176, 216);
+}
+
 /* Smaller Screen Styles: */
 @media (max-width: 768px) {
 

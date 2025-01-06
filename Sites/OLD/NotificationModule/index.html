@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Module | Testing </title>
+
+    <link rel="stylesheet" href="./main.css">
+    <script src="/Scripts/Notifia.js"> </script>
+</head>
+<body>
+    <header>
+        <button>
+            [_]
+        </button>
+        <h2>
+            Site Example
+        </h2>
+        <button>
+            [_]
+        </button>
+    </header>
+
+    <script>
+        let options = {
+            duration: 10000,
+            color: "yellowgreen",
+            textColor: "white"
+        }
+
+
+        newNotifia('<b>Lorem ipsum</b> dolor sit amet, consectetur adipisicing elit. Quod minima commodi, perspiciatis, iste officia nesciunt soluta voluptatem veniam, temporibus dicta accusamus consequatur? Praesentium ipsa dolores exercitationem laudantium aperiam fuga deserunt, possimus iure aliquam ut explicabo perspiciatis iusto aut debitis neque earum vitae eius vero consequatur iste beatae! Sapiente animi cum eius minima nihil optio voluptate iste soluta cupiditate rerum inventore aut cumque qui, blanditiis dolorum fuga. Excepturi in consequuntur nulla nemo sint soluta officia, veniam, laboriosam dolore, nihil hic labore dolor provident tempora ipsam facere expedita quidem laborum aspernatur ad. Quibusdam, tempora asperiores iure dignissimos iste natus ex quos eaque!', options);
+        setTimeout(() => {newNotifia('Example2 Example2 Example2', {type: 'Error'});}, 1200)
+        
+    </script>
+
+</body>
+</html>

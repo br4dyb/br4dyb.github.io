@@ -12,6 +12,7 @@ const VanishModeInputBox = document.getElementById('VanishModeInput');
 
 let ChoiceArray = [];
 let Cooldown = false;
+const WelcomeNotification = true
 
 // Enter KeyPress Event:
 ChoiceInput.addEventListener('keydown', function(event) {
@@ -48,6 +49,13 @@ function AddChoice(){
             ChoicesContainer.appendChild(newChoiceElm);
             ChoiceArray.push(Choice)
             ApplyStyles();
+        }else{
+            if(ChoiceArray.includes(Choice)){
+                newNotifia(`"${Choice}" already exisits!`, {background: 'error', duration: 4000,})
+            }
+            if(Choice == ''){
+                newNotifia(`Input cannot be empty!`, {background: 'error', duration: 'infinite', hideCloseButton: false})
+            }
         }
 
     });
@@ -148,4 +156,14 @@ function HideResult(){
         ResultItemWrap.classList.add('hidden');
     }, 350)
        
+}
+
+if(WelcomeNotification){
+    newNotifia(`Welcome to the Random Generator! <br> Enter in choices for one to be randomly selected!`, 
+        {background: 'success',
+        duration: 10000,
+        textAlign: 'center', 
+        fontFamily: '', 
+        fontSize: '14px',
+        closeButton: false})
 }

@@ -1,6 +1,14 @@
 function newNotifia(messageText, options = {}){
     // Default Options:
-    const { background = "#2196f3", textColor = 'white', duration = 3500, hideCloseButton = false} = options;
+    const { 
+        background = "#2196f3", 
+        textColor = 'white', 
+        textAlign = 'start',
+        fontFamily = 'Arial, sans-serif',
+        fontSize = '14px', 
+        duration = 3500, 
+        closeButton = true
+    } = options;
 
     // Create notification container if it doesn't exist
     let container = document.getElementById("notifia-container");
@@ -26,7 +34,7 @@ function newNotifia(messageText, options = {}){
     notificationWrap.style.cssText = `
         background-color: ${background === "error" ? "#f56262" : background === "success" ? "#4caf50" : background};
         color: ${textColor};
-        padding: 5px;
+        padding: 2px;
         margin: 0px 5px 5px 5px;
         border-radius: 5px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -35,10 +43,9 @@ function newNotifia(messageText, options = {}){
         opacity: 0;
         width: fit-content;
         display: flex;
-        justify-content: space-between:
+        justify-content: space-between;
         align-items: center;
         flex-direction: row;
-        gap: 5px;
     `;
 
     // Create the notification side wrap element
@@ -48,8 +55,10 @@ function newNotifia(messageText, options = {}){
         align-items: center;
         justify-content: space-between;
         flex-direction: column;
-        min-height: 45px;
+        min-height: 30px;
         font-family: Arial, sans-serif !important;
+        padding: 2px;
+        gap: 8px;
     `;
 
     // Create the notification close wrap element
@@ -89,14 +98,21 @@ function newNotifia(messageText, options = {}){
     const notificationTextWrap = document.createElement("div");
     notificationTextWrap.style.cssText = `
         color: ${textColor};
-        padding: 5px;
-        font-family: Arial, sans-serif;
+        padding: 2.5px;
+        display: flex;
+        font-family: ${fontFamily} !important;
+        font-size: ${fontSize};
+        align-items: center;
+        justify-content: center;
+        text-align: ${textAlign};
         flex-direction: row;
+        position: relative;
+        height: 100%;
     `;
     notificationTextWrap.innerHTML = messageText;
 
     // Add Button & Timer to side wrap:
-    if(!hideCloseButton){notificationSideWrap.appendChild(notificationCloseButton);}
+    if(closeButton){notificationSideWrap.appendChild(notificationCloseButton);}
     notificationSideWrap.appendChild(notificationCloseTimer);
 
     // Add Close Wrap to Notification:
@@ -134,6 +150,8 @@ function newNotifia(messageText, options = {}){
                 container.remove();
             }
         }, duration);
+    }else{
+        notificationCloseTimer.remove()
     }
 
 }

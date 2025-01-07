@@ -10,7 +10,6 @@
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
-    font-family: 'DynaPuff';
     text-align: center;
     transition: opacity .33s;
 }
@@ -85,6 +84,7 @@ body{
     align-items: center;
     flex-direction: column;
     position: relative;
+    font-family: 'DynaPuff';
     transition: background .33s, color .33s;
 }
 

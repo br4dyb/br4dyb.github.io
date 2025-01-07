@@ -1,6 +1,6 @@
 function newNotifia(messageText, options = {}){
     // Default Options:
-    const { background = "#2196f3", textColor = 'white', duration = 3500 } = options;
+    const { background = "#2196f3", textColor = 'white', duration = 3500, hideCloseButton = false} = options;
 
     // Create notification container if it doesn't exist
     let container = document.getElementById("notifia-container");
@@ -70,6 +70,11 @@ function newNotifia(messageText, options = {}){
         cursor: pointer;
     `;
     notificationCloseButton.innerText = 'X';
+    notificationCloseButton.addEventListener('click', function(e){
+        closeNotifia(e.target);
+    })
+    
+
 
     // Create the notification timer element
     const notificationCloseTimer = document.createElement("p");
@@ -78,7 +83,7 @@ function newNotifia(messageText, options = {}){
         font-size: 8px;
         color: ${textColor};
     `;
-    notificationCloseTimer.innerText = '10';
+    notificationCloseTimer.innerText = '%';
 
     // Create the notification text element
     const notificationTextWrap = document.createElement("div");
@@ -91,7 +96,7 @@ function newNotifia(messageText, options = {}){
     notificationTextWrap.innerHTML = messageText;
 
     // Add Button & Timer to side wrap:
-    notificationSideWrap.appendChild(notificationCloseButton);
+    if(!hideCloseButton){notificationSideWrap.appendChild(notificationCloseButton);}
     notificationSideWrap.appendChild(notificationCloseTimer);
 
     // Add Close Wrap to Notification:
@@ -110,6 +115,15 @@ function newNotifia(messageText, options = {}){
 
     // Remove the notification after/if specified duration
     if(duration != 'infinite'){
+        // Countdown:
+        let SecondsDuration = Math.floor((duration/1000))
+        notificationCloseTimer.innerText = SecondsDuration + 's'
+        CountdownInterval = setInterval(() => {
+            SecondsDuration -= 1
+            notificationCloseTimer.innerText = SecondsDuration + 's'
+        }, 1000);
+
+        // Close Timeout:
         setTimeout(() => {
             notificationWrap.style.opacity = 0;
             setTimeout(() => {
@@ -122,4 +136,14 @@ function newNotifia(messageText, options = {}){
         }, duration);
     }
 
+}
+
+function closeNotifia(clickElm){
+    const Notif = clickElm.parentElement.parentElement;
+
+    Notif.style.opacity = 0;
+            setTimeout(() => {
+                Notif.remove();
+            }, 350)
+    
 }

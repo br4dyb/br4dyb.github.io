@@ -51,10 +51,10 @@ function AddChoice(){
             ApplyStyles();
         }else{
             if(ChoiceArray.includes(Choice)){
-                newNotifia(`"${Choice}" already exisits!`, {background: 'error', duration: 4000,})
+                newNotifia(`"${Choice}" already exisits!`, {background: 'error', fontFamily: '', duration: 5500,})
             }
             if(Choice == ''){
-                newNotifia(`Input cannot be empty!`, {background: 'error', duration: 'infinite', hideCloseButton: false})
+                newNotifia(`Input cannot be empty! `, {background: 'error', fontFamily: '', textAlign: 'center', duration: '5500'})
             }
         }
 
@@ -165,5 +165,6 @@ if(WelcomeNotification){
         textAlign: 'center', 
         fontFamily: '', 
         fontSize: '14px',
-        closeButton: false})
+        closeButton: false,
+    })
 }

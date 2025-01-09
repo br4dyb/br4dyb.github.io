@@ -21,16 +21,38 @@
         </button>
     </header>
 
+    <!-- <div id="notifia-container" style="position: fixed; bottom: 0px; right: 0px; z-index: 10000; transition: 0.33s; display: flex; align-items: end; flex-direction: column;">
+        
+        <div id="ExampleNotificationWrap">
+
+            <div id="TextWrap">
+                <b> Example Msg! </b> Hello blah blah blah blahhhhhh
+            </div>
+
+
+            <div id="SideWrap">
+                <div id="CloseButton"> X </div>
+                <div id="Timer"> 10s </div>
+            </div>
+
+
+        </div>
+
+    </div> -->
+
     <script>
         let options = {
-            duration: 10000,
+            duration: 'infinite',
             color: "yellowgreen",
             textColor: "white"
         }
 
 
-        newNotifia('<b>Lorem ipsum</b> dolor sit amet, consectetur adipisicing elit. Quod minima commodi, perspiciatis, iste officia nesciunt soluta voluptatem veniam, temporibus dicta accusamus consequatur? Praesentium ipsa dolores exercitationem laudantium aperiam fuga deserunt, possimus iure aliquam ut explicabo perspiciatis iusto aut debitis neque earum vitae eius vero consequatur iste beatae! Sapiente animi cum eius minima nihil optio voluptate iste soluta cupiditate rerum inventore aut cumque qui, blanditiis dolorum fuga. Excepturi in consequuntur nulla nemo sint soluta officia, veniam, laboriosam dolore, nihil hic labore dolor provident tempora ipsam facere expedita quidem laborum aspernatur ad. Quibusdam, tempora asperiores iure dignissimos iste natus ex quos eaque!', options);
-        setTimeout(() => {newNotifia('Example2 Example2 Example2', {type: 'Error'});}, 1200)
+        newNotifia('<b>Lorem ipsum</b> dolor sit amet, consectetur adipisicing elit. Quod minima commodi, perspiciatis, iste officia nesciunt soluta voluptatem veniam, temporibus dicta accusamus consequatur? Praesentium ipsa dolores exercitationem laudantium aperiam fuga deserunt, possimus iure aliquam ut explicabo perspiciatis iusto aut debitis neque earum vitae eius vero consequatur iste beatae!', options);
+
+        setTimeout(() => {
+            newNotifia("This is another example! <br> Yay!", {background: 'success', duration: 5000, textAlign: 'center', closeButton: true})
+        }, 1000);
         
     </script>
 

@@ -7,7 +7,7 @@ function newNotifia(messageText, options = {}){
         fontFamily = 'Arial, sans-serif',
         fontSize = '14px', 
         duration = 3500, 
-        closeButton = true
+        closeButton = true,
     } = options;
 
     // Create notification container if it doesn't exist
@@ -30,7 +30,7 @@ function newNotifia(messageText, options = {}){
 
     // Create the notification wrap element
     const notificationWrap = document.createElement("div");
-    notificationWrap.className = `notifia-notification`;
+    notificationWrap.className = `notifia-notificationWrap`;
     notificationWrap.style.cssText = `
         background-color: ${background === "error" ? "#f56262" : background === "success" ? "#4caf50" : background};
         color: ${textColor};
@@ -44,18 +44,18 @@ function newNotifia(messageText, options = {}){
         width: fit-content;
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        flex-direction: row;
+        align-items: stretch;
     `;
 
     // Create the notification side wrap element
     const notificationSideWrap = document.createElement("div");
+    notificationSideWrap.className = 'notifia-notificationSideWrap';
     notificationSideWrap.style.cssText = `
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-direction: column;
-        min-height: 30px;
+        flex-grow: 1;
         font-family: Arial, sans-serif !important;
         padding: 2px;
         gap: 8px;
@@ -63,6 +63,7 @@ function newNotifia(messageText, options = {}){
 
     // Create the notification close wrap element
     const notificationCloseButton = document.createElement("div");
+    notificationCloseButton.className = 'notifia-notificationCloseButton';
     notificationCloseButton.style.cssText = `
         display: flex;
         font-family: Arial, sans-serif !important;
@@ -74,45 +75,52 @@ function newNotifia(messageText, options = {}){
         height: 15px;
         width: 15px;
         color: white;
-        border: 1px solid black;
         border-radius: 3px;
         cursor: pointer;
+        transition: .33s;
     `;
+
+    // Inject dynamic hover styles
+    const buttonHoverStyle = document.createElement("style");
+    buttonHoverStyle.innerHTML = `
+        .notifia-notificationCloseButton:hover {
+            background: rgb(137, 9, 9) !important;
+        }
+    `;
+    document.head.appendChild(buttonHoverStyle);
     notificationCloseButton.innerText = 'X';
     notificationCloseButton.addEventListener('click', function(e){
         closeNotifia(e.target);
     })
     
-
-
     // Create the notification timer element
     const notificationCloseTimer = document.createElement("p");
+    notificationCloseTimer.className = 'notifia-notificationCloseTimer';
     notificationCloseTimer.style.cssText = `
         font-family: Arial, sans-serif !important;
-        font-size: 8px;
+        font-size: 9px;
         color: ${textColor};
     `;
-    notificationCloseTimer.innerText = '%';
+    notificationCloseTimer.innerText = 's';
 
     // Create the notification text element
     const notificationTextWrap = document.createElement("div");
+    notificationTextWrap.className = 'notifia-notificationTextWrap';
     notificationTextWrap.style.cssText = `
         color: ${textColor};
         padding: 2.5px;
-        display: flex;
         font-family: ${fontFamily} !important;
         font-size: ${fontSize};
-        align-items: center;
-        justify-content: center;
         text-align: ${textAlign};
         flex-direction: row;
-        position: relative;
-        height: 100%;
+        align-self: center;
     `;
     notificationTextWrap.innerHTML = messageText;
 
     // Add Button & Timer to side wrap:
-    if(closeButton){notificationSideWrap.appendChild(notificationCloseButton);}
+    if(closeButton){notificationSideWrap.appendChild(notificationCloseButton);}else{
+        notificationSideWrap.style.justifyContent = 'end';
+    }
     notificationSideWrap.appendChild(notificationCloseTimer);
 
     // Add Close Wrap to Notification:

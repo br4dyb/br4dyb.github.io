@@ -165,6 +165,6 @@ if(WelcomeNotification){
         textAlign: 'center', 
         fontFamily: '', 
         fontSize: '14px',
-        closeButton: false,
+        closeButton: true,
     })
 }

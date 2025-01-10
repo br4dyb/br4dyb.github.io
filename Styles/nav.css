@@ -43,6 +43,7 @@
     border-bottom-right-radius: 12px;
     transition: .5s ease;
     color: white;
+    overflow-y: scroll;
 }
 
 #NavHeader{

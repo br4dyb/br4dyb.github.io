@@ -43,3 +43,10 @@ const Wrap2 = document.getElementById('TestWrap2');
 setTimeout(() => {
     transita([Wrap2], [Wrap1], .55);
 }, 1000);
+
+
+
+// ##################################################################### \\
+//////////////////////////[STOP!][STOP!][STOP!]\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+// Confirm that Git/GitHub is syncronizing correctly without issues!\\\\\\\
+// ##################################################################### \\

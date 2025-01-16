@@ -69,7 +69,7 @@ function InitiateChangeLog(){
     if(!ChangeLogLoaded){
 
         ChangeLogLoaded = true;
-        if(ChangeLog_Debug){console.info('ChangeLog Loading!');}
+        if(ChangeLog_Debug){console.info('Fetching ChangeLog Data!');}
 
         // Reset ChangeLogGrid:
         ChangeLogGrid.innerHTML = `

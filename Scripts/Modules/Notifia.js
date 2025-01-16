@@ -204,7 +204,7 @@ function newNotifia(messageText, options = {}){
                 }
             }, 350)
         
-        }, duration);
+        }, duration + 500);
     }else{
         // Infinite Notification:
         notificationCloseTimer.remove();
@@ -216,6 +216,7 @@ function newNotifia(messageText, options = {}){
 
 function closeNotifia(clickElm){
     const Notif = clickElm.parentElement.parentElement.parentElement;
+    let container = document.getElementById("notifia-container");
 
     Notif.style.opacity = 0;
             setTimeout(() => {

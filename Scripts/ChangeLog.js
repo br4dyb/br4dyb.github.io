@@ -9,7 +9,7 @@ const ChangeLog_NewEntryFullWrap = document.getElementById('CreateNew_ChangeLog_
 // Variables:
 
 let ChangeLogLoaded = false;
-let ChangeLog_Debug = true;
+let ChangeLog_Debug = false;
 
 
 // Functions:

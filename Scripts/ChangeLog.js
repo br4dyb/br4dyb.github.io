@@ -1,5 +1,5 @@
 // Elements:
-const ChangeLogGrid = document.getElementById('ChangeLogGrid');
+const ChangeLogEntriesContainer = document.getElementById('ChangeLogEntriesContainer');
 const ChangeLog_NewEntryFullWrap = document.getElementById('CreateNew_ChangeLog_FullWrap');
     // Inputs:
     const ChangeLog_InputVersion = document.getElementById('ChangeLog_InputVersion');
@@ -72,15 +72,7 @@ function InitiateChangeLog(){
         if(ChangeLog_Debug){console.info('Fetching ChangeLog Data!');}
 
         // Reset ChangeLogGrid:
-        ChangeLogGrid.innerHTML = `
-        <!-- Header Row: -->
-        <tr class="ChangeLog_Row">
-            <th class="ChnageLog_HeadingCell"> Version: </th>
-            <th class="ChnageLog_HeadingCell"> Changes: </th>
-            <th class="ChnageLog_HeadingCell"> Date: </th>
-        </tr>
-
-        <!-- Content Rows: -->`;
+        ChangeLogEntriesContainer.innerHTML = ``;
 
         // Get ChnageLog Data:
         db.collection('ChangeLog').doc('Data').get().then((docRef) => {
@@ -112,17 +104,24 @@ function InitiateChangeLog(){
                 // console.log(`Date: ${entry.Date}`);
                 // console.log(`Details: ${entry.Details}`);
 
-                let NewRowElement = document.createElement('tr')
-                NewRowElement.classList.add('ChangeLog_Row');
-                NewRowElement.innerHTML = `
-                    <td class="ChnageLog_ContentCell"> ${entry.Version} </td>
-                    <td class="ChnageLog_ContentCell textAlignLeft"> ${entry.Details} </td>
-                    <td class="ChnageLog_ContentCell"> ${entry.Date} </td>`;
+                let NewEntryElm = document.createElement('div');
+                NewEntryElm.classList.add('ChangeLog_EntryWrap', 'box-shadow-light', 'text-shadow-dark');
+                NewEntryElm.innerHTML = `
+                    <div class="EntryVersionNumber">
+                        ${entry.Version}
+                    </div>
+                        
+                    <p class="EntryDetails">
+                        ${entry.Details}
+                    </p>
+    
+                    <div class="EntryDate">
+                        ${entry.Date}
+                    </div>`;
 
-                ChangeLogGrid.appendChild(NewRowElement);
+                ChangeLogEntriesContainer.appendChild(NewEntryElm);
 
             });
-            // console.log('-----------------');
             
 
         }).catch((error) => {

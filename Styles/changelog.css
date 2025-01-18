@@ -9,7 +9,7 @@
 }
 
 #ChangeLogHeading{
-    background: rgb(61, 8, 113, .7);
+    background: #561498b3;
 }
 
 #ChangeLog_ScreenWrap{
@@ -175,4 +175,58 @@
     border: 1.5px solid rgb(144, 144, 144);
     border-radius: 2px;
     cursor: pointer;
+}
+
+#ChangeLogEntriesContainer{
+    margin-block: 15px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.ChangeLog_EntryWrap{
+    background: #4b4a4ab3;
+    max-width: 500px;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    padding: 4px;
+    border: 1px solid lightgray;
+}
+
+.EntryVersionNumber{
+    padding: 2px 4px;
+    /* background: #6d3c9d; */
+    background: rgb(66, 141, 121);
+    border: 1px solid lightgray;
+    text-shadow: 0px 0px 1px black !important;
+    align-self: start;
+    color: white;
+    font-size: small;
+    border-radius: 4px;
+}
+
+.EntryDate{
+    padding: 2px 4px;
+    background: rgb(41, 41, 41);
+    color: white;
+    border-radius: 4px;
+    font-size: 9px;
+}
+
+.EntryDetails{
+    color: white;
+    font-size: 14px;
+    padding: 4px;
+    text-align: center;
 }

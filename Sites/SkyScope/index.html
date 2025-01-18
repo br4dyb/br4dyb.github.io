@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags: -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title & Icons: -->
+    <title> Skyscope | Weather Info </title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <!-- Stylesheets: -->
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+
+<body>
+    <header>
+        <span class="material-symbols-rounded headerButton" title="Location Search"
+        onclick="newNotifia('Map Search is<br> currently unavailable!', {background: 'error', closeButton: false, textAlign: 'center'})">
+            map_search
+        </span>
+        <h1 id="siteTitle" title="SkyScope" onclick="location.reload()">
+            SkyScope
+        </h1>
+        <span class="material-symbols-rounded headerButton" title="Settings"
+        onclick="newNotifia('Settings are<br> currently unavailable!', {background: 'error', closeButton: false, textAlign: 'center'})">
+            settings
+        </span>
+    </header>
+
+    <div id="mainBodyWrap">
+        <span class="material-symbols-rounded">
+            sunny
+        </span>
+    </div>
+
+    <footer style="gap: 3px;">
+        Made with <span class="material-symbols-rounded">favorite</span>
+    </footer>
+</body>
+
+<!-- Scripts: -->
+<script src="/Scripts/Modules/Notifia.js"></script>
+</html>

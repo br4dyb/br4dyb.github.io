@@ -9,6 +9,7 @@ const SitesArray = [
 
 const HiddenSitesArray = [
     {Name: 'SkyLine', Link: '/Sites/SkyLine/index.html'},
+    {Name: 'SkyScope', Link: '/Sites/SkyScope/index.html'},
 ]
 
 // Elements:

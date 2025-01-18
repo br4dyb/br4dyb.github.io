@@ -43,41 +43,6 @@
     scale: 1.1;
 }
 
-#ChangeLogGrid{
-    width: 75%;
-    margin-top: 15px;
-    display: table;
-    color: var(--textColor);
-    margin-bottom: 20px;
-}
-
-.ChangeLog_Row{
-    /* background: rgb(94, 94, 94, 0.7); */
-    width: 100%;
-    height: 100%;
-    display: table-row;
-}
-
-.ChnageLog_HeadingCell{
-    background: rgb(61, 8, 113, .7);
-    border: 1.5px solid black;
-    color: white;
-    padding: 10px;
-    display: table-cell;
-    border-radius: 4px;
-    text-align: center;
-}
-
-.ChnageLog_ContentCell{
-    background: rgb(94, 94, 94, 0.7);
-    border: 1.5px solid black;
-    display: table-cell;
-    height: 100%;
-    padding: 8px;
-    border-radius: 4px;
-    text-align: center;
-}
-
 .textAlignLeft{
     text-align: start !important;
 }

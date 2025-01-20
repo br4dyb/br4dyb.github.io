@@ -73,6 +73,10 @@ footer{
     background: #e9fbc4ae !important;
 }
 
+.settingsButton:hover{
+    background: #c55bdf53 !important;
+}
+
 #mainBodyWrap{
     /* background: rgba(0, 64, 255, 0.2); */
     width: 100%;

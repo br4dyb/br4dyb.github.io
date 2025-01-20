@@ -11,7 +11,8 @@
 }
 
 body{
-    background: var(--LightBodyBackground);
+    /* background: var(--LightBodyBackground); */
+    background: linear-gradient(to top right, #a9d6e5, #89c2d9, #2c7da0cc);
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -31,6 +32,7 @@ header{
     width: 100%;
     padding: 15px 15px;
     border-bottom: 2px solid #303030;
+    background: rgba(255, 255, 255, 0.4);
 }
 
 footer{
@@ -38,11 +40,14 @@ footer{
     border-top: 2px solid #303030;
     width: 100%;
     padding: 2px 5px;
+    background: rgba(255, 255, 255, 0.4);
+    font-size: smaller;
 }
 
 #siteTitle{
-    font-size: 25px;
+    font-size: 29px;
     cursor: pointer;
+    font-variant: small-caps;
 }
 
 .headerButton{
@@ -72,4 +77,55 @@ footer{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+#mainWeatherDisplay{
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+    max-width: 450px;
+    border-radius: 5px;
+    position: relative;
+    padding: 5px 0px;
+}
+
+#cityName{
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid black;
+    border-radius: 5px;
+    width: fit-content;
+    text-align: center;
+    padding: 4px;
+    position: absolute;
+    top: -35px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
+}
+
+.timeWrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 95%;
+    border-bottom: 2px dotted grey;
+    padding: 5px;
+    position: relative;
+}
+
+.finalTimeWrap{
+    border-bottom: none !important;
+}
+
+.weatherIcon{
+    position: absolute;
+    left: 5px;
+}
+
+.weatherDegree{
+    position: absolute;
+    right: 5px;
 }

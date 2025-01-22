@@ -1,5 +1,5 @@
 const apikey = 'fca729653a423ebcb34cfa6e4fd01316';
-let debugWeatherData = true;
+let debugWeatherData = false;
 
 // Elements:
 const cityNameText = document.getElementById('cityName');
@@ -11,11 +11,6 @@ const currentConditionsDetails = document.getElementById('currentConditionsDetai
 const mainForecastDisplay = document.getElementById('mainForecastDisplay');
 const mapSearchInput = document.getElementById('mapSearchInput');
 const mapSearchFullWrap = document.getElementById('mapSearchFullWrap');
-
-// To Do:
-//  -- Get current location on site load
-//  -- Use geolocation/map API for state/country names
-//  -- Improve styles or add dark mode
 
 // Fetch Weather Data:
 function LoadWeather(cityName){
@@ -31,9 +26,23 @@ function LoadWeather(cityName){
             newNotifia(`An Error Occured! <br> (${data.message})`, {background:'error', closeButton:false, duration:10000});
         }else{
             // No Error:
+            // Get City Details:
+            let lat = data.coord.lat;
+            let lon = data.coord.lon;
+            let cityLocation = null;
+            // Usage:
+            (async () => {
+                cityLocation = await FetchCityLocation(lat, lon); // Example: NYC coordinates
+                if(debugWeatherData){console.log(cityLocation);} // Logs the result
+                if(cityLocation != null){
+                    cityNameText.innerText = (`${cityLocation.city}, ${cityLocation.principalSubdivision} ${cityLocation.countryCode}`);
+                }else{
+                    cityNameText.innerText = (data.name);
+                }
+            })();
             // Update Current Conditions Wrap:
             mainForecastDisplay.innerHTML = '';
-            cityNameText.innerText = (data.name + ', ' + data.sys.country);
+            
             currentTempText.innerText = ('Current Temp: ' + Math.trunc(data.main.temp) + '°');
             currentFeelsLikeText.innerText = ('Feels Like: ' + Math.trunc(data.main.feels_like) + '°');
             currentHumidityText.innerText = ('Humidity: ' + data.main.humidity + '%');
@@ -113,6 +122,23 @@ function LoadWeather(cityName){
         newNotifia(`An Error Occured: <br> (${error})`, {background:'error', closeButton:false, duration:10000})
     });
 }
+
+// Fetch City Location:
+async function FetchCityLocation(lat, lon) {
+    try {
+        const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.warn('Error occurred fetching location details!');
+        console.error(error);
+        return null;
+    }
+}
+
 
 // Get Icon for Conditions:
 function GetConditionIcon(condition) {
@@ -203,4 +229,46 @@ function HideSearchWrap(){
 }
 
 // Init:
-LoadWeather('Green Bay');
+window.onload = function () {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                // console.log(`Latitude: ${lat}, Longitude: ${lon}`);
+
+                if (lat && lon) {
+                    // Fetch city details using reverse geocoding API
+                    fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.locality) {
+                                // console.log(`City: ${data.locality}`);
+                                LoadWeather(data.locality);
+                            } else {
+                                // console.log('City name not found');
+                                LoadWeather('New York');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching city name:', error);
+                            LoadWeather('New York');
+                        });
+                }
+            },
+            (error) => {
+                console.error('Error getting location:', error.message);
+                LoadWeather('New York');
+            }
+        );
+    } else {
+        console.error('Geolocation is not supported by this browser.');
+        LoadWeather('New York');
+    }
+};
+

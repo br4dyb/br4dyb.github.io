@@ -20,14 +20,14 @@
     cursor: default;
 }
 
-body{
+html, body{
     /* background: var(--LightBodyBackground); */
     background: linear-gradient(to top right, #a9d6e5, #89c2d9, #2c7da0cc);
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    height: 100%;
     width: 100%;
     position: relative;
     color: var(--DefaultTextColor);
@@ -93,12 +93,11 @@ footer{
 }
 
 #mainBodyWrap{
-    /* background: rgba(0, 64, 255, 0.2); */
     width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex: 1;
     flex-direction: column;
     position: relative;
 }

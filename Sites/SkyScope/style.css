@@ -1,8 +1,9 @@
 :root{
-    --DefaultTextColor: black;
+    --DefaultTextColor: white;
     --LightBodyBackground : #d2d2d2;
     --DarkBodyBackground : #303030;
-    --ContentBackground : rgba(255, 255, 255, 0.35);
+    /* --ContentBackground : rgba(255, 255, 255, 0.35); */
+    --ContentBackground : rgba(60, 60, 60, 0.35);
 }
 
 *{
@@ -20,11 +21,16 @@
     cursor: default;
 }
 
+.blurEffect{
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
 html, body{
     /* background: var(--LightBodyBackground); */
     background: linear-gradient(to top right, #a9d6e5, #89c2d9, #2c7da0cc);
     display: flex;
-    justify-content: center;
+    justify-content: start;
     flex-direction: column;
     align-items: center;
     height: 100%;
@@ -46,13 +52,13 @@ header{
     /* width: 80%; */
     width: 100%;
     padding: 15px 15px;
-    border-bottom: 2px solid #303030;
+    border-bottom: 2px solid var(--DefaultTextColor);
     background: var(--ContentBackground);
 }
 
 footer{
     display: flex; justify-content: center; align-items: center;
-    border-top: 2px solid #303030;
+    border-top: 2px solid var(--DefaultTextColor);
     width: 100%;
     padding: 2px 5px;
     background: var(--ContentBackground);
@@ -85,11 +91,11 @@ footer{
 }
 
 .mapSearchButton:hover{
-    background: #e9fbc4ae !important;
+    background: #96a773ae !important;
 }
 
 .settingsButton:hover{
-    background: #4250bd53 !important;
+    background: #2e3fc153 !important;
 }
 
 #mainBodyWrap{
@@ -175,7 +181,7 @@ footer{
     justify-content: center;
     flex-direction: row;
     width: 95%;
-    border-bottom: 2px dotted grey;
+    border-bottom: 2px dotted rgb(228, 226, 226);
     padding: 5px;
     position: relative;
 }
@@ -219,7 +225,7 @@ footer{
 #searchLineWrap{
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center; justify-content: center;
     gap: 15px;
 }
@@ -229,7 +235,7 @@ footer{
 }
 
 #searchCityButton{
-    background: var(--ContentBackground);
+    background: rgba(143, 137, 137, 0.5);
     padding: 6px 8px;
     border: 1px solid var(--DefaultTextColor);
     border-radius: 5px;
@@ -239,5 +245,5 @@ footer{
 }
 
 #searchCityButton:hover{
-    background: rgba(125, 222, 185, 0.656);
+    background: rgba(80, 164, 132, 0.656);
 }

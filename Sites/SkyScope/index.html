@@ -14,7 +14,7 @@
 
 
 <body>
-    <header>
+    <header class="blurEffect">
         <span class="material-symbols-rounded headerButton mapSearchButton" title="Location Search"
         onclick="ShowSearchWrap()">
             map_search
@@ -32,7 +32,7 @@
 
         <p id="cityName"> </p>
 
-        <div id="currentConditionsWrap"> 
+        <div id="currentConditionsWrap" class="blurEffect"> 
             <div id="currentConditionsTextWrap">
                 <p style="text-decoration: underline;"> Current Conditions: </p>
                 <p id="currentTempText"> Temp: </p>
@@ -46,7 +46,7 @@
             
         </div>
 
-        <div id="mainForecastDisplay">
+        <div id="mainForecastDisplay" class="blurEffect">
             
             <div class="timeWrap">
                 <p class="weatherTime">TIME</p>
@@ -68,7 +68,7 @@
         
     </div>
 
-    <footer style="gap: 3px;" onclick="location.assign('/')">
+    <footer style="gap: 3px;" onclick="location.assign('/')" class="blurEffect">
          Made with <span class="material-symbols-rounded">favorite</span>
     </footer>
 </body>

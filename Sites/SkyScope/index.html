@@ -30,31 +30,38 @@
 
     <div id="mainBodyWrap">
 
-        <p id="cityName"> </p>
-
-        <div id="currentConditionsWrap" class="blurEffect"> 
-            <div id="currentConditionsTextWrap">
-                <p style="text-decoration: underline;"> Current Conditions: </p>
-                <p id="currentTempText"> Temp: </p>
-                <p id="currentFeelsLikeText"> Feels Like: </p>
-                <p id="currentHumidityText"> Humidity: </p>
-            </div>
-            <div id="currentConditionsDetailsAndIconWrap">
-                <span class="material-symbols-rounded" id="currentConditionsIcon"> Square </span>
-                <p id="currentConditionsDetails"> </p>
-            </div>
-            
+        <div id="loadingWrap">
+            <span id="loadingIcon" class="material-symbols-rounded"> refresh </span>
+            <p> Loading . . . </p>
         </div>
 
-        <div id="mainForecastDisplay" class="blurEffect">
-            
-            <div class="timeWrap">
-                <p class="weatherTime">TIME</p>
-                <span class="material-symbols-rounded weatherIcon"> Square </span>
-                <p class="weatherDegree"> XX°</p>
+        <div id="weatherInfoFullWrap" class="hidden">
+            <p id="cityName"> </p>
+
+            <div id="currentConditionsWrap" class="blurEffect"> 
+                <div id="currentConditionsTextWrap">
+                    <p style="text-decoration: underline;"> Current Conditions: </p>
+                    <p id="currentTempText"> Temp: </p>
+                    <p id="currentFeelsLikeText"> Feels Like: </p>
+                    <p id="currentHumidityText"> Humidity: </p>
+                </div>
+                <div id="currentConditionsDetailsAndIconWrap">
+                    <span class="material-symbols-rounded" id="currentConditionsIcon"> Square </span>
+                    <p id="currentConditionsDetails"> </p>
+                </div>
+                
             </div>
+
+            <div id="mainForecastDisplay" class="blurEffect">
+                
+                <div class="timeWrap">
+                    <p class="weatherTime">TIME</p>
+                    <span class="material-symbols-rounded weatherIcon"> Square </span>
+                    <p class="weatherDegree"> XX°</p>
+                </div>
+                
             
-           
+            </div>
         </div>
 
         <div id="mapSearchFullWrap" class="hidden">

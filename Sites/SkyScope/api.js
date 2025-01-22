@@ -2,6 +2,8 @@ const apikey = 'fca729653a423ebcb34cfa6e4fd01316';
 let debugWeatherData = false;
 
 // Elements:
+const loadingWrap = document.getElementById('loadingWrap');
+const weatherInfoFullWrap = document.getElementById('weatherInfoFullWrap')
 const cityNameText = document.getElementById('cityName');
 const currentTempText = document.getElementById('currentTempText');
 const currentFeelsLikeText = document.getElementById('currentFeelsLikeText');
@@ -26,6 +28,8 @@ function LoadWeather(cityName){
             newNotifia(`An Error Occured! <br> (${data.message})`, {background:'error', closeButton:false, duration:10000});
         }else{
             // No Error:
+            loadingWrap.classList.add('hidden');
+            weatherInfoFullWrap.classList.remove('hidden');
             // Get City Details:
             let lat = data.coord.lat;
             let lon = data.coord.lon;

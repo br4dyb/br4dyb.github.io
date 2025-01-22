@@ -108,6 +108,38 @@ footer{
     position: relative;
 }
 
+#loadingWrap{
+    background: var(--ContentBackground);
+    border-radius: 8px;
+    border: 1px solid var(--DefaultTextColor);
+    display: flex; justify-content: center; align-items: center;
+    padding: 5px 10px 5px 5px;
+    gap: 3px;
+}
+
+#loadingIcon{
+    animation: loadingSpin 1.5s infinite ease-in-out;
+}
+
+@keyframes loadingSpin {
+    from{
+        rotate: 0deg;
+    }
+    to{
+        rotate: 360deg;
+    }
+}
+
+#weatherInfoFullWrap{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    flex-direction: column;
+    position: relative;
+}
+
 #mainForecastDisplay{
     background: var(--ContentBackground);
     border: 1px solid var(--DefaultTextColor);
@@ -116,7 +148,7 @@ footer{
     justify-content: center;
     flex-direction: column;
     width: 80%;
-    max-width: 450px;
+    max-width: 500px;
     border-radius: 5px;
     position: relative;
     padding: 5px 0px;

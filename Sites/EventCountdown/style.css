@@ -1,0 +1,83 @@
+:root{
+    --example:rgb();
+}
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  cursor: default;
+}
+
+.hidden{
+    display: none;
+}
+
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    color: white;
+}
+
+html, body{
+    background: rgb(52, 52, 52);
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 80%;
+    height: fit-content;
+    padding: 20px;
+    margin: 10px;
+    background: rgb(13, 177, 177);
+    border-radius: 8px;
+    border: 1.5px solid white;
+    font-family: 'DynaPuff';
+}
+
+#fullBodyWrap{
+    display: flex;
+    justify-content: center; align-items: center; flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    flex: 1;
+}
+
+#countdownPanel{
+    font-size: 45px;
+    background-color: rgba(111, 36, 182, 0.618);
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 20px;
+    font-family: 'Tourney';
+    font-weight: 600;
+}
+
+#targetDateText{
+    position: absolute;
+    bottom: 10px;
+    opacity: .5;
+    font-family: 'gaegu';
+}

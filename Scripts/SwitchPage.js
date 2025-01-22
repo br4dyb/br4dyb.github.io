@@ -49,6 +49,9 @@ function SwitchPage(NewPage){
     if(CurrentView === NewPage){
         return
     }else{
+    // Reset Scrollbar Position:
+        document.documentElement.scrollTop = 0;  // For modern browsers
+        document.body.scrollTop = 0;  // For older browsers
 
     // Animate in NewPage:
     CurrentView.style.opacity = 0;

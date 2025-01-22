@@ -1,12 +1,14 @@
 // Main Transition Func:
 function transita(framesOut, framesIn, duration){
 
-    console.log(duration*1000)
+    // console.log(duration*1000)
 
+    if(framesOut)
     framesOut.forEach(frame => {
         frame.style.transition = duration + 's ease';
         frame.style.opacity = 0;
     });
+    if(framesIn)
     framesIn.forEach(frame => {
         frame.style.transition = duration + 's ease';
         frame.style.display = 'none';

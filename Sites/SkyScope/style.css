@@ -1,6 +1,8 @@
 :root{
+    --DefaultTextColor: black;
     --LightBodyBackground : #d2d2d2;
     --DarkBodyBackground : #303030;
+    --ContentBackground : rgba(255, 255, 255, 0.35);
 }
 
 *{
@@ -8,6 +10,14 @@
     margin: 0px;
     box-sizing: border-box;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-shadow: 0px 0px .8px black;
+}
+
+.material-symbols-rounded{
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    cursor: default;
 }
 
 body{
@@ -20,6 +30,11 @@ body{
     height: 100vh;
     width: 100%;
     position: relative;
+    color: var(--DefaultTextColor);
+}
+
+.hidden{
+    display: none !important;
 }
 
 header{
@@ -32,7 +47,7 @@ header{
     width: 100%;
     padding: 15px 15px;
     border-bottom: 2px solid #303030;
-    background: rgba(255, 255, 255, 0.4);
+    background: var(--ContentBackground);
 }
 
 footer{
@@ -40,7 +55,7 @@ footer{
     border-top: 2px solid #303030;
     width: 100%;
     padding: 2px 5px;
-    background: rgba(255, 255, 255, 0.4);
+    background: var(--ContentBackground);
     font-size: smaller;
 }
 
@@ -59,8 +74,8 @@ footer{
     transition: .33s;
     padding: 2px;
     border-radius: 7px;
-    border: 2px solid rgb(55, 55, 55);
-    color: rgb(55, 55, 55);
+    border: 2px solid var(--DefaultTextColor);
+    color: var(--DefaultTextColor);
 }
 
 .headerButton:hover{
@@ -74,7 +89,7 @@ footer{
 }
 
 .settingsButton:hover{
-    background: #c55bdf53 !important;
+    background: #4250bd53 !important;
 }
 
 #mainBodyWrap{
@@ -85,11 +100,12 @@ footer{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    position: relative;
 }
 
-#mainWeatherDisplay{
-    background: rgba(255, 255, 255, 0.4);
-    border: 1px solid black;
+#mainForecastDisplay{
+    background: var(--ContentBackground);
+    border: 1px solid var(--DefaultTextColor);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -102,15 +118,56 @@ footer{
 }
 
 #cityName{
-    background: rgba(255, 255, 255, 0.4);
-    border: 1px solid black;
+    background: var(--ContentBackground);
+    border: 1px solid var(--DefaultTextColor);
     border-radius: 5px;
     width: fit-content;
     text-align: center;
-    padding: 4px;
-    position: absolute;
-    top: -65px;
+    padding: 5px 8px;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center; align-items: center; flex-direction: column;
+    margin-bottom: 10px;
+}
+
+#currentConditionsWrap{
+    background: var(--ContentBackground);
+    border: 1px solid var(--DefaultTextColor);
+    border-radius: 5px;
+    text-align: center;
+    padding: 4px 15px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
+    display: flex;
+    justify-content: space-between; align-items: center; flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+#currentConditionsTextWrap{
+    display: flex;
+    justify-content: center; align-items: start; flex-direction: column;
+}
+
+#currentTempText, #currentFeelsLikeText, #currentHumidityText{
+    padding-left: 10px;
+}
+
+#currentConditionsDetailsAndIconWrap{
+    border: 1px solid var(--DefaultTextColor);
+    border-radius: 5px;
+    width: fit-content;
+    text-align: center;
+    padding: 5px 8px;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center; align-items: center; flex-direction: column;
+    margin: 15px 0px 15px 15px;
+
+}
+
+#currentConditionsIcon{
+    font-size: 40px !important;
 }
 
 .timeWrap{
@@ -136,4 +193,52 @@ footer{
 .weatherDegree{
     position: absolute;
     right: 5px;
+}
+
+#mapSearchFullWrap{
+    display: flex;
+    justify-content: center; align-items: center; flex-wrap: wrap; flex-direction: column;
+    gap: 15px;
+    position: absolute;
+    background: linear-gradient(to top right, #a9d6e5, #89c2d9, #5db5db);;
+    width: 100%;
+    height: 100%;
+    transition: .4s;
+}
+
+#mapSearchInput{
+    border: none;
+    padding: 4px;
+    border-radius: 7px;
+    width: 70%;
+    height: 30px;
+    max-width: 450px;
+    font-size: 16px;
+    text-align: center;
+}
+
+#searchLineWrap{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center; justify-content: center;
+    gap: 15px;
+}
+
+#searchHeading{
+    font-weight: 600;
+}
+
+#searchCityButton{
+    background: var(--ContentBackground);
+    padding: 6px 8px;
+    border: 1px solid var(--DefaultTextColor);
+    border-radius: 5px;
+    font-size: small;
+    cursor: pointer;
+    transition: .33s;
+}
+
+#searchCityButton:hover{
+    background: rgba(125, 222, 185, 0.656);
 }

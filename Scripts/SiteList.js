@@ -1,10 +1,11 @@
 const SitesArray = [
-    {Name: 'WackAMole', Link: '/Sites/WackAMole/index.html', Img: '/favicon.ico', Tags: 'Game, Fun, Wack A Mole', Featured: true, New: false},
+    {Name: 'WackAMole', Link: '/Sites/WackAMole/index.html', Img: '/favicon.ico', Tags: 'Game, Fun, Wack A Mole', Featured: false, New: false},
     {Name: 'BouncyBlocks', Link: '/Sites/BouncyBlocks/index.html', Img: '/favicon.ico', Tags: 'Game, Fun, Bouncy Blocks', Featured: false, New: false},
-    {Name: 'Rock Paper Scissors', Link: '/Sites/RockPaperScissors/index.html', Img: '/favicon.ico', Tags: 'Game, Fun, Rock Paper Scissors', Featured: false, New: true},
-    {Name: 'Tic Tac Toe', Link: '/Sites/TicTacToeV2/index.html', Img: '/favicon.ico', Tags: 'Game, Fun, Tic Tac Toe', Featured: false, New: false},
+    {Name: 'Rock Paper Scissors', Link: '/Sites/RockPaperScissors/index.html', Img: '/favicon.ico', Tags: 'Game, Fun, Rock Paper Scissors', Featured: false, New: false},
+    {Name: 'Tic Tac Toe', Link: '/Sites/TicTacToeV2/index.html', Img: '/favicon.ico', Tags: 'Game, Fun, Tic Tac Toe', Featured: true, New: false},
     {Name: 'Hangman', Link: '/Sites/Hangman/index.html', Img: '/favicon.ico', Tags: 'Game, Fun, Hangman', Featured: false, New: false},
     {Name: 'Random Generator', Link: '/Sites/RandomGenerator/index.html', Img: '/favicon.ico', Tags: 'Random, Generator, Useful, Tools', Featured: false, New: true},
+    {Name: 'SkyScope', Link: '/Sites/SkyScope/index.html', Img: '/favicon.ico', Tags: 'Sky, Scope, Weather, Information, Conditions, Useful, Tools', Featured: false, New: true},
 ]
 
 const HiddenSitesArray = [

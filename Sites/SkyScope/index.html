@@ -16,7 +16,7 @@
 <body>
     <header>
         <span class="material-symbols-rounded headerButton mapSearchButton" title="Location Search"
-        onclick="newNotifia('Map Search is<br> currently unavailable!', {background: 'error', closeButton: false, textAlign: 'center'})">
+        onclick="ShowSearchWrap()">
             map_search
         </span>
         <h1 id="siteTitle" title="SkyScope" onclick="location.reload()">
@@ -30,68 +30,50 @@
 
     <div id="mainBodyWrap">
 
-       
+        <p id="cityName"> </p>
 
-        <div id="mainWeatherDisplay">
+        <div id="currentConditionsWrap"> 
+            <div id="currentConditionsTextWrap">
+                <p style="text-decoration: underline;"> Current Conditions: </p>
+                <p id="currentTempText"> Temp: </p>
+                <p id="currentFeelsLikeText"> Feels Like: </p>
+                <p id="currentHumidityText"> Humidity: </p>
+            </div>
+            <div id="currentConditionsDetailsAndIconWrap">
+                <span class="material-symbols-rounded" id="currentConditionsIcon"> Square </span>
+                <p id="currentConditionsDetails"> </p>
+            </div>
+            
+        </div>
 
-            <p id="cityName"> Green Bay, WI <br> [Current Conditions & Icon] </p>
+        <div id="mainForecastDisplay">
             
             <div class="timeWrap">
-                <p class="weatherTime">Now</p>
-                <span class="material-symbols-rounded weatherIcon"> sunny </span>
-                <p class="weatherDegree"> 00°</p>
-            </div>
-            <div class="timeWrap">
-                <p class="weatherTime">1 PM</p>
-                <span class="material-symbols-rounded weatherIcon"> sunny </span>
-                <p class="weatherDegree"> 00°</p>
-            </div>
-            <div class="timeWrap">
-                <p class="weatherTime">2 PM</p>
-                <span class="material-symbols-rounded weatherIcon"> cloudy </span>
-                <p class="weatherDegree"> 00°</p>
-            </div>
-            <div class="timeWrap">
-                <p class="weatherTime">3 PM</p>
-                <span class="material-symbols-rounded weatherIcon"> rainy </span>
-                <p class="weatherDegree"> 00°</p>
-            </div>
-            <div class="timeWrap">
-                <p class="weatherTime">4 PM</p>
-                <span class="material-symbols-rounded weatherIcon"> rainy </span>
-                <p class="weatherDegree"> 00°</p>
-            </div>
-            <div class="timeWrap">
-                <p class="weatherTime">5 PM</p>
-                <span class="material-symbols-rounded weatherIcon"> weather_mix </span>
-                <p class="weatherDegree"> 00°</p>
-            </div>
-            <div class="timeWrap">
-                <p class="weatherTime">6 PM</p>
-                <span class="material-symbols-rounded weatherIcon"> cloudy </span>
-                <p class="weatherDegree"> 00°</p>
-            </div>
-            <div class="timeWrap">
-                <p class="weatherTime">7 PM</p>
-                <span class="material-symbols-rounded weatherIcon"> cloudy </span>
-                <p class="weatherDegree"> 00°</p>
-            </div>
-            <div class="timeWrap finalTimeWrap">
-                <p class="weatherTime">8 PM</p>
-                <span class="material-symbols-rounded weatherIcon"> cloudy </span>
-                <p class="weatherDegree"> 00°</p>
+                <p class="weatherTime">TIME</p>
+                <span class="material-symbols-rounded weatherIcon"> Square </span>
+                <p class="weatherDegree"> XX°</p>
             </div>
             
            
         </div>
+
+        <div id="mapSearchFullWrap" class="hidden">
+            <p id="searchHeading"> Search by City: &#127758</p>
+            <div id="searchLineWrap">
+                <input type="text" id="mapSearchInput" placeholder="City Name ex:'Los Angeles'">
+                <div onclick="SearchCity()" id="searchCityButton"> Search </div>
+            </div>
+            
+        </div>
         
     </div>
 
-    <footer style="gap: 3px;">
-        Made with <span class="material-symbols-rounded">favorite</span>
+    <footer style="gap: 3px;" onclick="location.assign('/')">
+         Made with <span class="material-symbols-rounded">favorite</span>
     </footer>
 </body>
 
 <!-- Scripts: -->
 <script src="/Scripts/Modules/Notifia.js"></script>
+<script src="./api.js"></script>
 </html>

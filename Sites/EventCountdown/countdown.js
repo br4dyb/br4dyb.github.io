@@ -1,8 +1,7 @@
 // Elements:
 const countdownPanel = document.getElementById('countdownPanel');
 
-// let targetDate = 'Feb 22th 2025'
-
+// Update Function:
 function ShowUpdate(){
     let curDate = new Date(); // Current local date/time
     let targetDate = new Date(2025, 1, 22); // Target local date/time
@@ -36,12 +35,13 @@ function ShowUpdate(){
     `;
 }
 
+// Init:
 let countdownInterval = setInterval(() => {
     ShowUpdate();
 }, 1000);
-
 ShowUpdate();
 
+// Confetti Function:
 function launchConfetti() {
     confetti({
         particleCount: 1000,
@@ -200,7 +200,6 @@ function launchConfetti() {
 
 
 }
-
 setTimeout(() => {launchConfetti()},2000)
 
 

@@ -1,0 +1,16 @@
+:root {
+    --LightBodyBackground : rgb(201, 87, 87)
+}
+
+*{
+    margin: 0px;
+    border: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

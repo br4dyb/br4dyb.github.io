@@ -38,7 +38,7 @@ const SitesArray = [
         Link: '/Sites/RobloxApiDashboard/index.html', 
         Img: '/favicon.ico', 
         Tags: 'Roblox, Api, Dashboard, Games, Information, Useful, Tools', 
-        Featured: false, New: true},
+        Featured: false, New: false},
 ]
 
 const HiddenSitesArray = [

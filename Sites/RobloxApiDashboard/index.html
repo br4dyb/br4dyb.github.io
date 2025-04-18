@@ -121,15 +121,39 @@
 
 <!-- Get Universe Data: -->
 <script>
+
+    // Game game thumbnail:
+    async function getUniverseThumbnails(universeId) {
+        // Get Data:
+        try {
+            const url = `https://corsproxy.io/?https://thumbnails.roblox.com/v1/games/multiget/thumbnails?universeIds=${universeId}&countPerUniverse=4?defaults=false&size=768x432&format=png&isCircular=false`;
+            const response = await fetch(url);
+            // Handle HTTP errors:
+            if (!response.ok) {
+                    throw new Error(`Error: ${response.statusText}`);
+                }
+            // Parse the response data:
+            const jsonRespon = await response.json();
+            const data = jsonRespon.data[0]
+            console.log('Game media data:', data);
+        } catch (error) {
+            console.warn('Failed to fetch game media data:', error);
+        }
+        
+    }
+
+
     // Add universe option - Fetch data:
     async function fetchUniverseOption(universeId) {
         console.log('Fetching universe data for ID:', universeId);
         try {
-            // const response = await fetch(`https://roblox-proxy-vpxh.onrender.com/get-universes-data/${universeId}`); /get-game-data/
             const response = await fetch(`https://roblox-proxy-vpxh.onrender.com/get-game-data/${universeId}`); 
             if (!response.ok) {
+                // Handle HTTP errors:
                 throw new Error(`Error: ${response.statusText}`);
             }
+
+            // Parse the response data:
             const dataObject = await response.json()
             const data = dataObject.data[0]
 
@@ -138,6 +162,7 @@
                 throw new Error('No data found for the given universe ID. | Incorrect Id? *');
             }
 
+            // Get universe icon:
             async function fetchGameIcon(universeId) {
                 // const url = `https://thumbnails.roblox.com/v1/games/icons?universeIds=${universeId}&size=512x512&format=Png&isCircular=false`;
                 const url = `https://corsproxy.io/?https://thumbnails.roblox.com/v1/games/icons?universeIds=${universeId}&size=512x512&format=Png&isCircular=false`;
@@ -155,6 +180,9 @@
                 }
             }
 
+            // Get universe thumbnails:
+                // getUniverseThumbnails(universeId)   
+
             // Add universe as experience option:
             const chooseExperienceWrap = document.getElementById('chooseExperienceWrap');
             const newExperienceOption = document.createElement('div');
@@ -163,10 +191,12 @@
                 <div class="experienceOptionTitle"> ${data.name} </div>
                 <img class="experienceOptionImg" src="${await fetchGameIcon(universeId)}">
                 <button class="experienceOptionButton"> Open Details </button> `
-            
+            // Remove 'no experience loaded' text:
+            const noExperienceLoadedText = document.getElementById('noExperienceLoadedText');
+            noExperienceLoadedText.classList.add('hidden');
+            // Append new experience option:
             chooseExperienceWrap.appendChild(newExperienceOption);
 
-           
         } catch (error) {
             // Show error notification:
             notificationOptions = {

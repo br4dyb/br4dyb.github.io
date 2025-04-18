@@ -34,6 +34,11 @@ const SitesArray = [
         Img: '/favicon.ico', 
         Tags: 'Sky, Scope, Weather, Information, Conditions, Useful, Tools', 
         Featured: false, New: true},
+    {Name: 'Roblox Api Dashboard', 
+        Link: '/Sites/RobloxApiDashboard/index.html', 
+        Img: '/favicon.ico', 
+        Tags: 'Roblox, Api, Dashboard, Games, Information, Useful, Tools', 
+        Featured: false, New: true},
 ]
 
 const HiddenSitesArray = [

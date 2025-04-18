@@ -69,7 +69,7 @@
 
             <div id="addExperienceWrap">
                 <form id="addExperienceInputLineWrap">
-                    <input type="text" placeholder="Experience Id" id="addExpernceIdInput">
+                    <input type="text" placeholder="Experience Id" id="addExpernceIdInput" required>
                     <input type="submit" id="addExpernceButton">
                 </form>
                 
@@ -121,6 +121,11 @@
 
 <!-- Get Universe Data: -->
 <script>
+    // Open Game on Roblox:
+    function openGameOnRoblox(STARTERPLACE_ID) {
+        const url = `https://www.roblox.com/games/${STARTERPLACE_ID}`;
+        window.open(url, '_blank');
+    }
 
     // Game game thumbnail:
     async function getUniverseThumbnails(universeId) {
@@ -213,8 +218,16 @@
     // Add universe option - Submit clicked:
     document.getElementById('addExpernceButton').addEventListener('click', (e) => {
         e.preventDefault(); // Prevent form submission
-        const universeId = document.getElementById('addExpernceIdInput').value;
-        fetchUniverseOption(universeId);
+        let universeId = document.getElementById('addExpernceIdInput').value;
+        // Check if the input is empty:
+        if (universeId === '' || isNaN(universeId) || universeId.length < 1) {
+            console.warn('Invalid input: Please enter a valid universe ID.');
+            return;
+        }else{
+            // Get universe data:
+            fetchUniverseOption(universeId);
+        }
+        
     });
 </script>
 

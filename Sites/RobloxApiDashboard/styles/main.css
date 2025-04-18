@@ -4,7 +4,7 @@
 /*----------------*[ ROOT STYLES: ]*----------------*/
 
 :root {
-    --BodyBackground : rgb(0,0,0);
+    --BodyBackground : #1b1b1b;
     --TextColor : rgb(0, 0, 0);
     --HeaderBackground : rgb(12, 80, 102);
     --AccentColor1 : rgba(0, 179, 255);

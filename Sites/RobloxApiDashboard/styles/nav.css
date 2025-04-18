@@ -27,7 +27,10 @@
 }
 
 #NavMenu{
-    background: #4aa089;
+    /* background: #4aa089; */
+    /* background: peru; */
+    /* background: rgb(56, 176, 216);; */
+    background: rgb(12, 80, 102);
     width: 250px;
     height: 100%;
     padding: 0px 20px 10px 20px;
@@ -150,7 +153,8 @@
 }
 
 #PrivacyPolicyButton:hover{
-    background: #cb9f1d;
+    /* background: #cb9f1d; */
+    background: #6b1897;
     width: 95%;
 }
 
@@ -159,11 +163,16 @@
     text-align: self-end;
 }
 #TermsAndConditionsButton:hover{
-    background: #e2672a;
+    /* background: #e2672a; */
+    background: #981f1a;
     width: 95%;
 }
 
-#SourceCodeNavButton:hover{
-    background: #2a46e2;
+#SourceCodeNavButton:hover, #contactUsNavButton:hover{
+    background: #1d4a9d;
     width: 95%;
+}
+
+#SiteVersionTxtNav{
+    font-size: small;
 }

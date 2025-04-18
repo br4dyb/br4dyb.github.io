@@ -18,10 +18,11 @@
 </head>
 
 <body>
+
     <header>
-        <span id="menuButton" onclick="OpenNav()" class="material-symbols-rounded cursorPointer"> menu </span>
-        <h2 id="siteTitle" class="text-shadow-dark cursorPointer" onclick="location.reload()"> Roblox API Dashboard </h2>
-        <span id="accountButton" class="material-symbols-rounded cursorPointer" onclick="location.reload()"> update </span>
+        <span title="Menu" id="menuButton" onclick="OpenNav()" class="material-symbols-rounded cursorPointer"> menu </span>
+        <h2 title="Roblox Api Dashboard" id="siteTitle" class="text-shadow-dark cursorPointer" onclick="SwitchPage('Homepage')"> Roblox API Dashboard </h2>
+        <span title="Refresh" id="refreshButton" class="material-symbols-rounded cursorPointer" onclick="location.reload()"> update </span>
     </header>
 
     <main id="fullNavArea">
@@ -32,26 +33,21 @@
 
         <section id="NavMenu">
 
-            <!-- <div id="NavHeader">
-                <h3> Br4dyB GitHub </h3>
-            </div> -->
-
             <div id="NavMainMenu">
                 <!-- <h4> Coming Soon...</h4> -->
                  <div id="NavMainTopLinks">
                     <h3 class="text-shadow"> API Dashboard </h3>
                     <div id="HomepageNavButton" class="NavMainLink hidden" onclick="CloseNav(), SwitchPage('Homepage')"> <span class="material-symbols-rounded NavLinkIcon"> Home </span> Homepage </div>
-                    <div id="AllSitesNavButton" class="NavMainLink" onclick="CloseNav(), SwitchPage('AllSites')"> <span class="material-symbols-rounded NavLinkIcon"> Widgets </span> All Sites </div>
-                    <div id="SearchSitesNavButton" class="NavMainLink" onclick="CloseNav(), SwitchPage('SearchSites')"> <span class="material-symbols-rounded NavLinkIcon"> Search </span> Search Sites </div>
                     <div id="AccountNavButton" class="NavMainLink" onclick="CloseNav(), SwitchPage('Account')"> <span class="material-symbols-rounded NavLinkIcon"> Person </span> My Account </div>
                     <div id="LightDarkModeButton" class="NavMainLink" onclick="ToggleColorMode()"> <span class="material-symbols-rounded NavLinkIcon"> invert_colors </span> Light Mode</div>
-                    <div id="ChangeLogNavButton" class="NavMainLink" onclick="CloseNav(), SwitchPage('ChangeLog'), InitiateChangeLog()"> <span class="material-symbols-rounded NavLinkIcon"> Overview </span> Change Log </div>
+                    <div id="ChangeLogNavButton" class="NavMainLink" onclick="CloseNav(), SwitchPage('ChangeLog')"> <span class="material-symbols-rounded NavLinkIcon"> Overview </span> Change Log </div>
                  </div>
                  
                  <div id="NavMainBottomLinks">
+                    <div id="contactUsNavButton" class="NavFooterLink" onclick="CloseNav(), SwitchPage('ContactUs')"> <span class="material-symbols-rounded NavLinkIcon"> Mail </span> Contact Us </div>
                     <div id="PrivacyPolicyButton" class="NavFooterLink" onclick="location.assign('/Pages/PrivacyPolicy.html')"> <span class="material-symbols-rounded NavLinkIcon"> gpp_maybe </span> Privacy Policy</div>
                     <div id="TermsAndConditionsButton" class="NavFooterLink" onclick="location.assign('/Pages/TermsAndConditions.html')"> <span class="material-symbols-rounded NavLinkIcon"> gavel </span> Terms & Conditions</div>
-                    <div id="SourceCodeNavButton" class="NavFooterLink" onclick="location.assign(`https://github.com/br4dyb/br4dyb.github.io`)"> <span class="material-symbols-rounded NavLinkIcon"> Code </span> Source Code </div>
+                    <!-- <div id="SourceCodeNavButton" class="NavFooterLink" onclick="location.assign(`https://github.com/br4dyb/br4dyb.github.io`)"> <span class="material-symbols-rounded NavLinkIcon"> Code </span> Source Code </div> -->
                  </div>
             </div>
 
@@ -65,7 +61,48 @@
     </main>
 
     <main id="fullBodyWrap">
-        <p> Body </p>
+
+        <!-- Homepage: -->
+        <main id="homepageContent" class="fullBodyWrap">
+
+            <h2 id="chooseExperienceHeading"> Please choose an Experience: </h2>
+
+            <div id="addExperienceWrap">
+                <form id="addExperienceInputLineWrap">
+                    <input type="text" placeholder="Experience Id" id="addExpernceIdInput">
+                    <input type="submit" id="addExpernceButton">
+                </form>
+                
+            </div>
+
+            <div id="chooseExperienceWrap">
+
+                <p id="noExperienceLoadedText" class=""> No experiences loaded . . .</p>
+
+                <div class="experienceOptionFullWrap hidden">
+                    <div class="experienceOptionTitle"> [Experience Name] </div>
+                    <img class="experienceOptionImg" src="https://i.pinimg.com/736x/7e/a1/65/7ea165670bc9c0844337266b454e6a02.jpg">
+                    <button class="experienceOptionButton"> Open Details </button>
+                </div>
+                
+            </div>
+
+        </main>
+
+        <!-- User Account: -->
+        <main id="myAccountFullWrap" class="fullBodyWrap hidden">
+            My Account
+        </main>
+
+        <!-- Change Log: -->
+        <main id="changeLogFullWrap" class="fullBodyWrap hidden">
+            Chnage Log
+        </main>
+        
+        <!-- Contact Us: -->
+        <main id="contactUsFullWrap" class="fullBodyWrap hidden">
+            Contact Us
+        </main>
     </main>
 
     <footer>
@@ -86,6 +123,7 @@
 
 <!-- Required Scripts: -->
 <script src="/Scripts/Modules/Notifia.js"> </script>
+<script src="./scripts/SwitchPage.js"></script>
 <script src="./scripts/NavControl.js"></script>
 <script src="./scripts/ColorMode.js"></script>
 
